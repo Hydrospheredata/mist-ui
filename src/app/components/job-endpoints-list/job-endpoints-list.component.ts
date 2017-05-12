@@ -3,12 +3,13 @@ import { JobEndpointsDataService } from '../../services/job-endpoints-data.servi
 import { JobEndpoint } from '../../models/job-endpoint'
 
 @Component({
-  selector: 'app-job-endpoints-list',
+  selector: 'job-endpoints-list',
   templateUrl: './job-endpoints-list.component.html',
   styleUrls: ['./job-endpoints-list.component.css'],
   providers: [JobEndpointsDataService]
 })
 export class JobEndpointsListComponent implements OnInit {
+  errorMessage: string;
   jobEdnpoints: JobEndpoint[]=[];
 
   constructor(private jobEndpointsDataService: JobEndpointsDataService) { }
@@ -19,7 +20,9 @@ export class JobEndpointsListComponent implements OnInit {
 
   getJobEndpoints(): void {
     this.jobEndpointsDataService.getAll()
-                                .subscribe(endpoints => this.jobEdnpoints=endpoints);
+                                .subscribe(
+                                  endpoints => this.jobEdnpoints=endpoints,
+                                  error => this.errorMessage = <any>error);
   }
 
 }
