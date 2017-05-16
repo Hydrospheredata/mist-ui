@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
-import { JobEndpointsListComponent } from './job-endpoints-list.component';
+import { EndpointsListComponent } from './endpoints-list.component';
 
 describe('JobEndpointsListComponent', () => {
-  let component: JobEndpointsListComponent;
-  let fixture: ComponentFixture<JobEndpointsListComponent>;
+  let component: EndpointsListComponent;
+  let fixture: ComponentFixture<EndpointsListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
-      declarations: [JobEndpointsListComponent]
+      declarations: [EndpointsListComponent]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JobEndpointsListComponent);
+    fixture = TestBed.createComponent(EndpointsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

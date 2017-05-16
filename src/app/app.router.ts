@@ -2,7 +2,7 @@ import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
-import { JobEndpointsListComponent } from './components/job-endpoints-list/job-endpoints-list.component';
+import { EndpointsListComponent } from './components/endpoints-list/endpoints-list.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -16,8 +16,8 @@ export const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'job-endpoints',
-    component: JobEndpointsListComponent
+    path: 'endpoints',
+    component: EndpointsListComponent
   }
 ];
 
