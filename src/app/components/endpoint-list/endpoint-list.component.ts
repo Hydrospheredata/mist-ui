@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { EndpointsDataService } from '../../services/endpoints-data.service';
+import { EndpointDataService } from '../../services/endpoint-data.service';
 import { Endpoint } from '../../models/endpoint'
 
 @Component({
-  selector: 'endpoints-list',
-  templateUrl: './endpoints-list.component.html',
-  styleUrls: ['./endpoints-list.component.css'],
-  providers: [EndpointsDataService]
+  selector: 'endpoint-list',
+  templateUrl: './endpoint-list.component.html',
+  styleUrls: ['./endpoint-list.component.css'],
+  providers: [EndpointDataService]
 })
-export class EndpointsListComponent implements OnInit {
+export class EndpointListComponent implements OnInit {
   errorMessage: string;
   endpoints: Endpoint[]=[];
 
-  constructor(private endpointsDataService: EndpointsDataService) { }
+  constructor(private endpointDataService: EndpointDataService) { }
 
   ngOnInit() {
     this.getEndpoints();
   }
 
   getEndpoints(): void {
-    this.endpointsDataService.getAll()
+    this.endpointDataService.getAll()
                                 .subscribe(
                                   endpoints => this.endpoints=endpoints,
                                   error => this.errorMessage = <any>error);

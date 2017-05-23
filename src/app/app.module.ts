@@ -8,14 +8,14 @@ import { routing } from './app.router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { EndpointsListComponent } from './components/endpoints-list/endpoints-list.component';
+import { EndpointListComponent } from './components/endpoint-list/endpoint-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    EndpointsListComponent
+    EndpointListComponent,
   ],
   imports: [
     BrowserModule,

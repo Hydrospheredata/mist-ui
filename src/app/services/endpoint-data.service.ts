@@ -7,45 +7,45 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class EndpointsDataService {
+export class EndpointDataService {
   private coreApiUrl: string;
 
   constructor(private http: Http) {
     this.coreApiUrl = `${environment.host}:${environment.port}/v2/api/endpoints`
   }
 
-  public getAll() : Observable<Endpoint[]> {
+  public getAll(): Observable<Endpoint[]> {
     return this.http.get(this.coreApiUrl)
-                    .map(this.extractEndpoints)
+                    .map(this.mapEndpoints)
                     .catch(this.handleError);
   }
 
-  public runJob(endpointId: string, args = '{}') {
+  public runJob(id: string, args = '{}') {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let apiUrl = this.coreApiUrl + endpointId
+    let apiUrl = this.coreApiUrl + `/${id}`
     return this.http.post(apiUrl, args, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   private extractData(res: Response) {
-    let body = res.json();
-    return body || {};
+    let data = res.json();
+    return data || {};
   }
 
-  private extractEndpoints(res: Response) {
-    let jsonData = res.json();
-    let endpoints :Endpoint[] = [];
-    for(let index in jsonData){
-      let endpoint = jsonData[index]
-      let newEndpoint = {
-        name: endpoint.name,
-        lang: endpoint.lang,
-        tags: endpoint.tags,
-        execute: JSON.stringify(endpoint.execute)
-      }
-      endpoints.push(newEndpoint);
+  private mapEndpoints(res: Response): Endpoint[] {
+    let data = res.json();
+    let endpoints :Endpoint[] = []
+    for(let index in data) {
+      let epData = data[index]
+      let ep = <Endpoint>({
+        name: epData.name,
+        lang: epData.lang,
+        tags: epData.tags,
+        execute: JSON.stringify(epData.execute)
+      });
+      endpoints.push(ep)
     }
     return endpoints;
   }
