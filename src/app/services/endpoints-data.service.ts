@@ -11,12 +11,11 @@ export class EndpointsDataService {
   private coreApiUrl: string;
 
   constructor(private http: Http) {
-    this.coreApiUrl = `${environment.host}:${environment.port}/v2/api/jobs/`
+    this.coreApiUrl = `${environment.host}:${environment.port}/v2/api/endpoints`
   }
 
   public getAll() : Observable<Endpoint[]> {
-    let apiUrl = this.coreApiUrl + 'endpoints'
-    return this.http.get(apiUrl)
+    return this.http.get(this.coreApiUrl)
                     .map(this.extractEndpoints)
                     .catch(this.handleError);
   }
