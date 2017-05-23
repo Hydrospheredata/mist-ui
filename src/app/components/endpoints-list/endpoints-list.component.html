@@ -1,11 +1,10 @@
-<p>
-  endpoints-list works!
-</p>
-<ul>
-  <li *ngFor="let endpoint of endpoints">
-    <span class="badge">{{endpoint.name}}</span>
-    <span class="badge">{{endpoint.lang}}</span>
-    <span class="badge">{{endpoint.tags}}</span>
-    <span class="badge">{{endpoint.execute}}</span>
-  </li>
-</ul>
+<div>
+  <p class="mdl-typography--subhead">
+    Endpoints
+  </p>
+  <ul class="mdl-list">
+    <li class="mdl-list__item" *ngFor="let endpoint of endpoints">
+      <span class="mdl-list__item-primary-content">{{endpoint.name}}</span>
+    </li>
+  </ul>
+</div>
