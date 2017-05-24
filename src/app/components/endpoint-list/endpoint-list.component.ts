@@ -11,6 +11,7 @@ import { Endpoint } from '../../models/endpoint'
 export class EndpointListComponent implements OnInit {
   errorMessage: string;
   endpoints: Endpoint[]=[];
+  selectedEndpoint: Endpoint;
 
   constructor(private endpointDataService: EndpointDataService) { }
 
@@ -23,6 +24,10 @@ export class EndpointListComponent implements OnInit {
                                 .subscribe(
                                   endpoints => this.endpoints=endpoints,
                                   error => this.errorMessage = <any>error);
+  }
+
+  onSelect(endpoint: Endpoint): void {
+    this.selectedEndpoint = endpoint
   }
 
 }

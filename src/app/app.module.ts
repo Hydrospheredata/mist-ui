@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EndpointListComponent } from './components/endpoint-list/endpoint-list.component';
+import { EndpointDetailsComponent } from './components/endpoint-details/endpoint-details.component'
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { EndpointListComponent } from './components/endpoint-list/endpoint-list.
     HomeComponent,
     NavbarComponent,
     EndpointListComponent,
+    EndpointDetailsComponent
   ],
   imports: [
     BrowserModule,

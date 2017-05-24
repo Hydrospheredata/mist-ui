@@ -3,8 +3,11 @@
     Endpoints
   </p>
   <ul class="mdl-list">
-    <li class="mdl-list__item" *ngFor="let endpoint of endpoints">
+    <li class="mdl-list__item"
+        *ngFor="let endpoint of endpoints"
+        (click)="onSelect(endpoint)">
       <span class="mdl-list__item-primary-content">{{endpoint.name}}</span>
     </li>
   </ul>
 </div>
+<endpoint-details [endpoint]="selectedEndpoint"></endpoint-details>
