@@ -8,17 +8,16 @@ import { routing } from './app.router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { JobEndpointsListComponent } from './components/job-endpoints-list/job-endpoints-list.component';
-
-//services
-import { JobEndpointsDataService } from './services/job-endpoints-data.service'
+import { EndpointListComponent } from './components/endpoint-list/endpoint-list.component';
+import { EndpointDetailsComponent } from './components/endpoint-details/endpoint-details.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    JobEndpointsListComponent
+    EndpointListComponent,
+    EndpointDetailsComponent
   ],
   imports: [
     BrowserModule,
