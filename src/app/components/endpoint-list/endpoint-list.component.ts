@@ -5,8 +5,7 @@ import { Endpoint } from '../../models/endpoint'
 @Component({
   selector: 'endpoint-list',
   templateUrl: './endpoint-list.component.html',
-  styleUrls: ['./endpoint-list.component.css'],
-  providers: [EndpointDataService]
+  styleUrls: ['./endpoint-list.component.css']
 })
 export class EndpointListComponent implements OnInit {
   errorMessage: string;

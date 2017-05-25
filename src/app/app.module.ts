@@ -9,7 +9,10 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EndpointListComponent } from './components/endpoint-list/endpoint-list.component';
-import { EndpointDetailsComponent } from './components/endpoint-details/endpoint-details.component'
+import { EndpointDetailsComponent } from './components/endpoint-list/endpoint-details/endpoint-details.component'
+
+//services
+import { EndpointDataService } from './services/endpoint-data.service'
 
 @NgModule({
   declarations: [
@@ -25,7 +28,7 @@ import { EndpointDetailsComponent } from './components/endpoint-details/endpoint
     HttpModule,
     routing
   ],
-  providers: [],
+  providers: [EndpointDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
