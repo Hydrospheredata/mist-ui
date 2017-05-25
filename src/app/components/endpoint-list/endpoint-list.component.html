@@ -6,8 +6,10 @@
     <li class="mdl-list__item"
         *ngFor="let endpoint of endpoints"
         (click)="onSelect(endpoint)">
-      <span class="mdl-list__item-primary-content">{{endpoint.name}}</span>
+      <a [routerLink]="[endpoint.name]">
+        <span class="mdl-list__item-primary-content">{{endpoint.name}}</span>
+      </a>
     </li>
   </ul>
 </div>
-<endpoint-details [endpoint]="selectedEndpoint"></endpoint-details>
+<router-outlet></router-outlet>

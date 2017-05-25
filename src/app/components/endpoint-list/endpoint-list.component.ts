@@ -22,7 +22,7 @@ export class EndpointListComponent implements OnInit {
   getEndpoints(): void {
     this.endpointDataService.getAll()
                                 .subscribe(
-                                  endpoints => this.endpoints=endpoints,
+                                  endpoints => this.endpoints = endpoints,
                                   error => this.errorMessage = <any>error);
   }
 

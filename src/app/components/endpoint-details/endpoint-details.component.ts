@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Endpoint } from '../../models/endpoint'
 
 @Component({
@@ -8,9 +9,12 @@ import { Endpoint } from '../../models/endpoint'
 })
 export class EndpointDetailsComponent implements OnInit {
   @Input() endpoint: Endpoint;
-  constructor() { }
+  name: string;
+
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(params => this.name = params['name']);
   }
 
 }
