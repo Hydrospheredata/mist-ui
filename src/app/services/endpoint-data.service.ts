@@ -16,7 +16,7 @@ export class EndpointDataService {
 
   public getAll(): Observable<Endpoint[]> {
     return this.http.get(this.coreApiUrl)
-                    .map(this.mapEndpoints)
+                    .map((res: Response) => res.json() as Endpoint[])
                     .catch(this.handleError);
   }
 
@@ -32,22 +32,6 @@ export class EndpointDataService {
   private extractData(res: Response) {
     let data = res.json();
     return data || {};
-  }
-
-  private mapEndpoints(res: Response): Endpoint[] {
-    let data = res.json();
-    let endpoints :Endpoint[] = []
-    for(let index in data) {
-      let epData = data[index]
-      let ep = <Endpoint>({
-        name: epData.name,
-        lang: epData.lang,
-        tags: epData.tags,
-        execute: JSON.stringify(epData.execute)
-      });
-      endpoints.push(ep)
-    }
-    return endpoints;
   }
 
   private handleError(error: Response | any) {

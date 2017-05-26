@@ -4,11 +4,15 @@
   </p>
   <ul class="mdl-list">
     <li class="mdl-list__item"
-        *ngFor="let endpoint of endpoints"
-        (click)="onSelect(endpoint)">
+        *ngFor="let endpoint of endpoints">
       <a [routerLink]="[endpoint.name]">
         <span class="mdl-list__item-primary-content">{{endpoint.name}}</span>
       </a>
+      <p>
+        {{endpoint.tags}}
+        {{endpoint.lang}}
+        {{endpoint.execute | json}}
+      </p>
     </li>
   </ul>
 </div>
