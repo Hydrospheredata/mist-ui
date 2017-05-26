@@ -12,7 +12,8 @@ import { EndpointListComponent } from './components/endpoint-list/endpoint-list.
 import { EndpointDetailsComponent } from './components/endpoint-list/endpoint-details/endpoint-details.component'
 
 //services
-import { EndpointDataService } from './services/endpoint-data.service'
+import { EndpointDataService } from './services/endpoint-data.service';
+import { JobDataService } from './services/job-data.service'
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { EndpointDataService } from './services/endpoint-data.service'
     HttpModule,
     routing
   ],
-  providers: [EndpointDataService],
+  providers: [EndpointDataService, JobDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

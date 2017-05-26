@@ -20,7 +20,7 @@ export const routes: Routes = [
     path: 'endpoints',
     component: EndpointListComponent,
     children: [
-      { path: ':name', component: EndpointDetailsComponent }
+      { path: ':endpointId', component: EndpointDetailsComponent }
     ]
   }
 ];

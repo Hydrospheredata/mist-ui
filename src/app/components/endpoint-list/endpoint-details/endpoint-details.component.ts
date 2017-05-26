@@ -1,5 +1,8 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { JobDataService } from '../../../services/job-data.service'
+import { EndpointDataService } from '../../../services/endpoint-data.service'
+import { Job } from '../../../models/job'
 import { Endpoint } from '../../../models/endpoint'
 
 @Component({
@@ -8,12 +11,29 @@ import { Endpoint } from '../../../models/endpoint'
   styleUrls: ['./endpoint-details.component.css']
 })
 export class EndpointDetailsComponent implements OnInit {
-  name: string;
+  endpoint: Endpoint;
+  jobs: Job[]=[];
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  private sub: any;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private endpointDataService: EndpointDataService,
+    private jobDataService: JobDataService
+  ) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => this.name = params['name']);
+    this.sub = this.activatedRoute.params
+      .map(params => params['endpointId'])
+      .subscribe((id) =>
+        {
+          this.endpointDataService.get(id).subscribe(endpoint => this.endpoint = endpoint);
+          this.jobDataService.getAllByEndpointId(id).subscribe(jobs => this.jobs = jobs);
+        });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

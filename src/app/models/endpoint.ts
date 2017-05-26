@@ -6,8 +6,8 @@ export class Endpoint {
 
   constructor(endpointInfo: Object) {
     this.name = endpointInfo['name'];
-    this.email = endpointInfo['lang'];
+    this.lang = endpointInfo['lang'];
     this.tags = endpointInfo['tags'];
-    this.execute = JSON.stringify(endpointInfo['execute'];)
+    this.execute = JSON.stringify(endpointInfo['execute']);
   }
 }
