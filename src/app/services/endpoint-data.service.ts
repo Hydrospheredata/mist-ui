@@ -2,38 +2,54 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Endpoint } from '../models/endpoint';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class EndpointDataService {
-  private coreApiUrl: string;
+  endpoints: Observable<Endpoint[]>;
+  private _endpoints: BehaviorSubject<Endpoint[]>;
+  private baseUrl: string;
+  private dataStore: { endpoints: Endpoint[] };
 
   constructor(private http: Http) {
-    this.coreApiUrl = `${environment.host}:${environment.port}/v2/api/endpoints`
+    this.baseUrl = `${environment.host}:${environment.port}/v2/api/endpoints`
+    this.dataStore = { endpoints: [] };
+    this._endpoints = <BehaviorSubject<Endpoint[]>>new BehaviorSubject([]);
+    this.endpoints = this._endpoints.asObservable();
+    this.getAll();
   }
 
-  public getAll(): Observable<Endpoint[]> {
-    return this.http.get(this.coreApiUrl)
-                    .map((res: Response) => res.json() as Endpoint[])
-                    .catch(this.handleError);
+  public getAll() {
+     this.http.get(this.baseUrl)
+              .map(this.extractData)
+              .catch(this.handleError)
+              .subscribe((data) => {
+                this.dataStore.endpoints = data;
+                this._endpoints.next(Object.assign({}, this.dataStore).endpoints);
+              })
   }
 
-  public get(endpointId: string): Observable<Endpoint> {
-    let apiUrl = this.coreApiUrl + `/${endpointId}`
-    return this.http.get(apiUrl)
-                    .map((res: Response) => res.json() as Endpoint)
-                    .catch(this.handleError);
-  }
-
-  public runJob(id: string, args = '{}') {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    let apiUrl = this.coreApiUrl + `/${id}`
-    return this.http.post(apiUrl, args, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+  public get(id: string) {
+    let apiUrl = this.baseUrl + `/${id}`
+    this.http.get(apiUrl)
+             .map(this.extractData)
+             .catch(this.handleError)
+             .subscribe(data => {
+               let notFound = true;
+               this.dataStore.endpoints.forEach((item, index) => {
+                 if(item.name === data.name) {
+                   this.dataStore.endpoints[index] = data;
+                   notFound = false;
+                 }
+               });
+               if (notFound) {
+                 this.dataStore.endpoints.push(data);
+               }
+               this._endpoints.next(Object.assign({}, this.dataStore).endpoints);
+             })
   }
 
   private extractData(res: Response) {

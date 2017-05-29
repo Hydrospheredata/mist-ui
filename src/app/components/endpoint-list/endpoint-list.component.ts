@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { EndpointDataService } from '../../services/endpoint-data.service';
 import { Endpoint } from '../../models/endpoint'
 
@@ -8,19 +9,12 @@ import { Endpoint } from '../../models/endpoint'
   styleUrls: ['./endpoint-list.component.css']
 })
 export class EndpointListComponent implements OnInit {
-  errorMessage: string;
-  endpoints: Endpoint[]=[];
+  endpoints: Observable<Endpoint[]>
 
   constructor(private endpointDataService: EndpointDataService) { }
 
   ngOnInit() {
-    this.getEndpoints();
-  }
-
-  getEndpoints(): void {
-    this.endpointDataService.getAll()
-                                .subscribe(
-                                  endpoints => this.endpoints = endpoints,
-                                  error => this.errorMessage = <any>error);
+    this.endpoints = this.endpointDataService.endpoints
+    this.endpointDataService.getAll();
   }
 }

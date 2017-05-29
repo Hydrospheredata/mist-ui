@@ -4,7 +4,7 @@
   </p>
   <ul class="mdl-list">
     <li class="mdl-list__item"
-        *ngFor="let endpoint of endpoints">
+        *ngFor="let endpoint of endpoints | async">
       <a [routerLink]="[endpoint.name]">
         <span class="mdl-list__item-primary-content">{{endpoint.name}}</span>
       </a>
