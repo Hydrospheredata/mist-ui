@@ -5,13 +5,11 @@ import { Endpoint } from '../../models/endpoint'
 @Component({
   selector: 'endpoint-list',
   templateUrl: './endpoint-list.component.html',
-  styleUrls: ['./endpoint-list.component.css'],
-  providers: [EndpointDataService]
+  styleUrls: ['./endpoint-list.component.css']
 })
 export class EndpointListComponent implements OnInit {
   errorMessage: string;
   endpoints: Endpoint[]=[];
-  selectedEndpoint: Endpoint;
 
   constructor(private endpointDataService: EndpointDataService) { }
 
@@ -22,12 +20,7 @@ export class EndpointListComponent implements OnInit {
   getEndpoints(): void {
     this.endpointDataService.getAll()
                                 .subscribe(
-                                  endpoints => this.endpoints=endpoints,
+                                  endpoints => this.endpoints = endpoints,
                                   error => this.errorMessage = <any>error);
   }
-
-  onSelect(endpoint: Endpoint): void {
-    this.selectedEndpoint = endpoint
-  }
-
 }

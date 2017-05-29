@@ -4,10 +4,16 @@
   </p>
   <ul class="mdl-list">
     <li class="mdl-list__item"
-        *ngFor="let endpoint of endpoints"
-        (click)="onSelect(endpoint)">
-      <span class="mdl-list__item-primary-content">{{endpoint.name}}</span>
+        *ngFor="let endpoint of endpoints">
+      <a [routerLink]="[endpoint.name]">
+        <span class="mdl-list__item-primary-content">{{endpoint.name}}</span>
+      </a>
+      <p>
+        {{endpoint.tags}}
+        {{endpoint.lang}}
+        {{endpoint.execute | json}}
+      </p>
     </li>
   </ul>
 </div>
-<endpoint-details [endpoint]="selectedEndpoint"></endpoint-details>
+<router-outlet></router-outlet>
