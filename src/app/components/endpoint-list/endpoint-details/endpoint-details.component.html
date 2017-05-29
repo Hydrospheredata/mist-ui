@@ -2,3 +2,10 @@
   {{endpoint.name}}
   {{endpoint.lang}}
 </div>
+<div class='job-list'>
+  <ul class='mdl-list'>
+    <li *ngFor='let job of jobs | async' class='mdl-list__item'>
+      <span class="mdl-list__item-primary-content">{{job.jobId}}</span>
+    </li>
+  </ul>
+</div>

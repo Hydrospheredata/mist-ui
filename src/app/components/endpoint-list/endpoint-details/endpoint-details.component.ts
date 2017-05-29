@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import { EndpointDataService } from '../../../services/endpoint-data.service'
+import { JobDataService } from '../../../services/job-data.service'
 import { Job } from '../../../models/job'
 import { Endpoint } from '../../../models/endpoint'
 
@@ -13,12 +14,14 @@ import { Endpoint } from '../../../models/endpoint'
 })
 export class EndpointDetailsComponent implements OnInit {
   endpoint: Observable<Endpoint>;
+  jobs: Observable<Job[]>;
 
   private sub: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private endpointDataService: EndpointDataService,
+    private jobDataService: JobDataService
   ) { }
 
   ngOnInit() {
@@ -28,6 +31,8 @@ export class EndpointDetailsComponent implements OnInit {
         {
           this.endpoint = this.endpointDataService.endpoints
                             .map(items => items.find(item => item.name === id));
+          this.jobDataService.getAllByEndpointId(id)
+          this.jobs = this.jobDataService.jobs;
         });
   }
 
