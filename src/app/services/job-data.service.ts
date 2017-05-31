@@ -33,6 +33,8 @@ export class JobDataService {
   }
 
   public create(endpointId: string, args: string) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
     let apiUrl = this.baseUrl + `/${endpointId}`
     this.http.post(apiUrl, args, options)
              .map(this.extractData)

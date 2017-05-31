@@ -38,17 +38,12 @@ export class EndpointDataService {
              .map(this.extractData)
              .catch(this.handleError)
              .subscribe(data => {
-               let notFound = true;
-               this.dataStore.endpoints.forEach((item, index) => {
-                 if(item.name === data.name) {
-                   this.dataStore.endpoints[index] = data;
-                   notFound = false;
-                 }
-               });
-               if (notFound) {
+               const idx = this.dataStore.endpoints.findIndex((endpoint) => endpoint.name === data.name);
+               if (idx === -1) {
                  this.dataStore.endpoints.push(data);
+               } else {
+                 this.dataStore.endpoints[idx] = data;
                }
-               this._endpoints.next(Object.assign({}, this.dataStore).endpoints);
              })
   }
 
