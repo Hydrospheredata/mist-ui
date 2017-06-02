@@ -1,2 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/material-design-lite/material.min.css";
+
+@font-face {
+  font-family: 'MuseoSansCyrl';
+  src: url('/assets/fonts/MuseoSansCyrl_2.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+html, body {
+  font-family: 'MuseoSansCyrl', sans-serif;
+  background-color: #f8f9fb;
+}
+
+.md-40 {
+  font-size: 40px;
+}
+
+.rotate-90 {
+  -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
