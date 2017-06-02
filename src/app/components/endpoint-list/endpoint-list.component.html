@@ -1,19 +1,20 @@
-<div>
-  <p class="mdl-typography--subhead">
-    Endpoints
-  </p>
-  <ul class="mdl-list">
-    <li class="mdl-list__item"
-        *ngFor="let endpoint of endpoints | async">
-      <a [routerLink]="[endpoint.name]">
-        <span class="mdl-list__item-primary-content">{{endpoint.name}}</span>
-      </a>
-      <p>
-        {{endpoint.tags}}
-        {{endpoint.lang}}
-        {{endpoint.execute | json}}
-      </p>
-    </li>
-  </ul>
-</div>
-<router-outlet></router-outlet>
+<main class='mist-layout'>
+  <aside>
+    <ul class='mdl-list'>
+      <li class='mdl-list__item'
+          *ngFor='let endpoint of endpoints | async'>
+        <a [routerLink]="[endpoint.name]">
+          <span class='mdl-list__item-primary-content'>{{endpoint.name}}</span>
+        </a>
+        <p>
+          {{endpoint.tags}}
+          {{endpoint.lang}}
+          {{endpoint.execute | json}}
+        </p>
+      </li>
+    </ul>
+  </aside>
+  <div class='mdl-layout__content'>
+    <router-outlet></router-outlet>
+  </div>
+</main>
