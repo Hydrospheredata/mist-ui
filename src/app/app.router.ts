@@ -17,6 +17,14 @@ export const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'clusters',
+    component: HomeComponent
+  },
+  {
+    path: 'settings',
+    component: HomeComponent
+  },
+  {
     path: 'endpoints',
     component: EndpointListComponent,
     children: [

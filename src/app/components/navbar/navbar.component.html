@@ -1,10 +1,27 @@
-<div class="navigation__container">
-  <nav class="mdl-navigation">
-    <a class="mdl-navigation__link"
-       [routerLink]="['/home']"
-       routerLinkActive="mdl-navigation__link--current">Home</a>
-    <a class="mdl-navigation__link"
-       [routerLink]="['/endpoints']"
-       routerLinkActive="mdl-navigation__link--current">Endpoints</a>
-  </nav>
-</div>
+<header class='mdl-layout__header mdl-layout__header--seamed'>
+  <div class='mdl-layout__header-row mist-navigation-row'>
+    <a [routerLink]="['/']" class='mist-logo'></a>
+    <div class='mdl-layout-spacer'></div>
+    <nav class='mdl-navigation'>
+      <a class='mdl-navigation__link'
+         [routerLink]="['/endpoints']"
+         routerLinkActive='is-active'>
+         <i class='material-icons md-40'>list</i>
+         <span>Jobs</span>
+       </a>
+      <a class='mdl-navigation__link'
+         [routerLink]="['/clusters']"
+         routerLinkActive='is-active'>
+         <i class='material-icons md-40'>device_hub</i>
+         <span>Clusters</span>
+       </a>
+      <a class='mdl-navigation__link'
+         [routerLink]="['/settings']"
+         routerLinkActive='is-active'>
+         <i class='material-icons md-40 rotate-90'>tune</i>
+         <span>Settings</span>
+       </a>
+    </nav>
+    <div class='mdl-layout-spacer'></div>
+  </div>
+</header>
