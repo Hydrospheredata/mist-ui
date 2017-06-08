@@ -1,12 +1,20 @@
 <main class='mist-layout'>
   <aside class='endpoint-list'>
-    <div class='endpoint-list__header'>
-      <span class='endpoint-list__title'>Endpoints</span>
-      <button class='endpoint-list__add-btn'>
-        <span class='material-icons endpoint-list__add-icon'>add</span>
-        <span>ADD</span>
-      </button>
+    <div class='endpoint-list__row endpoint-list__row--medium'>
+      <div class='endpoint-list__header'>
+        <span class='endpoint-list__title'>Endpoints</span>
+        <button class='endpoint-list__add-btn'>
+          <span class='material-icons endpoint-list__add-icon'>add</span>
+          <span>ADD</span>
+        </button>
+      </div>
     </div>
+  <div class='endpoint-list__row endpoint-list__row--medium'>
+    <div class='endpoint-list__search'>
+      <span class='material-icons endpoint-list__search-icon'>search</span>
+      <input class='endpoint-list__search-input' type='text' id='search' placeholder='Search'>
+    </div>
+  </div>
     <ul class='mdl-list'>
       <li class='mdl-list__item'
           *ngFor='let endpoint of endpoints | async'>

@@ -17,6 +17,10 @@ html, body {
   color: #000856;
 }
 
+button:focus, input:focus {
+  outline: 0;
+}
+
 aside {
   background-color: #f2f4f7;
   width: 350px;

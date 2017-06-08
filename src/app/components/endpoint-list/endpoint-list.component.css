@@ -1,11 +1,38 @@
-.endpoint-list__header {
+.endpoint-list__row {
   position: relative;
   overflow: inherit;
   display: inline-block;
   box-sizing: border-box;
   width: 100%;
-  padding-right: 20px;
-  padding-left: 20px;
+}
+
+.endpoint-list__row.endpoint-list__row--medium {
+  height: 100px;
+}
+
+.endpoint-list__header {
+  margin: 0 20px auto;
+}
+
+.endpoint-list__search {
+  margin: 0 20px auto;
+  border: 2px solid;
+  height: 43px;
+  border-color: #d4d7d9;
+}
+
+input.endpoint-list__search-input {
+  border: none;
+  font-size: 16px;
+  background-color: #f2f4f7;
+  width: 80%;
+  height: 95%;
+}
+
+.endpoint-list__search-icon {
+  font-size: 20px;
+  vertical-align: text-bottom;
+  margin-left: 15px;
 }
 
 .endpoint-list .endpoint-list__title {
@@ -33,10 +60,7 @@
 .endpoint-list__add-btn:hover {
   background-color: #4d9bf1;
   color: #fff;
-}
-
-.endpoint-list__add-btn:focus {
-  outline: 0;
+  cursor: pointer;
 }
 
 .endpoint-list__add-icon {
