@@ -3,7 +3,9 @@
 
 @font-face {
   font-family: 'MuseoSansCyrl';
-  src: url('/assets/fonts/MuseoSansCyrl_2.otf') format('opentype');
+  src: url('/assets/fonts/Museosanscyrl500.woff') format('woff'),
+       url('/assets/fonts/Museosanscyrl500.woff2') format('woff2'),
+       url('/assets/fonts/Museosanscyrl500.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   line-height: 1.5;
@@ -12,11 +14,12 @@
 html, body {
   font-family: 'MuseoSansCyrl', sans-serif;
   background-color: #f8f9fb;
+  color: #000856;
 }
 
 aside {
   background-color: #f2f4f7;
-  width: 347px;
+  width: 350px;
   flex-shrink: 0;
 }
 

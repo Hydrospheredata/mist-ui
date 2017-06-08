@@ -1,0 +1,47 @@
+.endpoint-list__header {
+  position: relative;
+  overflow: inherit;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.endpoint-list .endpoint-list__title {
+  display:inline;
+  float: left;
+  margin:0 auto;
+  font-size: 24px;
+  line-height: 96px;
+}
+
+.endpoint-list__add-btn {
+  background-color: #f2f4f7;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  float: right;
+  font-size: 14px;
+  font-weight: 500;
+  border: 3px solid #4d9bf1;
+  width: 96px;
+  height: 43px;
+  margin: 28px auto;
+}
+
+.endpoint-list__add-btn:hover {
+  background-color: #4d9bf1;
+  color: #fff;
+}
+
+.endpoint-list__add-btn:focus {
+  outline: 0;
+}
+
+.endpoint-list__add-icon {
+  font-size: 20px;
+  margin-right: 10px;
+  position: relative;
+  vertical-align: text-bottom;
+}
