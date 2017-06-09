@@ -11,10 +11,15 @@
   line-height: 1.5;
 }
 
+:root {
+  --main-color:  #000856;
+  --main-font-family:  'MuseoSansCyrl', sans-serif;
+}
+
 html, body {
-  font-family: 'MuseoSansCyrl', sans-serif;
+  font-family: var(--main-font-family);
   background-color: #f8f9fb;
-  color: #000856;
+  color:  var(--main-color);
 }
 
 button:focus, input:focus {
@@ -23,7 +28,7 @@ button:focus, input:focus {
 
 aside {
   background-color: #f2f4f7;
-  width: 350px;
+  width: 348px;
   flex-shrink: 0;
 }
 

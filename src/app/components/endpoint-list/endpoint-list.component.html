@@ -1,6 +1,6 @@
 <main class='mist-layout'>
   <aside class='endpoint-list'>
-    <div class='endpoint-list__row endpoint-list__row--medium'>
+    <div class='endpoint-list__row endpoint-list__row--big'>
       <div class='endpoint-list__header'>
         <span class='endpoint-list__title'>Endpoints</span>
         <button class='endpoint-list__add-btn'>
@@ -9,25 +9,31 @@
         </button>
       </div>
     </div>
-  <div class='endpoint-list__row endpoint-list__row--medium'>
+  <div class='endpoint-list__row'>
     <div class='endpoint-list__search'>
       <span class='material-icons endpoint-list__search-icon'>search</span>
       <input class='endpoint-list__search-input' type='text' id='search' placeholder='Search'>
     </div>
   </div>
-    <ul class='mdl-list'>
-      <li class='mdl-list__item'
+  <div class='endpoint-list__row'>
+    <ul class='mdl-list endpoint-list__ul'>
+      <li class='mdl-list__item endpoint-list__item'>
+        <span class='mdl-list__item-primary-content'>
+          <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>
+            view_comfy
+          </i>
+          All Jobs
+        </span>
+        <span class='mdl-badge endpoint-list__badge' data-badge='25'></span>
+      </li>
+      <li class='mdl-list__item mdl-list__item--two-line'
           *ngFor='let endpoint of endpoints | async'>
         <a [routerLink]="[endpoint.name]">
           <span class='mdl-list__item-primary-content'>{{endpoint.name}}</span>
         </a>
-        <p>
-          {{endpoint.tags}}
-          {{endpoint.lang}}
-          {{endpoint.execute | json}}
-        </p>
       </li>
     </ul>
+  </div>
   </aside>
   <div class='mdl-layout__content'>
     <router-outlet></router-outlet>
