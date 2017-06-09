@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { EndpointDataService } from '../../services/endpoint-data.service';
 import { Endpoint } from '../../models/endpoint'
@@ -11,7 +12,10 @@ import { Endpoint } from '../../models/endpoint'
 export class EndpointListComponent implements OnInit {
   endpoints: Observable<Endpoint[]>
 
-  constructor(private endpointDataService: EndpointDataService) { }
+  constructor(
+    private endpointDataService: EndpointDataService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.endpoints = this.endpointDataService.endpoints

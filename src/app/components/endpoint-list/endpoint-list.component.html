@@ -1,19 +1,46 @@
-<div>
-  <p class="mdl-typography--subhead">
-    Endpoints
-  </p>
-  <ul class="mdl-list">
-    <li class="mdl-list__item"
-        *ngFor="let endpoint of endpoints | async">
-      <a [routerLink]="[endpoint.name]">
-        <span class="mdl-list__item-primary-content">{{endpoint.name}}</span>
-      </a>
-      <p>
-        {{endpoint.tags}}
-        {{endpoint.lang}}
-        {{endpoint.execute | json}}
-      </p>
-    </li>
-  </ul>
-</div>
-<router-outlet></router-outlet>
+<main class='mist-layout'>
+  <aside class='endpoint-list'>
+    <div class='endpoint-list__row endpoint-list__row--big'>
+      <div class='endpoint-list__header'>
+        <span class='endpoint-list__title'>Endpoints</span>
+        <button class='endpoint-list__add-btn'>
+          <span class='material-icons endpoint-list__add-icon'>add</span>
+          <span>ADD</span>
+        </button>
+      </div>
+    </div>
+  <div class='endpoint-list__row'>
+    <div class='endpoint-list__search'>
+      <span class='material-icons endpoint-list__search-icon'>search</span>
+      <input class='endpoint-list__search-input' type='text' id='search' placeholder='Search'>
+    </div>
+  </div>
+  <div class='endpoint-list__row'>
+    <ul class='mdl-list endpoint-list__ul'>
+      <li class='mdl-list__item endpoint-list__item'>
+        <a class='mdl-list__item-primary-content endpoint-list__item-content'
+           routerLink='/endpoints'>
+          <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>
+            view_comfy
+          </i>
+          All Jobs
+        </a>
+        <span class='mdl-badge endpoint-list__badge' data-badge='25'></span>
+      </li>
+      <li class='mdl-list__item mdl-list__item--two-line endpoint-list__item'
+          routerLinkActive='endpoint-list__item--active'
+          *ngFor='let endpoint of endpoints | async'>
+          <a class='mdl-list__item-primary-content endpoint-list__item-content'
+             [routerLink]="[endpoint.name]">
+            <span>{{ endpoint.name }}</span>
+            <span class='mdl-list__item-sub-title'>v. 1.2.4 / status: status</span>
+          </a>
+          <span class='mdl-badge endpoint-list__badge' data-badge='5'></span>
+      </li>
+    </ul>
+  </div>
+  </aside>
+  <div class='mdl-layout__content'>
+    <router-outlet></router-outlet>
+  </div>
+</main>
