@@ -14,6 +14,7 @@
 :root {
   --main-color:  #000856;
   --main-font-family:  'MuseoSansCyrl', sans-serif;
+  --aside-bg-color: #f2f4f7
 }
 
 html, body {
@@ -27,9 +28,13 @@ button:focus, input:focus {
 }
 
 aside {
-  background-color: #f2f4f7;
+  background-color: var(--aside-bg-color);
   width: 348px;
   flex-shrink: 0;
+}
+
+li a {
+  color: var(--main-color);
 }
 
 

@@ -73,10 +73,18 @@ input.endpoint-list__search-input {
 .mdl-list__item.endpoint-list__item {
   color: var(--main-color);
   font-family: var(--main-font-family);
-  min-height: 66px;
+  max-height: 66px;
   font-size: 18px;
-  padding-left: 35px;
+  padding: 0px;
   border-bottom: 1px solid #dcdee0
+}
+
+.mdl-list__item-primary-content.endpoint-list__item-content {
+  padding-left: 35px;
+}
+
+.mdl-list__item.endpoint-list__item:hover, .mdl-list__item.endpoint-list__item--active {
+  background-color: #e6e9ed;
 }
 
 .mdl-list__item-icon.endpoint-list__item-icon {
@@ -89,5 +97,5 @@ input.endpoint-list__search-input {
   height: 24px;
   width: 24px;
   font-size: 14px;
-  margin-right: 9px;
+  margin-right: 20px;
 }
