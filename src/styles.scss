@@ -14,7 +14,7 @@
 
 html, body {
   font-family: $main-font-family;
-  background-color: #f8f9fb;
+  background-color: $main-bg-color;
   color:  $main-color;
 }
 
@@ -34,6 +34,19 @@ li a {
 
 hr {
   margin: 1em 24px;
+}
+
+a.mist-link {
+  font-size: 12px;
+  text-decoration: none;
+  color: $label-color;
+  &:hover {
+    color: #4d9bf1
+  }
+  i {
+    position: relative;
+    vertical-align: bottom;
+  }
 }
 
 
@@ -65,6 +78,14 @@ hr {
   line-height: 62px;
 }
 
+.mist-label {
+  color: $label-color;
+  font-size: 14px;
+  &::after {
+    content: ':'
+  }
+}
+
 .mist-btn {
   background: transparent;
   text-align: center;
@@ -90,4 +111,8 @@ hr {
   margin-right: 10px;
   position: relative;
   vertical-align: text-bottom;
+}
+
+.font-color--success {
+  color: $color--success
 }

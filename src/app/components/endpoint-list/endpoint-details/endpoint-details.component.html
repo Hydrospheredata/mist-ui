@@ -2,9 +2,9 @@
   <div class='endpoint-details'>
     <div class='endpoint-details__settings'>
       <span class='endpoint-details__settings-label'>Settings</span>
-      <div class='endpoint-details__namespace-select'>
-        <span class='endpoint-details__namespace-label'>namespace</span>
-        <span class='endpoint-details__namespace-value'>{{namespace}}</span>
+      <div class='namespace namespace--select'>
+        <span class='namespace__label'>namespace</span>
+        <span class='namespace__value'>{{namespace}}</span>
         <button id='namespace-select'
                 class='mdl-button mdl-js-button mdl-button--icon'>
           <i class='material-icons'>arrow_drop_down</i>
@@ -24,7 +24,7 @@
       <span>RUN NEW</span>
     </button>
     <div class='endpoint-details__jobs-filter'>
-      <span class='endpoint-details__jobs-filter-label'>
+      <span class='mist-label'>
         FILTER
       </span>
       <span class='endpoint-details__jobs-filter-option endpoint-details__jobs-filter-option--active'>
@@ -44,15 +44,46 @@
 </div>
 <hr />
 <div class='mist-page-content'>
-  <div *ngIf='endpoint | async; let endpoint'>
-    {{endpoint.name}}
-    {{endpoint.lang}}
-  </div>
-  <div class='job-list'>
-    <ul class='mdl-list'>
-      <li *ngFor='let job of jobs | async' class='mdl-list__item'>
-        <span class="mdl-list__item-primary-content">{{job.jobId}}</span>
-      </li>
-    </ul>
-  </div>
+  <table class='mdl-data-table mdl-js-data-table jobs-table'>
+    <tbody>
+      <tr class='jobs-table__tr'
+          *ngFor='let job of jobs | async'>
+        <td class='jobs-table__td jobs-table__td--icon'>
+          <i class='material-icons jobs-table__status-icon'>done</i>
+        </td>
+        <td class='jobs-table__td jobs-table__td--job-id'>
+          {{job.jobId}}
+        </td>
+        <td class='jobs-table__td jobs-table__td--version'>
+          <span class='mist-label'>Version</span>
+          1.2.4
+        </td>
+        <td class='jobs-table__td jobs-table__td--namespace'>
+          <div class='namespace'>
+            <span class='namespace__label'>namespace</span>
+            <span class='namespace__value'>{{namespace}}</span>
+          </div>
+        </td>
+        <td class='jobs-table__td jobs-table__td--status'>
+          <div>
+            <span class='mist-label'>Status</span>
+            <span class='jobs-table__status font-color--success'>{{job.status}}</span>
+          </div>
+          <div>
+            <span class='mist-label'>Finished</span>
+            <span></span>
+          </div>
+        </td>
+        <td class='jobs-table__td jobs-table__td--actions'>
+          <a href='#' class='mist-link'>
+            <i class='material-icons'>delete_forever</i>
+            KILL
+          </a>
+        </td>
+        <td class='jobs-table__td jobs-table__td--details'>
+          <a href='#' class='mist-link'>DETAILS...</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
