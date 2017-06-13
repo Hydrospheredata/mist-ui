@@ -7,7 +7,7 @@ import { Endpoint } from '../../models/endpoint'
 @Component({
   selector: 'endpoint-list',
   templateUrl: './endpoint-list.component.html',
-  styleUrls: ['./endpoint-list.component.css']
+  styleUrls: ['./endpoint-list.component.scss']
 })
 export class EndpointListComponent implements OnInit {
   endpoints: Observable<Endpoint[]>

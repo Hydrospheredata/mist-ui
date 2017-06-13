@@ -1,3 +1,5 @@
+@import "~variables.scss";
+
 .endpoint-list__row {
   position: relative;
   overflow: inherit;
@@ -71,8 +73,8 @@ input.endpoint-list__search-input {
 }
 
 .mdl-list__item.endpoint-list__item {
-  color: var(--main-color);
-  font-family: var(--main-font-family);
+  color: $main-color;
+  font-family: $main-font-family;
   max-height: 66px;
   font-size: 18px;
   padding: 0px;
@@ -87,8 +89,12 @@ input.endpoint-list__search-input {
   background-color: #e6e9ed;
 }
 
+.endpoint-list__item.endpoint-list__item--hover-disabled:hover {
+  background-color: $aside-bg-color;
+}
+
 .mdl-list__item-icon.endpoint-list__item-icon {
-  color: var(--main-color);
+  color: $main-color;
   margin-right: 16px;
 }
 

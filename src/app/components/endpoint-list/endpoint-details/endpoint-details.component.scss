@@ -1,0 +1,50 @@
+@import "~variables.scss";
+$endpoint-details__label--color: #818994;
+
+.endpoint-details {
+  position: relative;
+  display: inline-block;
+}
+
+.endpoint-details__settings,
+.endpoint-details__jobs-filter,
+.endpoint-details__run-job {
+  display: inline-block;
+}
+
+.endpoint-details__namespace-select {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 12px;
+  font-size: 14px;
+  line-height: 18px;
+  border-radius: 5px;
+  background-color: #e9ecf2;
+}
+
+.endpoint-details__settings {
+  font-size: 18px;
+}
+
+.endpoint-details__settings-label {
+  color: $endpoint-details__label--color;
+}
+
+.endpoint-details__settings-label::after {
+  content: ':'
+}
+
+.endpoint-details__namespace-label {
+  color: $endpoint-details__label--color;
+}
+
+.endpoint-details__namespace-label::after {
+  content: '=';
+  margin: 0 5px;
+}
+
+.endpoint-details__icon {
+  vertical-align: middle;
+  font-size: 24px;
+  color: $endpoint-details__label--color;
+}

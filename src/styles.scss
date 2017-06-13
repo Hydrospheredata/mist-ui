@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/material-design-lite/material.min.css";
+@import "~variables.scss";
 
 @font-face {
   font-family: 'MuseoSansCyrl';
@@ -11,16 +12,10 @@
   line-height: 1.5;
 }
 
-:root {
-  --main-color:  #000856;
-  --main-font-family:  'MuseoSansCyrl', sans-serif;
-  --aside-bg-color: #f2f4f7
-}
-
 html, body {
-  font-family: var(--main-font-family);
+  font-family: $main-font-family;
   background-color: #f8f9fb;
-  color:  var(--main-color);
+  color:  $main-color;
 }
 
 button:focus, input:focus {
@@ -28,13 +23,17 @@ button:focus, input:focus {
 }
 
 aside {
-  background-color: var(--aside-bg-color);
+  background-color: $aside-bg-color;
   width: 348px;
   flex-shrink: 0;
 }
 
 li a {
-  color: var(--main-color);
+  color: $main-color;
+}
+
+hr {
+  margin: 1em 24px;
 }
 
 
@@ -52,4 +51,17 @@ li a {
   display: flex;
   flex-wrap: wrap;
   min-height: 1178px;
+}
+
+.mist-page-content {
+  height: 100%;
+  margin: 24px;
+}
+
+.mist-page-header {
+  display: inline-block;
+  margin: auto 24px;
+  padding-top: 17px;
+  min-height: 62px;
+  line-height: 62px;
 }
