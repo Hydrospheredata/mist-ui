@@ -1,3 +1,5 @@
+@import "~variables.scss";
+
 .endpoint-list__row {
   position: relative;
   overflow: inherit;
@@ -43,36 +45,9 @@ input.endpoint-list__search-input {
   line-height: 96px;
 }
 
-.endpoint-list__add-btn {
-  background-color: #f2f4f7;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  float: right;
-  font-size: 14px;
-  font-weight: 500;
-  border: 3px solid #4d9bf1;
-  width: 96px;
-  height: 43px;
-  margin: 28px auto;
-}
-
-.endpoint-list__add-btn:hover {
-  background-color: #4d9bf1;
-  color: #fff;
-  cursor: pointer;
-}
-
-.endpoint-list__add-icon {
-  font-size: 20px;
-  margin-right: 10px;
-  position: relative;
-  vertical-align: text-bottom;
-}
-
 .mdl-list__item.endpoint-list__item {
-  color: var(--main-color);
-  font-family: var(--main-font-family);
+  color: $main-color;
+  font-family: $main-font-family;
   max-height: 66px;
   font-size: 18px;
   padding: 0px;
@@ -87,8 +62,12 @@ input.endpoint-list__search-input {
   background-color: #e6e9ed;
 }
 
+.endpoint-list__item.endpoint-list__item--hover-disabled:hover {
+  background-color: $aside-bg-color;
+}
+
 .mdl-list__item-icon.endpoint-list__item-icon {
-  color: var(--main-color);
+  color: $main-color;
   margin-right: 16px;
 }
 

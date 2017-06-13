@@ -1,0 +1,118 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/material-design-lite/material.min.css";
+@import "~variables.scss";
+
+@font-face {
+  font-family: 'MuseoSansCyrl';
+  src: url('/assets/fonts/Museosanscyrl500.woff') format('woff'),
+       url('/assets/fonts/Museosanscyrl500.woff2') format('woff2'),
+       url('/assets/fonts/Museosanscyrl500.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+html, body {
+  font-family: $main-font-family;
+  background-color: $main-bg-color;
+  color:  $main-color;
+}
+
+button:focus, input:focus {
+  outline: 0;
+}
+
+aside {
+  background-color: $aside-bg-color;
+  width: 348px;
+  flex-shrink: 0;
+}
+
+li a {
+  color: $main-color;
+}
+
+hr {
+  margin: 1em 24px;
+}
+
+a.mist-link {
+  font-size: 12px;
+  text-decoration: none;
+  color: $label-color;
+  &:hover {
+    color: #4d9bf1
+  }
+  i {
+    position: relative;
+    vertical-align: bottom;
+  }
+}
+
+
+.md-40 {
+  font-size: 40px;
+}
+
+.rotate-90 {
+  -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.mist-layout {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 1178px;
+}
+
+.mist-page-content {
+  height: 100%;
+  margin: 24px;
+}
+
+.mist-page-header {
+  margin: auto 24px;
+  padding-top: 17px;
+  min-height: 62px;
+  line-height: 62px;
+}
+
+.mist-label {
+  color: $label-color;
+  font-size: 14px;
+  &::after {
+    content: ':'
+  }
+}
+
+.mist-btn {
+  background: transparent;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  float: right;
+  font-size: 14px;
+  font-weight: 500;
+  border: 3px solid #4d9bf1;
+  width: 96px;
+  height: 43px;
+  margin: 28px auto;
+}
+
+.mist-btn:hover {
+  background-color: #4d9bf1;
+  color: #fff;
+  cursor: pointer;
+}
+
+.mist-btn__icon {
+  font-size: 20px;
+  margin-right: 10px;
+  position: relative;
+  vertical-align: text-bottom;
+}
+
+.font-color--success {
+  color: $color--success
+}

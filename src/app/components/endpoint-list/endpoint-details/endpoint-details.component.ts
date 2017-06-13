@@ -10,11 +10,12 @@ import { Endpoint } from '../../../models/endpoint'
 @Component({
   selector: 'endpoint-details',
   templateUrl: './endpoint-details.component.html',
-  styleUrls: ['./endpoint-details.component.css']
+  styleUrls: ['./endpoint-details.component.scss']
 })
 export class EndpointDetailsComponent implements OnInit {
   endpoint: Observable<Endpoint>;
   jobs: Observable<Job[]>;
+  namespace: string;
 
   private sub: any;
 
@@ -33,11 +34,17 @@ export class EndpointDetailsComponent implements OnInit {
                             .map(items => items.find(item => item.name === id));
           this.jobDataService.getAllByEndpointId(id)
           this.jobs = this.jobDataService.jobs;
+          this.namespace = 'Namespace1'
         });
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  namespaceSelect(event, namespace) {
+    event.preventDefault();
+    this.namespace = namespace;
   }
 
 }
