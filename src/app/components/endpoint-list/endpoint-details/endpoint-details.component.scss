@@ -3,13 +3,6 @@ $endpoint-details__label--color: #818994;
 
 .endpoint-details {
   position: relative;
-  display: inline-block;
-}
-
-.endpoint-details__settings,
-.endpoint-details__jobs-filter,
-.endpoint-details__run-job {
-  display: inline-block;
 }
 
 .endpoint-details__namespace-select {
@@ -24,6 +17,7 @@ $endpoint-details__label--color: #818994;
 }
 
 .endpoint-details__settings {
+  display: inline-block;
   font-size: 18px;
 }
 
@@ -51,7 +45,9 @@ $endpoint-details__label--color: #818994;
 }
 
 .endpoint-details__jobs-filter {
+  display: inline-block;
   float: right;
+  margin-right: 100px;
 }
 
 .endpoint-details__jobs-filter-label {
@@ -80,4 +76,11 @@ $endpoint-details__label--color: #818994;
 
 .endpoint-details__jobs-filter-option.endpoint-details__jobs-filter-option--active {
   background-color: #e9ecf2
+}
+
+.endpoint-details__run-new-btn {
+  float: right;
+  width: 150px;
+  display: inline-block;
+  margin: 10px 0px 0px 10px;
 }
