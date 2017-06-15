@@ -24,7 +24,8 @@
         "styles.scss"
       ],
       "scripts": [
-        "../node_modules/material-design-lite/material.min.js"
+        "../node_modules/material-design-lite/material.min.js",
+        "../node_modules/moment/min/moment.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

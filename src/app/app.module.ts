@@ -17,6 +17,7 @@ import { JobDataService } from './services/job-data.service';
 
 //pipes
 import { JobStatusFilterPipe } from './pipes/job-status-filter.pipe';
+import { AgoDatePipe } from './pipes/ago-date.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { JobStatusFilterPipe } from './pipes/job-status-filter.pipe';
     NavbarComponent,
     EndpointListComponent,
     EndpointDetailsComponent,
-    JobStatusFilterPipe
+    JobStatusFilterPipe,
+    AgoDatePipe
   ],
   imports: [
     BrowserModule,
