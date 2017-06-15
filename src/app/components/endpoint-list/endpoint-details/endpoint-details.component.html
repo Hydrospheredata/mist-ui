@@ -73,7 +73,12 @@
         <td class='jobs-table__td jobs-table__td--status'>
           <div>
             <span class='mist-label'>Status</span>
-            <span class='jobs-table__status font-color--success'>{{job.status}}</span>
+            <span class='jobs-table__status'
+                  [ngClass]="{'font-color--success': job.isFinished(),
+                              'font-color--primary': job.isRunning(),
+                              'font-color--failed': job.isFailed()}">
+              {{job.mappedStatus()}}
+            </span>
           </div>
           <div>
             <span class='mist-label'>Finished</span>
