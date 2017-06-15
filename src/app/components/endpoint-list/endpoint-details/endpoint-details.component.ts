@@ -16,6 +16,7 @@ export class EndpointDetailsComponent implements OnInit {
   endpoint: Observable<Endpoint>;
   jobs: Observable<Job[]>;
   namespace: string;
+  statusFilter: object;
 
   private sub: any;
 
@@ -32,14 +33,24 @@ export class EndpointDetailsComponent implements OnInit {
         {
           this.endpoint = this.endpointDataService.endpoints
                             .map(items => items.find(item => item.name === id));
-          this.jobDataService.getAllByEndpointId(id)
+          this.jobDataService.getAllByEndpointId(id);
           this.jobs = this.jobDataService.jobs;
           this.namespace = 'Namespace1'
         });
+
+    this.statusFilter = {
+      success: true,
+      running: true,
+      failed: false
+    }
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  toggleStatusFilter(option) {
+    this.statusFilter[option] = !this.statusFilter[option]
   }
 
   namespaceSelect(event, namespace) {

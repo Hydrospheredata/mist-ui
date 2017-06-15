@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/material-design-lite/material.min.css";
+@import "../node_modules/material-icons/css/material-icons.min.css";
 @import "~variables.scss";
 
 @font-face {
@@ -115,4 +116,12 @@ a.mist-link {
 
 .font-color--success {
   color: $color--success
+}
+
+.font-color--failed {
+  color: $color--failed
+}
+
+.font-color--primary {
+  color: $color--primary
 }

@@ -23,19 +23,25 @@
       <span class='material-icons mist-btn__icon'>add</span>
       <span>RUN NEW</span>
     </button>
-    <div class='endpoint-details__jobs-filter'>
+    <div class='endpoint-details__status-filter'>
       <span class='mist-label'>
         FILTER
       </span>
-      <span class='endpoint-details__jobs-filter-option endpoint-details__jobs-filter-option--active'>
+      <span class='endpoint-details__status-filter-option'
+            (click)="toggleStatusFilter('success')"
+            [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['success']}">
         <i class='material-icons endpoint-details__icon'>done</i>
         <span>Success</span>
       </span>
-      <span class='endpoint-details__jobs-filter-option endpoint-details__jobs-filter-option--active'>
+      <span class='endpoint-details__status-filter-option'
+            (click)="toggleStatusFilter('running')"
+            [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['running']}">
         <i class='material-icons endpoint-details__icon'>rotate_left</i>
         <span>Running</span>
       </span>
-      <span class='endpoint-details__jobs-filter-option'>
+      <span class='endpoint-details__status-filter-option'
+            (click)="toggleStatusFilter('failed')"
+            [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['failed']}">
         <i class='material-icons endpoint-details__icon'>clear</i>
         <span>Failed</span>
       </span>
@@ -47,11 +53,17 @@
   <table class='mdl-data-table mdl-js-data-table jobs-table'>
     <tbody>
       <tr class='jobs-table__tr'
-          *ngFor='let job of jobs | async'>
+          *ngFor='let job of (jobs | async) | jobStatusFilter:statusFilter'>
         <td class='jobs-table__td jobs-table__td--icon'>
-          <i class='material-icons jobs-table__status-icon'>done</i>
+          <i class='material-icons jobs-table__status-icon'
+             [ngClass]="{'jobs-table__status-icon--failed mi-clear': job.isFailed(),
+                         'jobs-table__status-icon--success mi-done': job.isFinished(),
+                         'mi-rotate-left': job.isRunning()}">
+
+          </i>
         </td>
-        <td class='jobs-table__td jobs-table__td--job-id'>
+        <td class='jobs-table__td jobs-table__td--job-id'
+            [ngClass]="{'font-color--failed': job.isFailed()}">
           {{job.jobId}}
         </td>
         <td class='jobs-table__td jobs-table__td--version'>
@@ -67,7 +79,12 @@
         <td class='jobs-table__td jobs-table__td--status'>
           <div>
             <span class='mist-label'>Status</span>
-            <span class='jobs-table__status font-color--success'>{{job.status}}</span>
+            <span class='jobs-table__status'
+                  [ngClass]="{'font-color--success': job.isFinished(),
+                              'font-color--primary': job.isRunning(),
+                              'font-color--failed': job.isFailed()}">
+              {{job.mappedStatus()}}
+            </span>
           </div>
           <div>
             <span class='mist-label'>Finished</span>
