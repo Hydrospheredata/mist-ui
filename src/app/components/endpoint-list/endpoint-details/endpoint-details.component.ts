@@ -16,7 +16,7 @@ export class EndpointDetailsComponent implements OnInit {
   endpoint: Observable<Endpoint>;
   jobs: Observable<Job[]>;
   namespace: string;
-  filterOptions: object;
+  statusFilter: object;
 
   private sub: any;
 
@@ -38,7 +38,7 @@ export class EndpointDetailsComponent implements OnInit {
           this.namespace = 'Namespace1'
         });
 
-    this.filterOptions = {
+    this.statusFilter = {
       success: true,
       running: true,
       failed: false
@@ -49,10 +49,8 @@ export class EndpointDetailsComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-  toggleFilterOption(event, option) {
-    debugger;
-    event.preventDefault();
-    this.filterOptions[option] = !this.filterOptions[option]
+  toggleStatusFilter(option) {
+    this.statusFilter[option] = !this.statusFilter[option]
   }
 
   namespaceSelect(event, namespace) {

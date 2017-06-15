@@ -15,13 +15,17 @@ import { EndpointDetailsComponent } from './components/endpoint-list/endpoint-de
 import { EndpointDataService } from './services/endpoint-data.service';
 import { JobDataService } from './services/job-data.service';
 
+//pipes
+import { JobStatusFilterPipe } from './pipes/job-status-filter.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavbarComponent,
     EndpointListComponent,
-    EndpointDetailsComponent
+    EndpointDetailsComponent,
+    JobStatusFilterPipe
   ],
   imports: [
     BrowserModule,

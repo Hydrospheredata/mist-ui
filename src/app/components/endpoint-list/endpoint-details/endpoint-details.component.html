@@ -28,20 +28,20 @@
         FILTER
       </span>
       <span class='endpoint-details__status-filter-option'
-            (click)="toggleFilterOption($event, 'success')"
-            [ngClass]="{'endpoint-details__status-filter-option--active': filterOptions['success']}">
+            (click)="toggleStatusFilter('success')"
+            [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['success']}">
         <i class='material-icons endpoint-details__icon'>done</i>
         <span>Success</span>
       </span>
       <span class='endpoint-details__status-filter-option'
-            (click)="toggleFilterOption($event, 'running')"
-            [ngClass]="{'endpoint-details__status-filter-option--active': filterOptions['running']}">
+            (click)="toggleStatusFilter('running')"
+            [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['running']}">
         <i class='material-icons endpoint-details__icon'>rotate_left</i>
         <span>Running</span>
       </span>
       <span class='endpoint-details__status-filter-option'
-            (click)="toggleFilterOption($event, 'failed')"
-            [ngClass]="{'endpoint-details__status-filter-option--active': filterOptions['failed']}">
+            (click)="toggleStatusFilter('failed')"
+            [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['failed']}">
         <i class='material-icons endpoint-details__icon'>clear</i>
         <span>Failed</span>
       </span>
@@ -53,7 +53,7 @@
   <table class='mdl-data-table mdl-js-data-table jobs-table'>
     <tbody>
       <tr class='jobs-table__tr'
-          *ngFor='let job of jobs | async'>
+          *ngFor='let job of (jobs | async) | jobStatusFilter:statusFilter'>
         <td class='jobs-table__td jobs-table__td--icon'>
           <i class='material-icons jobs-table__status-icon'
              [ngClass]="{'jobs-table__status-icon--failed mi-clear': job.isFailed(),
