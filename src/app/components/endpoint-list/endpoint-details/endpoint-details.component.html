@@ -55,9 +55,15 @@
       <tr class='jobs-table__tr'
           *ngFor='let job of jobs | async'>
         <td class='jobs-table__td jobs-table__td--icon'>
-          <i class='material-icons jobs-table__status-icon'>done</i>
+          <i class='material-icons jobs-table__status-icon'
+             [ngClass]="{'jobs-table__status-icon--failed mi-clear': job.isFailed(),
+                         'jobs-table__status-icon--success mi-done': job.isFinished(),
+                         'mi-rotate-left': job.isRunning()}">
+
+          </i>
         </td>
-        <td class='jobs-table__td jobs-table__td--job-id'>
+        <td class='jobs-table__td jobs-table__td--job-id'
+            [ngClass]="{'font-color--failed': job.isFailed()}">
           {{job.jobId}}
         </td>
         <td class='jobs-table__td jobs-table__td--version'>

@@ -102,10 +102,17 @@
 }
 
 .jobs-table__status-icon {
-  background-color: $color--success;
   border-radius: 50%;
   color: #fff;
   padding: 5px;
+}
+
+.jobs-table__status-icon--success {
+  background-color: $color--success;
+}
+
+.jobs-table__status-icon--failed {
+  color: $color--failed;
 }
 
 .jobs-table__td.jobs-table__td--icon {
