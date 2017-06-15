@@ -43,4 +43,8 @@ export class Job {
   isRunning() {
     return ['Queued', 'Initialized','Running'].includes(this.status)
   }
+
+  isFinishedDayAgo() {
+    
+  }
 }

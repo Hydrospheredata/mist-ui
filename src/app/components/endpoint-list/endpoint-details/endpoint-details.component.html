@@ -56,15 +56,14 @@
           *ngFor='let job of (jobs | async) | jobStatusFilter:statusFilter'>
         <td class='jobs-table__td jobs-table__td--icon'>
           <i class='material-icons jobs-table__status-icon'
-             [ngClass]="{'jobs-table__status-icon--failed mi-clear': job.isFailed(),
-                         'jobs-table__status-icon--success mi-done': job.isFinished(),
-                         'mi-rotate-left': job.isRunning()}">
-
+             [ngClass]="{'jobs-table__status-icon--failed': job.isFailed(),
+                         'jobs-table__status-icon--success': job.isFinished(),
+                         'jobs-table__status-icon--primary': job.isRunning()}">
           </i>
         </td>
         <td class='jobs-table__td jobs-table__td--job-id'
             [ngClass]="{'font-color--failed': job.isFailed()}">
-          {{job.jobId}}
+          {{ job.jobId }}
         </td>
         <td class='jobs-table__td jobs-table__td--version'>
           <span class='mist-label'>Version</span>
@@ -73,7 +72,7 @@
         <td class='jobs-table__td jobs-table__td--namespace'>
           <div class='namespace'>
             <span class='namespace__label'>namespace</span>
-            <span class='namespace__value'>{{namespace}}</span>
+            <span class='namespace__value'>{{ namespace }}</span>
           </div>
         </td>
         <td class='jobs-table__td jobs-table__td--status'>
@@ -83,12 +82,12 @@
                   [ngClass]="{'font-color--success': job.isFinished(),
                               'font-color--primary': job.isRunning(),
                               'font-color--failed': job.isFailed()}">
-              {{job.mappedStatus()}}
+              {{ job.mappedStatus() }}
             </span>
           </div>
           <div>
-            <span class='mist-label'>Finished</span>
-            <span></span>
+            <span class='mist-label'>{{ job.isRunning() ? 'Started' : 'Finished' }}</span>
+            <span>{{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}</span>
           </div>
         </td>
         <td class='jobs-table__td jobs-table__td--actions'>

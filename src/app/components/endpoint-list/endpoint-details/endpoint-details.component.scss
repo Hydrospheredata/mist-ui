@@ -109,10 +109,23 @@
 
 .jobs-table__status-icon--success {
   background-color: $color--success;
+  &::before {
+    content: 'done'
+  }
 }
 
 .jobs-table__status-icon--failed {
   color: $color--failed;
+  &::before {
+    content: 'clear'
+  }
+}
+
+.jobs-table__status-icon--primary {
+  color: $color--primary;
+  &::before {
+    content: 'rotate_left'
+  }
 }
 
 .jobs-table__td.jobs-table__td--icon {
