@@ -23,19 +23,25 @@
       <span class='material-icons mist-btn__icon'>add</span>
       <span>RUN NEW</span>
     </button>
-    <div class='endpoint-details__jobs-filter'>
+    <div class='endpoint-details__status-filter'>
       <span class='mist-label'>
         FILTER
       </span>
-      <span class='endpoint-details__jobs-filter-option endpoint-details__jobs-filter-option--active'>
+      <span class='endpoint-details__status-filter-option'
+            (click)="toggleFilterOption($event, 'success')"
+            [ngClass]="{'endpoint-details__status-filter-option--active': filterOptions['success']}">
         <i class='material-icons endpoint-details__icon'>done</i>
         <span>Success</span>
       </span>
-      <span class='endpoint-details__jobs-filter-option endpoint-details__jobs-filter-option--active'>
+      <span class='endpoint-details__status-filter-option'
+            (click)="toggleFilterOption($event, 'running')"
+            [ngClass]="{'endpoint-details__status-filter-option--active': filterOptions['running']}">
         <i class='material-icons endpoint-details__icon'>rotate_left</i>
         <span>Running</span>
       </span>
-      <span class='endpoint-details__jobs-filter-option'>
+      <span class='endpoint-details__status-filter-option'
+            (click)="toggleFilterOption($event, 'failed')"
+            [ngClass]="{'endpoint-details__status-filter-option--active': filterOptions['failed']}">
         <i class='material-icons endpoint-details__icon'>clear</i>
         <span>Failed</span>
       </span>

@@ -24,10 +24,10 @@ export class JobDataService {
   public getAllByEndpointId(endpointId: string) {
     let apiUrl = this.baseUrl + `/endpoints/${endpointId}/jobs`
     this.http.get(apiUrl)
-             .map(this.extractData)
+             .map(this.extractJobs)
              .catch(this.handleError)
-             .subscribe((data) => {
-               this.dataStore.jobs = data;
+             .subscribe((jobs) => {
+               this.dataStore.jobs = jobs;
                this._jobs.next(Object.assign({}, this.dataStore).jobs);
              })
   }
@@ -40,6 +40,28 @@ export class JobDataService {
              .map(this.extractData)
              .catch(this.handleError)
              .subscribe((data) => {})
+  }
+
+  private extractJobs(res: Response) {
+    let data = res.json();
+    let jobs :Job[] = [];
+    for(let index in data){
+      let job = data[index];
+      let newJob = new Job({
+        jobId: job.jobId,
+        status: job.status,
+        context: job.context,
+        createTime: job.createTime,
+        startTime: job.startTime,
+        endTime: job.endTime,
+        endpoint: job.endpoint,
+        jobResult: JSON.stringify(job.jobResult),
+        params: JSON.stringify(job.params),
+        source: job.source
+      })
+      jobs.push(newJob);
+    }
+    return jobs
   }
 
   private extractData(res: Response) {

@@ -13,7 +13,7 @@ import { EndpointDetailsComponent } from './components/endpoint-list/endpoint-de
 
 //services
 import { EndpointDataService } from './services/endpoint-data.service';
-import { JobDataService } from './services/job-data.service'
+import { JobDataService } from './services/job-data.service';
 
 @NgModule({
   declarations: [
