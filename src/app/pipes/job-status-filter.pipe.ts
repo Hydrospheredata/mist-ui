@@ -5,7 +5,7 @@ import 'rxjs/add/operator/filter';
 import { Job } from '../models/job';
 
 @Pipe({
-  name: 'jobFilter',
+  name: 'jobStatusFilter',
   pure: false
 })
 export class JobStatusFilterPipe implements PipeTransform {
