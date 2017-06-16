@@ -25,6 +25,7 @@
       ],
       "scripts": [
         "../node_modules/material-design-lite/material.min.js",
+        "../node_modules/material-modal/dist/js/material-modal.min.js",
         "../node_modules/moment/min/moment.min.js"
       ],
       "environmentSource": "environments/environment.ts",
