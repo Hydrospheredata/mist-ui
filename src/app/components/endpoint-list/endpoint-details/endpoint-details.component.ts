@@ -13,10 +13,15 @@ import { Endpoint } from '../../../models/endpoint'
   styleUrls: ['./endpoint-details.component.scss']
 })
 export class EndpointDetailsComponent implements OnInit {
+  isLoading: boolean;
   endpoint: Observable<Endpoint>;
   jobs: Observable<Job[]>;
   namespace: string;
-  statusFilter: object;
+  statusFilter: object = {
+    success: true,
+    running: true,
+    failed: false
+  };
 
   private sub: any;
 
@@ -27,26 +32,30 @@ export class EndpointDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.sub = this.activatedRoute.params
       .map(params => params['endpointId'])
-      .subscribe((id) =>
-        {
-          this.endpoint = this.endpointDataService.endpoints
-                            .map(items => items.find(item => item.name === id));
-          this.jobDataService.getAllByEndpointId(id);
-          this.jobs = this.jobDataService.jobs;
-          this.namespace = 'Namespace1'
-        });
-
-    this.statusFilter = {
-      success: true,
-      running: true,
-      failed: false
-    }
+      .subscribe(
+        (id) => { this.loadInitialData(id) },
+        () =>  { this.stopLoading() },
+        () => { this.stopLoading() }
+      );
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  loadInitialData(id: string) {
+    this.endpoint = this.endpointDataService.endpoints
+                      .map(items => items.find(item => item.name === id));
+    this.jobDataService.getAllByEndpointId(id);
+    this.jobs = this.jobDataService.jobs;
+    this.namespace = 'Namespace1'
+  }
+
+  stopLoading() {
+    this.isLoading = false;
   }
 
   killJob(event, job: Job) {

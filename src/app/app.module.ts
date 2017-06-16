@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing } from './app.router';
 
+//material modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdDialogModule } from '@angular/material';
+
 //components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -33,7 +37,10 @@ import { AgoDatePipe } from './pipes/ago-date.pipe';
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    //material modules
+    BrowserAnimationsModule,
+    MdDialogModule
   ],
   providers: [EndpointDataService, JobDataService],
   bootstrap: [AppComponent]
