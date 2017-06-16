@@ -13,9 +13,8 @@ import { Endpoint } from '../../../models/endpoint'
   styleUrls: ['./endpoint-details.component.scss']
 })
 export class EndpointDetailsComponent implements OnInit {
-  isLoading: boolean;
   endpoint: Observable<Endpoint>;
-  jobs: Observable<Job[]>;
+  jobs: Job[];
   namespace: string;
   statusFilter: object = {
     success: true,
@@ -32,14 +31,9 @@ export class EndpointDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.isLoading = true;
     this.sub = this.activatedRoute.params
       .map(params => params['endpointId'])
-      .subscribe(
-        (id) => { this.loadInitialData(id) },
-        () =>  { this.stopLoading() },
-        () => { this.stopLoading() }
-      );
+      .subscribe((id) => { this.loadInitialData(id) });
   }
 
   ngOnDestroy() {
@@ -50,12 +44,8 @@ export class EndpointDetailsComponent implements OnInit {
     this.endpoint = this.endpointDataService.endpoints
                       .map(items => items.find(item => item.name === id));
     this.jobDataService.getAllByEndpointId(id);
-    this.jobs = this.jobDataService.jobs;
+    this.jobDataService.jobs.subscribe(data => { this.jobs = data });
     this.namespace = 'Namespace1'
-  }
-
-  stopLoading() {
-    this.isLoading = false;
   }
 
   killJob(event, job: Job) {
