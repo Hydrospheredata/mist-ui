@@ -49,6 +49,11 @@ export class EndpointDetailsComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
+  killJob(event, job: Job) {
+    event.preventDefault();
+    this.jobDataService.delete(job.jobId)
+  }
+
   toggleStatusFilter(option) {
     this.statusFilter[option] = !this.statusFilter[option]
   }

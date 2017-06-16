@@ -24,11 +24,11 @@ export class JobDataService {
   public getAllByEndpointId(endpointId: string) {
     let apiUrl = this.baseUrl + `/endpoints/${endpointId}/jobs`
     this.http.get(apiUrl)
-             .map(this.extractJobs)
+             .map((res: Response) => { return this.extractJobs(res) })
              .catch(this.handleError)
-             .subscribe((jobs) => {
-               this.dataStore.jobs = jobs;
-               this._jobs.next(Object.assign({}, this.dataStore).jobs);
+             .subscribe((data) => {
+               this.dataStore.jobs = data;
+               this.updateStore();
              })
   }
 
@@ -42,26 +42,52 @@ export class JobDataService {
              .subscribe((data) => {})
   }
 
+  public delete(jobId: string) {
+    let apiUrl = this.baseUrl + `/jobs/${jobId}`
+    this.http.delete(apiUrl)
+             .map((res: Response) => { return this.extractJob(res) })
+             .catch(this.handleError)
+             .subscribe((data) => {
+               let job = this.dataStore.jobs.find(item => item.jobId === data.jobId );
+               let index: number = this.dataStore.jobs.indexOf(job);
+               this.dataStore.jobs.splice(index, 1, data);
+               this.updateStore();
+             })
+  }
+
+  private updateStore() {
+    this._jobs.next(Object.assign({}, this.dataStore).jobs);
+  }
+
   private extractJobs(res: Response) {
     let data = res.json();
     let jobs :Job[] = [];
     for(let index in data){
-      let job = data[index];
-      let newJob = new Job({
-        jobId: job.jobId,
-        status: job.status,
-        context: job.context,
-        createTime: job.createTime,
-        startTime: job.startTime,
-        endTime: job.endTime,
-        endpoint: job.endpoint,
-        jobResult: JSON.stringify(job.jobResult),
-        params: JSON.stringify(job.params),
-        source: job.source
-      })
-      jobs.push(newJob);
+      let job = this.toJob(data[index])
+      jobs.push(job);
     }
     return jobs
+  }
+
+  private extractJob(res: Response) {
+    let data = res.json();
+    return this.toJob(data)
+  }
+
+  private toJob(data): Job {
+    let job = new Job({
+      jobId: data.jobId,
+      status: data.status,
+      context: data.context,
+      createTime: data.createTime,
+      startTime: data.startTime,
+      endTime: data.endTime,
+      endpoint: data.endpoint,
+      jobResult: JSON.stringify(data.jobResult),
+      params: JSON.stringify(data.params),
+      source: data.source
+    })
+    return job
   }
 
   private extractData(res: Response) {
