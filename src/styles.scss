@@ -24,7 +24,8 @@ button:focus, input:focus {
 
 aside {
   background-color: $aside-bg-color;
-  width: 348px;
+  width: 23%;
+  max-width: 347px;
   flex-shrink: 0;
 }
 
@@ -62,13 +63,13 @@ a.mist-link {
 
 .mist-layout {
   display: flex;
-  flex-wrap: wrap;
   min-height: 1178px;
 }
 
 .mist-page-content {
   height: 100%;
   margin: 24px;
+  overflow-x: auto;
 }
 
 .mist-page-header {
