@@ -20,18 +20,6 @@ export class Job {
     this.params = jobInfo['params']
   }
 
-  public mappedStatus() {
-    const mapStatuses = {
-      Stopped: 'Successfully Completed',
-      Error: 'Failed',
-      Aborted: 'Failed',
-      Queued: 'In progress',
-      Initialized: 'In progress',
-      Running: 'In progress'
-    }
-    return mapStatuses[this.status]
-  }
-
   isFinished() {
     return ['Stopped'].includes(this.status)
   }
@@ -45,6 +33,6 @@ export class Job {
   }
 
   isFinishedDayAgo() {
-    
+
   }
 }
