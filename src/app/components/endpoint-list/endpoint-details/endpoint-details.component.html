@@ -82,7 +82,7 @@
                   [ngClass]="{'font-color--success': job.isFinished(),
                               'font-color--primary': job.isRunning(),
                               'font-color--failed': job.isFailed()}">
-              {{ job.mappedStatus() }}
+              {{ job.status }}
             </span>
           </div>
           <div>
