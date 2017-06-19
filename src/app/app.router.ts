@@ -28,7 +28,11 @@ export const routes: Routes = [
     path: 'endpoints',
     component: EndpointListComponent,
     children: [
-      { path: ':endpointId', component: EndpointDetailsComponent }
+      {
+        path: ':endpointId',
+        pathMatch: 'prefix',
+        component: EndpointDetailsComponent
+      }
     ]
   }
 ];

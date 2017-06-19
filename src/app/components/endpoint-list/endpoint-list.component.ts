@@ -10,7 +10,7 @@ import { Endpoint } from '../../models/endpoint'
   styleUrls: ['./endpoint-list.component.scss']
 })
 export class EndpointListComponent implements OnInit {
-  endpoints: Observable<Endpoint[]>
+  endpoints: Endpoint[]
 
   constructor(
     private endpointDataService: EndpointDataService,
@@ -18,7 +18,11 @@ export class EndpointListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.endpoints = this.endpointDataService.endpoints
+    this.loadInitialData();
+  }
+
+  loadInitialData() {
     this.endpointDataService.getAll();
+    this.endpointDataService.endpoints.subscribe(data => { this.endpoints = data });
   }
 }

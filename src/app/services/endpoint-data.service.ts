@@ -28,7 +28,7 @@ export class EndpointDataService {
               .catch(this.handleError)
               .subscribe((data) => {
                 this.dataStore.endpoints = data;
-                this._endpoints.next(Object.assign({}, this.dataStore).endpoints);
+                this.updateStore();
               })
   }
 
@@ -44,7 +44,12 @@ export class EndpointDataService {
                } else {
                  this.dataStore.endpoints[idx] = data;
                }
+               this.updateStore();
              })
+  }
+
+  private updateStore() {
+    this._endpoints.next(Object.assign({}, this.dataStore).endpoints);
   }
 
   private extractData(res: Response) {
