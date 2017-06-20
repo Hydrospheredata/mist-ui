@@ -11,15 +11,16 @@
         </button>
         <ul class='mdl-menu mdl-js-menu'
             for='namespace-select'>
-          <li class='mdl-menu__item' (click)="namespaceSelect($event, 'Namespace1')">Namespace1</li>
-          <li class='mdl-menu__item' (click)="namespaceSelect($event, 'Namespace2')">Namespace2</li>
-          <li class='mdl-menu__item' (click)="namespaceSelect($event, 'Namespace3')">Namespace3</li>
-          <li class='mdl-menu__item' (click)="namespaceSelect($event, 'Namespace4')">Namespace4</li>
+          <li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace1')">Namespace1</li>
+          <li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace2')">Namespace2</li>
+          <li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace3')">Namespace3</li>
+          <li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace4')">Namespace4</li>
         </ul>
       </div>
       <span class='material-icons endpoint-details__icon'>settings</span>
     </div>
-    <button class='mist-btn endpoint-details__run-new-btn'>
+    <button class='mist-btn endpoint-details__run-new-btn'
+            (click)="openDialogJobForm()">
       <span class='material-icons mist-btn__icon'>add</span>
       <span>RUN NEW</span>
     </button>

@@ -1,0 +1,31 @@
+<h1 md-dialog-title>New Job Parameters</h1>
+<md-dialog-content>
+  <div class='job-form__header'>
+    <div class='job-form__select'>
+      <div class='job-form__label'>Endpoint</div>
+      <md-select placeholder=""
+                 floatPlaceholder="never"
+                 [(ngModel)]="selectedEndpoint"
+                 (ngModelChange)="onChangeEndpoint()">
+        <md-option *ngFor="let endpoint of endpoints"
+                   [value]="endpoint">{{ endpoint.name }}</md-option>
+      </md-select>
+    </div>
+    <div class='namespace job-form__namespace'>
+      <span class='namespace__label'>namespace</span>
+      <span class='namespace__value'>Namespace1</span>
+    </div>
+    <div class='job-form__version'>
+      <span class='job-form__label'>Version</span>
+      <span>1.2.4</span>
+    </div>
+  </div>
+  <div class='job-form__main'>
+    <div class='job-form__label'>Input Parameters</div>
+    <div class='job-form__input job-form__input--json'>
+      <codemirror [ngModel]="executeParams" [config]="codeMirrorOptions"></codemirror>
+    </div>
+  </div>
+</md-dialog-content>
+<md-dialog-actions>
+</md-dialog-actions>
