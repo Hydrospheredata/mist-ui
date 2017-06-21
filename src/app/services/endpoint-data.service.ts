@@ -24,7 +24,7 @@ export class EndpointDataService {
 
   public getAll() {
      this.http.get(this.baseUrl)
-              .map(this.extractData)
+              .map((res: Response) => this.extractEndpoints(res))
               .catch(this.handleError)
               .subscribe((data) => {
                 this.dataStore.endpoints = data;
@@ -35,7 +35,7 @@ export class EndpointDataService {
   public get(id: string) {
     let apiUrl = this.baseUrl + `/${id}`
     this.http.get(apiUrl)
-             .map(this.extractData)
+             .map((res: Response) => this.extractEndpoint(res))
              .catch(this.handleError)
              .subscribe(data => {
                const idx = this.dataStore.endpoints.findIndex((endpoint) => endpoint.name === data.name);
@@ -52,9 +52,34 @@ export class EndpointDataService {
     this._endpoints.next(Object.assign({}, this.dataStore).endpoints);
   }
 
+  private extractEndpoints(res: Response) {
+    let data = res.json();
+    let endpoints :Endpoint[] = [];
+    for(let index in data){
+      let job = this.toEndpoint(data[index])
+      endpoints.push(job);
+    }
+    return endpoints
+  }
+
+  private extractEndpoint(res: Response) {
+    let data = res.json();
+    return this.toEndpoint(data)
+  }
+
   private extractData(res: Response) {
     let data = res.json();
     return data || {};
+  }
+
+  private toEndpoint(data) {
+    let endpoint = new Endpoint({
+      name: data['name'],
+      lang: data['lang'],
+      tags: data['tags'],
+      execute: data['execute']
+    })
+    return endpoint
   }
 
   private handleError(error: Response | any) {

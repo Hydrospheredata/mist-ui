@@ -29,7 +29,7 @@ export class DialogJobFormComponent implements OnInit {
   ngOnInit() {
     this.selectedEndpoint = this.data.selectedEndpoint;
     this.endpointDataService.endpoints.subscribe(data => { this.endpoints = data });
-    this.executeParams = JSON.stringify(this.selectedEndpoint.execute);
+    this.executeParams = this.selectedEndpoint.execute;
     this.codeMirrorOptions = {
       placeholder: 'Parameters...',
       matchBrackets: true,
@@ -40,6 +40,6 @@ export class DialogJobFormComponent implements OnInit {
   }
 
   onChangeEndpoint() {
-    this.executeParams = JSON.stringify(this.selectedEndpoint.execute);
+    this.executeParams = this.selectedEndpoint.execute;
   }
 }
