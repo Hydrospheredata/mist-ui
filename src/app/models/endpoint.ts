@@ -8,18 +8,22 @@ export class Endpoint {
     this.name = endpointInfo['name'];
     this.lang = endpointInfo['lang'];
     this.tags = endpointInfo['tags'];
-    this.execute = JSON.stringify(endpointInfo['execute']);
+    this.execute = JSON.stringify(endpointInfo['execute']) || null;
   }
 
   executeExample() {
-    let execute = JSON.parse(this.execute)
+    let execute = JSON.parse(this.execute);
     let generatedObject: object = {};
     for (let key in execute) {
         let newObj: object = {};
         newObj[key] = this.make(execute[key]);
         Object.assign(generatedObject, newObj);
     }
-    return JSON.stringify(generatedObject, null, "\t")
+    if (Object.keys(generatedObject).length === 0) {
+      return '';
+    } else {
+      return JSON.stringify(generatedObject, null, "\t");
+    }
   }
 
   private make(paramType) {
