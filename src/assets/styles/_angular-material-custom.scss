@@ -56,3 +56,38 @@
 .mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-trigger {
   color: $main-color;
 }
+
+.mat-dialog-actions {
+  float: right;
+  color: $label-color;
+  font-size: 18px;
+}
+
+.mat-button {
+  font-family: $main-font-family !important;
+  border-radius: 0px !important;
+
+  &.mat-button--big {
+    font-size: 18px;
+    min-height: 50px;
+    min-width: 200px
+  }
+
+  &.mat-button--primary {
+    border: 3px solid $color--light-blue;
+    color: $main-color;
+
+    &.mat-ripple-element {
+      background-color: $color--light-blue;
+    }
+  }
+
+  &.mat-button--primary:hover {
+    background-color: $color--light-blue;
+    color: #fff;
+  }
+
+  .mat-button-focus-overlay {
+    background: none;
+  }
+}

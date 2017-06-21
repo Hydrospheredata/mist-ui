@@ -8,6 +8,7 @@ import '../../../../node_modules/codemirror/addon/display/placeholder';
 
 import { Endpoint } from '../../models/endpoint';
 import { EndpointDataService } from '../../services/endpoint-data.service'
+import { JobDataService } from '../../services/job-data.service'
 
 @Component({
   selector: 'dialog-job-form',
@@ -23,7 +24,8 @@ export class DialogJobFormComponent implements OnInit {
 
   constructor(
     @Inject(MD_DIALOG_DATA) public data: any,
-    private endpointDataService: EndpointDataService
+    private endpointDataService: EndpointDataService,
+    private jobDataService: JobDataService
   ) {}
 
   ngOnInit() {
@@ -41,5 +43,11 @@ export class DialogJobFormComponent implements OnInit {
 
   onChangeEndpoint() {
     this.executeParams = this.selectedEndpoint.executeExample();
+  }
+
+  submit() {
+    let endpointId = this.selectedEndpoint.name
+    let params = this.executeParams
+    this.jobDataService.create(endpointId, params)
   }
 }

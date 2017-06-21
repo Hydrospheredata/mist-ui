@@ -6,7 +6,7 @@ import { routing } from './app.router';
 
 //material modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdDialogModule, MdSelectModule } from '@angular/material';
+import { MdDialogModule, MdSelectModule, MdButtonModule } from '@angular/material';
 
 //codemirror
 import { CodemirrorModule } from 'ng2-codemirror';
@@ -47,6 +47,7 @@ import { AgoDatePipe } from './pipes/ago-date.pipe';
     BrowserAnimationsModule,
     MdDialogModule,
     MdSelectModule,
+    MdButtonModule,
     //codemirror
     CodemirrorModule
   ],

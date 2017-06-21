@@ -50,7 +50,7 @@ a.mist-link {
   text-decoration: none;
   color: $label-color;
   &:hover {
-    color: #4d9bf1;
+    color: $color--light-blue;
   }
   i {
     position: relative;
@@ -120,14 +120,14 @@ md-dialog-container.mat-dialog-container {
   float: right;
   font-size: 14px;
   font-weight: 500;
-  border: 3px solid #4d9bf1;
+  border: 3px solid $color--light-blue;
   width: 96px;
   height: 43px;
   margin: 28px auto;
 }
 
 .mist-btn:hover {
-  background-color: #4d9bf1;
+  background-color: $color--light-blue;
   color: #fff;
   cursor: pointer;
 }
