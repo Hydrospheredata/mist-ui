@@ -1,4 +1,4 @@
-@import "~variables.scss";
+@import "variables.scss";
 
 .endpoint-list__row {
   position: relative;
@@ -17,24 +17,29 @@
 }
 
 .endpoint-list__search {
-  margin: 0 20px auto;
-  border: 2px solid;
   height: 43px;
-  border-color: #d4d7d9;
+  padding:0 20px;
 }
 
 input.endpoint-list__search-input {
-  border: none;
+  border: 2px solid;
+  border-color: #d4d7d9;
   font-size: 16px;
   background-color: #f2f4f7;
-  width: 80%;
+  width: 84%;
   height: 95%;
+  padding-left: 46px;
+
+  &:focus {
+    border-color: #04143c;
+  }
 }
 
 .endpoint-list__search-icon {
+  position: absolute;
   font-size: 20px;
   vertical-align: text-bottom;
-  margin-left: 15px;
+  margin: 13px;
 }
 
 .endpoint-list__title {

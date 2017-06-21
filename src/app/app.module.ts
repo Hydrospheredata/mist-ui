@@ -4,12 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing } from './app.router';
 
+//material modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdDialogModule, MdSelectModule, MdButtonModule } from '@angular/material';
+
+//codemirror
+import { CodemirrorModule } from 'ng2-codemirror';
+
 //components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EndpointListComponent } from './components/endpoint-list/endpoint-list.component';
-import { EndpointDetailsComponent } from './components/endpoint-list/endpoint-details/endpoint-details.component'
+import { EndpointDetailsComponent } from './components/endpoint-list/endpoint-details/endpoint-details.component';
+import { DialogJobFormComponent } from './components/dialog-job-form/dialog-job-form.component';
 
 //services
 import { EndpointDataService } from './services/endpoint-data.service';
@@ -27,14 +35,23 @@ import { AgoDatePipe } from './pipes/ago-date.pipe';
     EndpointListComponent,
     EndpointDetailsComponent,
     JobStatusFilterPipe,
-    AgoDatePipe
+    AgoDatePipe,
+    DialogJobFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    //material modules
+    BrowserAnimationsModule,
+    MdDialogModule,
+    MdSelectModule,
+    MdButtonModule,
+    //codemirror
+    CodemirrorModule
   ],
+  entryComponents: [DialogJobFormComponent],
   providers: [EndpointDataService, JobDataService],
   bootstrap: [AppComponent]
 })

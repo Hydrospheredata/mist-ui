@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/material-design-lite/material.min.css";
-@import "~variables.scss";
+@import "../../../node_modules/material-design-lite/material.min.css";
+@import "../../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+@import "../../../node_modules/codemirror/lib/codemirror.css";
+@import "angular-material-custom.scss";
+@import "variables.scss";
+@import "codemirror.scss";
 
 @font-face {
   font-family: 'MuseoSansCyrl';
@@ -18,13 +22,18 @@ html, body {
   color:  $main-color;
 }
 
+h1, h2 {
+  font-family: $main-font-family;
+}
+
 button:focus, input:focus {
   outline: 0;
 }
 
 aside {
   background-color: $aside-bg-color;
-  width: 348px;
+  width: 23%;
+  max-width: 347px;
   flex-shrink: 0;
 }
 
@@ -41,7 +50,7 @@ a.mist-link {
   text-decoration: none;
   color: $label-color;
   &:hover {
-    color: #4d9bf1
+    color: $color--light-blue;
   }
   i {
     position: relative;
@@ -49,6 +58,23 @@ a.mist-link {
   }
 }
 
+md-dialog-container.mat-dialog-container {
+  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, .2),
+              0 24px 38px 3px rgba(0, 0, 0, .14),
+              0 9px 46px 8px rgba(0, 0, 0, .12);
+  display: block;
+  padding: 45px;
+  border-radius: 2px;
+  box-sizing: border-box;
+  overflow: auto;
+  max-width: 80vw;
+  width: 100%;
+  height: 100%;
+}
+
+.mat-dialog-container--big {
+  width: 1300px;
+}
 
 .md-40 {
   font-size: 40px;
@@ -62,13 +88,13 @@ a.mist-link {
 
 .mist-layout {
   display: flex;
-  flex-wrap: wrap;
   min-height: 1178px;
 }
 
 .mist-page-content {
   height: 100%;
   margin: 24px;
+  overflow-x: auto;
 }
 
 .mist-page-header {
@@ -82,7 +108,7 @@ a.mist-link {
   color: $label-color;
   font-size: 14px;
   &::after {
-    content: ':'
+    content: ':';
   }
 }
 
@@ -94,14 +120,14 @@ a.mist-link {
   float: right;
   font-size: 14px;
   font-weight: 500;
-  border: 3px solid #4d9bf1;
+  border: 3px solid $color--light-blue;
   width: 96px;
   height: 43px;
   margin: 28px auto;
 }
 
 .mist-btn:hover {
-  background-color: #4d9bf1;
+  background-color: $color--light-blue;
   color: #fff;
   cursor: pointer;
 }
@@ -114,13 +140,37 @@ a.mist-link {
 }
 
 .font-color--success {
-  color: $color--success
+  color: $color--success;
 }
 
 .font-color--failed {
-  color: $color--failed
+  color: $color--failed;
 }
 
 .font-color--primary {
-  color: $color--primary
+  color: $color--primary;
+}
+
+.namespace {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0px 12px 0px 12px;
+  height: 32px;
+  font-size: 14px;
+  line-height: 32px;
+  border-radius: 5px;
+  background-color: #e9ecf2;
+}
+
+.namespace--select {
+  padding-right: 0px;
+}
+
+.namespace__label {
+  color: $label-color;
+}
+
+.namespace__label::after {
+  content: '=';
+  margin: 0px 5px;
 }

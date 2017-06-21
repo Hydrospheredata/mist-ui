@@ -8,10 +8,7 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
-        "assets",
-        "favicon.ico",
-        "images",
-        "fonts"
+        "assets"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -21,11 +18,17 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.scss"
+        "assets/styles/styles.scss"
       ],
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "assets/styles"
+        ]
+      },
       "scripts": [
         "../node_modules/material-design-lite/material.min.js",
-        "../node_modules/moment/min/moment.min.js"
+        "../node_modules/moment/min/moment.min.js",
+        "../node_modules/codemirror/lib/codemirror.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

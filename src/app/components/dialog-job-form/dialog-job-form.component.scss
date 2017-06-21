@@ -1,0 +1,36 @@
+@import "variables.scss";
+
+.job-form__label {
+  font-size: 18px;
+  color: $label-color;
+  margin-bottom: 10px;
+}
+
+.job-form__label::after {
+  content: ':'
+}
+
+.job-form__select {
+  width: 280px;
+  display: inline-block;
+}
+
+.job-form__version {
+  display: inline-block;
+  float: right;
+  margin: 32px 32px 0px 0px;
+  line-height: 40px;
+  font-size: 18px;
+}
+
+.namespace.job-form__namespace {
+  float: right;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  margin: 32px 0px 0px 0px;
+}
+
+.job-form__header {
+  margin-bottom: 40px;
+}

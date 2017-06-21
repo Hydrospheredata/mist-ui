@@ -1,22 +1,7 @@
-@import "~variables.scss";
+@import "variables.scss";
 
 .endpoint-details {
   position: relative;
-}
-
-.namespace,  {
-  display: inline-block;
-  vertical-align: middle;
-  padding: 0px 12px 0px 12px;
-  height: 32px;
-  font-size: 14px;
-  line-height: 32px;
-  border-radius: 5px;
-  background-color: #e9ecf2;
-}
-
-.namespace--select {
-  padding-right: 0px;
 }
 
 .endpoint-details__settings {
@@ -30,15 +15,6 @@
 
 .endpoint-details__settings-label::after {
   content: ':'
-}
-
-.namespace__label {
-  color: $label-color;
-}
-
-.namespace__label::after {
-  content: '=';
-  margin: 0 5px;
 }
 
 .endpoint-details__icon {

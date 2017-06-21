@@ -32,14 +32,27 @@ export class JobDataService {
              })
   }
 
+  public get(id: string) {
+    let apiUrl = this.baseUrl + `/jobs/${id}`
+    this.http.get(apiUrl)
+             .map((res: Response) => { return this.extractJob(res) })
+             .catch(this.handleError)
+             .subscribe((data) => {
+               this.dataStore.jobs.push(data);
+               this.updateStore();
+             })
+  }
+
   public create(endpointId: string, args: string) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let apiUrl = this.baseUrl + `/${endpointId}`
-    this.http.post(apiUrl, args, options)
+    let apiUrl = this.baseUrl + `/endpoints/${endpointId}`
+    this.http.post(apiUrl, JSON.stringify(JSON.parse(args)), options)
              .map(this.extractData)
              .catch(this.handleError)
-             .subscribe((data) => {})
+             .subscribe((data) => {
+               this.get(data.id);
+             })
   }
 
   public delete(jobId: string) {
