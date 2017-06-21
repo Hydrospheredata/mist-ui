@@ -19,7 +19,7 @@ export class Endpoint {
         newObj[key] = this.make(execute[key]);
         Object.assign(generatedObject, newObj);
     }
-    return JSON.stringify(generatedObject)
+    return JSON.stringify(generatedObject, null, "\t")
   }
 
   private make(paramType) {
