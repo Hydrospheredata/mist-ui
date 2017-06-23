@@ -1,108 +1,114 @@
-<div class='mist-page-header'>
-  <div class='endpoint-details'>
-    <div class='endpoint-details__settings'>
-      <span class='endpoint-details__settings-label'>Settings</span>
-      <div class='namespace namespace--select'>
-        <span class='namespace__label'>namespace</span>
-        <span class='namespace__value'>{{namespace}}</span>
-        <button id='namespace-select'
-                class='mdl-button mdl-js-button mdl-button--icon'>
-          <i class='material-icons'>arrow_drop_down</i>
-        </button>
-        <ul class='mdl-menu mdl-js-menu'
-            for='namespace-select'>
-          <li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace1')">Namespace1</li>
-          <li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace2')">Namespace2</li>
-          <li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace3')">Namespace3</li>
-          <li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace4')">Namespace4</li>
-        </ul>
-      </div>
-      <span class='material-icons endpoint-details__icon'>settings</span>
-    </div>
-    <button class='mist-btn endpoint-details__run-new-btn'
-            (click)="openDialogJobForm()">
-      <span class='material-icons mist-btn__icon'>add</span>
-      <span>RUN NEW</span>
-    </button>
-    <div class='endpoint-details__status-filter'>
-      <span class='mist-label'>
-        FILTER
-      </span>
-      <span class='endpoint-details__status-filter-option'
-            (click)="toggleStatusFilter('success')"
-            [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['success']}">
-        <i class='material-icons endpoint-details__icon'>done</i>
-        <span>Success</span>
-      </span>
-      <span class='endpoint-details__status-filter-option'
-            (click)="toggleStatusFilter('running')"
-            [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['running']}">
-        <i class='material-icons endpoint-details__icon'>rotate_left</i>
-        <span>Running</span>
-      </span>
-      <span class='endpoint-details__status-filter-option'
-            (click)="toggleStatusFilter('failed')"
-            [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['failed']}">
-        <i class='material-icons endpoint-details__icon'>clear</i>
-        <span>Failed</span>
-      </span>
-    </div>
-  </div>
-</div>
-<hr />
-<div class='mist-page-content'>
-  <table class='mdl-data-table mdl-js-data-table jobs-table'>
-    <tbody>
-      <tr class='jobs-table__tr'
-          *ngFor='let job of jobs | jobStatusFilter:statusFilter'>
-        <td class='jobs-table__td jobs-table__td--icon'>
-          <i class='material-icons jobs-table__status-icon'
-             [ngClass]="{'jobs-table__status-icon--failed': job.isFailed(),
-                         'jobs-table__status-icon--success': job.isFinished(),
-                         'jobs-table__status-icon--primary': job.isRunning()}">
-          </i>
-        </td>
-        <td class='jobs-table__td jobs-table__td--job-id'
-            [ngClass]="{'font-color--failed': job.isFailed()}">
-          {{ job.jobId }}
-        </td>
-        <td class='jobs-table__td jobs-table__td--version'>
-          <span class='mist-label'>Version</span>
-          1.2.4
-        </td>
-        <td class='jobs-table__td jobs-table__td--namespace'>
-          <div class='namespace'>
-            <span class='namespace__label'>namespace</span>
-            <span class='namespace__value'>{{ namespace }}</span>
-          </div>
-        </td>
-        <td class='jobs-table__td jobs-table__td--status'>
-          <div>
-            <span class='mist-label'>Status</span>
-            <span class='jobs-table__status'
-                  [ngClass]="{'font-color--success': job.isFinished(),
-                              'font-color--primary': job.isRunning(),
-                              'font-color--failed': job.isFailed()}">
-              {{ job.status }}
-            </span>
-          </div>
-          <div>
-            <span class='mist-label'>{{ job.isRunning() ? 'Started' : 'Finished' }}</span>
-            <span>{{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}</span>
-          </div>
-        </td>
-        <td class='jobs-table__td jobs-table__td--actions'>
-          <a href='#' class='mist-link'
-             (click)="killJob($event, job)"
-             *ngIf="job.isRunning()">
-            <i class='material-icons'>delete_forever</i>
-            KILL
-          </a>
-        </td>
-        <td class='jobs-table__td jobs-table__td--details'>
-          <a href='#' class='mist-link'>DETAILS...</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class='mist-page-container mist-page-container--transparent'>
+	<div class='mist-page-header'>
+		<div class='endpoint-details'>
+			<div class='endpoint-details__settings'>
+				<span class='endpoint-details__settings-label'>Settings</span>
+				<div class='namespace namespace--select'>
+					<span class='namespace__label'>namespace</span>
+					<span class='namespace__value'>{{namespace}}</span>
+					<button id='namespace-select'
+							class='mdl-button mdl-js-button mdl-button--icon'>
+					<i class='material-icons'>arrow_drop_down</i>
+					</button>
+					<ul class='mdl-menu mdl-js-menu'
+						for='namespace-select'>
+						<li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace1')">Namespace1</li>
+						<li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace2')">Namespace2</li>
+						<li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace3')">Namespace3</li>
+						<li class='mdl-menu__item' (click)="selectNamespace($event, 'Namespace4')">Namespace4</li>
+					</ul>
+				</div>
+				<span class='material-icons endpoint-details__icon'>settings</span>
+			</div>
+			<button class='mist-btn endpoint-details__run-new-btn'
+					(click)="openDialogJobForm()">
+				<span class='material-icons mist-btn__icon'>add</span>
+				<span>RUN NEW</span>
+			</button>
+			<div class='endpoint-details__status-filter'>
+				<span class='mist-label'>
+					FILTER
+				</span>
+				<span class='endpoint-details__status-filter-option'
+					  (click)="toggleStatusFilter('success')"
+					  [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['success']}">
+					<i class='material-icons endpoint-details__icon'>done</i>
+					<span>Success</span>
+				</span>
+				<span class='endpoint-details__status-filter-option'
+					  (click)="toggleStatusFilter('running')"
+					  [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['running']}">
+					<i class='material-icons endpoint-details__icon'>rotate_left</i>
+					<span>Running</span>
+				</span>
+				<span class='endpoint-details__status-filter-option'
+					  (click)="toggleStatusFilter('failed')"
+					  [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['failed']}">
+					<i class='material-icons endpoint-details__icon'>clear</i>
+					<span>Failed</span>
+				</span>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div class='mist-page-content'>
+		<table class='mdl-data-table mdl-js-data-table jobs-table'>
+			<tbody>
+				<tr class='jobs-table__tr'
+					*ngFor='let job of jobs | jobStatusFilter:statusFilter'>
+					<td class='jobs-table__td jobs-table__td--icon'>
+						<i class='material-icons jobs-table__status-icon'
+							[ngClass]="{'jobs-table__status-icon--failed': job.isFailed(),
+							'jobs-table__status-icon--success': job.isFinished(),
+							'jobs-table__status-icon--primary': job.isRunning()}">
+						</i>
+					</td>
+					<td class='jobs-table__td jobs-table__td--job-id'
+						[ngClass]="{'font-color--failed': job.isFailed()}">
+						{{ job.jobId }}
+					</td>
+					<td class='jobs-table__td jobs-table__td--version'>
+						<span class='mist-label'>Version</span>
+						1.2.4
+					</td>
+					<td class='jobs-table__td jobs-table__td--namespace'>
+						<div class='namespace'>
+							<span class='namespace__label'>namespace</span>
+							<span class='namespace__value'>{{ namespace }}</span>
+						</div>
+					</td>
+					<td class='jobs-table__td jobs-table__td--status'>
+						<div>
+							<span class='mist-label'>Status</span>
+							<span class='jobs-table__status'
+								[ngClass]="{'font-color--success': job.isFinished(),
+								'font-color--primary': job.isRunning(),
+								'font-color--failed': job.isFailed()}">
+								{{ job.status }}
+							</span>
+						</div>
+						<div>
+							<span class='mist-label'>
+								{{ job.isRunning() ? 'Started' : 'Finished' }}
+							</span>
+							<span>
+								{{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}
+							</span>
+						</div>
+					</td>
+					<td class='jobs-table__td jobs-table__td--actions'>
+						<a href='#' class='mist-link' (click)="killJob($event, job)"
+							*ngIf="job.isRunning()">
+							<i class='material-icons'>delete_forever</i>
+								KILL
+						</a>
+					</td>
+					<td class='jobs-table__td jobs-table__td--details'>
+						<a class='mist-link'
+						[routerLink]="['jobs', job.jobId]">DETAILS...</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
