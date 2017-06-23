@@ -37,8 +37,8 @@ export class JobDataService {
     this.http.get(apiUrl)
              .map((res: Response) => { return this.extractJob(res) })
              .catch(this.handleError)
-             .subscribe((data) => {
-               this.dataStore.jobs.push(data);
+             .subscribe((job) => {
+               this.updateItem(job);
                this.updateStore();
              })
   }
@@ -70,6 +70,15 @@ export class JobDataService {
 
   private updateStore() {
     this._jobs.next(Object.assign({}, this.dataStore).jobs);
+  }
+
+  private updateItem(job: Job) {
+    const idx = this.dataStore.jobs.findIndex((item) => item.jobId === job.jobId);
+    if (idx === -1) {
+      this.dataStore.jobs.push(job);
+    } else {
+      this.dataStore.jobs[idx] = job;
+    }
   }
 
   private extractJobs(res: Response) {
