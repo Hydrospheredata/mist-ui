@@ -24,7 +24,9 @@
     <div class='job-form__main'>
       <div class='mist-label'>Input Parameters</div>
       <div class='job-form__input job-form__input--json'>
-        <codemirror [ngModel]="executeParams" [config]="codeMirrorOptions"></codemirror>
+        <codemirror [(ngModel)]="executeParams"
+                    [config]="codeMirrorOptions">
+        </codemirror>
       </div>
     </div>
   </div>
