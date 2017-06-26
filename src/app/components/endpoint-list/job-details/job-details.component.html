@@ -1,0 +1,57 @@
+<div class='mist-page-container' *ngIf="job">
+	<div class='mist-page-header'>
+		<div class='mist-page-header__row'>
+			<a class='mist-link mist-link--big'
+				[routerLink]="['../../']">
+				<i class='material-icons'>keyboard_backspace</i>
+				Back to Jobs
+			</a>
+		</div>
+		<div class='mist-page-header__row'>
+			<i class='material-icons job-status-icon'
+				[ngClass]="{'job-status-icon--failed': job.isFailed(),
+				'job-status-icon--success': job.isFinished(),
+				'job-status-icon--primary': job.isRunning()}">
+			</i>
+			<span class='job-id'
+				[ngClass]="{'font-color--failed': job.isFailed()}">
+				{{ job.jobId }}
+			</span>
+			<button md-button
+				class='clone-job-button mat-button--primary'>Clone Job</button>
+		</div>
+		<div class='mist-page-header__row'>
+			<div class='job-version'>
+				<span class='mist-label'>Version</span>
+				<span>1.2.4</span>
+    		</div>
+    		<div class='namespace'>
+				<span class='namespace__label'>namespace</span>
+				<span class='namespace__value'>Namespace1</span>
+			</div>
+			<div class='job-status'>
+				<span class='mist-label'>Status</span>
+				<span [ngClass]="{'font-color--success': job.isFinished(),
+					'font-color--primary': job.isRunning(),
+					'font-color--failed': job.isFailed()}">
+					{{ job.status }}
+				</span>
+				<span class='mist-label'>
+					{{ job.isRunning() ? 'Started' : 'Finished' }}
+				</span>
+				<span>
+					{{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}
+				</span>
+			</div>
+			<a class='mist-link spark-ui'>
+				<i class='material-icons'>link</i>
+				<span>SPARK UI</span>
+			</a>
+		</div>
+	</div>
+	<hr />
+	<div class='mist-page-content'>
+		{{ endpoint | json }}
+		{{ job | json }}
+	</div>
+</div>

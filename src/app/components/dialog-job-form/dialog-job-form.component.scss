@@ -1,15 +1,5 @@
 @import "variables.scss";
 
-.job-form__label {
-  font-size: 18px;
-  color: $label-color;
-  margin-bottom: 10px;
-}
-
-.job-form__label::after {
-  content: ':'
-}
-
 .job-form__select {
   width: 280px;
   display: inline-block;
@@ -33,4 +23,10 @@
 
 .job-form__header {
   margin-bottom: 40px;
+}
+
+.job-form {
+  .mist-label {
+    font-size: 18px;
+  }
 }

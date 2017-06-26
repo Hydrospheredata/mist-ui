@@ -18,6 +18,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { EndpointListComponent } from './components/endpoint-list/endpoint-list.component';
 import { EndpointDetailsComponent } from './components/endpoint-list/endpoint-details/endpoint-details.component';
 import { DialogJobFormComponent } from './components/dialog-job-form/dialog-job-form.component';
+import { JobDetailsComponent } from './components/endpoint-list/job-details/job-details.component';
 
 //services
 import { EndpointDataService } from './services/endpoint-data.service';
@@ -36,7 +37,8 @@ import { AgoDatePipe } from './pipes/ago-date.pipe';
     EndpointDetailsComponent,
     JobStatusFilterPipe,
     AgoDatePipe,
-    DialogJobFormComponent
+    DialogJobFormComponent,
+    JobDetailsComponent
   ],
   imports: [
     BrowserModule,
