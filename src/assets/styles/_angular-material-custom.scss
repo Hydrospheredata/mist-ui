@@ -92,6 +92,10 @@
   }
 }
 
+.mat-tab-group {
+  font-family: $main-font-family;
+}
+
 .mat-tab-list {
   margin: 0px 100px 0px 100px;
 }
@@ -100,7 +104,6 @@
   background: transparent;
   font-size: 14px;
   color: $label-color;
-  font-family: $main-font-family;
   opacity: 1 !important;
   padding: 0 25px !important;
   height: 32px !important;

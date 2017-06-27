@@ -77,3 +77,15 @@
   float: right;
   margin-right: 5%;
 }
+
+.git-clone-input {
+  text-align: center;
+  margin-top: 25px;
+  input {
+    font-size: 14px;
+    line-height: 28px;
+    max-width: 600px;
+    min-width: 400px;
+    padding: 0px 25px 0px 25px;
+  }
+}
