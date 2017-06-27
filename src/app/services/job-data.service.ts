@@ -105,8 +105,8 @@ export class JobDataService {
       startTime: data.startTime,
       endTime: data.endTime,
       endpoint: data.endpoint,
-      jobResult: JSON.stringify(data.jobResult),
-      params: JSON.stringify(data.params),
+      jobResult: JSON.stringify(data.jobResult, null, "\t"),
+      params: JSON.stringify(data.params, null, "\t"),
       source: data.source
     })
     return job

@@ -8,10 +8,10 @@
 			</a>
 		</div>
 		<div class='mist-page-header__row'>
-			<i class='material-icons job-status-icon'
-				[ngClass]="{'job-status-icon--failed': job.isFailed(),
-				'job-status-icon--success': job.isFinished(),
-				'job-status-icon--primary': job.isRunning()}">
+			<i class='material-icons status-icon'
+				[ngClass]="{'status-icon--failed': job.isFailed(),
+				'status-icon--success': job.isFinished(),
+				'status-icon--primary': job.isRunning()}">
 			</i>
 			<span class='job-id'
 				[ngClass]="{'font-color--failed': job.isFailed()}">
@@ -51,7 +51,28 @@
 	</div>
 	<hr />
 	<div class='mist-page-content'>
-		{{ endpoint | json }}
-		{{ job | json }}
+		<div class='job-details'>
+			<div class='mist-label'>
+				Parameters
+			</div>
+			<div class='job-details__container'>
+				<codemirror [ngModel]="job.params"
+							[config]="codeMirrorOptions">
+				</codemirror>
+			</div>
+		</div>
+		<div class='icon-separator'>
+			<i class='material-icons'>forward</i>
+		</div>
+		<div class='job-details job-details--results'>
+			<div class='mist-label'>
+				Results
+			</div>
+			<div class='job-details__container'>
+				<codemirror [ngModel]="job.jobResult"
+							[config]="codeMirrorOptions">
+				</codemirror>
+			</div>
+		</div>
 	</div>
 </div>

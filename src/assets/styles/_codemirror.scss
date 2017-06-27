@@ -4,3 +4,9 @@
   font-family: $main-font-family;
   color: $main-color;
 }
+
+.job-details--results {
+	.CodeMirror {
+		background: #f1f3f7;
+	}
+}

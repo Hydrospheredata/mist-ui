@@ -194,28 +194,28 @@ md-dialog-container.mat-dialog-container {
   margin: 0px 5px;
 }
 
-.job-status-icon {
+.status-icon {
   border-radius: 50%;
   color: #fff;
   padding: 5px;
   vertical-align: middle;
 }
 
-.job-status-icon--success {
+.status-icon--success {
   background-color: $color--success;
   &::before {
     content: 'done'
   }
 }
 
-.job-status-icon--failed {
+.status-icon--failed {
   color: $color--failed;
   &::before {
     content: 'clear'
   }
 }
 
-.job-status-icon--primary {
+.status-icon--primary {
   color: $color--primary;
   &::before {
     content: 'rotate_left'

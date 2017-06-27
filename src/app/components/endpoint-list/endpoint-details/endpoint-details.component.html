@@ -57,10 +57,10 @@
 				<tr class='jobs-table__tr'
 					*ngFor='let job of jobs | jobStatusFilter:statusFilter'>
 					<td class='jobs-table__td jobs-table__td--icon'>
-						<i class='material-icons job-status-icon'
-							[ngClass]="{'job-status-icon--failed': job.isFailed(),
-							'job-status-icon--success': job.isFinished(),
-							'job-status-icon--primary': job.isRunning()}">
+						<i class='material-icons status-icon'
+							[ngClass]="{'status-icon--failed': job.isFailed(),
+							'status-icon--success': job.isFinished(),
+							'status-icon--primary': job.isRunning()}">
 						</i>
 					</td>
 					<td class='jobs-table__td jobs-table__td--job-id'

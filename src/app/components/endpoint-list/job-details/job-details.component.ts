@@ -5,15 +5,21 @@ import { JobDataService } from '../../../services/job-data.service';
 import { Job } from '../../../models/job';
 import { Endpoint } from '../../../models/endpoint';
 
+import '../../../../../node_modules/codemirror/mode/javascript/javascript.js';
+import '../../../../../node_modules/codemirror/addon/edit/matchbrackets';
+import '../../../../../node_modules/codemirror/addon/edit/closebrackets';
+import '../../../../../node_modules/codemirror/addon/display/placeholder';
+
 
 @Component({
-  selector: 'app-job-details',
+  selector: 'job-details',
   templateUrl: './job-details.component.html',
   styleUrls: ['./job-details.component.scss']
 })
 export class JobDetailsComponent implements OnInit {
   endpoint: Endpoint;
   job: Job;
+  codeMirrorOptions: {};
 
   private sub: any;
 
@@ -28,6 +34,14 @@ export class JobDetailsComponent implements OnInit {
       .subscribe((params) => { 
       	this.loadInitialData(params['endpointId'], params['jobId'])
       });
+
+    this.codeMirrorOptions = {
+      matchBrackets: true,
+      autoCloseBrackets: true,
+      mode: { name: 'javascript', json: true },
+      lineWrapping: true,
+      readOnly: true
+    }
   }
 
   ngOnDestroy() {
