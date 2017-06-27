@@ -51,32 +51,40 @@
 	</div>
 	<hr />
 	<div class='mist-page-content'>
-		<div class='job-details'>
-			<div class='mist-label'>
-				Parameters
+		<div class='job-container'>
+			<div class='job-details'>
+				<div class='mist-label'>
+					Parameters
+				</div>
+				<div class='job-details__container'>
+					<codemirror [ngModel]="job.params"
+								[config]="codeMirrorOptions">
+					</codemirror>
+					<span class='material-icons job-details__full-screen-icon'
+						(click)="openFullScreenJson(job.params)">crop_free</span>
+				</div>
 			</div>
-			<div class='job-details__container'>
-				<codemirror [ngModel]="job.params"
-							[config]="codeMirrorOptions">
-				</codemirror>
-				<span class='material-icons job-details__full-screen-icon'
-					(click)="openFullScreenJson(job.params)">crop_free</span>
+			<div class='icon-separator'>
+				<i class='material-icons'>forward</i>
+			</div>
+			<div class='job-details job-details--results'>
+				<div class='mist-label'>
+					Results
+				</div>
+				<div class='job-details__container'>
+					<codemirror [ngModel]="job.jobResult"
+								[config]="codeMirrorOptions">
+					</codemirror>
+					<span class='material-icons job-details__full-screen-icon'
+						(click)="openFullScreenJson(job.jobResult)">crop_free</span>
+				</div>
 			</div>
 		</div>
-		<div class='icon-separator'>
-			<i class='material-icons'>forward</i>
-		</div>
-		<div class='job-details job-details--results'>
-			<div class='mist-label'>
-				Results
-			</div>
-			<div class='job-details__container'>
-				<codemirror [ngModel]="job.jobResult"
-							[config]="codeMirrorOptions">
-				</codemirror>
-				<span class='material-icons job-details__full-screen-icon'
-					(click)="openFullScreenJson(job.jobResult)">crop_free</span>
-			</div>
-		</div>
+		<md-tab-group>
+			<md-tab label="Clone with HTTPS">Clone with HTTPS</md-tab>
+			<md-tab label="Java code snippet">Java code snippet</md-tab>
+			<md-tab label="Python code snippet">Python code snippet</md-tab>
+			<md-tab label="Ruby code snippet">Ruby code snippet</md-tab>
+		</md-tab-group>
 	</div>
 </div>

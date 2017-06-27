@@ -91,3 +91,32 @@
     background: none;
   }
 }
+
+.mat-tab-list {
+  margin: 0px 100px 0px 100px;
+}
+
+.mat-tab-label {
+  background: transparent;
+  font-size: 14px;
+  color: $label-color;
+  font-family: $main-font-family;
+  opacity: 1 !important;
+  padding: 0 25px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  width: 100%;
+  &.mat-tab-label-active {
+    opacity: 1;
+    color: $main-color;
+  }
+  &:focus {
+    background: transparent;
+    color: $main-color;
+    opacity: 1;
+  }
+}
+
+.mat-ink-bar {
+  background-color: $main-color;
+}
