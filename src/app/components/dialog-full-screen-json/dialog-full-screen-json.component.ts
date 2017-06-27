@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MD_DIALOG_DATA } from '@angular/material';
 
-import '../../../../node_modules/codemirror/mode/javascript/javascript.js';
-import '../../../../node_modules/codemirror/addon/edit/matchbrackets';
-import '../../../../node_modules/codemirror/addon/edit/closebrackets';
-import '../../../../node_modules/codemirror/addon/display/placeholder';
+import '@node_modules/codemirror/mode/javascript/javascript.js';
+import '@node_modules/codemirror/addon/edit/matchbrackets';
+import '@node_modules/codemirror/addon/edit/closebrackets';
+import '@node_modules/codemirror/addon/display/placeholder';
 
 
 @Component({

@@ -7,10 +7,10 @@ import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-js
 import { Job } from '@models/job';
 import { Endpoint } from '@models/endpoint';
 
-import '../../../../../node_modules/codemirror/mode/javascript/javascript.js';
-import '../../../../../node_modules/codemirror/addon/edit/matchbrackets';
-import '../../../../../node_modules/codemirror/addon/edit/closebrackets';
-import '../../../../../node_modules/codemirror/addon/display/placeholder';
+import '@node_modules/codemirror/mode/javascript/javascript.js';
+import '@node_modules/codemirror/addon/edit/matchbrackets';
+import '@node_modules/codemirror/addon/edit/closebrackets';
+import '@node_modules/codemirror/addon/display/placeholder';
 
 
 @Component({
