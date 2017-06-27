@@ -19,6 +19,7 @@ import { EndpointListComponent } from '@components/endpoint-list/endpoint-list.c
 import { EndpointDetailsComponent } from '@components/endpoint-list/endpoint-details/endpoint-details.component';
 import { DialogJobFormComponent } from '@components/dialog-job-form/dialog-job-form.component';
 import { JobDetailsComponent } from '@components/endpoint-list/job-details/job-details.component';
+import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-json/dialog-full-screen-json.component';
 
 //services
 import { EndpointDataService } from '@services/endpoint-data.service';
@@ -38,7 +39,8 @@ import { AgoDatePipe } from '@pipes/ago-date.pipe';
     JobStatusFilterPipe,
     AgoDatePipe,
     DialogJobFormComponent,
-    JobDetailsComponent
+    JobDetailsComponent,
+    DialogFullScreenJsonComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,7 @@ import { AgoDatePipe } from '@pipes/ago-date.pipe';
     //codemirror
     CodemirrorModule
   ],
-  entryComponents: [DialogJobFormComponent],
+  entryComponents: [DialogJobFormComponent, DialogFullScreenJsonComponent],
   providers: [EndpointDataService, JobDataService],
   bootstrap: [AppComponent]
 })

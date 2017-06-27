@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EndpointDataService } from '@services/endpoint-data.service';
 import { JobDataService } from '@services/job-data.service';
+import { MdDialog, MdDialogConfig } from '@angular/material';
+import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-json/dialog-full-screen-json.component';
 import { Job } from '@models/job';
 import { Endpoint } from '@models/endpoint';
 
@@ -24,6 +26,7 @@ export class JobDetailsComponent implements OnInit {
   private sub: any;
 
   constructor(
+    private dialog: MdDialog,
     private activatedRoute: ActivatedRoute,
     private endpointDataService: EndpointDataService,
     private jobDataService: JobDataService
@@ -60,5 +63,15 @@ export class JobDetailsComponent implements OnInit {
       this.job = job;
     });
   } 
+
+  openFullScreenJson(jsonString: string) {
+    this.dialog.open(DialogFullScreenJsonComponent, {
+      width: '80%',
+      height: '80%',
+      data: {
+        jsonString: jsonString
+      }
+    });
+  }
 
 }

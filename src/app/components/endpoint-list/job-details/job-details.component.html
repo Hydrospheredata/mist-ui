@@ -59,6 +59,8 @@
 				<codemirror [ngModel]="job.params"
 							[config]="codeMirrorOptions">
 				</codemirror>
+				<span class='material-icons job-details__full-screen-icon'
+					(click)="openFullScreenJson(job.params)">crop_free</span>
 			</div>
 		</div>
 		<div class='icon-separator'>
@@ -72,6 +74,8 @@
 				<codemirror [ngModel]="job.jobResult"
 							[config]="codeMirrorOptions">
 				</codemirror>
+				<span class='material-icons job-details__full-screen-icon'
+					(click)="openFullScreenJson(job.jobResult)">crop_free</span>
 			</div>
 		</div>
 	</div>

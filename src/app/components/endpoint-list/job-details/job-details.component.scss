@@ -1,69 +1,75 @@
 @import "variables.scss";
 
 .job-id {
-	font-size: 24px;
-	vertical-align: middle;
+  font-size: 24px;
+  vertical-align: middle;
 }
 
 .mat-button.clone-job-button {
-	font-size: 16px;
-	float: right;
-	padding: 0px 75px;
+  font-size: 16px;
+  float: right;
+  padding: 0px 75px;
 }
 
 .job-details {
-	display: inline-block;
-	width: 44%;
-	.mist-label {
-		font-size: 18px;
-	}
+  display: inline-block;
+  width: 44%;
+  .mist-label {
+    font-size: 18px;
+  }
 
-	.job-details__container {
-		border: 2px solid $border-color;
-		padding: 10px;
-		overflow-x: auto;
-		overflow-y: auto;
-		height: 300px;
-	}
+  .job-details__container {
+    border: 2px solid $border-color;
+    padding: 10px;
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 300px;
+  }
 
-	&.job-details--results {
-		.job-details__container {
-			background-color: #f1f3f7;
-		}
-		.mist-label {
-			font-size: 18px;
-			color: $main-color;
-		}
-	}
+  .job-details__full-screen-icon {
+    color: $label-color;
+    float: right;
+    cursor: pointer;
+  }
+
+  &.job-details--results {
+    .job-details__container {
+      background-color: #f1f3f7;
+    }
+    .mist-label {
+      font-size: 18px;
+      color: $main-color;
+    }
+  }
 }
 
 .job-version {
-	display: inline-block;
-	font-size: 14px;
-	margin-right: 40px;
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 40px;
 }
 
 .job-status {
-	display: inline-block;
+  display: inline-block;
 }
 
 .icon-separator {
-	display: inline-block;
-	color: #f1f3f7;
-	margin-top: 170px;
-	vertical-align: top;
-	i {
-		font-size: 60px;
-	}
+  display: inline-block;
+  color: #f1f3f7;
+  margin-top: 170px;
+  vertical-align: top;
+  i {
+    font-size: 60px;
+  }
 }
 
 .mist-page-header {
-	.mist-label {
-		margin-left: 40px;
-	}
+  .mist-label {
+    margin-left: 40px;
+  }
 }
 
 .spark-ui {
-	float: right;
-	margin-right: 5%;
+  float: right;
+  margin-right: 5%;
 }
