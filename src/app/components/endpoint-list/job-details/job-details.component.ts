@@ -43,7 +43,8 @@ export class JobDetailsComponent implements OnInit {
       autoCloseBrackets: true,
       mode: { name: 'javascript', json: true },
       lineWrapping: true,
-      readOnly: true
+      readOnly: true,
+      scrollbarStyle: 'null'
     }
   }
 
@@ -67,7 +68,6 @@ export class JobDetailsComponent implements OnInit {
   openFullScreenJson(jsonString: string) {
     this.dialog.open(DialogFullScreenJsonComponent, {
       width: '80%',
-      height: '80%',
       data: {
         jsonString: jsonString
       }

@@ -27,7 +27,8 @@ export class DialogFullScreenJsonComponent implements OnInit {
       autoCloseBrackets: true,
       mode: { name: 'javascript', json: true },
       lineWrapping: true,
-      readOnly: true
+      readOnly: true,
+      scrollbarStyle: 'null'
     }
 
   }
