@@ -27,16 +27,17 @@
         </a>
         <span class='mdl-badge endpoint-list__badge' data-badge='25'></span>
       </li>
-      <li class='mdl-list__item mdl-list__item--two-line endpoint-list__item'
-          routerLinkActive='endpoint-list__item--active'
-          *ngFor='let endpoint of endpoints'>
+      <ng-template ngFor let-endpoint [ngForOf]="endpoints">
+        <li class='mdl-list__item mdl-list__item--two-line endpoint-list__item'
+          routerLinkActive='endpoint-list__item--active'>
           <a class='mdl-list__item-primary-content endpoint-list__item-content'
              [routerLink]="[endpoint.name]">
             <span>{{ endpoint.name }}</span>
             <span class='mdl-list__item-sub-title'>v. 1.2.4 / status: status</span>
           </a>
           <span class='mdl-badge endpoint-list__badge' data-badge='5'></span>
-      </li>
+        </li>
+      </ng-template>
     </ul>
   </div>
   </aside>

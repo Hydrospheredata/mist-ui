@@ -54,60 +54,61 @@
 	<div class='mist-page-content'>
 		<table class='mdl-data-table mdl-js-data-table jobs-table'>
 			<tbody>
-				<tr class='jobs-table__tr'
-					*ngFor='let job of jobs | jobStatusFilter:statusFilter'>
-					<td class='jobs-table__td jobs-table__td--icon'>
-						<i class='material-icons status-icon'
-							[ngClass]="{'status-icon--failed': job.isFailed(),
-							'status-icon--success': job.isFinished(),
-							'status-icon--primary': job.isRunning()}">
-						</i>
-					</td>
-					<td class='jobs-table__td jobs-table__td--job-id'
-						[ngClass]="{'font-color--failed': job.isFailed()}">
-						{{ job.jobId }}
-					</td>
-					<td class='jobs-table__td jobs-table__td--version'>
-						<span class='mist-label'>Version</span>
-						1.2.4
-					</td>
-					<td class='jobs-table__td jobs-table__td--namespace'>
-						<div class='namespace'>
-							<span class='namespace__label'>namespace</span>
-							<span class='namespace__value'>{{ namespace }}</span>
-						</div>
-					</td>
-					<td class='jobs-table__td jobs-table__td--status'>
-						<div>
-							<span class='mist-label'>Status</span>
-							<span class='job-status'
-								[ngClass]="{'font-color--success': job.isFinished(),
-								'font-color--primary': job.isRunning(),
-								'font-color--failed': job.isFailed()}">
-								{{ job.status }}
-							</span>
-						</div>
-						<div>
-							<span class='mist-label'>
-								{{ job.isRunning() ? 'Started' : 'Finished' }}
-							</span>
-							<span>
-								{{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}
-							</span>
-						</div>
-					</td>
-					<td class='jobs-table__td jobs-table__td--actions'>
-						<a href='#' class='mist-link' (click)="killJob($event, job)"
-							*ngIf="job.isRunning()">
-							<i class='material-icons'>delete_forever</i>
-							<span>KILL</span>
-						</a>
-					</td>
-					<td class='jobs-table__td jobs-table__td--details'>
-						<a class='mist-link'
-						[routerLink]="['jobs', job.jobId]">DETAILS...</a>
-					</td>
-				</tr>
+				<ng-template ngFor let-job [ngForOf]="jobs | jobStatusFilter:statusFilter">
+					<tr class='jobs-table__tr'>
+						<td class='jobs-table__td jobs-table__td--icon'>
+							<i class='material-icons status-icon'
+								[ngClass]="{'status-icon--failed': job.isFailed(),
+								'status-icon--success': job.isFinished(),
+								'status-icon--primary': job.isRunning()}">
+							</i>
+						</td>
+						<td class='jobs-table__td jobs-table__td--job-id'
+							[ngClass]="{'font-color--failed': job.isFailed()}">
+							{{ job.jobId }}
+						</td>
+						<td class='jobs-table__td jobs-table__td--version'>
+							<span class='mist-label'>Version</span>
+							1.2.4
+						</td>
+						<td class='jobs-table__td jobs-table__td--namespace'>
+							<div class='namespace'>
+								<span class='namespace__label'>namespace</span>
+								<span class='namespace__value'>{{ namespace }}</span>
+							</div>
+						</td>
+						<td class='jobs-table__td jobs-table__td--status'>
+							<div>
+								<span class='mist-label'>Status</span>
+								<span class='job-status'
+									[ngClass]="{'font-color--success': job.isFinished(),
+									'font-color--primary': job.isRunning(),
+									'font-color--failed': job.isFailed()}">
+									{{ job.status }}
+								</span>
+							</div>
+							<div>
+								<span class='mist-label'>
+									{{ job.isRunning() ? 'Started' : 'Finished' }}
+								</span>
+								<span>
+									{{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}
+								</span>
+							</div>
+						</td>
+						<td class='jobs-table__td jobs-table__td--actions'>
+							<a href='#' class='mist-link' (click)="killJob($event, job)"
+								*ngIf="job.isRunning()">
+								<i class='material-icons'>delete_forever</i>
+								<span>KILL</span>
+							</a>
+						</td>
+						<td class='jobs-table__td jobs-table__td--details'>
+							<a class='mist-link'
+							[routerLink]="['jobs', job.jobId]">DETAILS...</a>
+						</td>
+					</tr>
+				</ng-template>
 			</tbody>
 		</table>
 	</div>
