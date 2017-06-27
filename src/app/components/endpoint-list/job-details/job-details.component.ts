@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EndpointDataService } from '../../../services/endpoint-data.service';
-import { JobDataService } from '../../../services/job-data.service';
-import { Job } from '../../../models/job';
-import { Endpoint } from '../../../models/endpoint';
+import { EndpointDataService } from '@services/endpoint-data.service';
+import { JobDataService } from '@services/job-data.service';
+import { Job } from '@models/job';
+import { Endpoint } from '@models/endpoint';
 
 import '../../../../../node_modules/codemirror/mode/javascript/javascript.js';
 import '../../../../../node_modules/codemirror/addon/edit/matchbrackets';

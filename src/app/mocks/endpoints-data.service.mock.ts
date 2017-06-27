@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { Endpoint } from '../models/endpoint';
+import { Endpoint } from '@models/endpoint';
 import { mockEndpointsList, mockEndpoint } from './endpoint.mock'
 
 export class MockEndpointsDataService {

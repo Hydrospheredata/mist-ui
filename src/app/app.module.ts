@@ -13,20 +13,20 @@ import { CodemirrorModule } from 'ng2-codemirror';
 
 //components
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { EndpointListComponent } from './components/endpoint-list/endpoint-list.component';
-import { EndpointDetailsComponent } from './components/endpoint-list/endpoint-details/endpoint-details.component';
-import { DialogJobFormComponent } from './components/dialog-job-form/dialog-job-form.component';
-import { JobDetailsComponent } from './components/endpoint-list/job-details/job-details.component';
+import { HomeComponent } from '@components/home/home.component';
+import { NavbarComponent } from '@components/navbar/navbar.component';
+import { EndpointListComponent } from '@components/endpoint-list/endpoint-list.component';
+import { EndpointDetailsComponent } from '@components/endpoint-list/endpoint-details/endpoint-details.component';
+import { DialogJobFormComponent } from '@components/dialog-job-form/dialog-job-form.component';
+import { JobDetailsComponent } from '@components/endpoint-list/job-details/job-details.component';
 
 //services
-import { EndpointDataService } from './services/endpoint-data.service';
-import { JobDataService } from './services/job-data.service';
+import { EndpointDataService } from '@services/endpoint-data.service';
+import { JobDataService } from '@services/job-data.service';
 
 //pipes
-import { JobStatusFilterPipe } from './pipes/job-status-filter.pipe';
-import { AgoDatePipe } from './pipes/ago-date.pipe';
+import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
+import { AgoDatePipe } from '@pipes/ago-date.pipe';
 
 @NgModule({
   declarations: [

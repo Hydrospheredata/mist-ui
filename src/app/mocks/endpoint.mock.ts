@@ -1,4 +1,4 @@
-import { Endpoint } from '../models/endpoint';
+import { Endpoint } from '@models/endpoint';
 
 export const mockEndpoint: Endpoint = {
   name: 'simple-context',
