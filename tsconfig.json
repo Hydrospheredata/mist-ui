@@ -15,6 +15,7 @@
       "@services/*": ["app/services/*"],
       "@pipes/*": ["app/pipes/*"],
       "@models/*": ["app/models/*"],
+      "@mocks/*": ["app/mocks/*"],
       "@node_modules/*": ["../node_modules/*"]
     },
     "typeRoots": [
