@@ -33,6 +33,7 @@ import { JobDataService } from '@services/job-data.service';
 //pipes
 import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
 import { AgoDatePipe } from '@pipes/ago-date.pipe';
+import { SearchPipe } from '@pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -41,11 +42,13 @@ import { AgoDatePipe } from '@pipes/ago-date.pipe';
     NavbarComponent,
     EndpointListComponent,
     EndpointDetailsComponent,
-    JobStatusFilterPipe,
-    AgoDatePipe,
     DialogJobFormComponent,
     JobDetailsComponent,
-    DialogFullScreenJsonComponent
+    DialogFullScreenJsonComponent,
+    //pipes
+    SearchPipe,
+    AgoDatePipe,
+    JobStatusFilterPipe
   ],
   imports: [
     BrowserModule,
