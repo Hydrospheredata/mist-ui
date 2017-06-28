@@ -16,8 +16,8 @@ export class Job {
     this.createTime = jobInfo['createTime'];
     this.endTime = jobInfo['endTime'];
     this.startTime = jobInfo['startTime'];
-    this.jobResult = jobInfo['jobResult']
-    this.params = jobInfo['params']
+    this.jobResult = jobInfo['jobResult'];
+    this.params = jobInfo['params'];
   }
 
   isFinished() {
@@ -30,9 +30,5 @@ export class Job {
 
   isRunning() {
     return ['Queued', 'Initialized','Running'].includes(this.status)
-  }
-
-  isFinishedDayAgo() {
-
   }
 }

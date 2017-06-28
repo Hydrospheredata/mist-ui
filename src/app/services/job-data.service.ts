@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Job } from '../models/job';
+import { Job } from '@models/job';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { environment } from '../../environments/environment';
@@ -37,8 +37,8 @@ export class JobDataService {
     this.http.get(apiUrl)
              .map((res: Response) => { return this.extractJob(res) })
              .catch(this.handleError)
-             .subscribe((data) => {
-               this.dataStore.jobs.push(data);
+             .subscribe((job) => {
+               this.updateItem(job);
                this.updateStore();
              })
   }
@@ -72,6 +72,15 @@ export class JobDataService {
     this._jobs.next(Object.assign({}, this.dataStore).jobs);
   }
 
+  private updateItem(job: Job) {
+    const idx = this.dataStore.jobs.findIndex((item) => item.jobId === job.jobId);
+    if (idx === -1) {
+      this.dataStore.jobs.push(job);
+    } else {
+      this.dataStore.jobs[idx] = job;
+    }
+  }
+
   private extractJobs(res: Response) {
     let data = res.json();
     let jobs :Job[] = [];
@@ -96,8 +105,8 @@ export class JobDataService {
       startTime: data.startTime,
       endTime: data.endTime,
       endpoint: data.endpoint,
-      jobResult: JSON.stringify(data.jobResult),
-      params: JSON.stringify(data.params),
+      jobResult: JSON.stringify(data.jobResult, null, "\t"),
+      params: JSON.stringify(data.params, null, "\t"),
       source: data.source
     })
     return job

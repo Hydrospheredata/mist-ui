@@ -1,13 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import { MdDialog, MdDialogConfig } from '@angular/material';
-import { DialogJobFormComponent } from '../../dialog-job-form/dialog-job-form.component';
-import { EndpointDataService } from '../../../services/endpoint-data.service';
-import { JobDataService } from '../../../services/job-data.service';
-import { Job } from '../../../models/job';
-import { Endpoint } from '../../../models/endpoint';
+import { DialogJobFormComponent } from '@components/dialog-job-form/dialog-job-form.component';
+import { EndpointDataService } from '@services/endpoint-data.service';
+import { JobDataService } from '@services/job-data.service';
+import { Job } from '@models/job';
+import { Endpoint } from '@models/endpoint';
 
 @Component({
   selector: 'endpoint-details',

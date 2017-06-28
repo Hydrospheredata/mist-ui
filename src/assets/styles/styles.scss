@@ -3,6 +3,7 @@
 @import "../../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../../../node_modules/codemirror/lib/codemirror.css";
 @import "angular-material-custom.scss";
+@import "inputs.scss";
 @import "variables.scss";
 @import "codemirror.scss";
 
@@ -42,7 +43,7 @@ li a {
 }
 
 hr {
-  margin: 1em 24px;
+   margin: 1em 24px;
 }
 
 a.mist-link {
@@ -50,11 +51,21 @@ a.mist-link {
   text-decoration: none;
   color: $label-color;
   &:hover {
+    cursor: pointer;
     color: $color--light-blue;
   }
+
+  &.mist-link--big {
+    font-size: 18px;
+  }
+
   i {
-    position: relative;
-    vertical-align: bottom;
+    vertical-align: middle;
+    font-size: 24px;
+  }
+
+  span {
+    vertical-align: middle;
   }
 }
 
@@ -70,6 +81,14 @@ md-dialog-container.mat-dialog-container {
   max-width: 80vw;
   width: 100%;
   height: 100%;
+}
+
+.mist-page-container {
+  margin: 24px;
+  background-color: #fff;
+  &.mist-page-container--transparent {
+    background: transparent;
+  }
 }
 
 .mat-dialog-container--big {
@@ -93,15 +112,16 @@ md-dialog-container.mat-dialog-container {
 
 .mist-page-content {
   height: 100%;
-  margin: 24px;
   overflow-x: auto;
+  margin: 0px 24px 0 24px;
+  padding-bottom: 24px;
 }
 
 .mist-page-header {
-  margin: auto 24px;
-  padding-top: 17px;
   min-height: 62px;
   line-height: 62px;
+  margin: 0px 24px 0 24px;
+  padding-top: 24px;
 }
 
 .mist-label {
@@ -174,3 +194,41 @@ md-dialog-container.mat-dialog-container {
   content: '=';
   margin: 0px 5px;
 }
+
+.status-icon {
+  border-radius: 50%;
+  color: #fff;
+  padding: 5px;
+  vertical-align: middle;
+}
+
+.status-icon--success {
+  background-color: $color--success;
+  &::before {
+    content: 'done'
+  }
+}
+
+.status-icon--failed {
+  color: $color--failed;
+  &::before {
+    content: 'clear'
+  }
+}
+
+.status-icon--primary {
+  color: $color--primary;
+  &::before {
+    content: 'rotate_left'
+  }
+}
+
+.mist-label {
+  color: $label-color;
+  margin-bottom: 10px;
+}
+
+.mist-label::after {
+  content: ':'
+}
+

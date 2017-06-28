@@ -22,17 +22,10 @@
 }
 
 input.endpoint-list__search-input {
-  border: 2px solid;
-  border-color: #d4d7d9;
   font-size: 16px;
-  background-color: #f2f4f7;
   width: 84%;
   height: 95%;
   padding-left: 46px;
-
-  &:focus {
-    border-color: #04143c;
-  }
 }
 
 .endpoint-list__search-icon {

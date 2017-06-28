@@ -1,0 +1,91 @@
+@import "variables.scss";
+
+.job-id {
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+.mat-button.clone-job-button {
+  font-size: 16px;
+  float: right;
+  padding: 0px 75px;
+}
+
+.job-details {
+  display: inline-block;
+  width: 44%;
+  text-align: left;
+  .mist-label {
+    font-size: 18px;
+  }
+
+  .job-details__container {
+    border: 2px solid $border-color;
+    padding: 10px;
+    height: 300px;
+  }
+
+  .job-details__full-screen-icon {
+    color: $label-color;
+    float: right;
+    cursor: pointer;
+  }
+
+  &.job-details--results {
+    .job-details__container {
+      background-color: #f1f3f7;
+    }
+    .mist-label {
+      font-size: 18px;
+      color: $main-color;
+    }
+  }
+}
+
+.job-version {
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 40px;
+}
+
+.job-status {
+  display: inline-block;
+}
+
+.job-container {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.icon-separator {
+  display: inline-block;
+  color: #f1f3f7;
+  margin-top: 170px;
+  vertical-align: top;
+  i {
+    font-size: 60px;
+  }
+}
+
+.mist-page-header {
+  .mist-label {
+    margin-left: 40px;
+  }
+}
+
+.spark-ui {
+  float: right;
+  margin-right: 5%;
+}
+
+.git-clone-input {
+  text-align: center;
+  margin-top: 25px;
+  input {
+    font-size: 14px;
+    line-height: 28px;
+    max-width: 600px;
+    min-width: 400px;
+    padding: 0px 25px 0px 25px;
+  }
+}

@@ -26,7 +26,6 @@
 .endpoint-details__status-filter {
   display: inline-block;
   float: right;
-  margin-right: 100px;
 }
 
 .endpoint-details__status-filter-option {
@@ -77,44 +76,21 @@
   border-bottom: none;
 }
 
-.jobs-table__status-icon {
-  border-radius: 50%;
-  color: #fff;
-  padding: 5px;
-}
-
-.jobs-table__status-icon--success {
-  background-color: $color--success;
-  &::before {
-    content: 'done'
+.jobs-table__td {
+  &.jobs-table__td--icon {
+    width: 6%;
   }
-}
-
-.jobs-table__status-icon--failed {
-  color: $color--failed;
-  &::before {
-    content: 'clear'
+  &.jobs-table__td--job-id {
+    width: 28%;
+    font-size: 18px;
+    text-align: right;
   }
-}
-
-.jobs-table__status-icon--primary {
-  color: $color--primary;
-  &::before {
-    content: 'rotate_left'
+  &.jobs-table__td--version {
+    width: 8%;
+    font-size: 14px;
   }
-}
 
-.jobs-table__td.jobs-table__td--icon {
-  width: 6%;
-}
-
-.jobs-table__td.jobs-table__td--job-id {
-  width: 28%;
-  font-size: 18px;
-  text-align: right;
-}
-
-.jobs-table__td.jobs-table__td--version {
-  width: 8%;
-  font-size: 14px;
+  i {
+    font-size: 20px;
+  }
 }

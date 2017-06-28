@@ -1,0 +1,95 @@
+<div class='mist-page-container' *ngIf="job">
+  <div class='mist-page-header'>
+    <div class='mist-page-header__row'>
+      <a class='mist-link mist-link--big'
+        [routerLink]="['../../']">
+        <i class='material-icons'>keyboard_backspace</i>
+        Back to Jobs
+      </a>
+    </div>
+    <div class='mist-page-header__row'>
+      <i class='material-icons status-icon'
+        [ngClass]="{'status-icon--failed': job.isFailed(),
+        'status-icon--success': job.isFinished(),
+        'status-icon--primary': job.isRunning()}">
+      </i>
+      <span class='job-id'
+        [ngClass]="{'font-color--failed': job.isFailed()}">
+        {{ job.jobId }}
+      </span>
+      <button md-button
+        class='clone-job-button mat-button--primary'>Clone Job</button>
+    </div>
+    <div class='mist-page-header__row'>
+      <div class='job-version'>
+        <span class='mist-label'>Version</span>
+        <span>1.2.4</span>
+        </div>
+        <div class='namespace'>
+        <span class='namespace__label'>namespace</span>
+        <span class='namespace__value'>Namespace1</span>
+      </div>
+      <div class='job-status'>
+        <span class='mist-label'>Status</span>
+        <span [ngClass]="{'font-color--success': job.isFinished(),
+          'font-color--primary': job.isRunning(),
+          'font-color--failed': job.isFailed()}">
+          {{ job.status }}
+        </span>
+        <span class='mist-label'>
+          {{ job.isRunning() ? 'Started' : 'Finished' }}
+        </span>
+        <span>
+          {{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}
+        </span>
+      </div>
+      <a class='mist-link spark-ui'>
+        <i class='material-icons'>link</i>
+        <span>SPARK UI</span>
+      </a>
+    </div>
+  </div>
+  <hr />
+  <div class='mist-page-content'>
+    <div class='job-container'>
+      <div class='job-details'>
+        <div class='mist-label'>
+          Parameters
+        </div>
+        <div class='job-details__container'>
+          <codemirror [ngModel]="job.params"
+                [config]="codeMirrorOptions">
+          </codemirror>
+          <span class='material-icons job-details__full-screen-icon'
+            (click)="openFullScreenJson(job.params)">crop_free</span>
+        </div>
+      </div>
+      <div class='icon-separator'>
+        <i class='material-icons'>forward</i>
+      </div>
+      <div class='job-details job-details--results'>
+        <div class='mist-label'>
+          Results
+        </div>
+        <div class='job-details__container'>
+          <codemirror [ngModel]="job.jobResult"
+                [config]="codeMirrorOptions">
+          </codemirror>
+          <span class='material-icons job-details__full-screen-icon'
+            (click)="openFullScreenJson(job.jobResult)">crop_free</span>
+        </div>
+      </div>
+    </div>
+    <md-tab-group>
+      <md-tab label='Clone with HTTPS'>
+        <div class='git-clone-input git-clone-input--icon'>
+          <input class='mist-input mist-input--text' 
+              type='text'>
+        </div>
+      </md-tab>
+      <md-tab label='Java code snippet'>Java code snippet</md-tab>
+      <md-tab label='Python code snippet'>Python code snippet</md-tab>
+      <md-tab label='Ruby code snippet'>Ruby code snippet</md-tab>
+    </md-tab-group>
+  </div>
+</div>

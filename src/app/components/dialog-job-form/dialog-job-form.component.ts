@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MD_DIALOG_DATA } from '@angular/material';
 
-import '../../../../node_modules/codemirror/mode/javascript/javascript.js';
-import '../../../../node_modules/codemirror/addon/edit/matchbrackets';
-import '../../../../node_modules/codemirror/addon/edit/closebrackets';
-import '../../../../node_modules/codemirror/addon/display/placeholder';
+import { Endpoint } from '@models/endpoint';
+import { EndpointDataService } from '@services/endpoint-data.service'
+import { JobDataService } from '@services/job-data.service'
 
-import { Endpoint } from '../../models/endpoint';
-import { EndpointDataService } from '../../services/endpoint-data.service'
-import { JobDataService } from '../../services/job-data.service'
+import '@node_modules/codemirror/mode/javascript/javascript.js';
+import '@node_modules/codemirror/addon/edit/matchbrackets';
+import '@node_modules/codemirror/addon/edit/closebrackets';
+import '@node_modules/codemirror/addon/display/placeholder';
 
 @Component({
   selector: 'dialog-job-form',

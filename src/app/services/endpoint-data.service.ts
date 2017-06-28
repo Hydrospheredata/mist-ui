@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Endpoint } from '../models/endpoint';
+import { Endpoint } from '@models/endpoint';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { environment } from '../../environments/environment';
@@ -37,19 +37,23 @@ export class EndpointDataService {
     this.http.get(apiUrl)
              .map((res: Response) => this.extractEndpoint(res))
              .catch(this.handleError)
-             .subscribe(data => {
-               const idx = this.dataStore.endpoints.findIndex((endpoint) => endpoint.name === data.name);
-               if (idx === -1) {
-                 this.dataStore.endpoints.push(data);
-               } else {
-                 this.dataStore.endpoints[idx] = data;
-               }
+             .subscribe(endpoint => {
+               this.updateItem(endpoint)
                this.updateStore();
              })
   }
 
   private updateStore() {
     this._endpoints.next(Object.assign({}, this.dataStore).endpoints);
+  }
+
+  private updateItem(endpoint: Endpoint) {
+    const idx = this.dataStore.endpoints.findIndex((item) => item.name === endpoint.name);
+    if (idx === -1) {
+      this.dataStore.endpoints.push(endpoint);
+    } else {
+      this.dataStore.endpoints[idx] = endpoint;
+    }
   }
 
   private extractEndpoints(res: Response) {
