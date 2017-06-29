@@ -46,7 +46,7 @@ export class JobDataService {
   public create(endpointId: string, args: string) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let apiUrl = this.baseUrl + `/endpoints/${endpointId}`
+    let apiUrl = this.baseUrl + `/endpoints/${endpointId}/jobs`
     this.http.post(apiUrl, JSON.stringify(JSON.parse(args)), options)
              .map(this.extractData)
              .catch(this.handleError)
