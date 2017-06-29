@@ -27,6 +27,7 @@
       },
       "scripts": [
         "../node_modules/material-design-lite/material.min.js",
+        "../node_modules/hammerjs/hammer.min.js",
         "../node_modules/moment/min/moment.min.js",
         "../node_modules/codemirror/lib/codemirror.js"
       ],
