@@ -1,0 +1,37 @@
+<h1 md-dialog-title>Add endpoint</h1>
+
+<md-dialog-content>
+  <form [formGroup]="endpointForm">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--6-col">
+        <p>
+          <mdl-textfield label="Name" type="text" formControlName="name" floating-label></mdl-textfield>
+        </p>
+        <p>
+          <mdl-textfield label="Path" type="text" formControlName="path" floating-label></mdl-textfield>
+        </p>
+        <p>
+          <mdl-textfield label="Class" type="text" formControlName="className" floating-label></mdl-textfield>
+        </p>
+        <p>
+          <mdl-textfield label="Namespace" type="text" formControlName="nameSpace" floating-label></mdl-textfield>
+        </p>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col">
+        <p>
+          <mdl-textfield label="Additional Parameters (optional)" type="text" formControlName="nameSpace" rows="14" floating-label>
+
+          </mdl-textfield>
+        </p>
+      </div>
+    </div>
+  </form>
+</md-dialog-content>
+<mdl-icon class="close" (click)="dialogRef.close()">clear</mdl-icon>
+
+
+<md-dialog-actions>
+  <button md-button md-dialog-close class='mat-button--big'>CANCEL</button>
+  <button md-button md-dialog-close class='mat-button--big mat-button--primary' (click)="submit()">Add endpoint</button>
+</md-dialog-actions>
+

@@ -1,8 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing } from './app.router';
+import { MdlModule } from 'angular2-mdl';
+import { BootstrapGridModule } from 'ng2-bootstrap-grid';
+
 
 //material modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,6 +28,7 @@ import { EndpointDetailsComponent } from '@components/endpoint-list/endpoint-det
 import { DialogJobFormComponent } from '@components/dialog-job-form/dialog-job-form.component';
 import { JobDetailsComponent } from '@components/endpoint-list/job-details/job-details.component';
 import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-json/dialog-full-screen-json.component';
+import { DialogAddEndpointComponent } from '@components/dialog-add-endpoint/dialog-add-endpoint.component';
 
 //services
 import { EndpointDataService } from '@services/endpoint-data.service';
@@ -35,6 +39,7 @@ import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
 import { AgoDatePipe } from '@pipes/ago-date.pipe';
 import { SearchPipe } from '@pipes/search.pipe';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,8 +49,9 @@ import { SearchPipe } from '@pipes/search.pipe';
     EndpointDetailsComponent,
     DialogJobFormComponent,
     JobDetailsComponent,
+    DialogAddEndpointComponent,
     DialogFullScreenJsonComponent,
-    //pipes
+    // pipes
     SearchPipe,
     AgoDatePipe,
     JobStatusFilterPipe
@@ -53,6 +59,7 @@ import { SearchPipe } from '@pipes/search.pipe';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     routing,
     //material modules
@@ -61,10 +68,15 @@ import { SearchPipe } from '@pipes/search.pipe';
     MdSelectModule,
     MdButtonModule,
     MdTabsModule,
+    MdlModule,
     //codemirror
-    CodemirrorModule
+    CodemirrorModule,
+    // bootstrap
+    BootstrapGridModule
   ],
-  entryComponents: [DialogJobFormComponent, DialogFullScreenJsonComponent],
+  exports: [
+  ],
+  entryComponents: [DialogJobFormComponent, DialogFullScreenJsonComponent, DialogAddEndpointComponent],
   providers: [EndpointDataService, JobDataService],
   bootstrap: [AppComponent]
 })

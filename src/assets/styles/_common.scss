@@ -1,0 +1,21 @@
+/*common styles*/
+.cs {
+  &-align-center {
+    align-items: center;
+  }
+  &-pt-20 {
+    padding-top: 20px;
+  }
+  &-mt-20 {
+    margin-top: 20px;
+  }
+  &-text-right {
+    text-align: right;
+  }
+  &-text-left {
+    text-align: left;
+  }
+  &-cs-cursor-pointer {
+    cursor: pointer;
+  }
+}
