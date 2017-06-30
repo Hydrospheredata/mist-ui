@@ -8,77 +8,48 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class JobDataService {
-  jobs: Observable<Job[]>;
-  private _jobs: BehaviorSubject<Job[]>;
+export class HttpJobService {
   private baseUrl: string;
-  private dataStore: { jobs: Job[] };
 
   constructor(private http: Http) {
     this.baseUrl = `${environment.host}:${environment.port}/v2/api`
-    this.dataStore = { jobs: [] };
-    this._jobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
-    this.jobs = this._jobs.asObservable();
   }
 
-  public getAllByEndpointId(endpointId: string) {
-    let apiUrl = this.baseUrl + `/endpoints/${endpointId}/jobs`
-    this.http.get(apiUrl)
+  public getAll(): Observable<Job[]> {
+    let apiUrl = this.baseUrl + `/jobs`
+    return this.http.get(apiUrl)
              .map((res: Response) => { return this.extractJobs(res) })
              .catch(this.handleError)
-             .subscribe((data) => {
-               this.dataStore.jobs = data;
-               this.updateStore();
-             })
   }
 
-  public get(id: string) {
+  public getByEndpoint(endpointId: string): Observable<Job[]> {
+    let apiUrl = this.baseUrl + `/endpoints/${endpointId}/jobs`
+    return this.http.get(apiUrl)
+             .map((res: Response) => { return this.extractJobs(res) })
+             .catch(this.handleError)
+  }
+
+  public get(id: string): Observable<Job> {
     let apiUrl = this.baseUrl + `/jobs/${id}`
-    this.http.get(apiUrl)
+    return this.http.get(apiUrl)
              .map((res: Response) => { return this.extractJob(res) })
              .catch(this.handleError)
-             .subscribe((job) => {
-               this.updateItem(job);
-               this.updateStore();
-             })
   }
 
-  public create(endpointId: string, args: string) {
+  public create(endpointId: string, args: string): Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let apiUrl = this.baseUrl + `/endpoints/${endpointId}/jobs`
-    this.http.post(apiUrl, JSON.stringify(JSON.parse(args)), options)
+    return this.http.post(apiUrl, JSON.stringify(JSON.parse(args)), options)
              .map(this.extractData)
              .catch(this.handleError)
-             .subscribe((data) => {
-               this.get(data.id);
-             })
   }
 
-  public delete(jobId: string) {
+  public kill(jobId: string): Observable<Job> {
     let apiUrl = this.baseUrl + `/jobs/${jobId}`
-    this.http.delete(apiUrl)
+    return this.http.delete(apiUrl)
              .map((res: Response) => { return this.extractJob(res) })
              .catch(this.handleError)
-             .subscribe((data) => {
-               let job = this.dataStore.jobs.find(item => item.jobId === data.jobId );
-               let index: number = this.dataStore.jobs.indexOf(job);
-               this.dataStore.jobs.splice(index, 1, data);
-               this.updateStore();
-             })
-  }
-
-  private updateStore() {
-    this._jobs.next(Object.assign({}, this.dataStore).jobs);
-  }
-
-  private updateItem(job: Job) {
-    const idx = this.dataStore.jobs.findIndex((item) => item.jobId === job.jobId);
-    if (idx === -1) {
-      this.dataStore.jobs.push(job);
-    } else {
-      this.dataStore.jobs[idx] = job;
-    }
   }
 
   private extractJobs(res: Response) {

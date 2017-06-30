@@ -8,52 +8,25 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class EndpointDataService {
-  endpoints: Observable<Endpoint[]>;
-  private _endpoints: BehaviorSubject<Endpoint[]>;
+export class HttpEndpointService {
   private baseUrl: string;
-  private dataStore: { endpoints: Endpoint[] };
 
   constructor(private http: Http) {
     this.baseUrl = `${environment.host}:${environment.port}/v2/api/endpoints`
-    this.dataStore = { endpoints: [] };
-    this._endpoints = <BehaviorSubject<Endpoint[]>>new BehaviorSubject([]);
-    this.endpoints = this._endpoints.asObservable();
     this.getAll();
   }
 
-  public getAll() {
-     this.http.get(this.baseUrl)
+  public getAll(): Observable<Endpoint[]> {
+     return this.http.get(this.baseUrl)
               .map((res: Response) => this.extractEndpoints(res))
               .catch(this.handleError)
-              .subscribe((data) => {
-                this.dataStore.endpoints = data;
-                this.updateStore();
-              })
   }
 
-  public get(id: string) {
+  public get(id: string): Observable<Endpoint> {
     let apiUrl = this.baseUrl + `/${id}`
-    this.http.get(apiUrl)
+    return this.http.get(apiUrl)
              .map((res: Response) => this.extractEndpoint(res))
              .catch(this.handleError)
-             .subscribe(endpoint => {
-               this.updateItem(endpoint)
-               this.updateStore();
-             })
-  }
-
-  private updateStore() {
-    this._endpoints.next(Object.assign({}, this.dataStore).endpoints);
-  }
-
-  private updateItem(endpoint: Endpoint) {
-    const idx = this.dataStore.endpoints.findIndex((item) => item.name === endpoint.name);
-    if (idx === -1) {
-      this.dataStore.endpoints.push(endpoint);
-    } else {
-      this.dataStore.endpoints[idx] = endpoint;
-    }
   }
 
   private extractEndpoints(res: Response) {

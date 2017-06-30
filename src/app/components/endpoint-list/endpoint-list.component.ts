@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { EndpointDataService } from '@services/endpoint-data.service';
+import { EndpointStore } from '@stores/endpoint.store';
 import { Endpoint } from '@models/endpoint';
-import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { DialogAddEndpointComponent } from '@app/components/dialog-add-endpoint/dialog-add-endpoint.component';
 
 @Component({
@@ -16,7 +16,7 @@ export class EndpointListComponent implements OnInit {
   searchQ: string;
 
   constructor(
-    private endpointDataService: EndpointDataService,
+    private endpointStore: EndpointStore,
     private router: Router,
     public dialog: MdDialog
   ) { }
@@ -35,7 +35,7 @@ export class EndpointListComponent implements OnInit {
   }
 
   loadInitialData() {
-    this.endpointDataService.getAll();
-    this.endpointDataService.endpoints.subscribe(data => { this.endpoints = data });
+    this.endpointStore.getAll();
+    this.endpointStore.endpoints.subscribe(data => { this.endpoints = data });
   }
 }

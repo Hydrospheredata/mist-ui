@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EndpointDataService } from '@services/endpoint-data.service';
-import { JobDataService } from '@services/job-data.service';
+import { EndpointStore } from '@stores/endpoint.store';
+import { JobStore } from '@stores/job.store';
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-json/dialog-full-screen-json.component';
 import { Job } from '@models/job';
@@ -28,8 +28,8 @@ export class JobDetailsComponent implements OnInit {
   constructor(
     private dialog: MdDialog,
     private activatedRoute: ActivatedRoute,
-    private endpointDataService: EndpointDataService,
-    private jobDataService: JobDataService
+    private endpointStore: EndpointStore,
+    private jobStore: JobStore
   ) { }
 
   ngOnInit() {
@@ -53,13 +53,13 @@ export class JobDetailsComponent implements OnInit {
   }
 
   loadInitialData(endpointId, jobId) {
-    this.endpointDataService.get(endpointId);
-    this.endpointDataService.endpoints.subscribe(data => {
+    this.endpointStore.get(endpointId);
+    this.endpointStore.endpoints.subscribe(data => {
       let endpoint = data.find(item => item.name === endpointId);
       this.endpoint = endpoint;
     })
-    this.jobDataService.get(jobId);
-    this.jobDataService.jobs.subscribe(data => { 
+    this.jobStore.get(jobId);
+    this.jobStore.jobs.subscribe(data => { 
       let job = data.find(item => item.jobId === jobId);
       this.job = job;
     });

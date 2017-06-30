@@ -13,6 +13,7 @@
       "@app/*": ["app/*"],
       "@components/*": ["app/components/*"],
       "@services/*": ["app/services/*"],
+      "@stores/*": ["app/stores/*"],
       "@pipes/*": ["app/pipes/*"],
       "@models/*": ["app/models/*"],
       "@mocks/*": ["app/mocks/*"],

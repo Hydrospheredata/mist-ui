@@ -31,8 +31,12 @@ import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-js
 import { DialogAddEndpointComponent } from '@components/dialog-add-endpoint/dialog-add-endpoint.component';
 
 //services
-import { EndpointDataService } from '@services/endpoint-data.service';
-import { JobDataService } from '@services/job-data.service';
+import { HttpEndpointService } from '@services/http-endpoint.service';
+import { HttpJobService } from '@services/http-job.service';
+
+//stores
+import { JobStore } from '@stores/job.store';
+import { EndpointStore } from '@stores/endpoint.store';
 
 //pipes
 import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
@@ -81,7 +85,7 @@ import { InputTextareaComponent } from './components/form/input-textarea/input-t
   exports: [
   ],
   entryComponents: [DialogJobFormComponent, DialogFullScreenJsonComponent, DialogAddEndpointComponent],
-  providers: [EndpointDataService, JobDataService],
+  providers: [HttpEndpointService, HttpJobService, JobStore, EndpointStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

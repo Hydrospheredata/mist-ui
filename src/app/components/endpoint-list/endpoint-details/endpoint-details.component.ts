@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { DialogJobFormComponent } from '@components/dialog-job-form/dialog-job-form.component';
-import { EndpointDataService } from '@services/endpoint-data.service';
-import { JobDataService } from '@services/job-data.service';
+import { EndpointStore } from '@stores/endpoint.store';
+import { JobStore } from '@stores/job.store';
 import { Job } from '@models/job';
 import { Endpoint } from '@models/endpoint';
 
@@ -27,14 +27,15 @@ export class EndpointDetailsComponent implements OnInit {
   constructor(
     public dialog: MdDialog,
     private activatedRoute: ActivatedRoute,
-    private endpointDataService: EndpointDataService,
-    private jobDataService: JobDataService
-  ) { }
-
-  ngOnInit() {
+    private endpointStore: EndpointStore,
+    private jobStore: JobStore
+  ) {
     this.sub = this.activatedRoute.params
       .map(params => params['endpointId'])
       .subscribe((id) => { this.loadInitialData(id) });
+  }
+
+  ngOnInit() {
   }
 
   ngOnDestroy() {
@@ -42,13 +43,15 @@ export class EndpointDetailsComponent implements OnInit {
   }
 
   loadInitialData(id: string) {
-    this.endpointDataService.endpoints.subscribe(data => {
+    this.jobStore.getByEndpoint(id);
+    this.endpointStore.endpoints.subscribe(data => {
       let endpoint = data.find(item => item.name === id);
       this.endpoint = endpoint;
     })
-    this.jobDataService.getAllByEndpointId(id);
-    this.jobDataService.jobs.subscribe(data => { this.jobs = data });
-    this.namespace = 'Namespace1'
+    this.jobStore.jobs.subscribe((jobs) => {
+      this.jobs = jobs;
+    })
+    this.namespace = 'Namespace1';
   }
 
   openDialogJobForm() {
@@ -62,7 +65,7 @@ export class EndpointDetailsComponent implements OnInit {
 
   killJob(event, job: Job) {
     event.preventDefault();
-    this.jobDataService.delete(job.jobId)
+    this.jobStore.kill(job.jobId)
   }
 
   toggleStatusFilter(option) {

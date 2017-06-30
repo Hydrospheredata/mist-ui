@@ -1,17 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
-import { JobDataService } from './job-data.service';
+import { HttpEndpointService } from './http-endpoint.service';
 
-describe('JobDataService', () => {
+describe('EndpointDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
-      providers: [JobDataService]
+      providers: [HttpEndpointService]
     });
   });
 
-  it('should ...', inject([JobDataService], (service: JobDataService) => {
+  it('should ...', inject([HttpEndpointService], (service: HttpEndpointService) => {
     expect(service).toBeTruthy();
   }));
 });
