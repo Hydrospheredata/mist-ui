@@ -12,7 +12,8 @@ import { DialogAddEndpointComponent } from '@app/components/dialog-add-endpoint/
   styleUrls: ['./endpoint-list.component.scss']
 })
 export class EndpointListComponent implements OnInit {
-  endpoints: Endpoint[]
+  endpoints: Endpoint[];
+  searchQ: string;
 
   constructor(
     private endpointDataService: EndpointDataService,
