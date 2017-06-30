@@ -1,0 +1,10 @@
+textarea {
+  width: 100%;
+  min-height: 100%;
+  resize: vertical;
+  overflow: auto;
+  box-sizing: border-box; /* For IE and modern versions of Chrome */
+  -moz-box-sizing: border-box; /* For Firefox                          */
+  -webkit-box-sizing: border-box; /* For Safari                           */
+}
+

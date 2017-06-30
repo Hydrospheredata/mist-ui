@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { EndpointDataService } from '@services/endpoint-data.service';
-import { Endpoint } from '@models/endpoint'
+import { Endpoint } from '@models/endpoint';
+import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import { DialogAddEndpointComponent } from '@app/components/dialog-add-endpoint/dialog-add-endpoint.component';
 
 @Component({
   selector: 'endpoint-list',
@@ -14,8 +16,18 @@ export class EndpointListComponent implements OnInit {
 
   constructor(
     private endpointDataService: EndpointDataService,
-    private router: Router
+    private router: Router,
+    public dialog: MdDialog
   ) { }
+
+  openDialogAddEndpointForm() {
+    let dialogRef:MdDialogRef<DialogAddEndpointComponent> = this.dialog.open(DialogAddEndpointComponent, {
+      width: '900px' ,
+      data: {
+        selectedEndpoint: {},
+      }
+    });
+  }
 
   ngOnInit() {
     this.loadInitialData();

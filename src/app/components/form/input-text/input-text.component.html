@@ -1,0 +1,5 @@
+<div class="form-group" [class.has-error]="hasErrors(input)">
+  <label class="control-label" [attr.for]="name">{{label}}</label>
+  <input class="form-control" [placeholder]="placeholder" type="text" [name]="name" [(ngModel)]="value" #input="ngModel" [id]="name" />
+  <div class="alert alert-danger" *ngIf="hasErrors(input)">{{errors}}</div>
+</div>
