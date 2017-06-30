@@ -1,0 +1,5 @@
+<div class="textarea-wrap {{className}}"  [class.has-error]="hasErrors(input)">
+  <label class="control-label" [attr.for]="name">{{label}}</label>
+  <textarea class="form-control" [placeholder]="placeholder" type="text" [name]="name" [(ngModel)]="value" #input="ngModel" [id]="name"></textarea>
+  <div class="alert alert-danger" *ngIf="hasErrors(input)">{{errors}}</div>
+</div>

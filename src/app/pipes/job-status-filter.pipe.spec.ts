@@ -1,4 +1,4 @@
-import { JobFilterPipe } from './job-status-filter.pipe';
+import { JobStatusFilterPipe } from './job-status-filter.pipe';
 
 describe('JobStatusFilterPipe', () => {
   it('create an instance', () => {

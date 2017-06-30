@@ -2,18 +2,25 @@
   <aside class='endpoint-list'>
     <div class='endpoint-list__row endpoint-list__row--big'>
       <div class='endpoint-list__header'>
-        <span class='endpoint-list__title'>Endpoints</span>
-        <button class='mist-btn'>
-          <span class='material-icons mist-btn__icon'>add</span>
-          <span>ADD</span>
-        </button>
+        <div class="mdl-grid cs-align-center cs-mt-20 cs-text-right">
+          <div class="mdl-cell mdl-cell--6-col">
+            <span class='endpoint-list__title'>Endpoints</span>
+          </div>
+          <div class="mdl-cell mdl-cell--6-col">
+            <mdl-button (click)="openDialogAddEndpointForm()" class="mist-button" mdl-button-type="raised" mdl-ripple>
+              <mdl-icon>add</mdl-icon>
+              <span>Add</span>
+            </mdl-button>
+          </div>
       </div>
     </div>
+  </div>
   <div class='endpoint-list__row'>
     <div class='endpoint-list__search'>
       <span class='material-icons endpoint-list__search-icon'>search</span>
       <input class='mist-input mist-input--text endpoint-list__search-input' 
-            type='text' id='search' placeholder='Search'>
+            type='text' id='search' placeholder='Search'
+            [(ngModel)]="searchQ">
     </div>
   </div>
   <div class='endpoint-list__row'>
@@ -28,7 +35,7 @@
         </a>
         <span class='mdl-badge endpoint-list__badge' data-badge='25'></span>
       </li>
-      <ng-template ngFor let-endpoint [ngForOf]="endpoints">
+      <ng-template ngFor let-endpoint [ngForOf]="endpoints | search : 'name' : searchQ">
         <li class='mdl-list__item mdl-list__item--two-line endpoint-list__item'
           routerLinkActive='endpoint-list__item--active'>
           <a class='mdl-list__item-primary-content endpoint-list__item-content'
