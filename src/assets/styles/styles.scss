@@ -20,6 +20,18 @@
   line-height: 1.5;
 }
 
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+:after,:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box
+}
+
 html, body {
   font-family: $main-font-family;
   background-color: $main-bg-color;
@@ -28,6 +40,13 @@ html, body {
 
 h1, h2 {
   font-family: $main-font-family;
+}
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 500;
 }
 
 button:focus, input:focus {

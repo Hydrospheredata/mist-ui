@@ -1,37 +1,41 @@
-<h1 md-dialog-title>Add endpoint</h1>
+<div class="dialog-add-endpoint">
+  <h1 md-dialog-title>Add endpoint</h1>
 
-<md-dialog-content>
-  <form [formGroup]="endpointForm">
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--6-col">
-        <p>
-          <mdl-textfield label="Name" type="text" formControlName="name" floating-label></mdl-textfield>
-        </p>
-        <p>
-          <mdl-textfield label="Path" type="text" formControlName="path" floating-label></mdl-textfield>
-        </p>
-        <p>
-          <mdl-textfield label="Class" type="text" formControlName="className" floating-label></mdl-textfield>
-        </p>
-        <p>
-          <mdl-textfield label="Namespace" type="text" formControlName="nameSpace" floating-label></mdl-textfield>
-        </p>
+  <mdl-icon class="close cs-cursor-pointer" (click)="dialogRef.close()">clear</mdl-icon>
+
+  <md-dialog-content>
+    <form [formGroup]="endpointForm" (submit)="submit(endpointForm)">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--6-col">
+          <p>
+            <mist-input-text label="Name" placeholder="" formControlName="name"></mist-input-text>
+          </p>
+          <p>
+            <mist-input-text label="Path" placeholder="" formControlName="path"></mist-input-text>
+          </p>
+          <p>
+            <mist-input-text label="Class" placeholder="" formControlName="className"></mist-input-text>
+          </p>
+          <p>
+            <mist-input-text label="Namespace" placeholder="" formControlName="nameSpace"></mist-input-text>
+          </p>
+        </div>
+        <div class="mdl-cell mdl-cell--6-col">
+          <p class="cs-height-100">
+            <mist-input-textarea className="cs-height-88" label="Additional Parameters (optional)" formControlName="additionalParams"></mist-input-textarea>
+          </p>
+        </div>
       </div>
-      <div class="mdl-cell mdl-cell--6-col">
-        <p>
-          <mdl-textfield label="Additional Parameters (optional)" type="text" formControlName="nameSpace" rows="14" floating-label>
+    </form>
+  </md-dialog-content>
 
-          </mdl-textfield>
-        </p>
+  <md-dialog-actions>
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col cs-text-right">
+        <button md-button md-dialog-close class='mat-button--big'>CANCEL</button>
+        <button md-button md-dialog-close class='mat-button--big mat-button--primary' mdl-button-type="raised" mdl-colored="primary" mdl-ripple (click)="submit()">Add endpoint</button>
       </div>
     </div>
-  </form>
-</md-dialog-content>
-<mdl-icon class="close" (click)="dialogRef.close()">clear</mdl-icon>
+  </md-dialog-actions>
 
-
-<md-dialog-actions>
-  <button md-button md-dialog-close class='mat-button--big'>CANCEL</button>
-  <button md-button md-dialog-close class='mat-button--big mat-button--primary' (click)="submit()">Add endpoint</button>
-</md-dialog-actions>
-
+</div>

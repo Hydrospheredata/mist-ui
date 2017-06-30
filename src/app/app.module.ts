@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing } from './app.router';
 import { MdlModule } from 'angular2-mdl';
-import { BootstrapGridModule } from 'ng2-bootstrap-grid';
+// import { BootstrapGridModule } from 'ng2-bootstrap-grid';
 
 
 //material modules
@@ -38,6 +38,8 @@ import { JobDataService } from '@services/job-data.service';
 import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
 import { AgoDatePipe } from '@pipes/ago-date.pipe';
 import { SearchPipe } from '@pipes/search.pipe';
+import { InputTextComponent } from './components/form/input-text/input-text.component';
+import { InputTextareaComponent } from './components/form/input-textarea/input-textarea.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { SearchPipe } from '@pipes/search.pipe';
     // pipes
     SearchPipe,
     AgoDatePipe,
-    JobStatusFilterPipe
+    JobStatusFilterPipe,
+    InputTextComponent,
+    InputTextareaComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,7 @@ import { SearchPipe } from '@pipes/search.pipe';
     //codemirror
     CodemirrorModule,
     // bootstrap
-    BootstrapGridModule
+    // BootstrapGridModule
   ],
   exports: [
   ],
