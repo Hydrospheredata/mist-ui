@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MD_DIALOG_DATA } from '@angular/material';
 
 import { Endpoint } from '@models/endpoint';
-import { EndpointDataService } from '@services/endpoint-data.service'
-import { JobDataService } from '@services/job-data.service'
+import { EndpointDataService } from '@services/endpoint-data.service';
+import { JobStore } from '@stores/job.store';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
@@ -25,7 +25,7 @@ export class DialogJobFormComponent implements OnInit {
   constructor(
     @Inject(MD_DIALOG_DATA) public data: any,
     private endpointDataService: EndpointDataService,
-    private jobDataService: JobDataService
+    private jobStore: JobStore
   ) {}
 
   ngOnInit() {
@@ -48,6 +48,6 @@ export class DialogJobFormComponent implements OnInit {
   submit() {
     let endpointId = this.selectedEndpoint.name
     let params = this.executeParams
-    this.jobDataService.create(endpointId, params)
+    this.jobStore.add(endpointId, params)
   }
 }

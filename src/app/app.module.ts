@@ -28,7 +28,10 @@ import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-js
 
 //services
 import { EndpointDataService } from '@services/endpoint-data.service';
-import { JobDataService } from '@services/job-data.service';
+import { HttpJobService } from '@services/http-job.service';
+
+//stores
+import { JobStore } from '@stores/job.store';
 
 //pipes
 import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
@@ -65,7 +68,7 @@ import { SearchPipe } from '@pipes/search.pipe';
     CodemirrorModule
   ],
   entryComponents: [DialogJobFormComponent, DialogFullScreenJsonComponent],
-  providers: [EndpointDataService, JobDataService],
+  providers: [EndpointDataService, HttpJobService, JobStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
