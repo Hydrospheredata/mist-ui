@@ -1,17 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
-import { EndpointDataService } from './endpoint-data.service';
+import { HttpEndpointService } from './http-endpoint.service';
 
 describe('EndpointDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
-      providers: [EndpointDataService]
+      providers: [HttpEndpointService]
     });
   });
 
-  it('should ...', inject([EndpointDataService], (service: EndpointDataService) => {
+  it('should ...', inject([HttpEndpointService], (service: HttpEndpointService) => {
     expect(service).toBeTruthy();
   }));
 });

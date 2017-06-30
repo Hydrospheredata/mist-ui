@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EndpointDataService } from '@services/endpoint-data.service';
+import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-json/dialog-full-screen-json.component';
@@ -28,7 +28,7 @@ export class JobDetailsComponent implements OnInit {
   constructor(
     private dialog: MdDialog,
     private activatedRoute: ActivatedRoute,
-    private endpointDataService: EndpointDataService,
+    private endpointStore: EndpointStore,
     private jobStore: JobStore
   ) { }
 
@@ -53,8 +53,8 @@ export class JobDetailsComponent implements OnInit {
   }
 
   loadInitialData(endpointId, jobId) {
-    this.endpointDataService.get(endpointId);
-    this.endpointDataService.endpoints.subscribe(data => {
+    this.endpointStore.get(endpointId);
+    this.endpointStore.endpoints.subscribe(data => {
       let endpoint = data.find(item => item.name === endpointId);
       this.endpoint = endpoint;
     })

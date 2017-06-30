@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MD_DIALOG_DATA } from '@angular/material';
 
 import { Endpoint } from '@models/endpoint';
-import { EndpointDataService } from '@services/endpoint-data.service';
+import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
@@ -24,13 +24,13 @@ export class DialogJobFormComponent implements OnInit {
 
   constructor(
     @Inject(MD_DIALOG_DATA) public data: any,
-    private endpointDataService: EndpointDataService,
+    private endpointStore: EndpointStore,
     private jobStore: JobStore
   ) {}
 
   ngOnInit() {
     this.selectedEndpoint = this.data.selectedEndpoint;
-    this.endpointDataService.endpoints.subscribe(data => { this.endpoints = data });
+    this.endpointStore.endpoints.subscribe(data => { this.endpoints = data });
     this.executeParams = this.selectedEndpoint.executeExample();
     this.codeMirrorOptions = {
       placeholder: 'Parameters...',

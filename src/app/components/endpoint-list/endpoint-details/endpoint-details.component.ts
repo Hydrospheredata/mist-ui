@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { DialogJobFormComponent } from '@components/dialog-job-form/dialog-job-form.component';
-import { EndpointDataService } from '@services/endpoint-data.service';
+import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { Job } from '@models/job';
 import { Endpoint } from '@models/endpoint';
@@ -27,7 +27,7 @@ export class EndpointDetailsComponent implements OnInit {
   constructor(
     public dialog: MdDialog,
     private activatedRoute: ActivatedRoute,
-    private endpointDataService: EndpointDataService,
+    private endpointStore: EndpointStore,
     private jobStore: JobStore
   ) {
     this.sub = this.activatedRoute.params
@@ -44,7 +44,7 @@ export class EndpointDetailsComponent implements OnInit {
 
   loadInitialData(id: string) {
     this.jobStore.getByEndpoint(id);
-    this.endpointDataService.endpoints.subscribe(data => {
+    this.endpointStore.endpoints.subscribe(data => {
       let endpoint = data.find(item => item.name === id);
       this.endpoint = endpoint;
     })
