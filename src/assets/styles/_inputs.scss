@@ -44,3 +44,23 @@ label {
   font-size: $input-font-size;
   margin-bottom: 1rem;
 }
+
+.mdl-button {
+  &.no-bg-on-hover:hover {
+    background: none;
+  }
+  &.icon {
+      height: auto;
+      white-space: nowrap;
+  }
+  &.blue {
+    &.border {
+      border: 2px solid $color--light-blue;
+    }
+    &:hover {
+      background: $color--light-blue;
+      color: #ffffff;
+    }
+
+  }
+}

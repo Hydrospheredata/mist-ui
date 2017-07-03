@@ -46,8 +46,6 @@ button:focus, input:focus {
 
 aside {
   background-color: $aside-bg-color;
-  width: 23%;
-  max-width: 347px;
   flex-shrink: 0;
 }
 
@@ -130,10 +128,6 @@ md-dialog-container.mat-dialog-container {
 }
 
 .mist-page-header {
-  min-height: 62px;
-  line-height: 62px;
-  margin: 0px 24px 0 24px;
-  padding-top: 24px;
 }
 
 .mist-label {
