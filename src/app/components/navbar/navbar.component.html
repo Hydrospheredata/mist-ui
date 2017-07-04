@@ -1,27 +1,42 @@
-<header class='mdl-layout__header mdl-layout__header--seamed'>
+<header class='mdl-layout__header'>
   <div class='mdl-layout__header-row mist-navigation-row'>
+
     <a [routerLink]="['/']" class='mist-logo'></a>
     <div class='mdl-layout-spacer'></div>
-    <nav class='mdl-navigation'>
-      <a class='mdl-navigation__link'
-         [routerLink]="['/endpoints']"
-         routerLinkActive='is-active'>
-         <i class='material-icons md-40'>list</i>
-         <span>Jobs</span>
-       </a>
-      <a class='mdl-navigation__link'
-         [routerLink]="['/clusters']"
-         routerLinkActive='is-active'>
-         <i class='material-icons md-40'>device_hub</i>
-         <span>Clusters</span>
-       </a>
-      <a class='mdl-navigation__link'
-         [routerLink]="['/settings']"
-         routerLinkActive='is-active'>
-         <i class='material-icons md-40 rotate-90'>tune</i>
-         <span>Settings</span>
-       </a>
+
+    <nav class='mdl-navigation mdl-grid'>
+
+      <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+        <a class='mdl-navigation__link'
+           [routerLink]="['/endpoints']"
+           routerLinkActive='is-active'>
+           <i class='material-icons md-40'>list</i>
+           <span>Jobs</span>
+        </a>
+      </div>
+
+      <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+        <a class='mdl-navigation__link'
+           [routerLink]="['/clusters']"
+           routerLinkActive='is-active'>
+           <i class='material-icons md-40'>device_hub</i>
+           <span>Clusters</span>
+        </a>
+      </div>
+
+      <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+        <a class='mdl-navigation__link'
+           [routerLink]="['/settings']"
+           routerLinkActive='is-active'>
+           <i class='material-icons md-40 rotate-90'>tune</i>
+           <span>Settings</span>
+        </a>
+      </div>
+      
     </nav>
     <div class='mdl-layout-spacer'></div>
   </div>
 </header>
+<div class="mdl-layout__drawer">
+  <span class="mdl-layout__title"></span>
+</div>

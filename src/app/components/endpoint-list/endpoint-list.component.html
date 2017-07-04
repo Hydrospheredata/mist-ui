@@ -1,55 +1,58 @@
-<main class='mist-layout'>
-  <aside class='endpoint-list'>
+<main class='mist-layout mdl-grid--no-spacing mdl-grid'>
+  <aside class='endpoint-list mdl-cell mdl-cell--3-col'>
     <div class='endpoint-list__row endpoint-list__row--big'>
       <div class='endpoint-list__header'>
         <div class="mdl-grid cs-align-center cs-mt-20 cs-text-right">
-          <div class="mdl-cell mdl-cell--6-col">
+          <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
             <span class='endpoint-list__title'>Endpoints</span>
           </div>
-          <div class="mdl-cell mdl-cell--6-col">
-            <mdl-button (click)="openDialogAddEndpointForm()" class="mist-button" mdl-button-type="raised" mdl-ripple>
+          <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
+
+            <mdl-button (click)="openDialogAddEndpointForm()"
+                        class="mist-button blue border icon"
+                        mdl-colored="">
               <mdl-icon>add</mdl-icon>
               <span>Add</span>
             </mdl-button>
           </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class='endpoint-list__row'>
-    <div class='endpoint-list__search'>
-      <span class='material-icons endpoint-list__search-icon'>search</span>
-      <input class='mist-input mist-input--text endpoint-list__search-input' 
-            type='text' id='search' placeholder='Search'
-            [(ngModel)]="searchQ">
+    <div class='endpoint-list__row'>
+      <div class='endpoint-list__search'>
+        <span class='material-icons endpoint-list__search-icon'>search</span>
+        <input class='mist-input mist-input--text endpoint-list__search-input'
+               type='text' id='search' placeholder='Search'
+               [(ngModel)]="searchQ">
+      </div>
     </div>
-  </div>
-  <div class='endpoint-list__row'>
-    <ul class='mdl-list endpoint-list__ul'>
-      <li class='mdl-list__item endpoint-list__item endpoint-list__item--hover-disabled'>
-        <a class='mdl-list__item-primary-content endpoint-list__item-content'
-           routerLink='/endpoints'>
-          <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>
-            view_comfy
-          </i>
-          All Jobs
-        </a>
-        <span class='mdl-badge endpoint-list__badge' data-badge='25'></span>
-      </li>
-      <ng-template ngFor let-endpoint [ngForOf]="endpoints | search : 'name' : searchQ">
-        <li class='mdl-list__item mdl-list__item--two-line endpoint-list__item'
-          routerLinkActive='endpoint-list__item--active'>
+    <div class='endpoint-list__row'>
+      <ul class='mdl-list endpoint-list__ul'>
+        <li class='mdl-list__item endpoint-list__item endpoint-list__item--hover-disabled'>
           <a class='mdl-list__item-primary-content endpoint-list__item-content'
-             [routerLink]="[endpoint.name]">
-            <span>{{ endpoint.name }}</span>
-            <span class='mdl-list__item-sub-title'>v. 1.2.4 / status: status</span>
+             routerLink='/endpoints'>
+            <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>
+              view_comfy
+            </i>
+            All Jobs
           </a>
-          <span class='mdl-badge endpoint-list__badge' data-badge='5'></span>
+          <span class='mdl-badge endpoint-list__badge' data-badge='25'></span>
         </li>
-      </ng-template>
-    </ul>
-  </div>
+        <ng-template ngFor let-endpoint [ngForOf]="endpoints | search : 'name' : searchQ">
+          <li class='mdl-list__item mdl-list__item--two-line endpoint-list__item'
+              routerLinkActive='endpoint-list__item--active'>
+            <a class='mdl-list__item-primary-content endpoint-list__item-content'
+               [routerLink]="[endpoint.name]">
+              <span class="mdl-list__item-title">{{ endpoint.name }}</span>
+              <span class='mdl-list__item-sub-title'>v. 1.2.4 / status: status</span>
+            </a>
+            <span class='mdl-badge endpoint-list__badge' mdl-badge='5'></span>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
   </aside>
-  <div class='mdl-layout__content'>
+  <div class='mdl-layout__content mdl-cell mdl-cell--9-col'>
     <router-outlet></router-outlet>
   </div>
 </main>

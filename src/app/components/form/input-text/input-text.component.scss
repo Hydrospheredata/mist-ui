@@ -2,4 +2,35 @@
 
 input.form-control {
   height: 45px;
+  &.input-icon {
+    padding-right: 3rem;
+  }
+  &.sibling {
+    width: 84%;
+  }
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
+  &:after {
+    clear: both;
+  }
+}
+.form-group {
+  position: relative;
+}
+
+.input-icon {
+  &.right {
+    right: 1rem;
+    position: absolute;
+    top: 60%;
+  }
+  &.left {
+    left: 1rem;
+    position: absolute;
+    top: 60%;
+  }
 }

@@ -5,7 +5,6 @@
 }
 
 .endpoint-details__settings {
-  display: inline-block;
   font-size: 18px;
 }
 
@@ -24,19 +23,14 @@
 }
 
 .endpoint-details__status-filter {
-  display: inline-block;
-  float: right;
 }
 
 .endpoint-details__status-filter-option {
   display: inline-block;
   color: $label-color;
   font-size: 14px;
-  height: 32px;
-  line-height: 32px;
   border-radius: 5px;
-  padding: 0px 5px 0px 5px;
-  margin: 1px auto;
+  padding: 0 10px;
 
   &:hover {
     cursor: pointer;
@@ -48,14 +42,10 @@
 }
 
 .endpoint-details__run-new-btn {
-  float: right;
-  width: 150px;
-  display: inline-block;
-  margin: 10px 0px 0px 10px;
+  margin: 10px 0;
 }
 
 .jobs-table {
-  width: 83%;
   border: none;
 
   tr:hover {

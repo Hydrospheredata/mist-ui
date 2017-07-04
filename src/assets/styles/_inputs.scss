@@ -1,3 +1,5 @@
+@import "variables";
+
 input.mist-input {
   background: transparent;
   &.mist-input--text {
@@ -41,4 +43,33 @@ label {
   color: $label-color;
   font-size: $input-font-size;
   margin-bottom: 1rem;
+}
+
+.mdl-button {
+  &.no-bg-on-hover:hover {
+    background: none;
+  }
+  &.icon {
+      height: auto;
+      white-space: nowrap;
+  }
+  &.blue {
+    &.border {
+      border: 2px solid $color--light-blue;
+    }
+    &:hover {
+      background: $color--light-blue;
+      color: #ffffff;
+    }
+  }
+}
+
+@media only screen and (max-width: 1305px) {
+  .endpoint-details__status-filter-option,
+  .mist-button.icon {
+    width: 3rem;
+    span {
+      display: none;
+    }
+  }
 }

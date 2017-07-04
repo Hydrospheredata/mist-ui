@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { routing } from './app.router';
 import { MdlModule } from '@angular-mdl/core';
 // import { BootstrapGridModule } from 'ng2-bootstrap-grid';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 //material modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -79,8 +79,7 @@ import { InputTextareaComponent } from './components/form/input-textarea/input-t
     MdlModule,
     //codemirror
     CodemirrorModule,
-    // bootstrap
-    // BootstrapGridModule
+    FlexLayoutModule
   ],
   exports: [
   ],
