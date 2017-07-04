@@ -43,7 +43,11 @@ export class EndpointDetailsComponent implements OnInit {
   }
 
   loadInitialData(id: string) {
-    this.jobStore.getByEndpoint(id);
+    if (id === 'overview') {
+      this.jobStore.getAll();
+    } else {
+      this.jobStore.getByEndpoint(id);
+    }
     this.endpointStore.endpoints.subscribe(data => {
       let endpoint = data.find(item => item.name === id);
       this.endpoint = endpoint;
