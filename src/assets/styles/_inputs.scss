@@ -61,6 +61,15 @@ label {
       background: $color--light-blue;
       color: #ffffff;
     }
+  }
+}
 
+@media only screen and (max-width: 1305px) {
+  .endpoint-details__status-filter-option,
+  .mist-button.icon {
+    width: 3rem;
+    span {
+      display: none;
+    }
   }
 }

@@ -9,6 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class DialogAddEndpointComponent implements OnInit {
   public endpointForm: FormGroup;
+  private file: File;
 
   constructor(public dialogRef: MdDialogRef<DialogAddEndpointComponent>) {
   }
@@ -19,12 +20,17 @@ export class DialogAddEndpointComponent implements OnInit {
       nameSpace: new FormControl(),
       path: new FormControl(),
       className: new FormControl(),
-      additionalParams: new FormControl()
+      additionalParams: new FormControl(),
+      file: new FormControl()
     });
   }
 
   submit(form) {
     console.log("FORM = ", form );
+  }
+
+  onFileChange($event) {
+    this.file = $event.target.files[0];
   }
 
 }

@@ -18,6 +18,12 @@ export class InputTextComponent implements ControlValueAccessor  {
 
   @Input() public label: string;
   @Input() public name: string;
+  @Input() public icon: string;
+  @Input() public iconClass: string;
+  /* show icon over on input or next to it*/
+  @Input() public iconSibling: string;
+  @Input() public iconLeft: string;
+  @Input() public iconRight: string;
   @Input() public placeholder: string;
   @Input() public errors: any;
 
