@@ -24,7 +24,7 @@ export class DialogAddEndpointComponent implements OnInit {
   }
 
   submit(form) {
-    console.log("FORM = ", this.endpointForm );
+    console.log("FORM = ", form );
   }
 
 }

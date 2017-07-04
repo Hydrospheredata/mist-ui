@@ -18,7 +18,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "assets/styles/styles.scss"
+        "assets/styles/styles.scss",
+        "../node_modules/@angular-mdl/core/scss/material-design-lite.scss"
       ],
       "stylePreprocessorOptions": {
         "includePaths": [
@@ -26,7 +27,6 @@
         ]
       },
       "scripts": [
-        "../node_modules/material-design-lite/material.min.js",
         "../node_modules/hammerjs/hammer.min.js",
         "../node_modules/moment/min/moment.min.js",
         "../node_modules/codemirror/lib/codemirror.js"
