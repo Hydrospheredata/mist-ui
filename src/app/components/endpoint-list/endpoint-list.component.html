@@ -43,10 +43,10 @@
               routerLinkActive='endpoint-list__item--active'>
             <a class='mdl-list__item-primary-content endpoint-list__item-content'
                [routerLink]="[endpoint.name]">
-              <span>{{ endpoint.name }}</span>
+              <span class="mdl-list__item-title">{{ endpoint.name }}</span>
               <span class='mdl-list__item-sub-title'>v. 1.2.4 / status: status</span>
             </a>
-            <span class='mdl-badge endpoint-list__badge' data-badge='5'></span>
+            <span class='mdl-badge endpoint-list__badge' mdl-badge='5'></span>
           </li>
         </ng-template>
       </ul>

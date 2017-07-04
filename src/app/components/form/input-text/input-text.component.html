@@ -1,5 +1,8 @@
 <div class="form-group" [class.has-error]="hasErrors(input)">
   <label class="control-label" [attr.for]="name">{{label}}</label>
-  <input class="form-control" [placeholder]="placeholder" type="text" [name]="name" [(ngModel)]="value" #input="ngModel" [id]="name" />
+  <div class="flex-container">
+    <input align="right" class="form-control" [ngClass]="{'input-icon': icon, 'sibling': iconSibling, 'left': iconRight, 'right': iconLeft }" [placeholder]="placeholder" type="text" [name]="name" [(ngModel)]="value" #input="ngModel" [id]="name" />
+    <mdl-icon class="{{iconClass}} input-icon" *ngIf="icon">{{icon}}</mdl-icon>
+  </div>
   <div class="alert alert-danger" *ngIf="hasErrors(input)">{{errors}}</div>
 </div>

@@ -9,6 +9,9 @@
   &-mt-20 {
     margin-top: 20px;
   }
+  &-mb-8 {
+    margin-bottom: 0.5rem;
+  }
   &-text-right {
     text-align: right;
   }
@@ -23,5 +26,8 @@
   }
   &-height-88 {
     height: 88%;
+  }
+  &-vertical-middle {
+    vertical-align: middle;
   }
 }
