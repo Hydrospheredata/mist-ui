@@ -18,12 +18,12 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "assets/styles/_variables.scss",
         "assets/styles/styles.scss",
-        "../node_modules/material-design-lite/material.css",
+        "../node_modules/@angular-mdl/core/scss/material-design-lite.scss",
         "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
         "../node_modules/codemirror/lib/codemirror.css",
         "../node_modules/bootstrap-grid/dist/grid.css",
+        "assets/styles/_variables.scss",
         "assets/styles/_angular-material-custom.scss",
         "assets/styles/_inputs.scss",
         "assets/styles/_codemirror.scss",
@@ -36,7 +36,6 @@
         ]
       },
       "scripts": [
-        "../node_modules/material-design-lite/material.min.js",
         "../node_modules/hammerjs/hammer.min.js",
         "../node_modules/moment/min/moment.min.js",
         "../node_modules/codemirror/lib/codemirror.js"

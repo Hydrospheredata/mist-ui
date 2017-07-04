@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing } from './app.router';
-import { MdlModule } from 'angular2-mdl';
+import { MdlModule } from '@angular-mdl/core';
 // import { BootstrapGridModule } from 'ng2-bootstrap-grid';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
