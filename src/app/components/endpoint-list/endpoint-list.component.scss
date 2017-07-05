@@ -22,10 +22,6 @@
     }
   }
   &title {
-    display: inline;
-    float: left;
-    margin: 0 auto;
-    font-size: 24px;
   }
   &__item {
     .endpoint-list__item--hover-disabled:hover {
@@ -37,6 +33,15 @@
     width: 100%;
     height: 100%;
     padding-left: 46px;
+  }
+  &badge {
+    &.mdl-badge:after {
+      background-color: #f28a03;
+      height: $badge-width;
+      width: $badge-height;
+      font-size: 14px;
+      margin-right: 25px;
+    }
   }
 }
 
@@ -69,17 +74,10 @@
       height: 100%;
     }
   }
-}
-
-.mdl-list__item-icon.endpoint-list__item-icon {
-  color: $main-color;
-  margin-right: 16px;
-}
-
-.mdl-badge.endpoint-list__badge:after {
-  background-color: #f28a03;
-  height: 24px;
-  width: 24px;
-  font-size: 14px;
-  margin-right: 25px;
+  &item-icon {
+    &.endpoint-list__item-icon {
+      color: $main-color;
+      margin-right: 16px;
+    }
+  }
 }

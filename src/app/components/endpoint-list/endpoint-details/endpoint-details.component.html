@@ -1,11 +1,11 @@
 <div class='mist-page-container mist-page-container--transparent'>
   <div class='mist-page-header'>
-    <div class='endpoint-details mdl-grid--no-spacing mdl-grid'>
+    <div class='endpoint-details' fxLayout='row'>
 
-      <div class='endpoint-details__settings mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet'>
+      <div class='endpoint-details__settings' fxFlex.md="60" fxFlex.lg="50">
         <div class="mdl-grid mdl-grid--no-spacing">
           <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--middle">
-            <span class='endpoint-details__settings-label'>Settings</span>
+            <span class='endpoint-details__settings-label' fxHide.sm>Settings</span>
             <div class='namespace namespace--select'>
               <span class='namespace__label'>namespace</span>
               <span class='namespace__value'>{{namespace}}</span>
@@ -25,44 +25,48 @@
         </div>
       </div>
 
-      <div class='endpoint-details__status-filter mdl-cell mdl-cell--5-col mdl-cell--3-col-tablet'>
+      <div class='endpoint-details__status-filter' fxFlex="40" fxFlex.md="40%" fxFlex.lg="40%">
         <div class="mdl-grid--no-spacing mdl-grid">
           <div class='mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--middle'>
-            <span>FILTER: </span>
+            <span fxHide.sm>FILTER: </span>
             <mdl-button [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['success']}"
                         (click)="toggleStatusFilter('success')"
                         class="mist-button endpoint-details__status-filter-option no-bg-on-hover mb-8"
+                        title="Success"
                         mdl-colored="">
               <mdl-icon>done</mdl-icon>
-              <span>Success</span>
+              <span fxHide.md fxHide.sm>Success</span>
             </mdl-button>
 
 
             <mdl-button [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['running']}"
                         (click)="toggleStatusFilter('running')"
                         class="mist-button endpoint-details__status-filter-option no-bg-on-hover"
+                        title="Running"
                         mdl-colored="">
               <mdl-icon>replay</mdl-icon>
-              <span>Running</span>
+              <span fxHide.md fxHide.sm>Running</span>
             </mdl-button>
 
             <mdl-button (click)="toggleStatusFilter('failed')"
                         [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['failed']}"
                         class="mist-button endpoint-details__status-filter-option no-bg-on-hover"
+                        title="Failed"
                         mdl-colored="">
               <mdl-icon>clear</mdl-icon>
-              <span>Failed</span>
+              <span fxHide.md fxHide.sm>Failed</span>
             </mdl-button>
           </div>
         </div>
       </div>
 
-      <div class="mdl-cell mdl-cell--2-col mdl-cell--1-col-tablet mdl-cell--top cs-text-right">
+      <div class="cs-text-right" fxFlex.md="10" fxFlex.sm="10" fxFlex.lg="20">
         <mdl-button (click)="openDialogJobForm()"
                     class="mist-button blue border icon"
+                    title="Run New"
                     mdl-colored="">
           <mdl-icon>add</mdl-icon>
-          <span>Run New</span>
+          <span fxHide.md fxHide.sm>Run New</span>
         </mdl-button>
       </div>
 
