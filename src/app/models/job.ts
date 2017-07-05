@@ -8,16 +8,19 @@ export class Job {
   public endpoint: string;
   public jobResult: string;
   public params: string;
+  public source: string;
 
   constructor(jobInfo: any) {
     this.jobId = jobInfo['jobId'];
     this.status = jobInfo['status'];
     this.context = jobInfo['context'];
+    this.endpoint = jobInfo['endpoint'];
     this.createTime = jobInfo['createTime'];
     this.endTime = jobInfo['endTime'];
     this.startTime = jobInfo['startTime'];
     this.jobResult = jobInfo['jobResult'];
     this.params = jobInfo['params'];
+    this.source = jobInfo['source'];
   }
 
   isFinished() {

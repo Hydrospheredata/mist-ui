@@ -36,7 +36,7 @@
             </i>
             All Jobs
           </a>
-          <span class='mdl-badge endpoint-list__badge' data-badge='25'></span>
+          <span class='endpoint-list__badge' [mdl-badge]="runningJobsCount()"></span>
         </li>
         <ng-template ngFor let-endpoint [ngForOf]="endpoints | search : 'name' : searchQ">
           <li class='mdl-list__item mdl-list__item--two-line endpoint-list__item'
@@ -46,7 +46,7 @@
               <span class="mdl-list__item-title">{{ endpoint.name }}</span>
               <span class='mdl-list__item-sub-title'>v. 1.2.4 / status: status</span>
             </a>
-            <span class='mdl-badge endpoint-list__badge' mdl-badge='5'></span>
+            <span class='endpoint-list__badge' [mdl-badge]="runningJobsCount(endpoint.name)"></span>
           </li>
         </ng-template>
       </ul>

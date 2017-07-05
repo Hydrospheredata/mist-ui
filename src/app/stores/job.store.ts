@@ -9,13 +9,21 @@ import { HttpJobService } from '@services/http-job.service';
 @Injectable()
 export class JobStore {
   jobs: Observable<Job[]>;
-  private _jobs: BehaviorSubject<Job[]>;
-  private dataStore: Job[];
+  runningJobs: Observable<Job[]>
+  private _selectedJobs: BehaviorSubject<Job[]>;
+  private _runningJobs: BehaviorSubject<Job[]>;
+  private dataStore: {
+    endpoint: string,
+    selectedJobs: Job[],
+    runningJobs: Job[]
+  };
 
   constructor(private backendService: HttpJobService) {
-    this.dataStore = [];
-    this._jobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
-    this.jobs = this._jobs.asObservable();
+    this.dataStore = { endpoint: null, selectedJobs: [], runningJobs: [] };
+    this._selectedJobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
+    this._runningJobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
+    this.jobs = this._selectedJobs.asObservable();
+    this.runningJobs = this._runningJobs.asObservable();
   }
 
   public add(endpointId: string, args: string): void {
@@ -26,46 +34,69 @@ export class JobStore {
 
   public getAll(): void {
     this.backendService.getAll().subscribe((jobs) => {
-      this.dataStore = jobs;
+      this.dataStore.selectedJobs = jobs;
+      this.dataStore.endpoint = null;
       this.updateStore();
+    });
+  }
+
+  //TODO: Use special http request when api will updated
+  public getAllRunning(): void {
+    this.backendService.getAll().subscribe((jobs) => {
+      this.dataStore.runningJobs = jobs;
+      this.updateStore('runningJobs');
     });
   }
 
   public getByEndpoint(endpointId: string) {
     this.backendService.getByEndpoint(endpointId).subscribe((jobs) => {
-      this.dataStore = jobs;
+      this.dataStore.selectedJobs = jobs;
       this.updateStore();
     });
   }
 
   public get(id: string): void {
-    this.backendService.get(id).subscribe((job) => {
-      this.updateItem(job)
+    let obs = this.backendService.get(id)
+    obs.subscribe((job) => {
+      this.updateItem(job);
+      this.updateItem(job, 'runningJobs');
       this.updateStore();
+      this.updateStore('runningJobs');
     });
   }
 
   public kill(id: string): void {
     let obs = this.backendService.kill(id)
-    obs.subscribe((data) => {
-               let job = this.dataStore.find(job => job.jobId === data.jobId);
-               let index: number = this.dataStore.indexOf(job);
-               this.dataStore.splice(index, 1, data);
-               this.updateStore();
-             })
+    obs.subscribe((job) => {
+      this.updateItem(job);
+      this.removeItem(job, 'runningJobs');
+      this.updateStore();
+      this.updateStore('runningJobs');
+    })
   }
 
-  private updateStore(): void {
-    this._jobs.next(this.dataStore);
+  // private
+
+  // mode: 'selectedJobs' | 'runningJobs'
+  private updateStore(mode: string = 'selectedJobs'): void {
+    this[`_${mode}`].next(this.dataStore[mode]);
   }
 
-  private updateItem(job: Job) {
-    const idx = this.dataStore.findIndex((item) => item.jobId === job.jobId);
+  // mode: 'selectedJobs' | 'runningJobs'
+  private updateItem(job: Job, mode: string = 'selectedJobs') {
+    const idx = this.dataStore[mode].findIndex((item) => item.jobId === job.jobId);
     if (idx === -1) {
-      this.dataStore.push(job);
+      this.dataStore[mode].push(job);
     } else {
-      this.dataStore[idx] = job;
+      this.dataStore[mode][idx] = job;
     }
   }
 
+  // mode: 'selectedJobs' | 'runningJobs'
+  private removeItem(job: Job, mode: string = 'selectedJobs') {
+    let removedJob = this.dataStore[mode].find(rmvdJob => rmvdJob.jobId === job.jobId);
+    let index: number = this.dataStore[mode].indexOf(removedJob);
+    this.dataStore[mode].splice(index, 1);
+    this.updateStore(mode);
+  }
 }

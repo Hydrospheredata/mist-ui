@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { EndpointStore } from '@stores/endpoint.store';
+import { JobStore } from '@stores/job.store';
 import { Endpoint } from '@models/endpoint';
+import { Job } from '@models/job';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { DialogAddEndpointComponent } from '@app/components/dialog-add-endpoint/dialog-add-endpoint.component';
 
@@ -13,10 +15,12 @@ import { DialogAddEndpointComponent } from '@app/components/dialog-add-endpoint/
 })
 export class EndpointListComponent implements OnInit {
   endpoints: Endpoint[];
+  runningJobs: Job[];
   searchQ: string;
 
   constructor(
     private endpointStore: EndpointStore,
+    private jobStore: JobStore,
     private router: Router,
     public dialog: MdDialog
   ) { }
@@ -36,6 +40,19 @@ export class EndpointListComponent implements OnInit {
 
   loadInitialData() {
     this.endpointStore.getAll();
-    this.endpointStore.endpoints.subscribe(data => { this.endpoints = data });
+    this.endpointStore.endpoints.subscribe((data) => { this.endpoints = data; });
+    this.jobStore.getAllRunning();
+    this.jobStore.runningJobs.subscribe((jobs) => {
+      this.runningJobs = jobs
+    })
+  }
+
+  runningJobsCount(endpointId?: string): Number {
+    if (endpointId) {
+      let result = this.runningJobs.filter((job) => { return job.endpoint === endpointId });
+      return result.length
+    } else {
+      return this.runningJobs.length
+    }
   }
 }
