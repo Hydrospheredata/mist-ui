@@ -70,7 +70,7 @@ export class EndpointDetailsComponent implements OnInit {
 
   toggleStatusFilter(option) {
     this.statusFilter[option] = !this.statusFilter[option]
-    this.setFilterToLStorage();
+    this.setFilterOptionsToLocalStorage();
   }
 
   selectNamespace(event, namespace) {
@@ -86,11 +86,11 @@ export class EndpointDetailsComponent implements OnInit {
       this.statusFilter = options;
     } else {
       this.statusFilter = { success: true, running: true, failed: false };
-      this.setFilterToLStorage()
+      this.setFilterOptionsToLocalStorage()
     }
   }
 
-  private setFilterOptionsToLStorage() {
+  private setFilterOptionsToLocalStorage() {
     localStorage.setItem('jobsStatusFilter', JSON.stringify(this.statusFilter));
   }
 
