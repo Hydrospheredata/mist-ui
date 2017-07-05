@@ -24,14 +24,14 @@ export class Job {
   }
 
   isFinished() {
-    return ['Stopped'].includes(this.status)
+    return ['finished'].includes(this.status)
   }
 
   isFailed() {
-    return ['Error','Aborted'].includes(this.status)
+    return ['failed','canceled'].includes(this.status)
   }
 
   isRunning() {
-    return ['Queued', 'Initialized','Running'].includes(this.status)
+    return ['initialized', 'started', 'queued'].includes(this.status)
   }
 }

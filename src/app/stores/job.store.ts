@@ -40,9 +40,8 @@ export class JobStore {
     });
   }
 
-  //TODO: Use special http request when api will updated
   public getAllRunning(): void {
-    this.backendService.getAll().subscribe((jobs) => {
+    this.backendService.where({status: ['initialized', 'started', 'queued']}).subscribe((jobs) => {
       this.dataStore.runningJobs = jobs;
       this.updateStore('runningJobs');
     });
