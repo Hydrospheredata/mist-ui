@@ -16,11 +16,7 @@ export class EndpointDetailsComponent implements OnInit {
   endpoint: Endpoint;
   jobs: Job[];
   namespace: string;
-  statusFilter: object = {
-    success: true,
-    running: true,
-    failed: false
-  };
+  statusFilter: { success: boolean, running: boolean, failed: boolean }
 
   private sub: any;
 
@@ -29,13 +25,13 @@ export class EndpointDetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private endpointStore: EndpointStore,
     private jobStore: JobStore
-  ) {
+  ) {}
+
+  ngOnInit() {
+    this.setFilterOptions();
     this.sub = this.activatedRoute.params
       .map(params => params['endpointId'])
       .subscribe((id) => { this.loadInitialData(id) });
-  }
-
-  ngOnInit() {
   }
 
   ngOnDestroy() {
@@ -74,11 +70,28 @@ export class EndpointDetailsComponent implements OnInit {
 
   toggleStatusFilter(option) {
     this.statusFilter[option] = !this.statusFilter[option]
+    this.setFilterOptionsToLocalStorage();
   }
 
   selectNamespace(event, namespace) {
     event.preventDefault();
     this.namespace = namespace;
+  }
+
+  // private
+
+  private setFilterOptions() {
+    let options = JSON.parse(localStorage.getItem('jobsStatusFilter'));
+    if (options) {
+      this.statusFilter = options;
+    } else {
+      this.statusFilter = { success: true, running: true, failed: false };
+      this.setFilterOptionsToLocalStorage()
+    }
+  }
+
+  private setFilterOptionsToLocalStorage() {
+    localStorage.setItem('jobsStatusFilter', JSON.stringify(this.statusFilter));
   }
 
 }
