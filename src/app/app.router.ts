@@ -4,8 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.component'
 import { EndpointListComponent } from '@components/jobs-wrapper/endpoint-list/endpoint-list.component';
-import { EndpointDetailsComponent } from '@components/jobs-wrapper/endpoint-details/endpoint-details.component'
-import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component'
+import { EndpointDetailsComponent } from '@components/jobs-wrapper/endpoint-details/endpoint-details.component';
+import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
 
 
 // Route Configuration
