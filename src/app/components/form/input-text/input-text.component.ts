@@ -16,18 +16,23 @@ export class InputTextComponent implements ControlValueAccessor  {
   protected onChange: (_: any) => void = noop;
   protected onTouched: () => void = noop;
 
+  @Input() public inputClass: string;
   @Input() public label: string;
   @Input() public name: string;
-  @Input() public icon: string;
+  @Input() public iconName: string;
   @Input() public iconClass: string;
-  /* show icon over on input or next to it*/
-  @Input() public iconSibling: string;
-  @Input() public iconLeft: string;
-  @Input() public iconRight: string;
+  /**
+   * true show icon next to input
+   * false show icon over on input
+  **/
+  @Input() public iconAsSibling: boolean;
   @Input() public placeholder: string;
   @Input() public errors: any;
+  /** left of right */
+  @Input() public iconDirection: string;
 
   constructor() {
+
   }
 
   get value(): any {

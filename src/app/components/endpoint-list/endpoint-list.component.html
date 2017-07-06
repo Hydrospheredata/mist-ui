@@ -2,17 +2,17 @@
   <aside class='endpoint-list mdl-cell mdl-cell--3-col'>
     <div class='endpoint-list__row endpoint-list__row--big'>
       <div class='endpoint-list__header'>
-        <div class="mdl-grid cs-align-center cs-mt-20 cs-text-right">
-          <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
-            <span class='endpoint-list__title'>Endpoints</span>
+        <div class="mdl-grid cs-align-center cs-mt-8 cs-mb-16 cs-text-right">
+          <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet cs-text-left">
+            <span class='h3'>Endpoints</span>
           </div>
           <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
-
             <mdl-button (click)="openDialogAddEndpointForm()"
                         class="mist-button blue border icon"
+                        title="Add new endpoint"
                         mdl-colored="">
               <mdl-icon>add</mdl-icon>
-              <span>Add</span>
+              <span fxHide.sm fxHide.md>Add</span>
             </mdl-button>
           </div>
         </div>
@@ -20,10 +20,13 @@
     </div>
     <div class='endpoint-list__row'>
       <div class='endpoint-list__search'>
-        <span class='material-icons endpoint-list__search-icon'>search</span>
-        <input class='mist-input mist-input--text endpoint-list__search-input'
-               type='text' id='search' placeholder='Search'
-               [(ngModel)]="searchQ">
+        <mist-input-text
+          inputClass="endpoint-list__search-input mist-input"
+          placeholder="Search"
+          [(ngModel)]="searchQ"
+          iconName="search"
+          iconDirection="left"
+        ></mist-input-text>
       </div>
     </div>
     <div class='endpoint-list__row'>

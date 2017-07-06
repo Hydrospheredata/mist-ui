@@ -1,8 +1,27 @@
 <div class="form-group" [class.has-error]="hasErrors(input)">
-  <label class="control-label" [attr.for]="name">{{label}}</label>
-  <div class="flex-container">
-    <input align="right" class="form-control" [ngClass]="{'input-icon': icon, 'sibling': iconSibling, 'left': iconRight, 'right': iconLeft }" [placeholder]="placeholder" type="text" [name]="name" [(ngModel)]="value" #input="ngModel" [id]="name" />
-    <mdl-icon class="{{iconClass}} input-icon" *ngIf="icon">{{icon}}</mdl-icon>
+  <label *ngIf="label" class="control-label" [attr.for]="name">{{label}}</label>
+  <div class="cs-relative" [ngClass]="{'flex-container': iconAsSibling, 'reverse': iconAsSibling && iconDirection == 'left'}">
+    <input class="form-control {{inputClass}}"
+           [ngClass]="{
+              'input-icon': iconName,
+              'sibling': iconAsSibling,
+              'right': iconDirection == 'right',
+              'left': iconDirection == 'left'
+            }"
+           [placeholder]="placeholder ? placeholder : ''"
+           type="text"
+           [name]="name"
+           [(ngModel)]="value"
+           #input="ngModel"
+           [id]="name" />
+    <mdl-icon class="{{iconClass}} input-icon"
+              [ngClass]="{
+                  'left': iconDirection == 'left',
+                  'right': iconDirection == 'right'
+                }"
+              *ngIf="iconName"
+    >{{iconName}}</mdl-icon>
+
   </div>
   <div class="alert alert-danger" *ngIf="hasErrors(input)">{{errors}}</div>
 </div>
