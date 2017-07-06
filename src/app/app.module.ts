@@ -45,6 +45,7 @@ import { EndpointStore } from '@stores/endpoint.store';
 import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
 import { AgoDatePipe } from '@pipes/ago-date.pipe';
 import { SearchPipe } from '@pipes/search.pipe';
+import { SortByPipe } from '@pipes/sort-by.pipe';
 
 
 @NgModule({
@@ -58,13 +59,14 @@ import { SearchPipe } from '@pipes/search.pipe';
     JobDetailsComponent,
     DialogAddEndpointComponent,
     DialogFullScreenJsonComponent,
+    InputTextComponent,
+    InputTextareaComponent,
+    JobsWrapperComponent,
     // pipes
     SearchPipe,
     AgoDatePipe,
     JobStatusFilterPipe,
-    InputTextComponent,
-    InputTextareaComponent,
-    JobsWrapperComponent
+    SortByPipe
   ],
   imports: [
     BrowserModule,
