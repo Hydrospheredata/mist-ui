@@ -23,12 +23,15 @@ import { CodemirrorModule } from 'ng2-codemirror';
 import { AppComponent } from './app.component';
 import { HomeComponent } from '@components/home/home.component';
 import { NavbarComponent } from '@components/navbar/navbar.component';
-import { EndpointListComponent } from '@components/endpoint-list/endpoint-list.component';
-import { EndpointDetailsComponent } from '@components/endpoint-list/endpoint-details/endpoint-details.component';
+import { EndpointListComponent } from '@components/jobs-wrapper/endpoint-list/endpoint-list.component';
+import { EndpointDetailsComponent } from '@components/jobs-wrapper/endpoint-details/endpoint-details.component';
 import { DialogJobFormComponent } from '@components/dialog-job-form/dialog-job-form.component';
-import { JobDetailsComponent } from '@components/endpoint-list/job-details/job-details.component';
+import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
 import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-json/dialog-full-screen-json.component';
 import { DialogAddEndpointComponent } from '@components/dialog-add-endpoint/dialog-add-endpoint.component';
+import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.component';
+import { InputTextComponent } from '@components/form/input-text/input-text.component';
+import { InputTextareaComponent } from '@components/form/input-textarea/input-textarea.component';
 
 //services
 import { HttpEndpointService } from '@services/http-endpoint.service';
@@ -42,8 +45,6 @@ import { EndpointStore } from '@stores/endpoint.store';
 import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
 import { AgoDatePipe } from '@pipes/ago-date.pipe';
 import { SearchPipe } from '@pipes/search.pipe';
-import { InputTextComponent } from './components/form/input-text/input-text.component';
-import { InputTextareaComponent } from './components/form/input-textarea/input-textarea.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { InputTextareaComponent } from './components/form/input-textarea/input-t
     AgoDatePipe,
     JobStatusFilterPipe,
     InputTextComponent,
-    InputTextareaComponent
+    InputTextareaComponent,
+    JobsWrapperComponent
   ],
   imports: [
     BrowserModule,
