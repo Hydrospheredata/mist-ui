@@ -1,0 +1,55 @@
+<div class='endpoint-list__row endpoint-list__row--big'>
+  <div class='endpoint-list__header'>
+    <div class="mdl-grid cs-align-center cs-mt-8 cs-mb-16 cs-text-right">
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet cs-text-left">
+        <span class='h3'>Endpoints</span>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
+        <mdl-button (click)="openDialogAddEndpointForm()"
+                    class="mist-button blue border icon"
+                    title="Add new endpoint"
+                    mdl-colored="">
+          <mdl-icon>add</mdl-icon>
+          <span fxHide.sm fxHide.md>Add</span>
+        </mdl-button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class='endpoint-list__row'>
+  <div class='endpoint-list__search'>
+    <mist-input-text
+      inputClass="endpoint-list__search-input mist-input"
+      placeholder="Search"
+      [(ngModel)]="searchQ"
+      iconName="search"
+      iconDirection="left"
+    ></mist-input-text>
+  </div>
+</div>
+<div class='endpoint-list__row'>
+  <ul class='mdl-list endpoint-list__ul'>
+    <li class='mdl-list__item endpoint-list__item'
+        routerLinkActive='endpoint-list__item--active'>
+      <a class='mdl-list__item-primary-content endpoint-list__item-content'
+         routerLink="overview">
+        <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>
+          view_comfy
+        </i>
+        All Jobs
+      </a>
+      <span class='endpoint-list__badge' [mdl-badge]="runningJobsCount()"></span>
+    </li>
+    <ng-template ngFor let-endpoint [ngForOf]="endpoints | search : 'name' : searchQ">
+      <li class='mdl-list__item mdl-list__item--two-line endpoint-list__item'
+          routerLinkActive='endpoint-list__item--active'>
+        <a class='mdl-list__item-primary-content endpoint-list__item-content'
+           [routerLink]="[endpoint.name]">
+          <span class="mdl-list__item-title">{{ endpoint.name }}</span>
+          <span class='mdl-list__item-sub-title'>v. 1.2.4 / status: status</span>
+        </a>
+        <span class='endpoint-list__badge' [mdl-badge]="runningJobsCount(endpoint.name)"></span>
+      </li>
+    </ng-template>
+  </ul>
+</div>

@@ -8,7 +8,7 @@
             <span class='endpoint-details__settings-label' fxHide.sm>Settings</span>
             <div class='namespace namespace--select'>
               <span class='namespace__label'>namespace</span>
-              <span class='namespace__value'>{{namespace}}</span>
+              <span class='namespace__value'>{{ namespace }}</span>
               <button id='namespace-select'
                       class='mdl-button mdl-js-button mdl-button--icon'>
                 <i class='material-icons'>arrow_drop_down</i>
@@ -127,7 +127,7 @@
           </td>
           <td class='jobs-table__td jobs-table__td--details'>
             <a class='mist-link'
-               [routerLink]="['jobs', job.jobId]">DETAILS...</a>
+               [routerLink]="job.jobId">DETAILS...</a>
           </td>
         </tr>
       </ng-template>
