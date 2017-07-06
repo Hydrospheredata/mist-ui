@@ -45,7 +45,7 @@ export class EndpointDetailsComponent implements OnInit {
       this.jobStore.getByEndpoint(id);
     }
     this.endpointStore.endpoints.subscribe(data => {
-      let endpoint = data.find(item => item.name === id);
+      let endpoint = data.find(item => item.name === id) || data[0];
       this.endpoint = endpoint;
     })
     this.jobStore.jobs.subscribe((jobs) => {
