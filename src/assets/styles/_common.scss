@@ -24,6 +24,9 @@
   &-text-left {
     text-align: left;
   }
+  &-text-center {
+    text-align: center;
+  }
   &-cursor-pointer {
     cursor: pointer;
   }
@@ -41,5 +44,8 @@
   }
   &-relative {
     position: relative;
+  }
+  &-non-transform {
+    text-transform: none;
   }
 }

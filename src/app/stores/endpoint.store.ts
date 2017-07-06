@@ -12,7 +12,7 @@ export class EndpointStore {
   private _endpoints: BehaviorSubject<Endpoint[]>;
   private dataStore: Endpoint[];
 
-  constructor(private backendService: HttpEndpointService) { 
+  constructor(private backendService: HttpEndpointService) {
     this.dataStore = [];
     this._endpoints = <BehaviorSubject<Endpoint[]>>new BehaviorSubject([]);
     this.endpoints = this._endpoints.asObservable();
@@ -27,7 +27,7 @@ export class EndpointStore {
 
   public get(id: string): void {
     this.backendService.get(id).subscribe((endpoint) => {
-      this.updateItem(endpoint)
+      this.updateItem(endpoint);
       this.updateStore();
     });
   }
@@ -43,6 +43,10 @@ export class EndpointStore {
     } else {
       this.dataStore[idx] = endpoint;
     }
+  }
+
+  public createEndpoint(endpoint: Endpoint) {
+    this.backendService.createEndpoint(endpoint);
   }
 
 }

@@ -12,7 +12,7 @@ export class HttpEndpointService {
   private baseUrl: string;
 
   constructor(private http: Http) {
-    this.baseUrl = `${environment.host}:${environment.port}/v2/api/endpoints`
+    this.baseUrl = `${environment.host}:${environment.port}/v2/api/endpoints`;
     this.getAll();
   }
 
@@ -23,7 +23,7 @@ export class HttpEndpointService {
   }
 
   public get(id: string): Observable<Endpoint> {
-    let apiUrl = this.baseUrl + `/${id}`
+    let apiUrl = this.baseUrl + `/${id}`;
     return this.http.get(apiUrl)
              .map((res: Response) => this.extractEndpoint(res))
              .catch(this.handleError)
@@ -33,7 +33,7 @@ export class HttpEndpointService {
     let data = res.json();
     let endpoints :Endpoint[] = [];
     for(let index in data){
-      let job = this.toEndpoint(data[index])
+      let job = this.toEndpoint(data[index]);
       endpoints.push(job);
     }
     return endpoints
@@ -55,7 +55,7 @@ export class HttpEndpointService {
       lang: data['lang'],
       tags: data['tags'],
       execute: data['execute']
-    })
+    });
     return endpoint
   }
 
@@ -70,5 +70,14 @@ export class HttpEndpointService {
     }
     console.error(errMsg);
     return Observable.throw(errMsg);
+  }
+
+  public createEndpoint( endpoint: Endpoint ) {
+    // todo. move settings to parent class or constant
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(this.baseUrl, { endpoint }, options)
+               .map(this.extractData)
+               .catch(this.handleError)
   }
 }

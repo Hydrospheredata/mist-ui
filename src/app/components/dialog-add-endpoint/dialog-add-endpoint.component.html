@@ -8,10 +8,10 @@
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
           <p>
-            <mist-input-text label="Name" formControlName="name"></mist-input-text>
+            <mist-input-text label="Name *" [formErrors]="formErrors.name" formControlName="name"></mist-input-text>
           </p>
           <p>
-            <mist-input-text label="Path" formControlName="path" iconName="device_hub" iconDirection="right"></mist-input-text>
+            <mist-input-text label="Path *" [formErrors]="formErrors.path" formControlName="path" iconName="device_hub" iconDirection="right"></mist-input-text>
           </p>
           <p>
             <mist-input-text label="Class" formControlName="className"></mist-input-text>
@@ -35,8 +35,8 @@
   <md-dialog-actions>
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--12-col cs-text-right">
-        <button md-button md-dialog-close class='mat-button--big'>CANCEL</button>
-        <button md-button md-dialog-close class='mat-button--big mat-button--primary' mdl-button-type="raised" mdl-colored="primary" mdl-ripple (click)="submit(endpointForm)">Add endpoint</button>
+        <button type="submit" md-button md-dialog-close class='mat-button--big'>CANCEL</button>
+        <button md-button [disabled]="endpointForm.invalid" class='mat-button--big mat-button--primary' mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Add endpoint</button>
       </div>
     </div>
   </md-dialog-actions>

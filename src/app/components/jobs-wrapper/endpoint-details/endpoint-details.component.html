@@ -31,7 +31,7 @@
             <span fxHide.sm>FILTER: </span>
             <mdl-button [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['success']}"
                         (click)="toggleStatusFilter('success')"
-                        class="mist-button endpoint-details__status-filter-option no-bg-on-hover mb-8"
+                        class="mist-button endpoint-details__status-filter-option no-bg-on-hover mb-8 cs-non-transform"
                         title="Success"
                         mdl-colored="">
               <mdl-icon>done</mdl-icon>
@@ -41,7 +41,7 @@
 
             <mdl-button [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['running']}"
                         (click)="toggleStatusFilter('running')"
-                        class="mist-button endpoint-details__status-filter-option no-bg-on-hover"
+                        class="mist-button endpoint-details__status-filter-option no-bg-on-hover cs-non-transform"
                         title="Running"
                         mdl-colored="">
               <mdl-icon>replay</mdl-icon>
@@ -50,7 +50,7 @@
 
             <mdl-button (click)="toggleStatusFilter('failed')"
                         [ngClass]="{'endpoint-details__status-filter-option--active': statusFilter['failed']}"
-                        class="mist-button endpoint-details__status-filter-option no-bg-on-hover"
+                        class="mist-button endpoint-details__status-filter-option no-bg-on-hover cs-non-transform"
                         title="Failed"
                         mdl-colored="">
               <mdl-icon>clear</mdl-icon>
