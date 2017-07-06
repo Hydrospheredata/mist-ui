@@ -27,10 +27,7 @@ export class EndpointListComponent implements OnInit {
 
   openDialogAddEndpointForm() {
     let dialogRef:MdDialogRef<DialogAddEndpointComponent> = this.dialog.open(DialogAddEndpointComponent, {
-      width: '900px' ,
-      data: {
-        selectedEndpoint: {},
-      }
+      width: '900px'
     });
   }
 

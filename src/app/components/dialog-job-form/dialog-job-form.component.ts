@@ -32,13 +32,7 @@ export class DialogJobFormComponent implements OnInit {
     this.selectedEndpoint = this.data.selectedEndpoint;
     this.endpointStore.endpoints.subscribe(data => { this.endpoints = data });
     this.executeParams = this.selectedEndpoint.executeExample();
-    this.codeMirrorOptions = {
-      placeholder: 'Parameters...',
-      matchBrackets: true,
-      autoCloseBrackets: true,
-      mode: { name: 'javascript', json: true },
-      lineWrapping: true
-    }
+    this.buildCodeMirrorOptions()
   }
 
   onChangeEndpoint() {
@@ -47,7 +41,17 @@ export class DialogJobFormComponent implements OnInit {
 
   submit() {
     let endpointId = this.selectedEndpoint.name
-    let params = this.executeParams
+    let params = this.executeParams || '{}'
     this.jobStore.add(endpointId, params)
+  }
+
+  private buildCodeMirrorOptions() {
+    this.codeMirrorOptions = {
+      placeholder: 'Parameters...',
+      matchBrackets: true,
+      autoCloseBrackets: true,
+      mode: { name: 'javascript', json: true },
+      lineWrapping: true
+    }
   }
 }

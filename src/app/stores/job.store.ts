@@ -26,7 +26,7 @@ export class JobStore {
     this.runningJobs = this._runningJobs.asObservable();
   }
 
-  public add(endpointId: string, args: string): void {
+  public add(endpointId: string, args: string = '{}'): void {
     this.backendService.create(endpointId, args).subscribe((data) => {
       this.get(data.id)
     });
