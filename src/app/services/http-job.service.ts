@@ -22,6 +22,14 @@ export class HttpJobService {
              .catch(this.handleError)
   }
 
+  public where(args: object): Observable<Job[]> {
+    let options = this.parseArgs(args);
+    let apiUrl = this.baseUrl + `/jobs?` + options
+    return this.http.get(apiUrl)
+             .map((res: Response) => { return this.extractJobs(res) })
+             .catch(this.handleError)
+  }
+
   public getByEndpoint(endpointId: string): Observable<Job[]> {
     let apiUrl = this.baseUrl + `/endpoints/${endpointId}/jobs`
     return this.http.get(apiUrl)
@@ -50,6 +58,14 @@ export class HttpJobService {
     return this.http.delete(apiUrl)
              .map((res: Response) => { return this.extractJob(res) })
              .catch(this.handleError)
+  }
+
+  private parseArgs(options): string {
+    let args = Object.keys(options)
+    let params = args.map((arg) => {
+      return `${arg}=` + options[arg].join(`&${arg}=`)
+    })
+    return params.join('&')
   }
 
   private extractJobs(res: Response) {
