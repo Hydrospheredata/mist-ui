@@ -25,6 +25,7 @@ export class InputTextComponent implements ControlValueAccessor  {
   @Input() public iconName: string;
   @Input() public iconClass: string;
   @Input() public formErrors: string;
+  @Input() public wrapClassName: string;
   /**
    * true show icon next to input
    * false show icon over on input

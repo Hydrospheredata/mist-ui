@@ -1,3 +1,5 @@
+@import "variables";
+
 /*common styles*/
 .cs {
   &-align-center {
@@ -47,5 +49,13 @@
   }
   &-non-transform {
     text-transform: none;
+  }
+}
+
+.mist {
+  &__separator {
+    &--horizontal {
+      border: 1px solid $aside-bg-color;
+    }
   }
 }
