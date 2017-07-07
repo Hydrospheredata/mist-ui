@@ -1,5 +1,22 @@
 @import "./src/assets/styles/variables.scss";
-.flex-container {
+
+.input-text {
+  &__error {
+    color: red;
+  }
+  &--copy-link {
+    .input-text__input {
+      height: 30px;
+      border-width: 1px;
+    }
+    mdl-icon.input-icon {
+      top: 20%;
+      font-size: 20px;
+    }
+  }
+}
+
+.input-text__flex-container {
   display: flex;
   flex-wrap: wrap;
   flex-flow: row;
@@ -22,7 +39,7 @@
     width: 100% !important;
   }
 
-  mdl-icon.input-icon {
+  mdl-icon.input-text__input-icon {
     flex-direction: column;
     display: flex;
     position: static;
@@ -33,6 +50,7 @@
     justify-content: center;
   }
 }
+
 input.form-control {
   height: 45px;
   &.input-icon {
@@ -52,6 +70,7 @@ input.form-control {
     clear: both;
   }
 }
+
 .form-group {
   position: relative;
 }

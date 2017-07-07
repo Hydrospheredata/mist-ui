@@ -2,43 +2,50 @@
   <h1 md-dialog-title>Add endpoint</h1>
 
   <mdl-icon class="close cs-cursor-pointer" (click)="dialogRef.close()">clear</mdl-icon>
+  <form [formGroup]="endpointForm" #form="ngForm" (ngSubmit)="submitEnpointForm(endpointForm)">
+    <md-dialog-content>
 
-  <md-dialog-content>
-    <form [formGroup]="endpointForm" (submit)="submit(endpointForm)">
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
           <p>
-            <mist-input-text label="Name" formControlName="name"></mist-input-text>
+            <mist-input-text label="Name *" [formErrors]="formErrors.name" formControlName="name"></mist-input-text>
           </p>
           <p>
-            <mist-input-text label="Path" formControlName="path" iconName="device_hub" iconDirection="right"></mist-input-text>
+            <mist-input-text label="Path *" [formErrors]="formErrors.path" formControlName="path" iconName="device_hub"
+                             iconDirection="right"></mist-input-text>
           </p>
           <p>
             <mist-input-text label="Class" formControlName="className"></mist-input-text>
           </p>
           <p>
-            <mist-input-text label="Namespace" formControlName="nameSpace" iconDirection="right" iconAsSibling="true" iconName="settings"></mist-input-text>
+            <mist-input-text label="Namespace" formControlName="nameSpace" iconDirection="right" iconAsSibling="true"
+                             iconName="settings"></mist-input-text>
           </p>
         </div>
         <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
           <p class="cs-height-100">
-            <mist-input-textarea className="cs-height-88" label="Namespace settings" formControlName="additionalParams"></mist-input-textarea>
+            <mist-input-textarea className="cs-height-88" label="Namespace settings"
+                                 formControlName="additionalParams"></mist-input-textarea>
           </p>
         </div>
       </div>
       <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
-        <input type="file" formControlName="file" (change)="onFileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx">
+        <input type="file" formControlName="file" (change)="onFileChange($event)" placeholder="Upload file"
+               accept=".pdf,.doc,.docx">
       </div>
-    </form>
-  </md-dialog-content>
 
-  <md-dialog-actions>
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--12-col cs-text-right">
-        <button md-button md-dialog-close class='mat-button--big'>CANCEL</button>
-        <button md-button md-dialog-close class='mat-button--big mat-button--primary' mdl-button-type="raised" mdl-colored="primary" mdl-ripple (click)="submit(endpointForm)">Add endpoint</button>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col cs-text-right">
+          <button type="button" md-button md-dialog-close class='mat-button--big'>CANCEL</button>
+          <button type="submit" md-button [disabled]="endpointForm.invalid" class='mat-button--big mat-button--primary'
+                  mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Add endpoint
+          </button>
+        </div>
       </div>
-    </div>
-  </md-dialog-actions>
+    </md-dialog-actions>
+  </form>
 
 </div>

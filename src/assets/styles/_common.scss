@@ -1,3 +1,5 @@
+@import "variables";
+
 /*common styles*/
 .cs {
   &-align-center {
@@ -24,6 +26,9 @@
   &-text-left {
     text-align: left;
   }
+  &-text-center {
+    text-align: center;
+  }
   &-cursor-pointer {
     cursor: pointer;
   }
@@ -41,5 +46,16 @@
   }
   &-relative {
     position: relative;
+  }
+  &-non-transform {
+    text-transform: none;
+  }
+}
+
+.mist {
+  &__separator {
+    &--horizontal {
+      border: 1px solid $aside-bg-color;
+    }
   }
 }

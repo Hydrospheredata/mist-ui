@@ -3,12 +3,20 @@ export class Endpoint {
   public lang: string;
   public tags: string[];
   public execute: string;
+  public className: string;
+  public nameSpace: string;
+  public nameSpaceSettings: JSON;
+  public file: File;
 
   constructor(endpointInfo: Object) {
     this.name = endpointInfo['name'];
     this.lang = endpointInfo['lang'];
     this.tags = endpointInfo['tags'];
     this.execute = JSON.stringify(endpointInfo['execute']) || null;
+    this.nameSpace = endpointInfo['nameSpace'];
+    this.className = endpointInfo['className'];
+    this.file = endpointInfo['file'];
+    this.nameSpaceSettings = endpointInfo['nameSpaceSettings'];
   }
 
   executeExample() {

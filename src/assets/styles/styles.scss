@@ -6,6 +6,7 @@
   src: url('/assets/fonts/Museosanscyrl500.woff') format('woff'),
        url('/assets/fonts/Museosanscyrl500.woff2') format('woff2'),
        url('/assets/fonts/Museosanscyrl500.ttf') format('truetype');
+
   font-weight: normal;
   font-style: normal;
   line-height: 1.5;
@@ -24,13 +25,13 @@
 }
 
 html, body {
-  font-family: $main-font-family;
+  font-family: $main-font-family !important;
   background-color: $main-bg-color;
   color:  $main-color;
 }
 
 .h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
-  font-family: inherit;
+  font-family: 'MuseoSansCyrl';
   font-weight: 500;
   line-height: 1.1;
   color: inherit
@@ -294,4 +295,8 @@ md-dialog-container.mat-dialog-container {
   &::after {
     content: ':'
   }
+}
+
+.mat-tab-body-content {
+  padding-top: 25px;
 }

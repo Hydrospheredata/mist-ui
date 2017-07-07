@@ -8,8 +8,11 @@ const noop = (_?: any) => {};
   templateUrl: './input-text.component.html',
   styleUrls: ['./input-text.component.scss'],
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => InputTextComponent), multi: true },
-  ]
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputTextComponent),
+      multi: true
+    }]
 })
 export class InputTextComponent implements ControlValueAccessor  {
   protected _value: any;
@@ -21,6 +24,8 @@ export class InputTextComponent implements ControlValueAccessor  {
   @Input() public name: string;
   @Input() public iconName: string;
   @Input() public iconClass: string;
+  @Input() public formErrors: string;
+  @Input() public wrapClassName: string;
   /**
    * true show icon next to input
    * false show icon over on input
@@ -32,7 +37,6 @@ export class InputTextComponent implements ControlValueAccessor  {
   @Input() public iconDirection: string;
 
   constructor() {
-
   }
 
   get value(): any {
@@ -63,4 +67,5 @@ export class InputTextComponent implements ControlValueAccessor  {
   public hasErrors(input: NgModel): boolean {
     return input.touched && this.errors != null;
   }
+
 }

@@ -87,6 +87,11 @@
     color: #fff;
   }
 
+  &.mat-button--primary[disabled]:hover {
+    background-color: transparent;
+    color: inherit;
+  }
+
   .mat-button-focus-overlay {
     background: none;
   }

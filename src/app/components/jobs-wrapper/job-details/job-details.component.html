@@ -1,31 +1,33 @@
-<div class='mist-page-container' *ngIf="job">
+<div class='job-details-page mist-page-container' *ngIf="job">
   <div class='mist-page-header'>
     <div class='mist-page-header__row'>
       <a class='mist-link mist-link--big'
-        [routerLink]="['../']">
+         [routerLink]="['../']">
         <i class='material-icons'>keyboard_backspace</i>
         Back to Jobs
       </a>
     </div>
     <div class='mist-page-header__row'>
       <i class='material-icons status-icon'
-        [ngClass]="{'status-icon--failed': job.isFailed(),
+         [ngClass]="{'status-icon--failed': job.isFailed(),
         'status-icon--success': job.isFinished(),
         'status-icon--primary': job.isRunning()}">
       </i>
-      <span class='job-id'
-        [ngClass]="{'font-color--failed': job.isFailed()}">
+      <span class='job-id .h3'
+            [ngClass]="{'font-color--failed': job.isFailed()}">
         {{ job.jobId }}
       </span>
       <button md-button
-        class='clone-job-button mat-button--primary'>Clone Job</button>
+              class='clone-job-button mat-button--primary'>Clone Job
+      </button>
     </div>
-    <div class='mist-page-header__row'>
+    <div fxLayout="row" fxLayoutAlign="space-between" class='mist-page-header__row mist-page-header__row--status'>
+
       <div class='job-version'>
         <span class='mist-label'>Version</span>
         <span>1.2.4</span>
-        </div>
-        <div class='namespace'>
+      </div>
+      <div  class='namespace'>
         <span class='namespace__label'>namespace</span>
         <span class='namespace__value'>{{ job.context }}</span>
       </div>
@@ -36,6 +38,8 @@
           'font-color--failed': job.isFailed()}">
           {{ job.status }}
         </span>
+      </div>
+      <div>
         <span class='mist-label'>
           {{ job.isRunning() ? 'Started' : 'Finished' }}
         </span>
@@ -43,48 +47,52 @@
           {{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}
         </span>
       </div>
-      <a class='mist-link spark-ui'>
-        <i class='material-icons'>link</i>
-        <span>SPARK UI</span>
-      </a>
+      <div class="cs-text-right">
+        <a class='mist-link spark-ui'>
+          <i class='material-icons'>link</i>
+          <span>SPARK UI</span>
+        </a>
+      </div>
     </div>
   </div>
-  <hr />
+  <hr class="mist__separator--horizontal"/>
   <div class='mist-page-content'>
-    <div class='job-container'>
-      <div class='job-details'>
+    <div fxLayout='row' fxLayoutAlign="center" class='job-container'>
+      <div fxFlex="45" class='job-details cs-text-left'>
         <div class='mist-label'>
           Parameters
         </div>
         <div class='job-details__container'>
           <codemirror [ngModel]="job.params"
-                [config]="codeMirrorOptions">
+                      [config]="codeMirrorOptions">
           </codemirror>
           <span class='material-icons job-details__full-screen-icon'
-            (click)="openFullScreenJson(job.params)">crop_free</span>
+                (click)="openFullScreenJson(job.params)">crop_free</span>
         </div>
       </div>
-      <div class='icon-separator'>
-        <i class='material-icons'>forward</i>
+      <div fxFlex="10" class='icon-separator'>
+        <mdl-icon>forward</mdl-icon>
       </div>
-      <div class='job-details job-details--results'>
+      <div fxFlex="45" class='job-details job-details--results cs-text-left'>
         <div class='mist-label'>
           Results
         </div>
         <div class='job-details__container'>
           <codemirror [ngModel]="job.jobResult"
-                [config]="codeMirrorOptions">
+                      [config]="codeMirrorOptions">
           </codemirror>
           <span class='material-icons job-details__full-screen-icon'
-            (click)="openFullScreenJson(job.jobResult)">crop_free</span>
+                (click)="openFullScreenJson(job.jobResult)">crop_free</span>
         </div>
       </div>
     </div>
     <md-tab-group>
       <md-tab label='Clone with HTTPS'>
-        <div class='git-clone-input git-clone-input--icon'>
-          <input class='mist-input mist-input--text' 
-              type='text'>
+        <div fxLayout="row" fxLayoutAlign="center" class='git-clone-input git-clone-input--icon'>
+          <mist-input-text wrapClass="input-text--copy-link" fxFlex="50" class="input-text--copy-link" placeholder="https://github.com/Hydrospheredata/mist.git"
+                           iconName="content_copy"
+                           iconDirection="right">
+          </mist-input-text>
         </div>
       </md-tab>
       <md-tab label='Java code snippet'>Java code snippet</md-tab>
