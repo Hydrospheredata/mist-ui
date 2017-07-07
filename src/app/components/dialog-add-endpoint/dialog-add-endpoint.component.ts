@@ -16,13 +16,13 @@ import { Endpoint } from '@models/endpoint';
 export class DialogAddEndpointComponent implements OnInit {
   private endpointForm: FormGroup;
   private file: File;
-  private endpointStore: EndpointStore;
+  // private endpointStore: EndpointStore;
   private formErrors = {
     name: '',
     path: ''
   };
 
-  constructor(private fb: FormBuilder, public dialogRef: MdDialogRef<DialogAddEndpointComponent>, private FormsService: FormsService) {
+  constructor(private fb: FormBuilder, public dialogRef: MdDialogRef<DialogAddEndpointComponent>, private FormsService: FormsService, private endpointStore: EndpointStore) {
 
   }
 
@@ -48,8 +48,17 @@ export class DialogAddEndpointComponent implements OnInit {
     this.FormsService.setErrors(this.endpointForm, this.formErrors, Messages.ERRORS.forms.addEndpoint);
   }
 
-  submit(form) {
-    let endpoint: Endpoint;
+  submitEnpointForm(form) {
+    const endpoint: Endpoint = new Endpoint({
+    name: form.controls.name.value,
+    lang: '',
+    tags: '',
+    path: form.controls.name.path,
+    className: form.controls.name.className,
+    nameSpace: form.controls.name.nameSpace,
+    additionalParams: form.controls.name.additionalParams,
+    file: this.file});
+
     if (form.valid) {
       this.endpointStore.createEndpoint(endpoint);
     } else {
