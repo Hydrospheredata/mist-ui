@@ -18,7 +18,7 @@
             <mist-input-text label="Class" formControlName="className"></mist-input-text>
           </p>
           <p>
-            <mist-input-text label="Namespace" formControlName="nameSpace" iconDirection="right" iconAsSibling="true"
+            <mist-input-text label="Namespace" formControlName="nameSpace" (onIconClick)="onIconClick($event)" iconDirection="right" iconAsSibling="true"
                              iconName="settings"></mist-input-text>
           </p>
         </div>

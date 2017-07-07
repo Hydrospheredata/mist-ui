@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import {Component, Input, OnInit, forwardRef, Output, EventEmitter} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms';
 
 const noop = (_?: any) => {};
@@ -35,8 +35,13 @@ export class InputTextComponent implements ControlValueAccessor  {
   @Input() public errors: any;
   /** left of right */
   @Input() public iconDirection: string;
+  @Output() onIconClick = new EventEmitter<NgModel>();
 
   constructor() {
+  }
+
+  public iconClick(model: NgModel) {
+    this.onIconClick.emit(model);
   }
 
   get value(): any {

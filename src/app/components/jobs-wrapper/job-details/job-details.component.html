@@ -7,27 +7,30 @@
         Back to Jobs
       </a>
     </div>
-    <div class='mist-page-header__row'>
-      <i class='material-icons status-icon'
-         [ngClass]="{'status-icon--failed': job.isFailed(),
-        'status-icon--success': job.isFinished(),
-        'status-icon--primary': job.isRunning()}">
-      </i>
-      <span class='job-id .h3'
-            [ngClass]="{'font-color--failed': job.isFailed()}">
-        {{ job.jobId }}
-      </span>
+    <div fxLayout="row" fxLayoutAlign="space-between center" class='mist-page-header__row'>
+      <div>
+        <i class='material-icons status-icon'
+           [ngClass]="{'status-icon--failed': job.isFailed(),
+          'status-icon--success': job.isFinished(),
+          'status-icon--primary': job.isRunning()}">
+        </i>
+        <span class='job-id .h3'
+              [ngClass]="{'font-color--failed': job.isFailed()}">
+          {{ job.jobId }}
+        </span>
+      </div>
       <button md-button
               class='clone-job-button mat-button--primary'>Clone Job
       </button>
     </div>
-    <div fxLayout="row" fxLayoutAlign="space-between" class='mist-page-header__row mist-page-header__row--status'>
+    <div fxLayout="row" fxLayoutAlign="space-between center"
+         class='mist-page-header__row mist-page-header__row--status'>
 
       <div class='job-version'>
         <span class='mist-label'>Version</span>
         <span>1.2.4</span>
       </div>
-      <div  class='namespace'>
+      <div class='namespace'>
         <span class='namespace__label'>namespace</span>
         <span class='namespace__value'>{{ job.context }}</span>
       </div>
@@ -88,8 +91,10 @@
     </div>
     <md-tab-group>
       <md-tab label='Clone with HTTPS'>
+
         <div fxLayout="row" fxLayoutAlign="center" class='git-clone-input git-clone-input--icon'>
-          <mist-input-text wrapClass="input-text--copy-link" fxFlex="50" class="input-text--copy-link" placeholder="https://github.com/Hydrospheredata/mist.git"
+          <mist-input-text wrapClass="input-text--copy-link" fxFlex="50"
+                           class="input-text--copy-link" placeholder="https://github.com/Hydrospheredata/mist.git"
                            iconName="content_copy"
                            iconDirection="right">
           </mist-input-text>

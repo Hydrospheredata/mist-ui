@@ -34,7 +34,7 @@ export class JobDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.activatedRoute.params
-      .subscribe((params) => { 
+      .subscribe((params) => {
       	this.loadInitialData(params['endpointId'], params['jobId'])
       });
 
@@ -59,11 +59,11 @@ export class JobDetailsComponent implements OnInit {
       this.endpoint = endpoint;
     })
     this.jobStore.get(jobId);
-    this.jobStore.jobs.subscribe(data => { 
+    this.jobStore.jobs.subscribe(data => {
       let job = data.find(item => item.jobId === jobId);
       this.job = job;
     });
-  } 
+  }
 
   openFullScreenJson(jsonString: string) {
     this.dialog.open(DialogFullScreenJsonComponent, {
