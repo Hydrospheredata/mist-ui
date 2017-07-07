@@ -15,6 +15,7 @@
            #input="ngModel"
            [id]="name" />
     <mdl-icon class="input-text__icon {{iconClass}} input-icon"
+              (click)="iconClick(input)"
               [ngClass]="{
                   'left': iconDirection == 'left',
                   'right': iconDirection == 'right'

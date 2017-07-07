@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing } from './app.router';
 import { MdlModule } from '@angular-mdl/core';
-// import { BootstrapGridModule } from 'ng2-bootstrap-grid';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 //material modules
@@ -18,6 +17,9 @@ import {
 
 //codemirror
 import { CodemirrorModule } from 'ng2-codemirror';
+
+// clipboard copy module
+import { ClipboardModule } from '@node_modules/ngx-clipboard';
 
 //components
 import { AppComponent } from './app.component';
@@ -84,7 +86,8 @@ import { SortByPipe } from '@pipes/sort-by.pipe';
     MdlModule,
     //codemirror
     CodemirrorModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ClipboardModule
   ],
   exports: [
   ],

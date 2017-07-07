@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import {FormControl, FormGroup, Validators, FormBuilder, NgModel} from '@angular/forms';
 import {reject} from "q";
 import { FormsService } from '@services/forms.service';
 import { Messages } from 'app/constants/messages';
@@ -65,6 +65,10 @@ export class DialogAddEndpointComponent implements OnInit {
       this.FormsService.setErrors(this.endpointForm, this.formErrors, Messages.ERRORS.forms.addEndpoint);
       return false;
     }
+  }
+
+  onIconClick(input: NgModel) {
+    console.log( input );
   }
 
   onFileChange($event) {

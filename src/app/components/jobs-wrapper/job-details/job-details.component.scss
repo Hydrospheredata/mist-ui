@@ -7,19 +7,18 @@
 }
 
 .job-id {
-  font-size: 24px;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
   vertical-align: middle;
   padding-left: 0.5rem;
 }
 
 .mat-button.clone-job-button {
   font-size: 16px;
-  float: right;
-  padding: 0 75px;
+  padding: 0 65px;
 }
 
 .job-details {
-  display: inline-block;
   .mist-label {
     font-size: 18px;
   }
@@ -31,8 +30,8 @@
 
   .job-details__full-screen-icon {
     color: $label-color;
-    float: right;
     cursor: pointer;
+    position: absolute;
   }
 
   &.job-details--results {
@@ -47,13 +46,10 @@
 }
 
 .job-version {
-  display: inline-block;
   font-size: 14px;
-  margin-right: 40px;
 }
 
 .job-status {
-  display: inline-block;
 }
 
 .job-container {
