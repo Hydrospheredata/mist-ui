@@ -14,10 +14,10 @@ import { Endpoint } from '@models/endpoint';
   providers: [FormsService]
 })
 export class DialogAddEndpointComponent implements OnInit {
-  private endpointForm: FormGroup;
-  private file: File;
+  public endpointForm: FormGroup;
+  public file: File;
   // private endpointStore: EndpointStore;
-  private formErrors = {
+  public formErrors = {
     name: '',
     path: ''
   };
