@@ -53,6 +53,7 @@ export class JobStore {
   public getByEndpoint(endpointId: string) {
     this.backendService.getByEndpoint(endpointId).subscribe((jobs) => {
       this.dataStore.selectedJobs = jobs;
+      this.dataStore.endpoint = endpointId;
       this.updateStore();
     });
   }
@@ -60,7 +61,9 @@ export class JobStore {
   public get(id: string): void {
     let obs = this.backendService.get(id)
     obs.subscribe((job) => {
-      this.updateItem(job);
+      if (!this.dataStore.endpoint || this.dataStore.endpoint === job.endpoint) {
+        this.updateItem(job);
+      }
       if (job.isRunning()) {
         this.updateItem(job, 'runningJobs');
       } else {
@@ -106,7 +109,6 @@ export class JobStore {
 
   private wsConnect() {
     this.wsService.connect().subscribe((message) => {
-      console.log(message);
       this.wsEventHandler(message);
     })
   }
