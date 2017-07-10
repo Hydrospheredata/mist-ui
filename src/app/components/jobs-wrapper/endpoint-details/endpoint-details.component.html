@@ -89,17 +89,19 @@
               {{ job.jobId }}
             </div>
           </td>
-          <td title="Version 1.2.4" class='jobs-table__td jobs-table__td--version'>
+          <td title="Version 1.2.4" class='jobs-table__td jobs-table__td--version cs-text-overflow-ellipsis'>
             <span class='mist-label'>Version</span>
             1.2.4
           </td>
           <td [title]="'namespace = ' + job.context" class='jobs-table__td jobs-table__td--namespace'>
-            <div class='namespace'>
-              <span class='namespace__label'>namespace</span>
-              <span class='namespace__value'>{{ job.context }}</span>
+            <div class='namespace cs-block'>
+              <div class="cs-text-overflow-ellipsis">
+                <span class='namespace__label'>namespace</span>
+                <span class='namespace__value'>{{ job.context }}</span>
+              </div>
             </div>
           </td>
-          <td [title]="job.status" class='jobs-table__td jobs-table__td--status'>
+          <td [title]="job.status" class='jobs-table__td jobs-table__td--status cs-text-overflow-ellipsis'>
             <div class="cs-text-overflow-ellipsis">
               <span class='mist-label'>Status</span>
               <span class='job-status'
@@ -118,14 +120,14 @@
                 </span>
             </div>
           </td>
-          <td title="KILL" class='jobs-table__td jobs-table__td--actions'>
+          <td title="KILL" class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
             <a href='#' class='mist-link' (click)="killJob($event, job)"
                *ngIf="job.isRunning()">
               <i class='material-icons'>delete_forever</i>
               <span>KILL</span>
             </a>
           </td>
-          <td title="DETAILS" class='jobs-table__td jobs-table__td--details'>
+          <td title="DETAILS" class='jobs-table__td jobs-table__td--details cs-text-overflow-ellipsis'>
             <a class='mist-link'
                [routerLink]="job.jobId">DETAILS...</a>
           </td>
