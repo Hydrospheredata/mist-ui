@@ -93,7 +93,7 @@ import { SortByPipe } from '@pipes/sort-by.pipe';
   exports: [
   ],
   entryComponents: [DialogJobFormComponent, DialogFullScreenJsonComponent, DialogAddEndpointComponent],
-  providers: [HttpEndpointService, HttpJobService, FormsService, WebSocketJobService, JobStore, EndpointStore],
+  providers: [HttpEndpointService, HttpJobService, WebSocketJobService, JobStore, EndpointStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

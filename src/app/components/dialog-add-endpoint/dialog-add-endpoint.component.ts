@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
-import {FormControl, FormGroup, Validators, FormBuilder, NgModel} from '@angular/forms';
-import {reject} from "q";
+import { FormControl, FormGroup, Validators, FormBuilder, NgModel } from '@angular/forms';
+import { reject } from "q";
 import { FormsService } from '@services/forms.service';
 import { Messages } from 'app/constants/messages';
 import { EndpointStore } from '@stores/endpoint.store';
@@ -11,7 +11,7 @@ import { Endpoint } from '@models/endpoint';
   selector: 'mist-dialog-add-endpoint',
   templateUrl: './dialog-add-endpoint.component.html',
   styleUrls: ['./dialog-add-endpoint.component.scss'],
-  providers: []
+  providers: [FormsService]
 })
 export class DialogAddEndpointComponent implements OnInit {
   private endpointForm: FormGroup;
