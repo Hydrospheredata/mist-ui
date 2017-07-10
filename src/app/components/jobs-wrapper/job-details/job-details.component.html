@@ -8,20 +8,22 @@
       </a>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" class='mist-page-header__row'>
-      <div>
+
+      <div fxFlex.gt="75" fxFlex.md="65" fxFlex.sm="60" class="cs-text-overflow-ellipsis .h3">
         <i class='material-icons status-icon'
            [ngClass]="{'status-icon--failed': job.isFailed(),
           'status-icon--success': job.isFinished(),
           'status-icon--primary': job.isRunning()}">
         </i>
-        <span class='job-id .h3'
-              [ngClass]="{'font-color--failed': job.isFailed()}">
-          {{ job.jobId }}
-        </span>
+        <span [title]="job.jobId" class='job-id' [ngClass]="{'font-color--failed': job.isFailed()}">{{ job.jobId }}</span>
       </div>
-      <button md-button
-              class='clone-job-button mat-button--primary'>Clone Job
-      </button>
+
+
+      <div fxFlex.gt="25" fxFlex.md="35" fxFlex.sm="40" class="cs-text-right">
+        <button md-button class='clone-job-button mat-button--primary'>
+          Clone Job
+        </button>
+      </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center"
          class='mist-page-header__row mist-page-header__row--status'>

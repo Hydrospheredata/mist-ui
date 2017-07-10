@@ -1,8 +1,8 @@
-<main class='mist-layout mdl-grid--no-spacing mdl-grid'>
-  <aside class='endpoint-list mdl-cell mdl-cell--3-col mdl-cell--2-col-tablet'>
+<main class='mist-layout cs-height-100' fxLayout="row" fxLayoutAlign="space-between stretch">
+  <aside fxFlex="25%" class='endpoint-list'>
     <endpoint-list></endpoint-list>
   </aside>
-  <div class='mdl-layout__content mdl-cell mdl-cell--9-col mdl-cell--6-col-tablet'>
+  <div fxFlex="75%" class='mdl-layout__content'>
     <router-outlet></router-outlet>
   </div>
 </main>
