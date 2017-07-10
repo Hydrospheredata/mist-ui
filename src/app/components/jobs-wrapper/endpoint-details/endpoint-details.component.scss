@@ -2,51 +2,56 @@
 
 .endpoint-details {
   position: relative;
-}
 
-.endpoint-details__settings {
-  font-size: 18px;
-}
-
-.endpoint-details__settings-label {
-  color: $label-color;
-}
-
-.endpoint-details__settings-label::after {
-  content: ':'
-}
-
-.endpoint-details__icon {
-  vertical-align: middle;
-  font-size: 24px;
-  color: $label-color;
-}
-
-.endpoint-details__status-filter {
-}
-
-.endpoint-details__status-filter-option {
-  display: inline-block;
-  color: $label-color;
-  font-size: 14px;
-  border-radius: 5px;
-  padding: 0 10px;
-
-  &:hover {
-    cursor: pointer;
+  &__settings {
+    font-size: 18px;
   }
 
-  &.endpoint-details__status-filter-option--active {
-    background-color: #e9ecf2;
+  &__settings-label {
+    color: $label-color;
   }
-}
 
-.endpoint-details__run-new-btn {
-  margin: 10px 0;
+  &__settings-label::after {
+    content: ':'
+  }
+
+  &__icon {
+    vertical-align: middle;
+    font-size: 24px;
+    color: $label-color;
+  }
+
+  &__run-new-btn {
+    margin: 10px 0;
+  }
+
+  &__status-filter-option {
+    display: inline-block;
+    color: $label-color;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 0 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.endpoint-details__status-filter-option--active {
+      background-color: #e9ecf2;
+    }
+  }
 }
 
 .jobs-table {
   border: none;
+  width: 100%;
+
+  @media screen and (min-width: 600px) and (max-width: 959px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width: 1279px) and (min-width: 960px) {
+    font-size: 14px;
+  }
 
   tr:hover {
     background: #fafbfc;
@@ -54,33 +59,47 @@
 
   td {
     text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
   }
-}
-
-.jobs-table__tr {
-  height: 90px;
-}
-
-.jobs-table__tr, .jobs-table__td {
-  border-top: 2px solid $main-bg-color;
-  border-bottom: none;
-}
-
-.jobs-table__td {
-  &.jobs-table__td--icon {
-    width: 6%;
+  &__tr {
+    height: 90px;
   }
-  &.jobs-table__td--job-id {
-    width: 28%;
-    font-size: 18px;
-    text-align: right;
+  &__tr,
+  &__td {
+    border-top: 2px solid $main-bg-color;
+    border-bottom: none;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
   }
-  &.jobs-table__td--version {
-    width: 8%;
-    font-size: 14px;
-  }
-
-  i {
-    font-size: 20px;
+  &__td {
+    &.jobs-table__td--icon {
+      width: 6%;
+    }
+    &.jobs-table__td--job-id {
+      font-size: 18px;
+      text-align: right;
+      @media screen and (max-width: 1279px) and (min-width: 600px) {
+        font-size: 14px;
+      }
+    }
+    &.jobs-table__td--actions {
+      width: 10%;
+    }
+    &.jobs-table__td--details {
+      width: 12%;
+    }
+    &.jobs-table__td--version {
+      width: 10%;
+      font-size: 14px;
+    }
+    .jobs-table__td--namespace {
+      width: 15%;
+    }
+    i {
+      font-size: 20px;
+    }
   }
 }
