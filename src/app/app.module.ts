@@ -39,6 +39,7 @@ import { InputTextareaComponent } from '@components/form/input-textarea/input-te
 import { HttpEndpointService } from '@services/http-endpoint.service';
 import { HttpJobService } from '@services/http-job.service';
 import { FormsService } from '@services/forms.service';
+import { WebSocketJobService } from '@services/web-socket-job.service';
 
 //stores
 import { JobStore } from '@stores/job.store';
@@ -92,7 +93,7 @@ import { SortByPipe } from '@pipes/sort-by.pipe';
   exports: [
   ],
   entryComponents: [DialogJobFormComponent, DialogFullScreenJsonComponent, DialogAddEndpointComponent],
-  providers: [HttpEndpointService, HttpJobService, FormsService, JobStore, EndpointStore],
+  providers: [HttpEndpointService, HttpJobService, WebSocketJobService, JobStore, EndpointStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
