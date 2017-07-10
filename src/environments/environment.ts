@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
   host: 'http://localhost',
+  ws: 'ws://localhost',
   port: 2004
 };
