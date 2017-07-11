@@ -1,0 +1,47 @@
+.jobs-logs {
+  display: block;
+  width: 100%;
+
+  &--title {
+    font-size: 16px;
+    padding-bottom: 3.5rem;
+    color: #818994;
+  }
+
+  &--container {
+    position: relative;
+    background: #0c152a;
+    font-size: 14px;
+    font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    color: #ffffff;
+    padding: 1rem 3.5rem 3.5rem 3.5rem;
+    margin-top: 6rem;
+    height: 100%;
+  }
+
+  &--full-screen {
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 0;
+    .jobs-logs--container {
+      margin-top: 0;
+    }
+  }
+
+  &--toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #818994;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+}
+

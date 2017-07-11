@@ -1,0 +1,15 @@
+<div class="jobs-logs" #jobsLogs>
+  <div class="jobs-logs--container">
+    <div class="jobs-logs--title cs-text-center">Job Logs</div>
+    <mdl-icon class="jobs-logs--toggle" (click)="toggleToFullScreen()">crop_free</mdl-icon>
+    <div>{{'\
+      # Set everything to be logged to the console
+      log4j.rootCategory=DEBUG, file
+      log4j.appender.console=org.apache.log4j.ConsoleAppender
+      log4j.appender.console.target=System.err
+      log4j.appender.console.layout=org.apache.log4j.PatternLayout
+      log4j.appender.console.layout.ConversionPattern=%d{yy/MM/dd HH:mm:ss} %p %c{1}: %m%n
+      '}}
+    </div>
+  </div>
+</div>
