@@ -26,7 +26,7 @@ export class JobDetailsComponent implements OnInit {
   constructor(
     private dialog: MdDialog,
     private activatedRoute: ActivatedRoute,
-    private jobStore: JobStore,
+    private jobStore: JobStore
   ) { }
 
   ngOnInit() {
