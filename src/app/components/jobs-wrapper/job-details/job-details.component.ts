@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-json/dialog-full-screen-json.component';
@@ -19,7 +18,6 @@ import '@node_modules/codemirror/addon/display/placeholder';
   styleUrls: ['./job-details.component.scss']
 })
 export class JobDetailsComponent implements OnInit {
-  endpoint: Endpoint;
   job: Job;
   codeMirrorOptions: {};
 
@@ -28,14 +26,13 @@ export class JobDetailsComponent implements OnInit {
   constructor(
     private dialog: MdDialog,
     private activatedRoute: ActivatedRoute,
-    private endpointStore: EndpointStore,
     private jobStore: JobStore
   ) { }
 
   ngOnInit() {
     this.sub = this.activatedRoute.params
       .subscribe((params) => {
-      	this.loadInitialData(params['endpointId'], params['jobId'])
+        this.loadInitialData(params['jobId'])
       });
 
     this.codeMirrorOptions = {
@@ -52,12 +49,7 @@ export class JobDetailsComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-  loadInitialData(endpointId, jobId) {
-    this.endpointStore.get(endpointId);
-    this.endpointStore.endpoints.subscribe(data => {
-      let endpoint = data.find(item => item.name === endpointId);
-      this.endpoint = endpoint;
-    })
+  loadInitialData(jobId) {
     this.jobStore.get(jobId);
     this.jobStore.jobs.subscribe(data => {
       let job = data.find(item => item.jobId === jobId);

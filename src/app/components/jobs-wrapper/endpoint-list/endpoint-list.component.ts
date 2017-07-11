@@ -18,6 +18,7 @@ export class EndpointListComponent implements OnInit {
   runningJobs: Job[];
   searchQ: string;
 
+
   constructor(
     private endpointStore: EndpointStore,
     private jobStore: JobStore,
@@ -44,12 +45,8 @@ export class EndpointListComponent implements OnInit {
     })
   }
 
-  runningJobsCount(endpointId?: string): Number {
-    if (endpointId) {
-      let result = this.runningJobs.filter((job) => { return job.endpoint === endpointId });
-      return result.length
-    } else {
-      return this.runningJobs.length
-    }
+  runningJobsCountBy(endpointId: string): Number {
+    let result = this.runningJobs.filter((job) => { return job.endpoint === endpointId });
+    return result.length
   }
 }

@@ -129,7 +129,7 @@
           </td>
           <td title="DETAILS" class='jobs-table__td jobs-table__td--details cs-text-overflow-ellipsis'>
             <a class='mist-link'
-               [routerLink]="job.jobId">DETAILS...</a>
+               [routerLink]="['/jobs', job.endpoint, job.jobId]">DETAILS...</a>
           </td>
         </tr>
       </ng-template>
