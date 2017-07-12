@@ -40,11 +40,10 @@ export class WebSocketLogsService {
     return Subject.create({}, observable);
   }
 
-  public disconnect(id): Subject<MessageEvent> {
+  public disconnect(): void {
     if (this.ws.readyState === WebSocket.OPEN) {
       this.ws.close();
     }
-    return this.subject;
   }
 
 }

@@ -13,17 +13,18 @@ import { WebSocketLogsService } from '@services/web-socket-logs.service';
 export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('jobLogs') elem: ElementRef;
   @Input() jobId: number;
-  parent: Element;
-  isFullScreenEnabled: Boolean;
+  private parent: Element;
+  private isFullScreenEnabled: Boolean;
   logs: Array<object> = [];
-  subscriber: any;
+  private subscriber: any;
+  private webSocketLogsService: WebSocketLogsService;
 
   constructor(WebSocketLogsService: WebSocketLogsService) {
-    this.subscriber = WebSocketLogsService;
+    this.webSocketLogsService = WebSocketLogsService;
   }
 
   ngOnInit() {
-    this.subscriber.connect(this.jobId).subscribe((data) => {
+    this.subscriber = this.webSocketLogsService.connect(this.jobId).subscribe((data) => {
       this.logs.push(data);
     });
   }
@@ -53,7 +54,8 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriber.disconnect().unsubscribe();
+    this.webSocketLogsService.disconnect();
+    this.subscriber.unsubscribe()
   }
 
 }
