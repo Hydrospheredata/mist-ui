@@ -1,0 +1,10 @@
+<div class="job-logs" #jobLogs>
+  <div class="job-logs--container" id="logs">
+    <div class="job-logs--title cs-text-center">Job Logs</div>
+    <mdl-icon class="job-logs--toggle" (click)="toggleToFullScreen()">crop_free</mdl-icon>
+    <div *ngFor="let log of logs">
+      <span>{{log.timeStamp | date}}</span>
+      <span>{{log.message}}</span>
+    </div>
+  </div>
+</div>
