@@ -7,35 +7,43 @@ export class WebSocketLogsService {
 
   private subject: Subject<MessageEvent>;
   private baseUrl: string;
+  private ws: WebSocket;
 
-  constructor() { 
-    this.baseUrl = `${environment.ws}:${environment.port}/v2/api/jobs/`
+  constructor() {
+    this.baseUrl = `${environment.ws}:${environment.port}/v2/api/jobs/`;
   }
 
   public connect(id): Observable<any> {
     if (!this.subject) {
-      let url = this.baseUrl + `${id}/ws`
+      let url = this.baseUrl + `${id}/ws`;
       this.subject = this.create(url);
       console.log('Successfully connected: ' + url);
-    } 
+    }
+
     return this.subject.map((message) => {
-      let data = JSON.parse(message.data)
+      let data = JSON.parse(message.data);
       if (data.event === 'logs') return data.events[0]
     });
   }
 
   private create(url): Subject<MessageEvent> {
-    let ws = new WebSocket(url);
+    this.ws = new WebSocket(url);
 
     let observable = Observable.create((obs: Observer<MessageEvent>) => {
-        ws.onmessage = obs.next.bind(obs);
-        ws.onerror = obs.error.bind(obs);
-        ws.onclose = obs.complete.bind(obs);
+        this.ws.onmessage = obs.next.bind(obs);
+        this.ws.onerror = obs.error.bind(obs);
+        this.ws.onclose = obs.complete.bind(obs);
 
-        return ws.close.bind(ws);
-      })
+        return this.ws.close.bind(this.ws);
+      });
 
     return Subject.create({}, observable);
+  }
+
+  public disconnect(): void {
+    if (this.ws.readyState === WebSocket.OPEN) {
+      this.ws.close();
+    }
   }
 
 }
