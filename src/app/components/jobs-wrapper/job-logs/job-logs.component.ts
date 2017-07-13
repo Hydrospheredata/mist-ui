@@ -17,11 +17,8 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
   private isFullScreenEnabled: Boolean;
   logs: Array<object> = [];
   private subscriber: any;
-  private webSocketLogsService: WebSocketLogsService;
 
-  constructor(WebSocketLogsService: WebSocketLogsService) {
-    this.webSocketLogsService = WebSocketLogsService;
-  }
+  constructor(private webSocketLogsService: WebSocketLogsService) {}
 
   ngOnInit() {
     if (this.jobId) {
