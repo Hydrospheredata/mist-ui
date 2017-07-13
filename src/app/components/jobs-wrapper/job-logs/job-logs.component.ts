@@ -1,34 +1,43 @@
-import {Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Input} from '@angular/core';
-import {WebSocketLogsService} from '@services/web-socket-logs.service';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { WebSocketLogsService } from '@services/web-socket-logs.service';
+import { HttpLogsService } from '@services/http-logs.service';
 
 @Component({
   selector: 'mist-job-logs',
   templateUrl: './job-logs.component.html',
   styleUrls: ['./job-logs.component.scss'],
-  providers: [WebSocketLogsService],
+  providers: [WebSocketLogsService, HttpLogsService],
   host: {
     '(document:keydown)': 'handleKeyboardEvents($event)'
   }
 })
 export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('jobLogs') elem: ElementRef;
-  @Input() jobId: number;
+  @Input() jobId: string;
   private parent: Element;
   private isFullScreenEnabled: Boolean;
-  logs: Array<object> = [];
   private subscriber: any;
-  private webSocketLogsService: WebSocketLogsService;
 
-  constructor(WebSocketLogsService: WebSocketLogsService) {
-    this.webSocketLogsService = WebSocketLogsService;
+  public logs: string[];
+
+  constructor(
+    private webSocketLogsService: WebSocketLogsService,
+    private httpLogsService: HttpLogsService
+  ) {
+    this.logs = [];
   }
 
   ngOnInit() {
     if (this.jobId) {
+      this.httpLogsService.get(this.jobId).subscribe((logs) => {
+        this.logs = logs.concat(this.logs)
+      })
       this.subscriber = this.webSocketLogsService.connect(this.jobId)
         .subscribe((data) => {
           if (data) {
-            this.logs.push(data);
+            let date = new Date(data.timeStamp)
+            let log = `${date.toJSON()} [${data.from}] ${data.message}`
+            this.logs.push(log);
           }
         });
     }
