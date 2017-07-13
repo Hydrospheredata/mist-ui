@@ -1,5 +1,5 @@
-import {Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
-import { WebSocketLogsService } from '@services/web-socket-logs.service';
+import {Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Input} from '@angular/core';
+import {WebSocketLogsService} from '@services/web-socket-logs.service';
 
 @Component({
   selector: 'mist-job-logs',
@@ -24,9 +24,14 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriber = this.webSocketLogsService.connect(this.jobId).subscribe((data) => {
-      this.logs.push(data);
-    });
+    if (this.jobId) {
+      this.subscriber = this.webSocketLogsService.connect(this.jobId)
+        .subscribe((data) => {
+          if (data) {
+            this.logs.push(data);
+          }
+        });
+    }
   }
 
   ngAfterViewInit() {
@@ -55,7 +60,9 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.webSocketLogsService.disconnect();
-    this.subscriber.unsubscribe()
+    if (this.subscriber) {
+      this.subscriber.unsubscribe()
+    }
   }
 
 }

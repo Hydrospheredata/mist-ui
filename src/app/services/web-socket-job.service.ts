@@ -12,7 +12,7 @@ export class WebSocketJobService {
   public static readonly FAILED_EVENTS: string[] = ['canceled', 'failed']
   public static readonly FINISHED_EVENTS: string[] = ['finished']
 
-  constructor() { 
+  constructor() {
     this.baseUrl = `${environment.ws}:${environment.port}/v2/api/ws`
   }
 
@@ -38,7 +38,7 @@ export class WebSocketJobService {
     if (!this.subject) {
       this.subject = this.create();
       console.log('Successfully connected: ' + this.baseUrl);
-    } 
+    }
     return this.subject.map((message) => { return message; });
   }
 
@@ -51,7 +51,7 @@ export class WebSocketJobService {
         ws.onclose = obs.complete.bind(obs);
 
         return ws.close.bind(ws);
-      })
+      });
 
     return Subject.create({}, observable);
   }
