@@ -35,7 +35,9 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.subscriber = this.webSocketLogsService.connect(this.jobId)
         .subscribe((data) => {
           if (data) {
-            this.logs.push(data.message);
+            let date = new Date(data.timeStamp)
+            let log = `${date.toJSON()} [${data.from}] ${data.message}`
+            this.logs.push(log);
           }
         });
     }
