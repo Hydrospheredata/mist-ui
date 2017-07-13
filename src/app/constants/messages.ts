@@ -12,6 +12,11 @@ export class Messages {
           'required': 'Path is required.',
           'minlength':     'Name must be at least 4 characters long.',
         }
+      },
+      runJob: {
+        executeParams: {
+          'json': 'JSON in not valid'
+        },
       }
     }
   };
