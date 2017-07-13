@@ -12,10 +12,10 @@ export class HttpLogsService {
     this.baseUrl = `${environment.host}:${environment.port}/v2/api/jobs`
   }
 
-  public get(jobId: string): Observable<any> {
+  public get(jobId: string): Observable<string[]> {
     let apiUrl = this.baseUrl + `/${jobId}/logs`;
     return this.http.get(apiUrl).map((res: Response) => {
-      return res['_body']
+      return res['_body'].split('\n');
     })
   }
 
