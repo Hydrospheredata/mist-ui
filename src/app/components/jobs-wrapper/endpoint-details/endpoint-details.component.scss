@@ -90,6 +90,7 @@
     &.jobs-table__td--job-id {
       font-size: 18px;
       text-align: right;
+      width: 22%;
       @media screen and (max-width: 1279px) and (min-width: 600px) {
         font-size: 14px;
       }
@@ -103,8 +104,14 @@
     &.jobs-table__td--status {
       width: 22%;
     }
+    &.jobs-table__td--endpoint {
+      font-size: 14px;
+      @media screen and (max-width: 1279px) and (min-width: 600px) {
+        font-size: 12px;
+      }
+    }
     &.jobs-table__td--namespace {
-      width: 22%;
+      width: 18%;
       text-align: center;
       @media screen and (max-width: 1279px) and (min-width: 600px) {
         font-size: 12px;

@@ -34,4 +34,8 @@ export class Job {
   isRunning() {
     return ['initialized', 'started', 'queued'].includes(this.status)
   }
+
+  runningTime() {
+    return this.startTime || this.createTime
+  }
 }
