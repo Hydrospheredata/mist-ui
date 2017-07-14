@@ -75,14 +75,6 @@
   <hr/>
   <div class='mist-page-content'>
     <table class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp'>
-      <thead>
-        <tr>
-          <th class="cs-text-left"><span>Job id</span></th>
-          <th class="cs-text-left">Namespace</th>
-          <th class="cs-text-left">Status</th>
-          <th></th>
-        </tr>
-      </thead>
       <tbody>
       <ng-template ngFor let-job [ngForOf]="jobs | jobStatusFilter:statusFilter | sortBy:'createTime'">
         <tr class='jobs-table__tr' [routerLink]="['/jobs', job.endpoint, job.jobId]">
