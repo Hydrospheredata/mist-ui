@@ -57,6 +57,12 @@ export class JobDetailsComponent implements OnInit {
     });
   }
 
+  cloneJob(job: Job) {
+    let params = JSON.parse(job.params)
+    let args = JSON.stringify(params.arguments)
+    this.jobStore.add(job.endpoint, args)
+  }
+
   openFullScreenJson(jsonString: string) {
     this.dialog.open(DialogFullScreenJsonComponent, {
       width: '80%',

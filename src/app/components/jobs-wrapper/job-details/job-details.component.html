@@ -20,8 +20,9 @@
 
 
       <div fxFlex.gt="25" fxFlex.md="35" fxFlex.sm="40" class="cs-text-right">
-        <button md-button class='clone-job-button mat-button--primary'>
-          Clone Job
+        <button md-button class='clone-job-button mat-button--primary'
+                (click)="cloneJob(job)">
+          Copy Job
         </button>
       </div>
     </div>
