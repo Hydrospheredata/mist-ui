@@ -75,14 +75,6 @@
   <hr/>
   <div class='mist-page-content'>
     <table class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp'>
-      <thead>
-        <tr>
-          <th class="cs-text-left"><span>Job id</span></th>
-          <th class="cs-text-left">Namespace</th>
-          <th class="cs-text-left">Status</th>
-          <th></th>
-        </tr>
-      </thead>
       <tbody>
       <ng-template ngFor let-job [ngForOf]="jobs | jobStatusFilter:statusFilter | sortBy:'createTime'">
         <tr class='jobs-table__tr' [routerLink]="['/jobs', job.endpoint, job.jobId]">
@@ -95,6 +87,13 @@
                 'status-icon--primary': job.isRunning()}">
               </i>
               {{ job.jobId | jobIdCut }}
+            </div>
+          </td>
+          <td [title]="'endpoint = ' + job.endpoint" class='jobs-table__td jobs-table__td--endpoint'>
+            <div class='endpoint cs-block'>
+              <div class="cs-text-overflow-ellipsis cs-text-center">
+                <span>{{ job.endpoint }}</span>
+              </div>
             </div>
           </td>
           <td [title]="'namespace = ' + job.context" class='jobs-table__td jobs-table__td--namespace'>
@@ -112,15 +111,10 @@
                   'font-color--primary': job.isRunning(),
                   'font-color--failed': job.isFailed()}">
                   {{ job.status }}
-                </span>
-            </div>
-            <div class="cs-text-overflow-ellipsis">
-                <span class='mist-label'>
-                  {{ job.isRunning() ? 'Started' : 'Finished' }}
-                </span>
+              </span>
               <span>
-                  {{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}
-                </span>
+                {{ job.isRunning() ? (job.runningTime() | agoDate) : (job.endTime | agoDate) }}
+              </span>
             </div>
           </td>
           <td title="KILL" class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>

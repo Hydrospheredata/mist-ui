@@ -5,6 +5,10 @@
   .mdl-navigation__link {
     font-size: 18pt;
     color: #475f9e;
+    &.disabled {
+      pointer-events: none;
+      cursor: default;
+    }
   }
 
   .is-active {
