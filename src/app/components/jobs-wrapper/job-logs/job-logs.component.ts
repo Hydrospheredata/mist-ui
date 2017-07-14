@@ -62,7 +62,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleKeyboardEvents(event: KeyboardEvent) {
-    if (event.keyCode === 27) {
+    if (event.keyCode === 27 && this.isFullScreenEnabled) {
       this.toggleToFullScreen();
     }
   }
