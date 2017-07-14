@@ -69,7 +69,9 @@ export class DialogJobFormComponent implements OnInit {
     let endpointId = this.selectedEndpoint.name;
     let params = this.executeParams || '{}';
     if (form.valid) {
-      this.jobStore.add(endpointId, params);
+      this.jobStore.add(endpointId, params).subscribe((id) => {
+        console.log(`init job ${id}`);
+      });
       this.dialogRef.close();
     } else {
       this.FormsService.setErrors(this.jobForm, this.formErrors, Messages.ERRORS.forms.runJob);

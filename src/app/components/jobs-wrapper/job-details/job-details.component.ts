@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JobStore } from '@stores/job.store';
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-json/dialog-full-screen-json.component';
@@ -26,6 +26,7 @@ export class JobDetailsComponent implements OnInit {
   constructor(
     private dialog: MdDialog,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private jobStore: JobStore
   ) { }
 
@@ -55,6 +56,14 @@ export class JobDetailsComponent implements OnInit {
       let job = data.find(item => item.jobId === jobId);
       this.job = job;
     });
+  }
+
+  cloneJob(job: Job) {
+    let params = JSON.parse(job.params)
+    let args = JSON.stringify(params.arguments)
+    this.jobStore.add(job.endpoint, args).subscribe((id) => {
+      this.router.navigate(['/jobs', job.endpoint, id])
+    })
   }
 
   openFullScreenJson(jsonString: string) {
