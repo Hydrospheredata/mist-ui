@@ -5,7 +5,7 @@ import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
 import { Endpoint } from '@models/endpoint';
 import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
-import { Validator } from '@app/constants/validator';
+import { JSONValidator } from '@app/validators/json.validator';
 import { FormsService } from '@services/forms.service';
 import { Messages } from '@app/constants/messages';
 
@@ -56,7 +56,7 @@ export class DialogJobFormComponent implements OnInit {
 
   createJobForm() {
     this.jobForm = this.fb.group({
-      executeParams: ['', [Validator.validateJSON]],
+      executeParams: ['', [JSONValidator.validate]],
       selectedEndpoint: ['']
     })
   }

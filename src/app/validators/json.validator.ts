@@ -1,6 +1,6 @@
-export class Validator {
+export class JSONValidator {
 
-  public static validateJSON(params) {
+  public static validate(params) {
     let isValid = false;
     try {
       JSON.parse(params.value);
