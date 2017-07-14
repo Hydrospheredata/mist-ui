@@ -68,7 +68,9 @@ export class JobDetailsComponent implements OnInit {
 
   openFullScreenJson(jsonString: string) {
     this.dialog.open(DialogFullScreenJsonComponent, {
-      width: '80%',
+      width: '100%',
+      height: '100%',
+      panelClass: 'full-screen',
       data: {
         jsonString: jsonString
       }
