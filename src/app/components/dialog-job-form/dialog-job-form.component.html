@@ -1,41 +1,54 @@
-<h1 md-dialog-title>New Job Parameters</h1>
-<md-dialog-content>
-  <div class='job-form'>
-    <div class='job-form__header'>
-      <div class='job-form__select'>
-        <div class='mist-label'>Endpoint</div>
-        <md-select placeholder=""
-                   floatPlaceholder="never"
-                   [(ngModel)]="selectedEndpoint"
-                   (ngModelChange)="onChangeEndpoint()">
-          <md-option *ngFor="let endpoint of endpoints"
-                     [value]="endpoint">{{ endpoint.name }}</md-option>
-        </md-select>
+<form [formGroup]="jobForm">
+  <h1 md-dialog-title>New Job Parameters</h1>
+
+  <md-dialog-content>
+    <div class='job-form'>
+      <div class='job-form__header'>
+        <div class='job-form__select'>
+          <div class='mist-label'>Endpoint</div>
+          <md-select placeholder=""
+                     floatPlaceholder="never"
+                     [(ngModel)]="selectedEndpoint"
+                     formControlName="selectedEndpoint"
+                     (ngModelChange)="onChangeEndpoint()">
+            <md-option *ngFor="let endpoint of endpoints"
+                       [value]="endpoint">{{ endpoint.name }}
+            </md-option>
+          </md-select>
+        </div>
+        <div class='namespace job-form__namespace'>
+          <span class='namespace__label'>namespace</span>
+          <span class='namespace__value'>Namespace1</span>
+        </div>
+        <div class='job-form__version'>
+          <span class='mist-label'>Version</span>
+          <span>1.2.4</span>
+        </div>
       </div>
-      <div class='namespace job-form__namespace'>
-        <span class='namespace__label'>namespace</span>
-        <span class='namespace__value'>Namespace1</span>
-      </div>
-      <div class='job-form__version'>
-        <span class='mist-label'>Version</span>
-        <span>1.2.4</span>
+      <div class='job-form__main'>
+        <div class='mist-label'>Input Parameters</div>
+        <div class='job-form__input job-form__input--json'>
+          <codemirror formControlName="executeParams" [(ngModel)]="executeParams"
+                      [config]="codeMirrorOptions">
+          </codemirror>
+        </div>
+        <span class="cs-message error" *ngIf="jobForm.controls['executeParams'].invalid">{{formErrors.executeParams}}</span>
       </div>
     </div>
-    <div class='job-form__main'>
-      <div class='mist-label'>Input Parameters</div>
-      <div class='job-form__input job-form__input--json'>
-        <codemirror [(ngModel)]="executeParams"
-                    [config]="codeMirrorOptions">
-        </codemirror>
-      </div>
-    </div>
-  </div>
-</md-dialog-content>
-<md-dialog-actions>
-  <button md-button md-dialog-close
-          class='mat-button--big'>CANCEL</button>
-  <button md-button md-dialog-close
-          class='mat-button--big mat-button--primary'
-          title="RUN JOB"
-          (click)="submit()">RUN JOB</button>
-</md-dialog-actions>
+  </md-dialog-content>
+
+  <md-dialog-actions>
+    <button md-button md-dialog-close
+            class='mat-button--big'>CANCEL
+    </button>
+    <button md-button
+            class='mat-button--big mat-button--primary'
+            type="submit"
+            title="RUN JOB"
+            [disabled]="jobForm.invalid"
+            (click)="submit(jobForm)"
+    >RUN JOB
+    </button>
+  </md-dialog-actions>
+</form>
+

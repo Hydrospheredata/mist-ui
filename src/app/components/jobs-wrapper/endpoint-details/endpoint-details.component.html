@@ -81,7 +81,7 @@
           <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id'
               [ngClass]="{'font-color--failed': job.isFailed()}">
             <div class="cs-text-overflow-ellipsis">
-              <i class='material-icons status-icon'
+              <i class='material-icons status-icon cs-mr-8'
                  [ngClass]="{'status-icon--failed': job.isFailed(),
                 'status-icon--success': job.isFinished(),
                 'status-icon--primary': job.isRunning()}">
