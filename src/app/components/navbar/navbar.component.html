@@ -11,7 +11,7 @@
         <!--<div fxFlex.lg="14" fxFlex.md="5" fxFlex.sm="0"></div>-->
         <div fxFlex="24" fxFlex.sm="33" fxFlex.md="30" fxFlex.lg="20">
           <a class='mdl-navigation__link cs-text-center'
-             [routerLink]="['/jobs']"
+             [routerLink]="['/jobs/overview']"
              routerLinkActive='is-active'>
             <i class='material-icons md-40'>list</i>
             <span>Jobs</span>
@@ -21,7 +21,8 @@
         <div fxFlex="24" fxFlex.sm="33" fxFlex.md="30" fxFlex.lg="20">
           <a class='mdl-navigation__link cs-text-center'
              [routerLink]="['/clusters']"
-             routerLinkActive='is-active'>
+             routerLinkActive='is-active'
+             [class.disabled]="true">
             <i class='material-icons md-40'>device_hub</i>
             <span>Clusters</span>
           </a>
@@ -30,7 +31,8 @@
         <div fxFlex="24" fxFlex.sm="33" fxFlex.md="30" fxFlex.lg="20">
           <a class='mdl-navigation__link cs-text-center'
              [routerLink]="['/settings']"
-             routerLinkActive='is-active'>
+             routerLinkActive='is-active'
+             [class.disabled]="true">
             <i class='material-icons md-40 rotate-90'>tune</i>
             <span>Settings</span>
           </a>
