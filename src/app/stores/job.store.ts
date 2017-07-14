@@ -29,9 +29,10 @@ export class JobStore {
     this.wsConnect();
   }
 
-  public add(endpointId: string, args: string = '{}'): void {
-    this.backendService.create(endpointId, args).subscribe((data) => {
+  public add(endpointId: string, args: string = '{}'): Observable<string> {
+    return this.backendService.create(endpointId, args).map((data) => {
       this.get(data.id);
+      return data.id
     });
   }
 
