@@ -51,6 +51,7 @@ import { AgoDatePipe } from '@pipes/ago-date.pipe';
 import { SearchPipe } from '@pipes/search.pipe';
 import { SortByPipe } from '@pipes/sort-by.pipe';
 import { JobLogsComponent } from './components/jobs-wrapper/job-logs/job-logs.component';
+import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { JobLogsComponent } from './components/jobs-wrapper/job-logs/job-logs.co
     AgoDatePipe,
     JobStatusFilterPipe,
     SortByPipe,
-    JobLogsComponent
+    JobLogsComponent,
+    JobIdCutPipe
   ],
   imports: [
     BrowserModule,

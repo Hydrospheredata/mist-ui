@@ -75,9 +75,17 @@
   <hr/>
   <div class='mist-page-content'>
     <table class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp'>
+      <thead>
+        <tr>
+          <th class="cs-text-left"><span>Job id</span></th>
+          <th class="cs-text-left">Namespace</th>
+          <th class="cs-text-left">Status</th>
+          <th></th>
+        </tr>
+      </thead>
       <tbody>
       <ng-template ngFor let-job [ngForOf]="jobs | jobStatusFilter:statusFilter | sortBy:'createTime'">
-        <tr class='jobs-table__tr'>
+        <tr class='jobs-table__tr' [routerLink]="['/jobs', job.endpoint, job.jobId]">
           <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id'
               [ngClass]="{'font-color--failed': job.isFailed()}">
             <div class="cs-text-overflow-ellipsis">
@@ -86,17 +94,12 @@
                 'status-icon--success': job.isFinished(),
                 'status-icon--primary': job.isRunning()}">
               </i>
-              {{ job.jobId }}
+              {{ job.jobId | jobIdCut }}
             </div>
-          </td>
-          <td title="Version 1.2.4" class='jobs-table__td jobs-table__td--version cs-text-overflow-ellipsis'>
-            <span class='mist-label'>Version</span>
-            1.2.4
           </td>
           <td [title]="'namespace = ' + job.context" class='jobs-table__td jobs-table__td--namespace'>
             <div class='namespace cs-block'>
-              <div class="cs-text-overflow-ellipsis">
-                <span class='namespace__label'>namespace</span>
+              <div class="cs-text-overflow-ellipsis cs-text-center">
                 <span class='namespace__value'>{{ job.context }}</span>
               </div>
             </div>
@@ -111,7 +114,7 @@
                   {{ job.status }}
                 </span>
             </div>
-            <div>
+            <div class="cs-text-overflow-ellipsis">
                 <span class='mist-label'>
                   {{ job.isRunning() ? 'Started' : 'Finished' }}
                 </span>
@@ -126,10 +129,6 @@
               <i class='material-icons'>delete_forever</i>
               <span>KILL</span>
             </a>
-          </td>
-          <td title="DETAILS" class='jobs-table__td jobs-table__td--details cs-text-overflow-ellipsis'>
-            <a class='mist-link'
-               [routerLink]="['/jobs', job.endpoint, job.jobId]">DETAILS...</a>
           </td>
         </tr>
       </ng-template>

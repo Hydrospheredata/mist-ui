@@ -53,6 +53,17 @@
     font-size: 14px;
   }
 
+  th {
+    text-align: left;
+    padding-left: 0.5rem;
+    padding-right: 0;
+    &:first-child {
+      span {
+        padding-left: 24px;
+      }
+    }
+  }
+
   tr:hover {
     background: #fafbfc;
   }
@@ -88,12 +99,15 @@
     &.jobs-table__td--details {
       width: 12%;
     }
-    &.jobs-table__td--version {
-      width: 10%;
-      font-size: 14px;
+    &.jobs-table__td--status {
+      width: 22%;
     }
-    .jobs-table__td--namespace {
-      width: 15%;
+    &.jobs-table__td--namespace {
+      width: 22%;
+      text-align: center;
+      @media screen and (max-width: 1279px) and (min-width: 600px) {
+        font-size: 12px;
+      }
     }
     i {
       font-size: 20px;
