@@ -12,7 +12,7 @@ import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-de
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/jobs/overview',
     pathMatch: 'full'
   },
   {
