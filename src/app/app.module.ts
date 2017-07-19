@@ -64,7 +64,6 @@ import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
     DialogJobLogsComponent,
     InputTextComponent,
     InputTextareaComponent,
-    DialogJobLogsComponent,
     JobsWrapperComponent,
     // pipes
     SearchPipe,
