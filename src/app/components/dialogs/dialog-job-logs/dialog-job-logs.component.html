@@ -1,7 +1,7 @@
 <div class="job-logs" #jobLogs>
+  <div class="job-logs--title cs-text-center">Job Logs</div>
+  <mdl-icon class="job-logs--toggle" (click)="dialogRef.hide()">crop_free</mdl-icon>
   <div class="job-logs--container" id="logs">
-    <div class="job-logs--title cs-text-center">Job Logs</div>
-    <mdl-icon class="job-logs--toggle" (click)="showDialogJobLogs()">crop_free</mdl-icon>
     <div *ngFor="let log of logs">
       <span>{{log}}</span>
     </div>

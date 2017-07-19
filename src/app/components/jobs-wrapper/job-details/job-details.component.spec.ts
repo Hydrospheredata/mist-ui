@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { JobDetailsComponent } from './job-details.component';
-import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-json/dialog-full-screen-json.component';
+import { DialogFullScreenJsonComponent } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 import { AgoDatePipe } from '@pipes/ago-date.pipe';
 import { EndpointDataService } from '@services/endpoint-data.service';
 import { JobDataService } from '@services/job-data.service';

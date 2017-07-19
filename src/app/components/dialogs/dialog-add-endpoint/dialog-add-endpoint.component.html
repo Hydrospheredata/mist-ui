@@ -1,9 +1,9 @@
 <div class="add-endpoint">
-  <h1 md-dialog-title>Add endpoint</h1>
+  <h1 class="mdl-dialog__title mat-dialog-title">Add endpoint</h1>
 
-  <mdl-icon class="close cs-cursor-pointer" (click)="dialogRef.close()">clear</mdl-icon>
+  <mdl-icon class="close cs-cursor-pointer" (click)="dialogRef.hide()">clear</mdl-icon>
   <form [formGroup]="endpointForm" #form="ngForm" (ngSubmit)="submitEnpointForm(endpointForm)">
-    <md-dialog-content>
+    <div class="mdl-dialog__content">
 
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
@@ -18,7 +18,8 @@
             <mist-input-text label="Class" formControlName="className"></mist-input-text>
           </p>
           <p>
-            <mist-input-text label="Namespace" formControlName="nameSpace" (onIconClick)="onIconClick($event)" iconDirection="right" iconAsSibling="true"
+            <mist-input-text label="Namespace" formControlName="nameSpace" (onIconClick)="onIconClick($event)"
+                             iconDirection="right" iconAsSibling="true"
                              iconName="settings"></mist-input-text>
           </p>
         </div>
@@ -34,18 +35,15 @@
                accept=".pdf,.doc,.docx">
       </div>
 
-    </md-dialog-content>
-
-    <md-dialog-actions>
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--12-col cs-text-right">
-          <button type="button" md-button md-dialog-close class='mat-button--big'>CANCEL</button>
-          <button type="submit" md-button [disabled]="endpointForm.invalid" class='mat-button--big mat-button--primary'
-                  mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Add endpoint
-          </button>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col cs-text-right">
+            <button (click)="dialogRef.hide()" type="button" mdl-button class='mat-button mat-button--big'>CANCEL</button>
+            <button type="submit" mdl-button [disabled]="endpointForm.invalid"
+                    class='mat-button mat-button--big mat-button--primary'
+                    mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Add endpoint
+            </button>
+          </div>
         </div>
       </div>
-    </md-dialog-actions>
   </form>
-
 </div>

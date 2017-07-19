@@ -293,10 +293,14 @@ md-dialog-container.mat-dialog-container {
   margin-bottom: 10px;
 
   &::after {
-    content: ':'
+    content: ':';
   }
 }
 
-.mat-tab-body-content {
+.mdl-tabs__panel {
   padding-top: 25px;
+}
+
+.job-logs--dialog {
+  background: $logs-bg-color;
 }

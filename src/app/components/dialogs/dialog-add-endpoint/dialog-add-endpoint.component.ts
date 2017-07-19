@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
-import { FormControl, FormGroup, Validators, FormBuilder, NgModel } from '@angular/forms';
-import { reject } from "q";
+import { Component, OnInit, HostListener } from '@angular/core';
+import { MdlDialogReference } from '@angular-mdl/core';
+import { FormGroup, Validators, FormBuilder, NgModel } from '@angular/forms';
+
 import { FormsService } from '@services/forms.service';
 import { Messages } from 'app/constants/messages';
 import { EndpointStore } from '@stores/endpoint.store';
@@ -16,15 +16,20 @@ import { Endpoint } from '@models/endpoint';
 export class DialogAddEndpointComponent implements OnInit {
   public endpointForm: FormGroup;
   public file: File;
-  // private endpointStore: EndpointStore;
   public formErrors = {
     name: '',
     path: ''
   };
 
-  constructor(private fb: FormBuilder, public dialogRef: MdDialogRef<DialogAddEndpointComponent>, private FormsService: FormsService, private endpointStore: EndpointStore) {
-
+  @HostListener('keydown.esc')
+  public onEsc(): void {
+    this.dialogRef.hide();
   }
+
+  constructor(private fb: FormBuilder,
+              public dialogRef: MdlDialogReference,
+              private FormsService: FormsService,
+              private endpointStore: EndpointStore) {}
 
   ngOnInit() {
     this.createEndpointFrom();
@@ -61,6 +66,7 @@ export class DialogAddEndpointComponent implements OnInit {
 
     if (form.valid) {
       this.endpointStore.createEndpoint(endpoint);
+      this.dialogRef.hide();
     } else {
       this.FormsService.setErrors(this.endpointForm, this.formErrors, Messages.ERRORS.forms.addEndpoint);
       return false;

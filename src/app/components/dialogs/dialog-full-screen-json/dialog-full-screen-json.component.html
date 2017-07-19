@@ -1,0 +1,12 @@
+<div class="mdl-dialog__content">
+	<div class='full-screen-json'>
+		<codemirror [(ngModel)]="jsonString"
+					[config]="codeMirrorOptions">
+		</codemirror>
+	</div>
+  <div class="cs-text-right">
+    <button (click)="dialogRef.hide()" mdl-button class='mat-button mat-button--big'>CLOSE</button>
+  </div>
+</div>
+
+

@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { WebSocketLogsService } from '@services/web-socket-logs.service';
+import { MdlDialogService } from '@angular-mdl/core';
+import { injectableLogs, DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
 import { HttpLogsService } from '@services/http-logs.service';
 
 @Component({
@@ -7,22 +9,18 @@ import { HttpLogsService } from '@services/http-logs.service';
   templateUrl: './job-logs.component.html',
   styleUrls: ['./job-logs.component.scss'],
   providers: [WebSocketLogsService, HttpLogsService],
-  host: {
-    '(document:keydown)': 'handleKeyboardEvents($event)'
-  }
 })
 export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('jobLogs') elem: ElementRef;
   @Input() jobId: string;
   private parent: Element;
-  private isFullScreenEnabled: Boolean;
   private subscriber: any;
-
   public logs: string[];
 
   constructor(
     private webSocketLogsService: WebSocketLogsService,
-    private httpLogsService: HttpLogsService
+    private httpLogsService: HttpLogsService,
+    public dialog: MdlDialogService
   ) {
     this.logs = [];
   }
@@ -30,13 +28,13 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     if (this.jobId) {
       this.httpLogsService.get(this.jobId).subscribe((logs) => {
-        this.logs = logs.concat(this.logs)
-      })
+        this.logs = logs.concat(this.logs);
+      });
       this.subscriber = this.webSocketLogsService.connect(this.jobId)
         .subscribe((data) => {
           if (data) {
-            let date = new Date(data.timeStamp)
-            let log = `${date.toJSON()} [${data.from}] ${data.message}`
+            let date = new Date(data.timeStamp);
+            let log = `${date.toJSON()} [${data.from}] ${data.message}`;
             this.logs.push(log);
           }
         });
@@ -47,24 +45,17 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.parent = this.elem.nativeElement.parentElement;
   }
 
-  toggleToFullScreen() {
-    if (!this.isFullScreenEnabled) {
-      this.elem.nativeElement.classList.toggle('job-logs--full-screen');
-      document.body.appendChild(this.elem.nativeElement);
-      this.isFullScreenEnabled = true;
-      location.hash = '';
-    } else {
-      this.parent.appendChild(this.elem.nativeElement);
-      this.elem.nativeElement.classList.toggle('job-logs--full-screen');
-      this.isFullScreenEnabled = false;
-      location.hash = '#logs';
-    }
-  }
-
-  handleKeyboardEvents(event: KeyboardEvent) {
-    if (event.keyCode === 27) {
-      this.toggleToFullScreen();
-    }
+  showDialogJobLogs() {
+    this.dialog.showCustomDialog({
+      component: DialogJobLogsComponent,
+      styles: {'width': '100%', 'height': '100%'},
+      classes: 'job-logs--dialog',
+      isModal: true,
+      clickOutsideToClose: true,
+      enterTransitionDuration: 400,
+      leaveTransitionDuration: 400,
+      providers: [{provide: injectableLogs, useValue: this.logs}],
+    });
   }
 
   ngOnDestroy(): void {

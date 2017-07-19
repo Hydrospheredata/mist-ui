@@ -13,6 +13,8 @@
   "private": true,
   "dependencies": {
     "@angular-mdl/core": "^4.0.8",
+    "@angular-mdl/popover": "^0.6.3",
+    "@angular-mdl/select": "^0.10.4",
     "@angular/animations": "^4.2.2",
     "@angular/cdk": "^2.0.0-beta.8",
     "@angular/common": "^4.2.2",
