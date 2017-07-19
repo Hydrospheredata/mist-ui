@@ -64,3 +64,8 @@ label {
   }
 }
 
+.no-label.mdl-select {
+  .mdl-textfield__label {
+    display: none;
+  }
+}

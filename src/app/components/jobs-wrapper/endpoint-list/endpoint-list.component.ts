@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { Endpoint } from '@models/endpoint';
 import { Job } from '@models/job';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
-import { DialogAddEndpointComponent } from '@app/components/dialog-add-endpoint/dialog-add-endpoint.component';
+import { MdlDialogService } from '@angular-mdl/core';
+import { DialogAddEndpointComponent } from '@app/components/dialogs/dialog-add-endpoint/dialog-add-endpoint.component';
 
 @Component({
-  selector: 'endpoint-list',
+  selector: 'mist-endpoint-list',
   templateUrl: './endpoint-list.component.html',
   styleUrls: ['./endpoint-list.component.scss']
 })
@@ -23,12 +22,18 @@ export class EndpointListComponent implements OnInit {
     private endpointStore: EndpointStore,
     private jobStore: JobStore,
     private router: Router,
-    public dialog: MdDialog
+    public dialog: MdlDialogService
   ) { }
 
   openDialogAddEndpointForm() {
-    let dialogRef:MdDialogRef<DialogAddEndpointComponent> = this.dialog.open(DialogAddEndpointComponent, {
-      width: '900px'
+
+    this.dialog.showCustomDialog({
+      component: DialogAddEndpointComponent,
+      isModal: true,
+      styles: {'width': '850px'},
+      clickOutsideToClose: true,
+      enterTransitionDuration: 400,
+      leaveTransitionDuration: 400
     });
   }
 

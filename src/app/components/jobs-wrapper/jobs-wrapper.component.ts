@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'jobs-wrapper',
+  selector: 'mist-jobs-wrapper',
   templateUrl: './jobs-wrapper.component.html',
   styleUrls: ['./jobs-wrapper.component.scss']
 })

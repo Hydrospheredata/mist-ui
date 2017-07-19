@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobStore } from '@stores/job.store';
-import { MdDialog, MdDialogConfig } from '@angular/material';
-import { DialogFullScreenJsonComponent } from '@components/dialog-full-screen-json/dialog-full-screen-json.component';
+import { MdlDialogService } from '@angular-mdl/core';
+import { DialogFullScreenJsonComponent, injectableJsonString } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 import { Job } from '@models/job';
-import { Endpoint } from '@models/endpoint';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
@@ -13,18 +12,18 @@ import '@node_modules/codemirror/addon/display/placeholder';
 
 
 @Component({
-  selector: 'job-details',
+  selector: 'mist-job-details',
   templateUrl: './job-details.component.html',
   styleUrls: ['./job-details.component.scss']
 })
-export class JobDetailsComponent implements OnInit {
+export class JobDetailsComponent implements OnInit, OnDestroy {
   job: Job;
   codeMirrorOptions: {};
 
   private sub: any;
 
   constructor(
-    private dialog: MdDialog,
+    private dialog: MdlDialogService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private jobStore: JobStore
@@ -59,19 +58,18 @@ export class JobDetailsComponent implements OnInit {
   }
 
   cloneJob(job: Job) {
-    let params = JSON.parse(job.params)
-    let args = JSON.stringify(params.arguments)
+    let params = JSON.parse(job.params);
+    let args = JSON.stringify(params.arguments);
     this.jobStore.add(job.endpoint, args).subscribe((id) => {
       this.router.navigate(['/jobs', job.endpoint, id])
     })
   }
 
   openFullScreenJson(jsonString: string) {
-    this.dialog.open(DialogFullScreenJsonComponent, {
-      width: '80%',
-      data: {
-        jsonString: jsonString
-      }
+    this.dialog.showCustomDialog({
+      component: DialogFullScreenJsonComponent,
+      styles: { 'width': '100%', 'height': '100%'},
+      providers: [{provide: injectableJsonString, useValue: jsonString}],
     });
   }
 

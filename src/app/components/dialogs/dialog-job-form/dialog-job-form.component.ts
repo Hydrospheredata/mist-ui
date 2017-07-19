@@ -1,7 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, InjectionToken } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
-
+import { MdlDialogReference } from '@angular-mdl/core';
 import { Endpoint } from '@models/endpoint';
 import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
@@ -14,8 +13,10 @@ import '@node_modules/codemirror/addon/edit/matchbrackets';
 import '@node_modules/codemirror/addon/edit/closebrackets';
 import '@node_modules/codemirror/addon/display/placeholder';
 
+export let injectableSelectedEndpoint = new InjectionToken<Endpoint>('selectedEndpoint');
+
 @Component({
-  selector: 'dialog-job-form',
+  selector: 'mist-dialog-job-form',
   templateUrl: './dialog-job-form.component.html',
   styleUrls: ['./dialog-job-form.component.scss'],
   providers: [FormsService]
@@ -23,6 +24,7 @@ import '@node_modules/codemirror/addon/display/placeholder';
 
 export class DialogJobFormComponent implements OnInit {
   public jobForm: FormGroup;
+  data: Endpoint;
   endpoints: Endpoint[];
   selectedEndpoint: Endpoint;
   codeMirrorOptions: {};
@@ -32,16 +34,23 @@ export class DialogJobFormComponent implements OnInit {
   };
 
   constructor(
-    @Inject(MD_DIALOG_DATA) public data: any,
+    @Inject(injectableSelectedEndpoint) data: Endpoint,
     private endpointStore: EndpointStore,
     private jobStore: JobStore,
     private fb: FormBuilder,
     private FormsService: FormsService,
-    public dialogRef: MdDialogRef<DialogJobFormComponent>,
-  ) {}
+    public dialogRef: MdlDialogReference) {
+
+    this.data = data;
+  }
+
+  @HostListener('keydown.esc')
+  public onEsc(): void {
+    this.dialogRef.hide();
+  }
 
   ngOnInit() {
-    this.selectedEndpoint = this.data.selectedEndpoint;
+    this.selectedEndpoint = this.data;
     this.endpointStore.endpoints.subscribe(data => { this.endpoints = data });
     this.executeParams = this.selectedEndpoint.executeExample();
     this.buildCodeMirrorOptions();
@@ -72,7 +81,7 @@ export class DialogJobFormComponent implements OnInit {
       this.jobStore.add(endpointId, params).subscribe((id) => {
         console.log(`init job ${id}`);
       });
-      this.dialogRef.close();
+      this.dialogRef.hide();
     } else {
       this.FormsService.setErrors(this.jobForm, this.formErrors, Messages.ERRORS.forms.runJob);
       return false
@@ -89,3 +98,5 @@ export class DialogJobFormComponent implements OnInit {
     }
   }
 }
+
+

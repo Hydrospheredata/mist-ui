@@ -1,27 +1,36 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MD_DIALOG_DATA } from '@angular/material';
-
+import { Component, OnInit, Inject, HostListener, InjectionToken } from '@angular/core';
+import { MdlDialogReference } from '@angular-mdl/core';
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
 import '@node_modules/codemirror/addon/edit/closebrackets';
 import '@node_modules/codemirror/addon/display/placeholder';
 
+export let injectableJsonString = new InjectionToken<object>('injectableJsonString');
 
 @Component({
-  selector: 'dialog-full-screen-json',
+  selector: 'mist-dialog-full-screen-json',
   templateUrl: './dialog-full-screen-json.component.html',
   styleUrls: ['./dialog-full-screen-json.component.scss']
 })
 export class DialogFullScreenJsonComponent implements OnInit {
-	jsonString: string;
+	jsonString: object;
 	codeMirrorOptions: {};
+	data: object;
+
+  @HostListener('keydown.esc')
+  public onEsc(): void {
+    this.dialogRef.hide();
+  }
 
   constructor(
-    @Inject(MD_DIALOG_DATA) public data: any
-  ) {}
+    @Inject(injectableJsonString) data: object,
+    public dialogRef: MdlDialogReference
+  ) {
+    this.data = data;
+  }
 
   ngOnInit() {
-    this.jsonString = this.data.jsonString;
+    this.jsonString = this.data;
     this.codeMirrorOptions = {
       matchBrackets: true,
       autoCloseBrackets: true,
@@ -30,7 +39,6 @@ export class DialogFullScreenJsonComponent implements OnInit {
       readOnly: true,
       scrollbarStyle: 'null'
     }
-
   }
 
 }

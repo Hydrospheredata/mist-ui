@@ -15,12 +15,13 @@
           'status-icon--success': job.isFinished(),
           'status-icon--primary': job.isRunning()}">
         </i>
-        <span [title]="job.jobId" class='job-id' [ngClass]="{'font-color--failed': job.isFailed()}">{{ job.jobId }}</span>
+        <span [title]="job.jobId" class='job-id'
+              [ngClass]="{'font-color--failed': job.isFailed()}">{{ job.jobId }}</span>
       </div>
 
 
       <div fxFlex.gt="25" fxFlex.md="35" fxFlex.sm="40" class="cs-text-right">
-        <button md-button class='clone-job-button mat-button--primary'
+        <button mdl-button mdl-button="" mdl-button-type="raised" mdl-colored="primary" mdl-ripple="" class='clone-job-button mat-button--primary mat-button'
                 (click)="cloneJob(job)">
           Copy Job
         </button>
@@ -33,20 +34,21 @@
         <span class='mist-label'>Version</span>
         <span>1.2.4</span>
       </div>
-      <div class='namespace'>
-        <span class='namespace__label'>namespace</span>
+      <div title="Namespace = {{ job.context }}" class='namespace'>
+        <span fxHide.md fxHide.sm class='namespace__label'>namespace</span>
         <span class='namespace__value'>{{ job.context }}</span>
       </div>
-      <div class='job-status'>
-        <span class='mist-label'>Status</span>
+      <div title="Status {{ job.status }}" class='job-status'>
+        <span fxHide.md fxHide.sm class='mist-label'>Status</span>
         <span [ngClass]="{'font-color--success': job.isFinished(),
           'font-color--primary': job.isRunning(),
           'font-color--failed': job.isFailed()}">
           {{ job.status }}
         </span>
       </div>
-      <div>
-        <span class='mist-label'>
+      <div
+        title="{{ job.isRunning() ? 'Started' : 'Finished' }} {{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}">
+        <span fxHide.md fxHide.sm class='mist-label'>
           {{ job.isRunning() ? 'Started' : 'Finished' }}
         </span>
         <span>
@@ -54,7 +56,7 @@
         </span>
       </div>
       <div class="cs-text-right">
-        <a class='mist-link spark-ui'>
+        <a title="SPARK UI" class='mist-link spark-ui'>
           <i class='material-icons'>link</i>
           <span>SPARK UI</span>
         </a>
@@ -92,21 +94,49 @@
         </div>
       </div>
     </div>
-    <!-- <md-tab-group>
-      <md-tab label='Clone with HTTPS'>
 
-        <div fxLayout="row" fxLayoutAlign="center" class='git-clone-input git-clone-input--icon'>
-          <mist-input-text wrapClass="input-text--copy-link" fxFlex="50"
-                           class="input-text--copy-link" placeholder="https://github.com/Hydrospheredata/mist.git"
-                           iconName="content_copy"
-                           iconDirection="right">
-          </mist-input-text>
-        </div>
-      </md-tab>
-      <md-tab label='Java code snippet'>Java code snippet</md-tab>
-      <md-tab label='Python code snippet'>Python code snippet</md-tab>
-      <md-tab label='Ruby code snippet'>Ruby code snippet</md-tab>
-    </md-tab-group> -->
+    <mdl-tabs mdl-ripple mdl-tab-active-index="0">
+      <mdl-tab-panel>
+
+        <mdl-tab-panel-title>
+          <span>Clone with HTTPS</span>
+        </mdl-tab-panel-title>
+
+        <mdl-tab-panel-content>
+          <div fxLayout="row" fxLayoutAlign="center" class='git-clone-input git-clone-input--icon'>
+            <mist-input-text wrapClass="input-text--copy-link" fxFlex="50" class="input-text--copy-link" placeholder="https://github.com/Hydrospheredata/mist.git" iconName="content_copy" iconDirection="right"></mist-input-text>
+          </div>
+        </mdl-tab-panel-content>
+      </mdl-tab-panel>
+
+      <mdl-tab-panel>
+        <mdl-tab-panel-title>
+          <span>Java code snippet</span>
+        </mdl-tab-panel-title>
+        <mdl-tab-panel-content>
+          Java code snippet content
+        </mdl-tab-panel-content>
+      </mdl-tab-panel>
+
+      <mdl-tab-panel>
+        <mdl-tab-panel-title>
+          <span>Python code snippet</span>
+        </mdl-tab-panel-title>
+        <mdl-tab-panel-content>
+          Python code snippet content
+        </mdl-tab-panel-content>
+      </mdl-tab-panel>
+
+      <mdl-tab-panel>
+        <mdl-tab-panel-title>
+          <span>Ruby code snippet</span>
+        </mdl-tab-panel-title>
+        <mdl-tab-panel-content>
+          Ruby code snippet content
+        </mdl-tab-panel-content>
+      </mdl-tab-panel>
+    </mdl-tabs>
+
     <mist-job-logs [jobId]="job.jobId"></mist-job-logs>
   </div>
 </div>

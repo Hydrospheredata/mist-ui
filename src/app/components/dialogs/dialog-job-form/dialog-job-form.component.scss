@@ -1,6 +1,9 @@
 @import "variables.scss";
 
 .job-form {
+  &__main {
+    margin-bottom: 2rem;
+  }
   &__select {
     width: 280px;
     display: inline-block;
@@ -34,3 +37,4 @@
     font-size: 18px;
   }
 }
+

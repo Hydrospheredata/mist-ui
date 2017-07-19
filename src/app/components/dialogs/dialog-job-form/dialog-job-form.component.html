@@ -1,0 +1,61 @@
+<form [formGroup]="jobForm">
+  <h1 class="mdl-dialog__title mat-dialog-title">New Job Parameters</h1>
+
+  <div class="mdl-dialog__content">
+    <div class='job-form'>
+      <div class='job-form__header' fxLayout="row" fxLayoutAlign="space-between center">
+        <div class='job-form__select' fxFlex="45">
+          <div class='mist-label'>Endpoint</div>
+          <mdl-select class="no-label"
+                      [placeholder]=""
+                      [label]="asddsa"
+                      [(ngModel)]="selectedEndpoint"
+                      formControlName="selectedEndpoint"
+                      (ngModelChange)="onChangeEndpoint()">
+            <mdl-option *ngFor="let endpoint of endpoints" [value]="endpoint">{{ endpoint.name }}</mdl-option>
+          </mdl-select>
+        </div>
+        <div fxFlex="55">
+          <div class='namespace job-form__namespace'>
+            <span class='namespace__label'>namespace</span>
+            <span class='namespace__value'>Namespace1</span>
+          </div>
+          <div class='job-form__version'>
+            <span class='mist-label'>Version</span>
+            <span>1.2.4</span>
+          </div>
+        </div>
+      </div>
+      <div class='job-form__main'>
+        <div class='mist-label'>Input Parameters</div>
+        <div class='job-form__input job-form__input--json'>
+          <codemirror formControlName="executeParams" [(ngModel)]="executeParams"
+                      [config]="codeMirrorOptions">
+          </codemirror>
+        </div>
+        <span class="cs-message error"
+              *ngIf="jobForm.controls['executeParams'].invalid">{{formErrors.executeParams}}</span>
+      </div>
+    </div>
+
+    <div class="cs-text-right">
+      <button (click)="dialogRef.hide()" mdl-button class='mat-button mat-button--big'>CANCEL</button>
+      <button
+        mdl-button
+        mdl-button-type="raised"
+        mdl-colored="primary"
+        mdl-ripple
+        class='mat-button mat-button--big'
+        type="submit"
+        title="RUN JOB"
+        [disabled]="jobForm.invalid"
+        (click)="submit(jobForm)"
+      >RUN JOB
+      </button>
+    </div>
+
+  </div>
+
+
+</form>
+

@@ -1,27 +1,26 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MdDialog, MdDialogConfig } from '@angular/material';
-import { DialogJobFormComponent } from '@components/dialog-job-form/dialog-job-form.component';
+import { MdlDialogService } from '@angular-mdl/core';
+import { DialogJobFormComponent, injectableSelectedEndpoint } from '@components/dialogs/dialog-job-form/dialog-job-form.component';
 import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { Job } from '@models/job';
 import { Endpoint } from '@models/endpoint';
 
 @Component({
-  selector: 'endpoint-details',
+  selector: 'mist-endpoint-details',
   templateUrl: './endpoint-details.component.html',
   styleUrls: ['./endpoint-details.component.scss']
 })
-export class EndpointDetailsComponent implements OnInit {
+export class EndpointDetailsComponent implements OnInit, OnDestroy {
   endpoint: Endpoint;
   jobs: Job[];
   namespace: string;
-  statusFilter: { success: boolean, running: boolean, failed: boolean }
-
+  statusFilter: { success: boolean, running: boolean, failed: boolean };
   private sub: any;
 
   constructor(
-    public dialog: MdDialog,
+    public dialog: MdlDialogService,
     private activatedRoute: ActivatedRoute,
     private endpointStore: EndpointStore,
     private jobStore: JobStore
@@ -45,7 +44,7 @@ export class EndpointDetailsComponent implements OnInit {
       this.jobStore.getByEndpoint(id);
     }
     this.endpointStore.endpoints.subscribe(data => {
-      let endpoint = data.find(item => item.name === id) || data[0];
+      const endpoint = data.find(item => item.name === id) || data[0];
       this.endpoint = endpoint;
     });
     this.jobStore.jobs.subscribe((jobs) => {
@@ -55,11 +54,14 @@ export class EndpointDetailsComponent implements OnInit {
   }
 
   openDialogJobForm() {
-    this.dialog.open(DialogJobFormComponent, {
-      width: '900px' ,
-      data: {
-        selectedEndpoint: this.endpoint,
-      }
+    let dialog = this.dialog.showCustomDialog({
+      component: DialogJobFormComponent,
+      styles: {'max-width': '900px', 'width': '850px'},
+      isModal: true,
+      clickOutsideToClose: true,
+      enterTransitionDuration: 400,
+      leaveTransitionDuration: 400,
+      providers: [{provide: injectableSelectedEndpoint, useValue: this.endpoint}],
     });
   }
 
@@ -69,7 +71,7 @@ export class EndpointDetailsComponent implements OnInit {
   }
 
   toggleStatusFilter(option) {
-    this.statusFilter[option] = !this.statusFilter[option]
+    this.statusFilter[option] = !this.statusFilter[option];
     this.setFilterOptionsToLocalStorage();
   }
 
@@ -78,10 +80,8 @@ export class EndpointDetailsComponent implements OnInit {
     this.namespace = namespace;
   }
 
-  // private
-
   private setFilterOptions() {
-    let options = JSON.parse(localStorage.getItem('jobsStatusFilter'));
+    const options = JSON.parse(localStorage.getItem('jobsStatusFilter'));
     if (options) {
       this.statusFilter = options;
     } else {
