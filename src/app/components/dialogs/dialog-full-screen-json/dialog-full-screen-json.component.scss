@@ -1,0 +1,14 @@
+.full-screen-json {
+  &--toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #818994;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+}
+
