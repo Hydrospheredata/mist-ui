@@ -15,6 +15,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() jobId: string;
   private parent: Element;
   private subscriber: any;
+  public errorMessage: string;
   public logs: string[];
 
   constructor(
@@ -27,17 +28,15 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     if (this.jobId) {
-      this.httpLogsService.get(this.jobId).subscribe((logs) => {
-        this.logs = logs.concat(this.logs);
-      });
+      this.httpLogsService.get(this.jobId).subscribe(
+        (logs) => { this.logs = logs.concat(this.logs); },
+        (error) => { this.errorHandler(error) }
+      );
       this.subscriber = this.webSocketLogsService.connect(this.jobId)
-        .subscribe((data) => {
-          if (data) {
-            let date = new Date(data.timeStamp);
-            let log = `${date.toJSON()} [${data.from}] ${data.message}`;
-            this.logs.push(log);
-          }
-        });
+        .subscribe(
+          (data) => { this.pushLogs(data); },
+          (error) => { this.errorHandler(error) }
+        );
     }
   }
 
@@ -63,6 +62,18 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.subscriber) {
       this.subscriber.unsubscribe()
     }
+  }
+
+  private pushLogs(data) {
+    if (data) {
+      let date = new Date(data.timeStamp);
+      let log = `${date.toJSON()} [${data.from}] ${data.message}`;
+      this.logs.push(log);
+    }
+  }
+
+  private errorHandler(error) {
+    this.errorMessage = `Logs for ${this.jobId}: ` + error
   }
 
 }
