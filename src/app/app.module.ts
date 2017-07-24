@@ -30,6 +30,8 @@ import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.comp
 import { InputTextComponent } from '@components/form/input-text/input-text.component';
 import { InputTextareaComponent } from '@components/form/input-textarea/input-textarea.component';
 import { DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
+import { JobLogsComponent } from '@components/jobs-wrapper/job-logs/job-logs.component';
+import { DialogCloneJobFormComponent } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
 
 // services
 import { HttpEndpointService } from '@services/http-endpoint.service';
@@ -46,7 +48,6 @@ import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
 import { AgoDatePipe } from '@pipes/ago-date.pipe';
 import { SearchPipe } from '@pipes/search.pipe';
 import { SortByPipe } from '@pipes/sort-by.pipe';
-import { JobLogsComponent } from './components/jobs-wrapper/job-logs/job-logs.component';
 import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
 
 
@@ -65,12 +66,13 @@ import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
     InputTextComponent,
     InputTextareaComponent,
     JobsWrapperComponent,
+    JobLogsComponent,
+    DialogCloneJobFormComponent,
     // pipes
     SearchPipe,
     AgoDatePipe,
     JobStatusFilterPipe,
     SortByPipe,
-    JobLogsComponent,
     JobIdCutPipe
   ],
   imports: [
@@ -91,7 +93,13 @@ import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
   ],
   exports: [
   ],
-  entryComponents: [DialogJobFormComponent, DialogFullScreenJsonComponent, DialogAddEndpointComponent, DialogJobLogsComponent],
+  entryComponents: [
+    DialogJobFormComponent,
+    DialogFullScreenJsonComponent,
+    DialogAddEndpointComponent,
+    DialogJobLogsComponent,
+    DialogCloneJobFormComponent
+  ],
   providers: [HttpEndpointService, HttpJobService, WebSocketJobService, JobStore, EndpointStore],
   bootstrap: [AppComponent]
 })

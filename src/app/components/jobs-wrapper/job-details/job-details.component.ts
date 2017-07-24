@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { JobStore } from '@stores/job.store';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogFullScreenJsonComponent, injectableJsonString } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
+import { DialogCloneJobFormComponent, injectableJob } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
 import { Job } from '@models/job';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
@@ -25,7 +26,6 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MdlDialogService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
     private jobStore: JobStore
   ) { }
 
@@ -57,12 +57,16 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  cloneJob(job: Job) {
-    let params = JSON.parse(job.params);
-    let args = JSON.stringify(params.arguments);
-    this.jobStore.add(job.endpoint, args).subscribe((id) => {
-      this.router.navigate(['/jobs', job.endpoint, id])
-    })
+  openDialogJobForm() {
+    let dialog = this.dialog.showCustomDialog({
+      component: DialogCloneJobFormComponent,
+      styles: {'max-width': '900px', 'width': '850px'},
+      isModal: true,
+      clickOutsideToClose: true,
+      enterTransitionDuration: 400,
+      leaveTransitionDuration: 400,
+      providers: [{provide: injectableJob, useValue: this.job}],
+    });
   }
 
   openFullScreenJson(jsonString: string) {
