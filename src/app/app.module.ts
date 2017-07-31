@@ -26,6 +26,7 @@ import { DialogJobFormComponent } from '@components/dialogs/dialog-job-form/dial
 import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
 import { DialogFullScreenJsonComponent } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 import { DialogAddEndpointComponent } from '@components/dialogs/dialog-add-endpoint/dialog-add-endpoint.component';
+import { DialogAddContextComponent } from './components/dialogs/dialog-add-context/dialog-add-context.component';
 import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.component';
 import { InputTextComponent } from '@components/form/input-text/input-text.component';
 import { InputTextareaComponent } from '@components/form/input-textarea/input-textarea.component';
@@ -51,6 +52,7 @@ import { SortByPipe } from '@pipes/sort-by.pipe';
 import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +63,7 @@ import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
     DialogJobFormComponent,
     JobDetailsComponent,
     DialogAddEndpointComponent,
+    DialogAddContextComponent,
     DialogFullScreenJsonComponent,
     DialogJobLogsComponent,
     InputTextComponent,
@@ -97,6 +100,7 @@ import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
     DialogJobFormComponent,
     DialogFullScreenJsonComponent,
     DialogAddEndpointComponent,
+    DialogAddContextComponent,
     DialogJobLogsComponent,
     DialogCloneJobFormComponent
   ],

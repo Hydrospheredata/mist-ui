@@ -38,6 +38,7 @@ export class InputTextComponent implements ControlValueAccessor  {
   @Output() onIconClick = new EventEmitter<NgModel>();
 
   constructor() {
+    this.wrapClassName = this.wrapClassName || ''
   }
 
   public iconClick(model: NgModel) {

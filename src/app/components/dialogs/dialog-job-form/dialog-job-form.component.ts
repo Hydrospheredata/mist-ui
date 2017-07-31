@@ -6,7 +6,6 @@ import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { JSONValidator } from '@app/validators/json.validator';
 import { FormsService } from '@services/forms.service';
-import { Messages } from '@app/constants/messages';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
@@ -38,7 +37,7 @@ export class DialogJobFormComponent implements OnInit {
     private endpointStore: EndpointStore,
     private jobStore: JobStore,
     private fb: FormBuilder,
-    private FormsService: FormsService,
+    private formsService: FormsService,
     public dialogRef: MdlDialogReference) {
 
     this.data = data;
@@ -50,6 +49,7 @@ export class DialogJobFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    const fs = this.formsService;
     this.selectedEndpoint = this.data;
     this.endpointStore.endpoints.subscribe(data => { this.endpoints = data });
     this.executeParams = this.selectedEndpoint.executeExample();
@@ -58,7 +58,7 @@ export class DialogJobFormComponent implements OnInit {
     this.jobForm.valueChanges
       .subscribe(form => {
         if (this.jobForm.invalid) {
-          this.FormsService.setErrors(this.jobForm, this.formErrors, Messages.ERRORS.forms.runJob);
+          fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
         }
       });
   }
@@ -75,6 +75,7 @@ export class DialogJobFormComponent implements OnInit {
   }
 
   submit(form) {
+    let fs = this.formsService;
     let endpointId = this.selectedEndpoint.name;
     let params = this.executeParams || '{}';
     if (form.valid) {
@@ -83,7 +84,7 @@ export class DialogJobFormComponent implements OnInit {
       });
       this.dialogRef.hide();
     } else {
-      this.FormsService.setErrors(this.jobForm, this.formErrors, Messages.ERRORS.forms.runJob);
+      fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
       return false
     }
   }

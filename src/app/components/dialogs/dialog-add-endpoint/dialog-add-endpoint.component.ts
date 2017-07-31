@@ -1,25 +1,33 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { MdlDialogReference } from '@angular-mdl/core';
-import { FormGroup, Validators, FormBuilder, NgModel } from '@angular/forms';
+import { MdlDialogReference, MdlDialogService } from '@angular-mdl/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
+import { Context } from '@models/context';
+import { HttpContextsService } from '@services/http-contexts.service';
 import { FormsService } from '@services/forms.service';
-import { Messages } from 'app/constants/messages';
 import { EndpointStore } from '@stores/endpoint.store';
 import { Endpoint } from '@models/endpoint';
+import { MdlSnackbarService } from '@angular-mdl/core';
+import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
 
 @Component({
   selector: 'mist-dialog-add-endpoint',
   templateUrl: './dialog-add-endpoint.component.html',
   styleUrls: ['./dialog-add-endpoint.component.scss'],
-  providers: [FormsService]
+  providers: [FormsService, HttpContextsService, MdlSnackbarService]
 })
 export class DialogAddEndpointComponent implements OnInit {
   public endpointForm: FormGroup;
+  public contexts: Context[];
   public file: File;
   public formErrors = {
     name: '',
-    path: ''
+    path: '',
+    className: '',
+    context: ''
   };
+  public loading: boolean;
+  public isCreateContextFormVisiblie: boolean;
 
   @HostListener('keydown.esc')
   public onEsc(): void {
@@ -28,53 +36,82 @@ export class DialogAddEndpointComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               public dialogRef: MdlDialogReference,
-              private FormsService: FormsService,
-              private endpointStore: EndpointStore) {}
+              private formsService: FormsService,
+              private endpointStore: EndpointStore,
+              private mdlSnackbarService: MdlSnackbarService,
+              private dialog: MdlDialogService,
+              private httpContextsService: HttpContextsService
+              ) {}
 
   ngOnInit() {
     this.createEndpointFrom();
+    this.httpContextsService.getContext().subscribe(contexts => this.contexts = contexts );
   }
 
   createEndpointFrom() {
+    let fs = this.formsService;
     this.endpointForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
-      path: ['', [Validators.required, Validators.minLength(4)]],
-      nameSpace: [''],
-      className: [''],
-      additionalParams: [''],
+      name: ['', [Validators.required]],
+      path: ['', [Validators.required]],
+      defaultContext: ['', [Validators.required]],
+      className: ['', [Validators.required]],
       file: ['']
     });
 
     this.endpointForm.valueChanges
       .subscribe( () => {
-        this.FormsService.setErrors(this.endpointForm, this.formErrors, Messages.ERRORS.forms.addEndpoint);
+        fs.setErrors(this.endpointForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addEndpoint);
       });
 
-    this.FormsService.setErrors(this.endpointForm, this.formErrors, Messages.ERRORS.forms.addEndpoint);
+    fs.setErrors(this.endpointForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addEndpoint);
   }
 
   submitEnpointForm(form) {
-    const endpoint: Endpoint = new Endpoint({
-    name: form.controls.name.value,
-    lang: '',
-    tags: '',
-    path: form.controls.name.path,
-    className: form.controls.name.className,
-    nameSpace: form.controls.name.nameSpace,
-    additionalParams: form.controls.name.additionalParams,
-    file: this.file});
+    const self = this;
+    let fs = this.formsService;
+    let endpoint: Endpoint = Object.create(null);
+    endpoint = new Endpoint({
+      name: form.controls.name.value,
+      path: form.controls.path.value,
+      className: form.controls.className.value,
+      defaultContext: form.controls.defaultContext.value,
+      contextSettings: form.controls.contextSettings.value,
+      file: this.file
+    });
 
     if (form.valid) {
-      this.endpointStore.createEndpoint(endpoint);
-      this.dialogRef.hide();
+      this.loading = true;
+      this.endpointStore.createEndpoint(endpoint)
+        .subscribe(endpoint => {
+          self.loading = false;
+          this.dialogRef.hide();
+          this.mdlSnackbarService.showSnackbar({
+            message: `${endpoint.name} has been successfully added`,
+            timeout: 2000
+          });
+        }, (error) => {
+          self.loading = false;
+          this.mdlSnackbarService.showSnackbar({
+            message: error,
+            timeout: 4000
+          });
+        });
+
     } else {
-      this.FormsService.setErrors(this.endpointForm, this.formErrors, Messages.ERRORS.forms.addEndpoint);
+      fs.setErrors(this.endpointForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addEndpoint);
       return false;
     }
   }
 
-  onIconClick(input: NgModel) {
-    console.log( input );
+  showDialogContext() {
+    this.dialog.showCustomDialog({
+      component: DialogAddContextComponent,
+      styles: {'width': '850px'},
+      isModal: true,
+      clickOutsideToClose: true,
+      enterTransitionDuration: 400,
+      leaveTransitionDuration: 400,
+    });
   }
 
   onFileChange($event) {

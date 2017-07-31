@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { JSONValidator } from '@app/validators/json.validator';
 import { JobStore } from '@stores/job.store';
 import { FormsService } from '@services/forms.service';
-import { Messages } from '@app/constants/messages';
 import { Job } from '@models/job';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
@@ -36,7 +35,7 @@ export class DialogCloneJobFormComponent implements OnInit {
     @Inject(injectableJob) data: Job,
     private jobStore: JobStore,
     private fb: FormBuilder,
-    private FormsService: FormsService,
+    private formsService: FormsService,
     private router: Router,
     public dialogRef: MdlDialogReference) {
 
@@ -49,14 +48,15 @@ export class DialogCloneJobFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.job = this.data
+    const fs = this.formsService;
+    this.job = this.data;
     this.executeParams = this.preBuildParams() || '{}'
     this.buildCodeMirrorOptions();
     this.createJobForm();
     this.jobForm.valueChanges
       .subscribe(form => {
         if (this.jobForm.invalid) {
-          this.FormsService.setErrors(this.jobForm, this.formErrors, Messages.ERRORS.forms.runJob);
+          fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
         }
       });
   }
@@ -68,6 +68,7 @@ export class DialogCloneJobFormComponent implements OnInit {
   }
 
   submit(form) {
+    const fs = this.formsService;
     let params = this.executeParams || '{}';
     if (form.valid) {
       this.jobStore.add(this.job.endpoint, params).subscribe((id) => {
@@ -76,7 +77,7 @@ export class DialogCloneJobFormComponent implements OnInit {
         this.router.navigate(['/jobs', this.job.endpoint, id])
       });
     } else {
-      this.FormsService.setErrors(this.jobForm, this.formErrors, Messages.ERRORS.forms.runJob);
+      fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
       return false
     }
   }

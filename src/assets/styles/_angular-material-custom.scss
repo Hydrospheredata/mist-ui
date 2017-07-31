@@ -128,3 +128,25 @@
 .mat-ink-bar {
   background-color: $main-color;
 }
+
+.mdl-dialog__content {
+  overflow-x: auto;
+  max-height: 85vh;
+}
+
+.mdl-textfield {
+  .mdl-textfield__label:after {
+    bottom: 6px;
+  }
+}
+
+.endpoint-details {
+  .endpoint-details__settings {
+    .mdl-select {
+      .mdl-textfield {
+        width: auto;
+        padding: 0.25rem;
+      }
+    }
+  }
+}
