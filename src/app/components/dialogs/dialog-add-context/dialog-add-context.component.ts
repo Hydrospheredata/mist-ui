@@ -121,9 +121,7 @@ export class DialogAddContextComponent implements OnInit {
             message: error,
             timeout: 5000
           });
-      })
-      ;
-
+      });
   }
 
   addSparkConf() {

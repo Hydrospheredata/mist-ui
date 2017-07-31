@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Context } from '@models/context';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class HttpContextsService {
@@ -11,6 +12,25 @@ export class HttpContextsService {
 
   constructor(private http: Http) {
     this.baseUrl = `${environment.host}:${environment.port}/v2/api/contexts`;
+  }
+
+  private handleError(error: Response | any) {
+    let errMsg: string;
+    if (error instanceof Response) {
+      let body;
+      try {
+        body = error.json();
+      } catch (e) {
+        body = error.text();
+      }
+
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 
   public getContext(id?: string) {
@@ -34,7 +54,8 @@ export class HttpContextsService {
     return this.http.post(this.baseUrl, JSON.stringify(context), options)
       .map((response) => {
         return response.json();
-      });
+      })
+      .catch(this.handleError);
   }
 
 }
