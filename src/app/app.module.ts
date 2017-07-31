@@ -37,12 +37,14 @@ import { DialogCloneJobFormComponent } from '@components/dialogs/dialog-clone-jo
 // services
 import { HttpEndpointService } from '@services/http-endpoint.service';
 import { HttpJobService } from '@services/http-job.service';
+import { HttpContextsService } from '@services/http-contexts.service';
 import { FormsService } from '@services/forms.service';
 import { WebSocketJobService } from '@services/web-socket-job.service';
 
 // stores
 import { JobStore } from '@stores/job.store';
 import { EndpointStore } from '@stores/endpoint.store';
+import { ContextStore } from '@stores/context.store';
 
 // pipes
 import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
@@ -104,7 +106,7 @@ import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
     DialogJobLogsComponent,
     DialogCloneJobFormComponent
   ],
-  providers: [HttpEndpointService, HttpJobService, WebSocketJobService, JobStore, EndpointStore],
+  providers: [HttpEndpointService, HttpJobService, WebSocketJobService, JobStore, EndpointStore, HttpContextsService, ContextStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
