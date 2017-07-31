@@ -234,7 +234,7 @@ md-dialog-container.mat-dialog-container {
   }
 }
 
-.namespace {
+.context {
   display: inline-block;
   vertical-align: middle;
   padding: 0 12px;
@@ -304,3 +304,5 @@ md-dialog-container.mat-dialog-container {
 .job-logs--dialog {
   background: $logs-bg-color;
 }
+
+

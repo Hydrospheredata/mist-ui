@@ -11,7 +11,7 @@ import { WebSocketJobService } from '@services/web-socket-job.service'
 @Injectable()
 export class JobStore {
   jobs: Observable<Job[]>;
-  runningJobs: Observable<Job[]>
+  runningJobs: Observable<Job[]>;
   private _selectedJobs: BehaviorSubject<Job[]>;
   private _runningJobs: BehaviorSubject<Job[]>;
   private dataStore: {

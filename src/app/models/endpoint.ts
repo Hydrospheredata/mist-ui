@@ -1,22 +1,28 @@
 export class Endpoint {
   public name: string;
   public lang: string;
+  // deprecated
   public tags: string[];
   public execute: string;
   public className: string;
-  public nameSpace: string;
-  public nameSpaceSettings: JSON;
+  public defaultContext: string;
+  public contextSettings: JSON;
   public file: File;
+  public endpointStore: string;
+  public path: string;
 
   constructor(endpointInfo: Object) {
     this.name = endpointInfo['name'];
     this.lang = endpointInfo['lang'];
+    // deprecated
     this.tags = endpointInfo['tags'];
     this.execute = JSON.stringify(endpointInfo['execute']) || null;
-    this.nameSpace = endpointInfo['nameSpace'];
+    this.defaultContext = endpointInfo['defaultContext'];
     this.className = endpointInfo['className'];
     this.file = endpointInfo['file'];
-    this.nameSpaceSettings = endpointInfo['nameSpaceSettings'];
+    this.contextSettings = endpointInfo['contextSettings'];
+    this.endpointStore = endpointInfo['endpointStore'];
+    this.path = endpointInfo['path'];
   }
 
   executeExample() {
@@ -35,8 +41,8 @@ export class Endpoint {
   }
 
   private make(paramType) {
-    let t = paramType.type
-    let args = paramType.args
+    let t = paramType.type;
+    let args = paramType.args;
     if (t == 'MString') {
         return 'string';
     }
@@ -44,7 +50,7 @@ export class Endpoint {
         return {};
     }
     if (t == 'MMap') {
-        var newObj = {};
+        let newObj = {};
         newObj[this.make(args[0])] = this.make(args[1]);
         return newObj;
     }
@@ -55,7 +61,7 @@ export class Endpoint {
         return Math.random() * 10;
     }
     if (t == 'MList') {
-        var list = [];
+        let list = [];
         list.push(this.make(args[0]));
         return list;
     }

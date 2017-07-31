@@ -2,28 +2,34 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogJobFormComponent, injectableSelectedEndpoint } from '@components/dialogs/dialog-job-form/dialog-job-form.component';
+import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
 import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { Job } from '@models/job';
 import { Endpoint } from '@models/endpoint';
+import { HttpContextsService } from '@services/http-contexts.service';
+import { Context } from '@models/context';
 
 @Component({
   selector: 'mist-endpoint-details',
   templateUrl: './endpoint-details.component.html',
-  styleUrls: ['./endpoint-details.component.scss']
+  styleUrls: ['./endpoint-details.component.scss'],
+  providers: [HttpContextsService]
 })
 export class EndpointDetailsComponent implements OnInit, OnDestroy {
   endpoint: Endpoint;
   jobs: Job[];
-  namespace: string;
+  context: string;
   statusFilter: { success: boolean, running: boolean, failed: boolean };
   private sub: any;
+  public contexts: Context[];
 
   constructor(
     public dialog: MdlDialogService,
     private activatedRoute: ActivatedRoute,
     private endpointStore: EndpointStore,
-    private jobStore: JobStore
+    private jobStore: JobStore,
+    private httpContextsService: HttpContextsService
   ) {}
 
   ngOnInit() {
@@ -31,6 +37,9 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     this.sub = this.activatedRoute.params
       .map(params => params['endpointId'])
       .subscribe((id) => { this.loadInitialData(id) });
+    this.httpContextsService.getContext().subscribe(contexts => {
+      this.contexts = contexts;
+    });
   }
 
   ngOnDestroy() {
@@ -50,7 +59,6 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     this.jobStore.jobs.subscribe((jobs) => {
       this.jobs = jobs;
     });
-    this.namespace = 'Namespace1';
   }
 
   openDialogJobForm() {
@@ -75,9 +83,9 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     this.setFilterOptionsToLocalStorage();
   }
 
-  selectNamespace(event, namespace) {
+  selectContext(event, context) {
     event.preventDefault();
-    this.namespace = namespace;
+    this.context = context;
   }
 
   private setFilterOptions() {
@@ -92,6 +100,17 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
 
   private setFilterOptionsToLocalStorage() {
     localStorage.setItem('jobsStatusFilter', JSON.stringify(this.statusFilter));
+  }
+
+  public showAddContextDialog() {
+    this.dialog.showCustomDialog({
+      component: DialogAddContextComponent,
+      styles: {'width': '850px'},
+      isModal: true,
+      clickOutsideToClose: true,
+      enterTransitionDuration: 400,
+      leaveTransitionDuration: 400,
+    })
   }
 
 }

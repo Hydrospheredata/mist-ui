@@ -40,8 +40,16 @@ export class HttpEndpointService {
   }
 
   private extractEndpoint(res: Response) {
-    let data = res.json();
-    return this.toEndpoint(data);
+    let data;
+    try {
+      data = res.json();
+    } catch (e) {
+      return Observable.throw(e)
+    } finally {
+      if (data) {
+        return this.toEndpoint(data);
+      }
+    }
   }
 
   private extractData(res: Response) {
@@ -54,6 +62,8 @@ export class HttpEndpointService {
       name: data['name'],
       lang: data['lang'],
       tags: data['tags'],
+      defaultContext: data['defaultContext'],
+      path: data['path'],
       execute: data['execute']
     });
     return endpoint;
@@ -62,7 +72,13 @@ export class HttpEndpointService {
   private handleError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {
-      const body = error.json() || '';
+      let body;
+      try {
+        body = error.json();
+      } catch (e) {
+        body = error.text();
+      }
+
       const err = body.error || JSON.stringify(body);
       errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
     } else {
@@ -75,11 +91,10 @@ export class HttpEndpointService {
   public createEndpoint(endpoint: Endpoint) {
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({headers: headers});
-    const _endpoint: String = JSON.stringify(endpoint);
+    const _endpoint: string = JSON.stringify(endpoint);
 
-    return this.http.post(this.baseUrl, {_endpoint}, options)
-      .map(this.extractData)
-      .catch(this.handleError)
-      .subscribe();
+    return this.http.post(this.baseUrl, _endpoint, options)
+      .map(this.extractEndpoint.bind(this))
+      .catch(this.handleError);
   }
 }

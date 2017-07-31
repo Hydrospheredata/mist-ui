@@ -46,7 +46,18 @@ export class EndpointStore {
   }
 
   public createEndpoint(endpoint: Endpoint) {
-    this.backendService.createEndpoint(endpoint);
+    const self = this;
+
+    return this.backendService.createEndpoint(endpoint)
+      .map(endpoint => {
+        self.dataStore.push(endpoint);
+        self.updateStore();
+        return endpoint;
+      }).catch(err => {
+          return Observable.throw(err);
+        }
+      );
+
   }
 
 }

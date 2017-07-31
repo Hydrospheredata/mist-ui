@@ -30,7 +30,7 @@ export class EndpointListComponent implements OnInit {
     this.dialog.showCustomDialog({
       component: DialogAddEndpointComponent,
       isModal: true,
-      styles: {'width': '850px'},
+      styles: {'width': '850px', 'max-height': '100%'},
       clickOutsideToClose: true,
       enterTransitionDuration: 400,
       leaveTransitionDuration: 400

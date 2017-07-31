@@ -1,0 +1,73 @@
+<h1 class="mdl-dialog__title mat-dialog-title">Add context</h1>
+<div class="mdl-dialog__content">
+  <form [formGroup]="contextForm" (ngSubmit)="submitContextForm(contextForm)">
+    <mist-input-text class=""
+                     [formErrors]="formErrors.name"
+                     label="Name *"
+                     placeholder="Name"
+                     formControlName="name">
+    </mist-input-text>
+    <div class="" formArrayName="sparkConfs">
+      <label>Spark Config</label>
+      <div *ngFor="let sparkConf of contextForm.controls.sparkConfs.controls; let i = index">
+        <div [formGroupName]="i">
+          <div class="" fxLayout="row" fxLayoutAlign="space-between center">
+            <mist-input-text [formErrors]="formErrors.sparkConfKey"
+                             fxFlex="40%"
+                             placeholder="Key"
+                             formControlName="sparkConfKey">
+            </mist-input-text>
+            <mist-input-text [formErrors]="formErrors.sparkConfValue"
+                             fxFlex="40%"
+                             placeholder="Value"
+                             formControlName="sparkConfValue">
+            </mist-input-text>
+            <div>
+              <mdl-icon class="cs-cursor-pointer mdl-color-text--light-blue-700" (click)="addSparkConf()">
+                add_circle
+              </mdl-icon>
+              <mdl-icon class="cs-cursor-pointer mdl-color-text--red"
+                        (click)="removeSparkConf(i)"
+                        *ngIf="contextForm.controls.sparkConfs.controls.length > 1">remove_circle
+              </mdl-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mist-input-text class=""
+                     [formErrors]="formErrors.downtime"
+                     label="Downtime *"
+                     placeholder=""
+                     formControlName="downtime">
+    </mist-input-text>
+    <mist-input-text class=""
+                     [formErrors]="formErrors.maxJobs"
+                     label="Max Jobs *"
+                     placeholder=""
+                     formControlName="maxJobs">
+    </mist-input-text>
+    <mdl-checkbox class="cs-form-input" formControlName="precreated">Precreated</mdl-checkbox>
+    <mist-input-text class=""
+                     [formErrors]="formErrors.runOptions"
+                     label="Run Options *"
+                     placeholder=""
+                     formControlName="runOptions">
+    </mist-input-text>
+    <mist-input-text class="" [formErrors]="formErrors.streamingDuration" label="Streaming Duration *" placeholder="" formControlName="streamingDuration"></mist-input-text>
+
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col cs-text-right">
+        <button (click)="dialogRef.hide()" type="button" mdl-button class='mat-button mat-button--big'>
+          CANCEL
+        </button>
+        <button type="submit" mdl-button [disabled]="contextForm.invalid"
+                class='mat-button mat-button--big mat-button--primary'
+                mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Add context
+        </button>
+      </div>
+    </div>
+
+  </form>
+</div>
