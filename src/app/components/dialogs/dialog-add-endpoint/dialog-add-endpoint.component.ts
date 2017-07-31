@@ -75,7 +75,6 @@ export class DialogAddEndpointComponent implements OnInit {
       path: form.controls.path.value,
       className: form.controls.className.value,
       defaultContext: form.controls.defaultContext.value,
-      contextSettings: form.controls.contextSettings.value,
       file: this.file
     });
 
