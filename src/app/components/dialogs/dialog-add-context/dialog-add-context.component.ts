@@ -111,6 +111,7 @@ export class DialogAddContextComponent implements OnInit {
     });
     this.httpContextsService.createContext(context)
       .subscribe( (response) => {
+        this.dialogRef.hide();
         this.mdlSnackbarService.showSnackbar({
           message: `Context ${response.name} successfully added`,
           timeout: 5000
@@ -120,7 +121,8 @@ export class DialogAddContextComponent implements OnInit {
             message: error,
             timeout: 5000
           });
-      });
+      })
+      ;
 
   }
 
