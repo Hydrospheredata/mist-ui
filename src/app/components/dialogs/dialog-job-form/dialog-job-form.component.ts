@@ -52,7 +52,9 @@ export class DialogJobFormComponent implements OnInit {
     const fs = this.formsService;
     this.selectedEndpoint = this.data;
     this.endpointStore.endpoints.subscribe(data => { this.endpoints = data });
-    this.executeParams = this.selectedEndpoint.executeExample();
+    if (this.selectedEndpoint) {
+      this.executeParams = this.selectedEndpoint.executeExample();
+    }
     this.buildCodeMirrorOptions();
     this.createJobForm();
     this.jobForm.valueChanges
