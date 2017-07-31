@@ -3,9 +3,9 @@ import { MdlDialogReference, MdlDialogService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { Context } from '@models/context';
-import { HttpContextsService } from '@services/http-contexts.service';
 import { FormsService } from '@services/forms.service';
 import { EndpointStore } from '@stores/endpoint.store';
+import { ContextStore } from '@stores/context.store';
 import { Endpoint } from '@models/endpoint';
 import { MdlSnackbarService } from '@angular-mdl/core';
 import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
@@ -14,7 +14,7 @@ import { DialogAddContextComponent } from '@components/dialogs/dialog-add-contex
   selector: 'mist-dialog-add-endpoint',
   templateUrl: './dialog-add-endpoint.component.html',
   styleUrls: ['./dialog-add-endpoint.component.scss'],
-  providers: [FormsService, HttpContextsService, MdlSnackbarService]
+  providers: [FormsService, MdlSnackbarService]
 })
 export class DialogAddEndpointComponent implements OnInit {
   public endpointForm: FormGroup;
@@ -40,16 +40,17 @@ export class DialogAddEndpointComponent implements OnInit {
               private endpointStore: EndpointStore,
               private mdlSnackbarService: MdlSnackbarService,
               private dialog: MdlDialogService,
-              private httpContextsService: HttpContextsService
+              private contextStore: ContextStore
               ) {}
 
   ngOnInit() {
     this.createEndpointFrom();
-    this.httpContextsService.getContext().subscribe(contexts => this.contexts = contexts );
+    this.contextStore.getAll();
+    this.contextStore.contexts.subscribe(data => { this.contexts = data });
   }
 
   createEndpointFrom() {
-    let fs = this.formsService;
+    const fs = this.formsService;
     this.endpointForm = this.fb.group({
       name: ['', [Validators.required]],
       path: ['', [Validators.required]],
@@ -68,7 +69,7 @@ export class DialogAddEndpointComponent implements OnInit {
 
   submitEnpointForm(form) {
     const self = this;
-    let fs = this.formsService;
+    const fs = this.formsService;
     let endpoint: Endpoint = Object.create(null);
     endpoint = new Endpoint({
       name: form.controls.name.value,
@@ -86,13 +87,13 @@ export class DialogAddEndpointComponent implements OnInit {
           this.dialogRef.hide();
           this.mdlSnackbarService.showSnackbar({
             message: `${endpoint.name} has been successfully added`,
-            timeout: 2000
+            timeout: 5000
           });
         }, (error) => {
           self.loading = false;
           this.mdlSnackbarService.showSnackbar({
             message: error,
-            timeout: 4000
+            timeout: 5000
           });
         });
 

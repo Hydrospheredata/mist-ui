@@ -7,14 +7,14 @@ import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { Job } from '@models/job';
 import { Endpoint } from '@models/endpoint';
-import { HttpContextsService } from '@services/http-contexts.service';
+import { ContextStore } from '@stores/context.store';
 import { Context } from '@models/context';
 
 @Component({
   selector: 'mist-endpoint-details',
   templateUrl: './endpoint-details.component.html',
   styleUrls: ['./endpoint-details.component.scss'],
-  providers: [HttpContextsService]
+  providers: []
 })
 export class EndpointDetailsComponent implements OnInit, OnDestroy {
   endpoint: Endpoint;
@@ -29,7 +29,7 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private endpointStore: EndpointStore,
     private jobStore: JobStore,
-    private httpContextsService: HttpContextsService
+    private contextStore: ContextStore
   ) {}
 
   ngOnInit() {
@@ -37,9 +37,11 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     this.sub = this.activatedRoute.params
       .map(params => params['endpointId'])
       .subscribe((id) => { this.loadInitialData(id) });
-    this.httpContextsService.getContext().subscribe(contexts => {
-      this.contexts = contexts;
-    });
+
+    this.contextStore.getAll();
+    this.contextStore.contexts
+      .subscribe((contexts) => this.contexts = contexts)
+
   }
 
   ngOnDestroy() {

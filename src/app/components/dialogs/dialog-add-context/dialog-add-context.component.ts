@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpContextsService } from '@services/http-contexts.service';
 import { Context } from '@models/context';
 import { MdlDialogReference, MdlSnackbarService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { FormsService } from '@services/forms.service';
+import { ContextStore } from '@stores/context.store';
 
 @Component({
   selector: 'mist-dialog-add-context',
   templateUrl: './dialog-add-context.component.html',
   styleUrls: ['./dialog-add-context.component.scss'],
-  providers: [HttpContextsService, FormsService]
+  providers: [FormsService]
 })
 export class DialogAddContextComponent implements OnInit {
-  public currentContexts: Context;
   public contextForm: FormGroup;
   public formErrors = {
     name: '',
@@ -30,23 +29,24 @@ export class DialogAddContextComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MdlDialogReference,
     private formsService: FormsService,
-    private httpContextsService: HttpContextsService,
-    private mdlSnackbarService: MdlSnackbarService
+    private mdlSnackbarService: MdlSnackbarService,
+    private contextStore: ContextStore
   ) {
 
   }
 
   ngOnInit() {
-    this.httpContextsService.getContext('default').subscribe(context => {
-      this.currentContexts = context;
-      this.setDefaultContext(context);
+    const self = this;
+    this.contextStore.get('default')
+      .subscribe(context => {
+        self.setDefaultContext(context);
     });
 
     this.createContextForm();
   }
 
   createContextForm(context?: Context) {
-    let fs = this.formsService;
+    const fs = this.formsService;
     this.contextForm = this.fb.group({
       name: ['', [Validators.required]],
       sparkConfs: this.fb.array([this.initSparkConf()]),
@@ -73,7 +73,7 @@ export class DialogAddContextComponent implements OnInit {
   }
 
   sparkConfsToMap(sparkConfs: Array<object>): Object {
-    let obj: object = {};
+    const obj: object = {};
 
     if (!sparkConfs.length) {
       return obj;
@@ -109,7 +109,8 @@ export class DialogAddContextComponent implements OnInit {
       runOptions: control.runOptions.value,
       streamingDuration: control.streamingDuration.value
     });
-    this.httpContextsService.createContext(context)
+
+    this.contextStore.createContext(context)
       .subscribe( (response) => {
         this.dialogRef.hide();
         this.mdlSnackbarService.showSnackbar({
@@ -122,6 +123,7 @@ export class DialogAddContextComponent implements OnInit {
             timeout: 5000
           });
       });
+
   }
 
   addSparkConf() {

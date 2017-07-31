@@ -52,9 +52,7 @@ export class HttpContextsService {
     const options = new RequestOptions({headers: headers});
 
     return this.http.post(this.baseUrl, JSON.stringify(context), options)
-      .map((response) => {
-        return response.json();
-      })
+      .map((response) => response.json())
       .catch(this.handleError);
   }
 
