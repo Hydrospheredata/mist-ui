@@ -52,6 +52,7 @@ import { AgoDatePipe } from '@pipes/ago-date.pipe';
 import { SearchPipe } from '@pipes/search.pipe';
 import { SortByPipe } from '@pipes/sort-by.pipe';
 import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
+import { MistLoaderComponent } from './components/mist-loader/mist-loader.component';
 
 
 
@@ -78,7 +79,8 @@ import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
     AgoDatePipe,
     JobStatusFilterPipe,
     SortByPipe,
-    JobIdCutPipe
+    JobIdCutPipe,
+    MistLoaderComponent
   ],
   imports: [
     BrowserModule,
