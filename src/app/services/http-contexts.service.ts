@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { environment } from '../../environments/environment';
+import { Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Context } from '@models/context';
 import {Observable} from 'rxjs/Observable';
+import {HttpService} from '@services/http.service';
 
 @Injectable()
 export class HttpContextsService {
   private baseUrl: string;
 
-  constructor(private http: Http) {
-    this.baseUrl = `${environment.host}:${environment.port}/v2/api/contexts`;
+  constructor(private http: HttpService) {
+    this.baseUrl = `/contexts`;
   }
 
   private handleError(error: Response | any) {
@@ -48,10 +48,7 @@ export class HttpContextsService {
   }
 
   public createContext(context: Context) {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-
-    return this.http.post(this.baseUrl, JSON.stringify(context), options)
+    return this.http.post(this.baseUrl, JSON.stringify(context))
       .map((response) => response.json())
       .catch(this.handleError);
   }

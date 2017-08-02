@@ -1,18 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Response} from '@angular/http';
 import {Endpoint} from '@models/endpoint';
 import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {HttpService} from '@services/http.service';
 
 @Injectable()
 export class HttpEndpointService {
   private baseUrl: string;
 
-  constructor(private http: Http) {
-    this.baseUrl = `${environment.host}:${environment.port}/v2/api/endpoints`;
+  constructor(private http: HttpService) {
+    this.baseUrl = `/endpoints`;
     this.getAll();
   }
 
@@ -89,11 +88,9 @@ export class HttpEndpointService {
   }
 
   public createEndpoint(endpoint: Endpoint) {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
     const _endpoint: string = JSON.stringify(endpoint);
 
-    return this.http.post(this.baseUrl, _endpoint, options)
+    return this.http.post(this.baseUrl, _endpoint)
       .map(this.extractEndpoint.bind(this))
       .catch(this.handleError);
   }

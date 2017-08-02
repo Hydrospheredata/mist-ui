@@ -9,8 +9,8 @@ export class WebSocketJobService {
   private baseUrl: string;
 
   public static readonly RUNNING_EVENTS: string[] = ['initialized', 'queued', 'started'];
-  public static readonly FAILED_EVENTS: string[] = ['canceled', 'failed']
-  public static readonly FINISHED_EVENTS: string[] = ['finished']
+  public static readonly FAILED_EVENTS: string[] = ['canceled', 'failed'];
+  public static readonly FINISHED_EVENTS: string[] = ['finished'];
 
   constructor() {
     this.baseUrl = `${environment.ws}:${environment.port}/v2/api/ws`

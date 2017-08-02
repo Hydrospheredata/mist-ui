@@ -1,6 +1,5 @@
 import { BaseRequestOptions } from '@angular/http';
 
-
 export class MistRequestOptions extends BaseRequestOptions {
 
   constructor (mistOptions?: any) {

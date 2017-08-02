@@ -1,77 +1,75 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Response } from '@angular/http';
 import { Job } from '@models/job';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { HttpService } from '@services/http.service';
 
 @Injectable()
 export class HttpJobService {
-  private baseUrl: string;
+  private baseUrl = {
+    jobs: '/jobs',
+    endpoints: '/endpoints'
+  };
 
-  constructor(private http: Http) {
-    this.baseUrl = `${environment.host}:${environment.port}/v2/api`;
+  constructor(private http: HttpService) {
   }
 
   public getAll(): Observable<Job[]> {
-    let apiUrl = this.baseUrl + `/jobs`;
-    return this.http.get(apiUrl)
+    return this.http.get(this.baseUrl.jobs)
              .map((res: Response) => { return this.extractJobs(res) })
              .catch(this.handleError);
   }
 
   public where(args: object): Observable<Job[]> {
-    let options = this.parseArgs(args);
-    let apiUrl = this.baseUrl + `/jobs?` + options;
+    const options = this.parseArgs(args);
+    const apiUrl = this.baseUrl.jobs + `?` + options;
     return this.http.get(apiUrl)
              .map((res: Response) => { return this.extractJobs(res) })
              .catch(this.handleError);
   }
 
   public getByEndpoint(endpointId: string): Observable<Job[]> {
-    let apiUrl = this.baseUrl + `/endpoints/${endpointId}/jobs`;
+    const apiUrl = this.baseUrl.endpoints + `/${endpointId}/jobs`;
     return this.http.get(apiUrl)
              .map((res: Response) => { return this.extractJobs(res) })
              .catch(this.handleError);
   }
 
   public get(id: string): Observable<Job> {
-    let apiUrl = this.baseUrl + `/jobs/${id}`;
+    const apiUrl = this.baseUrl.jobs + `/${id}`;
     return this.http.get(apiUrl)
              .map((res: Response) => { return this.extractJob(res) })
              .catch(this.handleError);
   }
 
   public create(endpointId: string, args: string): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    let apiUrl = this.baseUrl + `/endpoints/${endpointId}/jobs`;
+    const apiUrl = this.baseUrl.endpoints + `/${endpointId}/jobs`;
 
-    return this.http.post(apiUrl, JSON.stringify(JSON.parse(args)), options)
+    return this.http.post(apiUrl, JSON.stringify(JSON.parse(args)))
              .map(this.extractData)
              .catch(this.handleError);
   }
 
   public kill(jobId: string): Observable<Job> {
-    let apiUrl = this.baseUrl + `/jobs/${jobId}`;
+    const apiUrl = this.baseUrl.jobs + `/${jobId}`;
     return this.http.delete(apiUrl)
              .map((res: Response) => { return this.extractJob(res) })
              .catch(this.handleError);
   }
 
   private parseArgs(options): string {
-    let args = Object.keys(options);
-    let params = args.map((arg) => {
+    const args = Object.keys(options);
+    const params = args.map((arg) => {
       return `${arg}=` + options[arg].join(`&${arg}=`);
-    })
+    });
     return params.join('&');
   }
 
   private extractJobs(res: Response) {
-    let data = res.json();
-    let jobs :Job[] = [];
+    const data = res.json();
+    const jobs: Job[] = [];
     for(let index in data) {
       let job = this.toJob(data[index]);
       jobs.push(job);
@@ -80,12 +78,12 @@ export class HttpJobService {
   }
 
   private extractJob(res: Response) {
-    let data = res.json();
+    const data = res.json();
     return this.toJob(data);
   }
 
   private toJob(data): Job {
-    let job = new Job({
+    const job = new Job({
       jobId: data.jobId,
       status: data.status,
       context: data.context,
@@ -93,15 +91,15 @@ export class HttpJobService {
       startTime: data.startTime,
       endTime: data.endTime,
       endpoint: data.endpoint,
-      jobResult: JSON.stringify(data.jobResult, null, "\t"),
-      params: JSON.stringify(data.params, null, "\t"),
+      jobResult: JSON.stringify(data.jobResult, null, '\t'),
+      params: JSON.stringify(data.params, null, '\t'),
       source: data.source
-    })
+    });
     return job;
   }
 
   private extractData(res: Response) {
-    let data = res.json();
+    const data = res.json();
     return data || {};
   }
 

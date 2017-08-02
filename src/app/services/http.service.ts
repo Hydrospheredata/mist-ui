@@ -4,10 +4,8 @@ import { environment } from '../../environments/environment';
 import 'rxjs/Rx';
 import {
   Http,
-  RequestOptions,
   RequestOptionsArgs,
   Response,
-  Request,
   Headers,
   XHRBackend
 } from '@angular/http';
@@ -19,7 +17,7 @@ import { LoaderService } from './loader.service';
 @Injectable()
 export class HttpService extends Http {
 
-  apiUrl = `${environment.host}:${environment.port}`;
+  apiUrl = `${environment.host}:${environment.port}${environment.apiUrl}`;
 
   constructor(
     backend: XHRBackend,
@@ -61,6 +59,38 @@ export class HttpService extends Http {
       });
   }
 
+  put(url: string, body, options?: RequestOptionsArgs): Observable<any> {
+
+    this.showLoader();
+
+    return super.put(this.getFullUrl(url), body, this.requestOptions(options))
+      .catch(this.onCatch)
+      .do((res: Response) => {
+        this.onSuccess(res);
+      }, (error: any) => {
+        this.onError(error);
+      })
+      .finally(() => {
+        this.onEnd();
+      });
+  }
+
+  delete(url: string, options?: RequestOptionsArgs): Observable<any> {
+
+    this.showLoader();
+
+    return super.delete(this.getFullUrl(url), this.requestOptions(options))
+      .catch(this.onCatch)
+      .do((res: Response) => {
+        this.onSuccess(res);
+      }, (error: any) => {
+        this.onError(error);
+      })
+      .finally(() => {
+        this.onEnd();
+      });
+  }
+
   private requestOptions(options?: RequestOptionsArgs): RequestOptionsArgs {
 
     if (options == null) {
@@ -83,7 +113,6 @@ export class HttpService extends Http {
   }
 
   private onSuccess(res: Response): void {
-    console.log('Request successful');
   }
 
   private onError(res: Response): void {
