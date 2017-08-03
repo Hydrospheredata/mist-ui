@@ -5,7 +5,6 @@
 
 export const environment = {
   production: false,
-  host: 'http://localhost:2004',
-  ws: 'ws://localhost:2004',
-  apiUrl: '/v2/api'
+  apiUrl: '/v2/api',
+  port: '2004'
 };

@@ -16,8 +16,8 @@ import { LoaderService } from './loader.service';
 
 @Injectable()
 export class HttpService extends Http {
-
-  apiUrl = `${environment.host}${environment.apiUrl}`;
+  port: string;
+  apiUrl: string;
 
   constructor(
     backend: XHRBackend,
@@ -25,6 +25,8 @@ export class HttpService extends Http {
     private loaderService: LoaderService
   ) {
     super(backend, defaultOptions);
+    this.port = environment.production ? window.location.port : environment.port;
+    this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${environment.apiUrl}`;
   }
 
   get(url: string, options?: RequestOptionsArgs): Observable<any> {
