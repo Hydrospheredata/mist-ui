@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, Observer } from 'rxjs/Rx';
-import { environment } from '../../environments/environment';
+import { WebsocketService } from '@services/websocket.service';
 
 @Injectable()
-export class WebSocketLogsService {
+export class WebSocketLogsService extends WebsocketService{
 
   private subject: Subject<MessageEvent>;
   private baseUrl: string;
   private ws: WebSocket;
 
   constructor() {
-    this.baseUrl = `${environment.ws}${environment.apiUrl}/jobs/`;
+    super();
+    this.baseUrl = `${this.apiUrl}/jobs/`;
   }
 
   public connect(id): Observable<any> {

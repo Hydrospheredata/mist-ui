@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, Observer } from 'rxjs/Rx';
-import { environment } from '../../environments/environment';
+import { WebsocketService } from '@services/websocket.service';
 
 @Injectable()
-export class WebSocketJobService {
+export class WebSocketJobService extends WebsocketService {
 
   private subject: Subject<MessageEvent>;
   private baseUrl: string;
@@ -13,7 +13,8 @@ export class WebSocketJobService {
   public static readonly FINISHED_EVENTS: string[] = ['finished'];
 
   constructor() {
-    this.baseUrl = `${environment.ws}${environment.apiUrl}/ws`
+    super();
+    this.baseUrl = `${this.apiUrl}/ws`;
   }
 
   public getEvents(): string[] {
