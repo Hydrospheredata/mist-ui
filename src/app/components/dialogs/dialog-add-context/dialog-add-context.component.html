@@ -9,7 +9,7 @@
     </mist-input-text>
     <div class="" formArrayName="sparkConfs">
       <label>Spark Config</label>
-      <div *ngFor="let sparkConf of contextForm.controls.sparkConfs.controls; let i = index">
+      <div *ngFor="let sparkConf of contextForm['controls'].sparkConfs['controls']; let i = index">
         <div [formGroupName]="i">
           <div class="" fxLayout="row" fxLayoutAlign="space-between center">
             <mist-input-text [formErrors]="formErrors.sparkConfKey"

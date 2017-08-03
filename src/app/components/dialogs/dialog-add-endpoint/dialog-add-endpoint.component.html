@@ -26,7 +26,7 @@
           <div>
             <label class="control-label">Context</label>
             <div fxLayout="row" fxLayoutAlign="start center">
-              <mdl-select formControlName="defaultContext" [(ngModel)]="currentContexts">
+              <mdl-select formControlName="defaultContext" [(ngModel)]="currentContext">
                 <mdl-option *ngFor="let context of contexts" [value]="context.name">{{context.name}}</mdl-option>
               </mdl-select>
               <mdl-icon title="Add context" class="cs-cursor-pointer mdl-color-text--light-blue-700 cs-ml-16"
