@@ -13,7 +13,7 @@ export class WebSocketJobService {
   public static readonly FINISHED_EVENTS: string[] = ['finished'];
 
   constructor() {
-    this.baseUrl = `${environment.ws}:${environment.port}/v2/api/ws`
+    this.baseUrl = `${environment.ws}${environment.apiUrl}/ws`
   }
 
   public getEvents(): string[] {

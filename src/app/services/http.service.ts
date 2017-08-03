@@ -17,7 +17,7 @@ import { LoaderService } from './loader.service';
 @Injectable()
 export class HttpService extends Http {
 
-  apiUrl = `${environment.host}:${environment.port}${environment.apiUrl}`;
+  apiUrl = `${environment.host}${environment.apiUrl}`;
 
   constructor(
     backend: XHRBackend,

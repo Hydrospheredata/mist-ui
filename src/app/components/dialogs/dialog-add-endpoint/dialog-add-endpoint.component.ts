@@ -28,6 +28,7 @@ export class DialogAddEndpointComponent implements OnInit {
   };
   public loading: boolean;
   public isCreateContextFormVisiblie: boolean;
+  public currentContext: Context;
 
   @HostListener('keydown.esc')
   public onEsc(): void {

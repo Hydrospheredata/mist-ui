@@ -23,6 +23,7 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
   statusFilter: { success: boolean, running: boolean, failed: boolean };
   private sub: any;
   public contexts: Context[];
+  public currentContext: Context;
 
   constructor(
     public dialog: MdlDialogService,

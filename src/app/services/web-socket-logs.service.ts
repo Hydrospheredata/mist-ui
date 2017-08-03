@@ -10,7 +10,7 @@ export class WebSocketLogsService {
   private ws: WebSocket;
 
   constructor() {
-    this.baseUrl = `${environment.ws}:${environment.port}/v2/api/jobs/`;
+    this.baseUrl = `${environment.ws}${environment.apiUrl}/jobs/`;
   }
 
   public connect(id): Observable<any> {
