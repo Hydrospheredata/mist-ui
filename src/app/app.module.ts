@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { routing } from './app.router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -40,6 +40,12 @@ import { HttpJobService } from '@services/http-job.service';
 import { HttpContextsService } from '@services/http-contexts.service';
 import { FormsService } from '@services/forms.service';
 import { WebSocketJobService } from '@services/web-socket-job.service';
+import { HttpService } from '@services/http.service';
+import { LoaderService } from '@services/loader.service';
+import { MistRequestOptions } from '@services/mist-request-options';
+
+// factories
+import { httpServiceFactory } from './factories/http-service-factory';
 
 // stores
 import { JobStore } from '@stores/job.store';
@@ -52,6 +58,7 @@ import { AgoDatePipe } from '@pipes/ago-date.pipe';
 import { SearchPipe } from '@pipes/search.pipe';
 import { SortByPipe } from '@pipes/sort-by.pipe';
 import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
+import { LoaderComponent } from './components/loader/loader.component';
 
 
 
@@ -78,7 +85,8 @@ import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
     AgoDatePipe,
     JobStatusFilterPipe,
     SortByPipe,
-    JobIdCutPipe
+    JobIdCutPipe,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +114,22 @@ import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
     DialogJobLogsComponent,
     DialogCloneJobFormComponent
   ],
-  providers: [HttpEndpointService, HttpJobService, WebSocketJobService, JobStore, EndpointStore, HttpContextsService, ContextStore],
+  providers: [
+    HttpEndpointService,
+    HttpJobService,
+    WebSocketJobService,
+    JobStore,
+    EndpointStore,
+    HttpContextsService,
+    ContextStore,
+    HttpService,
+    LoaderService,
+    {
+      provide: HttpService,
+      useFactory: httpServiceFactory,
+      deps: [XHRBackend, RequestOptions, LoaderService ]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

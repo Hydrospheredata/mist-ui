@@ -6,7 +6,7 @@
       <div class='job-form__header' fxLayout="row" fxLayoutAlign="space-between center">
         <div class='job-form__select' fxFlex="45">
           <div class='mist-label'>Endpoint</div>
-          <mdl-select *ngIf="selectedEndpoint" class="no-label"
+          <mdl-select [hidden]="!selectedEndpoint" class="no-label"
                       [placeholder]=""
                       [label]=""
                       [(ngModel)]="selectedEndpoint"

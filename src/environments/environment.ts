@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   host: 'http://localhost',
   ws: 'ws://localhost',
+  apiUrl: '/v2/api',
   port: 2004
 };
