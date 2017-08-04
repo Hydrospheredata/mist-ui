@@ -57,13 +57,16 @@ export class HttpEndpointService {
   }
 
   private toEndpoint(data) {
-    let endpoint = new Endpoint({
+    const endpoint = new Endpoint({
       name: data['name'],
       lang: data['lang'],
       tags: data['tags'],
       defaultContext: data['defaultContext'],
       path: data['path'],
-      execute: data['execute']
+      execute: data['execute'],
+      className: data['className'],
+      contextSettings: data['contextSettings'],
+      endpointStore: data['endpointStore'],
     });
     return endpoint;
   }
@@ -94,4 +97,13 @@ export class HttpEndpointService {
       .map(this.extractEndpoint.bind(this))
       .catch(this.handleError);
   }
+
+  public updateEndpoint(endpoint: Endpoint) {
+    const _endpoint: string = JSON.stringify(endpoint);
+
+    return this.http.put(this.baseUrl, _endpoint)
+      .map(this.extractEndpoint.bind(this))
+      .catch(this.handleError);
+  }
+
 }

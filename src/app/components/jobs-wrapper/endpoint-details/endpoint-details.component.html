@@ -6,9 +6,7 @@
         <div class="mdl-grid mdl-grid--no-spacing">
           <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--middle">
             <span class='endpoint-details__settings-label' fxHide.sm>Settings</span>
-            <mdl-select [(ngModel)]="currentContext">
-              <mdl-option *ngFor="let context of contexts" [value]="context.name">{{context.name}}</mdl-option>
-            </mdl-select>
+            {{currentContext}}
             <mdl-icon (click)="showAddContextDialog()" class="cs-vertical-middle cs-cursor-pointer">settings</mdl-icon>
           </div>
         </div>

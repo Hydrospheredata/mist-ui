@@ -5,7 +5,7 @@ import { JobStore } from '@stores/job.store';
 import { Endpoint } from '@models/endpoint';
 import { Job } from '@models/job';
 import { MdlDialogService } from '@angular-mdl/core';
-import { DialogAddEndpointComponent } from '@app/components/dialogs/dialog-add-endpoint/dialog-add-endpoint.component';
+import { DialogAddEndpointComponent, injectableEndpoint } from '@app/components/dialogs/dialog-add-endpoint/dialog-add-endpoint.component';
 
 @Component({
   selector: 'mist-endpoint-list',
@@ -33,7 +33,8 @@ export class EndpointListComponent implements OnInit {
       styles: {'width': '850px', 'max-height': '100%'},
       clickOutsideToClose: true,
       enterTransitionDuration: 400,
-      leaveTransitionDuration: 400
+      leaveTransitionDuration: 400,
+      providers: [{provide: injectableEndpoint, useValue: null}]
     });
   }
 

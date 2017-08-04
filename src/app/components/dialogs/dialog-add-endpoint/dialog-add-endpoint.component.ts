@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, InjectionToken } from '@angular/core';
 import { MdlDialogReference, MdlDialogService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
@@ -9,6 +9,7 @@ import { ContextStore } from '@stores/context.store';
 import { Endpoint } from '@models/endpoint';
 import { MdlSnackbarService } from '@angular-mdl/core';
 import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
+export let injectableEndpoint = new InjectionToken<Endpoint>('selectedEndpoint');
 
 @Component({
   selector: 'mist-dialog-add-endpoint',
@@ -28,7 +29,9 @@ export class DialogAddEndpointComponent implements OnInit {
   };
   public loading: boolean;
   public isCreateContextFormVisiblie: boolean;
-  public currentContext: Context;
+  public defaultContext: string;
+  public selectedEndpoint: Endpoint;
+  private data: Endpoint;
 
   @HostListener('keydown.esc')
   public onEsc(): void {
@@ -41,13 +44,30 @@ export class DialogAddEndpointComponent implements OnInit {
               private endpointStore: EndpointStore,
               private mdlSnackbarService: MdlSnackbarService,
               private dialog: MdlDialogService,
-              private contextStore: ContextStore
-              ) {}
+              private contextStore: ContextStore,
+              @Inject(injectableEndpoint) data: Endpoint,
+              ) {
+    this.selectedEndpoint = data;
+  }
 
   ngOnInit() {
     this.createEndpointFrom();
     this.contextStore.getAll();
     this.contextStore.contexts.subscribe(data => { this.contexts = data });
+    if (this.selectedEndpoint) {
+      this.updateEndpointFormValues(this.selectedEndpoint);
+    }
+  }
+
+  private updateEndpointFormValues(endpoint: Endpoint) {
+    this.defaultContext = endpoint.defaultContext;
+    this.endpointForm.setValue({
+      name: endpoint.name,
+      path: endpoint.path,
+      defaultContext: endpoint.defaultContext,
+      className: endpoint.className || '',
+      file: ''
+    });
   }
 
   createEndpointFrom() {
@@ -69,10 +89,11 @@ export class DialogAddEndpointComponent implements OnInit {
   }
 
   submitEnpointForm(form) {
+    let endpointRequestMethod;
     const self = this;
     const fs = this.formsService;
-    let endpoint: Endpoint = Object.create(null);
-    endpoint = new Endpoint({
+    let endpointMessage = 'has been successfully ';
+    const _endpoint = new Endpoint({
       name: form.controls.name.value,
       path: form.controls.path.value,
       className: form.controls.className.value,
@@ -82,12 +103,18 @@ export class DialogAddEndpointComponent implements OnInit {
 
     if (form.valid) {
       this.loading = true;
-      this.endpointStore.createEndpoint(endpoint)
-        .subscribe(endpoint => {
+      if (!this.selectedEndpoint) {
+        endpointRequestMethod = this.endpointStore.createEndpoint(_endpoint);
+        endpointMessage += 'added';
+      } else {
+        endpointRequestMethod = this.endpointStore.updateEndpoint(_endpoint);
+        endpointMessage += 'updated';
+      }
+      endpointRequestMethod.subscribe(endpoint => {
           self.loading = false;
           this.dialogRef.hide();
           this.mdlSnackbarService.showSnackbar({
-            message: `${endpoint.name} has been successfully added`,
+            message: `${endpoint.name} ${endpointMessage}`,
             timeout: 5000
           });
         }, (error) => {

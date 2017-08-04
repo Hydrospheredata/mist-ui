@@ -49,10 +49,24 @@ export class EndpointStore {
     const self = this;
 
     return this.backendService.createEndpoint(endpoint)
-      .map(endpoint => {
-        self.dataStore.push(endpoint);
+      .map((_endpoint) => {
+        self.dataStore.push(_endpoint);
         self.updateStore();
-        return endpoint;
+        return _endpoint;
+      }).catch(err => {
+          return Observable.throw(err);
+        }
+      );
+
+  }
+
+  public updateEndpoint(endpoint: Endpoint) {
+    const self = this;
+    return this.backendService.updateEndpoint(endpoint)
+      .map((_endpoint) => {
+        self.updateItem(_endpoint);
+        self.updateStore();
+        return _endpoint;
       }).catch(err => {
           return Observable.throw(err);
         }

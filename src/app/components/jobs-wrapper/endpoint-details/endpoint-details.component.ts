@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogJobFormComponent, injectableSelectedEndpoint } from '@components/dialogs/dialog-job-form/dialog-job-form.component';
-import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
+import { DialogAddEndpointComponent, injectableEndpoint } from '@components/dialogs/dialog-add-endpoint/dialog-add-endpoint.component';
 import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { Job } from '@models/job';
@@ -30,13 +30,16 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private endpointStore: EndpointStore,
     private jobStore: JobStore,
-    private contextStore: ContextStore
+    private contextStore: ContextStore,
   ) {}
 
   ngOnInit() {
     this.setFilterOptions();
     this.sub = this.activatedRoute.params
-      .map(params => params['endpointId'])
+      .map((params) => {
+        this.currentContext = params['endpointId'];
+        return params['endpointId'];
+      })
       .subscribe((id) => { this.loadInitialData(id) });
 
     this.contextStore.getAll();
@@ -107,12 +110,13 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
 
   public showAddContextDialog() {
     this.dialog.showCustomDialog({
-      component: DialogAddContextComponent,
+      component: DialogAddEndpointComponent,
       styles: {'width': '850px'},
       isModal: true,
       clickOutsideToClose: true,
       enterTransitionDuration: 400,
       leaveTransitionDuration: 400,
+      providers: [{provide: injectableEndpoint, useValue: this.endpoint}],
     })
   }
 
