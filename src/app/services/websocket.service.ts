@@ -5,9 +5,11 @@ import { environment } from '../../environments/environment';
 export class WebsocketService {
 
   protected apiUrl: string;
+  protected port: string;
 
   constructor() {
-    this.apiUrl = `ws://${window.location.host}${environment.apiUrl}`;
+    this.port = environment.production ? window.location.port : environment.port;
+    this.apiUrl = `ws://${window.location.hostname}:${this.port}${environment.apiUrl}`;
   }
 
 }
