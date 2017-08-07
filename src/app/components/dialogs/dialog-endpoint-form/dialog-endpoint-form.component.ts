@@ -13,11 +13,12 @@ export let injectableEndpoint = new InjectionToken<Endpoint>('selectedEndpoint')
 
 @Component({
   selector: 'mist-dialog-add-endpoint',
-  templateUrl: './dialog-add-endpoint.component.html',
-  styleUrls: ['./dialog-add-endpoint.component.scss'],
+  templateUrl: './dialog-endpoint-form.component.html',
+  styleUrls: ['./dialog-endpoint-form.component.scss'],
   providers: [FormsService, MdlSnackbarService]
 })
-export class DialogAddEndpointComponent implements OnInit {
+export class DialogEndpointFormComponent implements OnInit {
+  public formTitle: string;
   public endpointForm: FormGroup;
   public contexts: Context[];
   public file: File;
@@ -48,6 +49,11 @@ export class DialogAddEndpointComponent implements OnInit {
               @Inject(injectableEndpoint) data: Endpoint,
               ) {
     this.selectedEndpoint = data;
+    if (!this.selectedEndpoint) {
+      this.formTitle = 'Add Endpoint';
+    } else {
+      this.formTitle = 'Update Endpoint';
+    }
   }
 
   ngOnInit() {

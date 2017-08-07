@@ -2,7 +2,7 @@
   <mdl-icon class="close cs-cursor-pointer" (click)="dialogRef.hide()">clear</mdl-icon>
   <form *ngIf="!isCreateContextFormVisiblie" [formGroup]="endpointForm" #form="ngForm"
         (ngSubmit)="submitEnpointForm(endpointForm)">
-    <h1 class="mdl-dialog__title mat-dialog-title">Add endpoint</h1>
+    <h1 class="mdl-dialog__title mat-dialog-title">{{formTitle}}</h1>
     <div class="mdl-dialog__content">
 
       <div class="mdl-grid">

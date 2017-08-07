@@ -25,7 +25,7 @@ import { EndpointDetailsComponent } from '@components/jobs-wrapper/endpoint-deta
 import { DialogJobFormComponent } from '@components/dialogs/dialog-job-form/dialog-job-form.component';
 import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
 import { DialogFullScreenJsonComponent } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
-import { DialogAddEndpointComponent } from '@components/dialogs/dialog-add-endpoint/dialog-add-endpoint.component';
+import { DialogEndpointFormComponent } from '@components/dialogs/dialog-endpoint-form/dialog-endpoint-form.component';
 import { DialogAddContextComponent } from './components/dialogs/dialog-add-context/dialog-add-context.component';
 import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.component';
 import { InputTextComponent } from '@components/form/input-text/input-text.component';
@@ -71,7 +71,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     EndpointDetailsComponent,
     DialogJobFormComponent,
     JobDetailsComponent,
-    DialogAddEndpointComponent,
+    DialogEndpointFormComponent,
     DialogAddContextComponent,
     DialogFullScreenJsonComponent,
     DialogJobLogsComponent,
@@ -109,7 +109,7 @@ import { LoaderComponent } from './components/loader/loader.component';
   entryComponents: [
     DialogJobFormComponent,
     DialogFullScreenJsonComponent,
-    DialogAddEndpointComponent,
+    DialogEndpointFormComponent,
     DialogAddContextComponent,
     DialogJobLogsComponent,
     DialogCloneJobFormComponent

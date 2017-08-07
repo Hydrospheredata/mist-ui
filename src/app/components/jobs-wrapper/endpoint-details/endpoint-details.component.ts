@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogJobFormComponent, injectableSelectedEndpoint } from '@components/dialogs/dialog-job-form/dialog-job-form.component';
-import { DialogAddEndpointComponent, injectableEndpoint } from '@components/dialogs/dialog-add-endpoint/dialog-add-endpoint.component';
+import { DialogEndpointFormComponent, injectableEndpoint } from '@components/dialogs/dialog-endpoint-form/dialog-endpoint-form.component';
 import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { Job } from '@models/job';
@@ -99,7 +99,7 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     if (options) {
       this.statusFilter = options;
     } else {
-      this.statusFilter = { success: true, running: true, failed: false };
+      this.statusFilter = { success: true, running: true, failed: true };
       this.setFilterOptionsToLocalStorage()
     }
   }
@@ -110,7 +110,7 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
 
   public showAddContextDialog() {
     this.dialog.showCustomDialog({
-      component: DialogAddEndpointComponent,
+      component: DialogEndpointFormComponent,
       styles: {'width': '850px'},
       isModal: true,
       clickOutsideToClose: true,
