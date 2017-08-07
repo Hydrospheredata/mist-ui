@@ -52,8 +52,8 @@ export class DialogAddContextComponent implements OnInit {
       sparkConfs: this.fb.array([this.initSparkConf()]),
       downtime: ['', [Validators.required, Validators.pattern(fs.VALIDATION_PATTERNS.durationInSeconds)]],
       maxJobs: ['', [Validators.required, Validators.pattern(fs.VALIDATION_PATTERNS.number)]],
-      precreated: ['', [Validators.required]],
-      runOptions: ['', [Validators.required]],
+      precreated: [false],
+      runOptions: [''],
       streamingDuration: ['', [Validators.required, Validators.pattern(fs.VALIDATION_PATTERNS.durationInSeconds)]]
     });
 

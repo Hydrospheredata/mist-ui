@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogAddEndpointComponent } from './dialog-add-endpoint.component';
+import { DialogEndpointFormComponent } from './dialog-endpoint-form.component';
 
-describe('DialogAddEndpointComponent', () => {
-  let component: DialogAddEndpointComponent;
-  let fixture: ComponentFixture<DialogAddEndpointComponent>;
+describe('DialogEndpointFormComponent', () => {
+  let component: DialogEndpointFormComponent;
+  let fixture: ComponentFixture<DialogEndpointFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogAddEndpointComponent ]
+      declarations: [ DialogEndpointFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogAddEndpointComponent);
+    fixture = TestBed.createComponent(DialogEndpointFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

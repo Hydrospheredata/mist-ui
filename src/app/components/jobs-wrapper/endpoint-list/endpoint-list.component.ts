@@ -5,7 +5,7 @@ import { JobStore } from '@stores/job.store';
 import { Endpoint } from '@models/endpoint';
 import { Job } from '@models/job';
 import { MdlDialogService } from '@angular-mdl/core';
-import { DialogAddEndpointComponent } from '@app/components/dialogs/dialog-add-endpoint/dialog-add-endpoint.component';
+import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components/dialogs/dialog-endpoint-form/dialog-endpoint-form.component';
 
 @Component({
   selector: 'mist-endpoint-list',
@@ -28,12 +28,13 @@ export class EndpointListComponent implements OnInit {
   openDialogAddEndpointForm() {
 
     this.dialog.showCustomDialog({
-      component: DialogAddEndpointComponent,
+      component: DialogEndpointFormComponent,
       isModal: true,
       styles: {'width': '850px', 'max-height': '100%'},
       clickOutsideToClose: true,
       enterTransitionDuration: 400,
-      leaveTransitionDuration: 400
+      leaveTransitionDuration: 400,
+      providers: [{provide: injectableEndpoint, useValue: null}]
     });
   }
 
