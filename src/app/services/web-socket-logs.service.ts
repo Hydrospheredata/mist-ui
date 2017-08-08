@@ -11,12 +11,12 @@ export class WebSocketLogsService extends WebsocketService{
 
   constructor() {
     super();
-    this.baseUrl = `${this.apiUrl}/jobs/`;
+    this.baseUrl = `${this.apiUrl}/ws/jobs/`;
   }
 
   public connect(id): Observable<any> {
     if (!this.subject) {
-      let url = this.baseUrl + `${id}/ws`;
+      let url = this.baseUrl + `${id}`;
       this.subject = this.create(url);
       console.log('Successfully connected: ' + url);
     }
