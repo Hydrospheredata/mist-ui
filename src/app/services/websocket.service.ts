@@ -8,7 +8,7 @@ export class WebsocketService {
   protected apiUrl: string;
 
   constructor(location:Location) {
-    var url="ws";
+    let url="ws";
     if(window.location.protocol.indexOf("s")>=0){
       url+="s";
     }
