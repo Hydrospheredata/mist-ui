@@ -14,7 +14,7 @@ export class WebSocketJobService extends WebsocketService {
 
   constructor() {
     super();
-    this.baseUrl = `${this.apiUrl}/ws`;
+    this.baseUrl = `${this.apiUrl}/ws/all`;
   }
 
   public getEvents(): string[] {
