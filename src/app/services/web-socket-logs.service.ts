@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, Observer } from 'rxjs/Rx';
 import { WebsocketService } from '@services/websocket.service';
+import { Location } from '@angular/common';
 
 @Injectable()
 export class WebSocketLogsService extends WebsocketService{
@@ -9,8 +10,8 @@ export class WebSocketLogsService extends WebsocketService{
   private baseUrl: string;
   private ws: WebSocket;
 
-  constructor() {
-    super();
+  constructor(private location: Location) {
+    super(location);
     this.baseUrl = `${this.apiUrl}/ws/jobs/`;
   }
 

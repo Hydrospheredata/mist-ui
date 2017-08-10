@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, Observer } from 'rxjs/Rx';
 import { WebsocketService } from '@services/websocket.service';
+import { Location } from '@angular/common';
 
 @Injectable()
 export class WebSocketJobService extends WebsocketService {
@@ -12,8 +13,8 @@ export class WebSocketJobService extends WebsocketService {
   public static readonly FAILED_EVENTS: string[] = ['canceled', 'failed'];
   public static readonly FINISHED_EVENTS: string[] = ['finished'];
 
-  constructor() {
-    super();
+  constructor(private location: Location) {
+    super(location);
     this.baseUrl = `${this.apiUrl}/ws/all`;
   }
 
