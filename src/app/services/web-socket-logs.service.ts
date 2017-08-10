@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, Observer } from 'rxjs/Rx';
 import { WebsocketService } from '@services/websocket.service';
-import { Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Injectable()
 export class WebSocketLogsService extends WebsocketService{
@@ -10,14 +10,14 @@ export class WebSocketLogsService extends WebsocketService{
   private baseUrl: string;
   private ws: WebSocket;
 
-  constructor(private location:Location) {
+  constructor(private location: Location) {
     super(location);
-    this.baseUrl = `${this.apiUrl}/jobs/`;
+    this.baseUrl = `${this.apiUrl}/ws/jobs/`;
   }
 
   public connect(id): Observable<any> {
     if (!this.subject) {
-      let url = this.baseUrl + `${id}/ws`;
+      let url = this.baseUrl + `${id}`;
       this.subject = this.create(url);
       console.log('Successfully connected: ' + url);
     }
