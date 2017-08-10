@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { routing } from './app.router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // material modules
