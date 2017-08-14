@@ -9,6 +9,8 @@ import { ContextStore } from '@stores/context.store';
 import { Endpoint } from '@models/endpoint';
 import { MdlSnackbarService } from '@angular-mdl/core';
 import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
+import { environment } from 'environments/environment';
+import { Location } from '@angular/common';
 export let injectableEndpoint = new InjectionToken<Endpoint>('selectedEndpoint');
 
 @Component({
@@ -19,6 +21,7 @@ export let injectableEndpoint = new InjectionToken<Endpoint>('selectedEndpoint')
 })
 export class DialogEndpointFormComponent implements OnInit {
   public formTitle: string;
+  public endpointNameReadOnly: boolean;
   public endpointForm: FormGroup;
   public contexts: Context[];
   public file: File;
@@ -33,6 +36,10 @@ export class DialogEndpointFormComponent implements OnInit {
   public defaultContext: string;
   public selectedEndpoint: Endpoint;
   private data: Endpoint;
+  private requestBody: string;
+  private requestMethod: string;
+  private port: string;
+  private apiUrl: string;
 
   @HostListener('keydown.esc')
   public onEsc(): void {
@@ -47,12 +54,20 @@ export class DialogEndpointFormComponent implements OnInit {
               private dialog: MdlDialogService,
               private contextStore: ContextStore,
               @Inject(injectableEndpoint) data: Endpoint,
+              private location: Location
               ) {
+    this.port = environment.production ? window.location.port : environment.port;
+    const path = this.location.prepareExternalUrl(environment.apiUrl).replace("/ui" + environment.apiUrl, environment.apiUrl);
+    this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
+
     this.selectedEndpoint = data;
     if (!this.selectedEndpoint) {
       this.formTitle = 'Add Endpoint';
+      this.requestMethod = 'POST';
     } else {
       this.formTitle = 'Update Endpoint';
+      this.endpointNameReadOnly = true;
+      this.requestMethod = 'PUT';
     }
   }
 
@@ -63,6 +78,11 @@ export class DialogEndpointFormComponent implements OnInit {
     if (this.selectedEndpoint) {
       this.updateEndpointFormValues(this.selectedEndpoint);
     }
+    this.endpointForm.valueChanges.subscribe(data => {
+      this.requestBody = `curl -X ${this.requestMethod} --header 'Content-Type: application/json' --header 'Accept: text/plain, application/json'
+      -d '${JSON.stringify(data)}'
+      '${this.apiUrl}/endpoints'`;
+    })
   }
 
   private updateEndpointFormValues(endpoint: Endpoint) {
@@ -72,7 +92,6 @@ export class DialogEndpointFormComponent implements OnInit {
       path: endpoint.path,
       defaultContext: endpoint.defaultContext,
       className: endpoint.className || '',
-      file: ''
     });
   }
 
@@ -83,7 +102,6 @@ export class DialogEndpointFormComponent implements OnInit {
       path: ['', [Validators.required]],
       defaultContext: ['', [Validators.required]],
       className: ['', [Validators.required]],
-      file: ['']
     });
 
     this.endpointForm.valueChanges
@@ -151,4 +169,12 @@ export class DialogEndpointFormComponent implements OnInit {
   onFileChange($event) {
     this.file = $event.target.files[0];
   }
+
+  copiedToClipBoardSuccessfully(inputTarget) {
+    this.mdlSnackbarService.showSnackbar({
+      message: `CURL params were copied out to clipboard successfully`,
+      timeout: 5000
+    });
+  }
+
 }

@@ -54,7 +54,7 @@ export class DialogAddContextComponent implements OnInit {
       maxJobs: ['', [Validators.required, Validators.pattern(fs.VALIDATION_PATTERNS.number)]],
       precreated: [false],
       runOptions: [''],
-      streamingDuration: ['', [Validators.required, Validators.pattern(fs.VALIDATION_PATTERNS.durationInSeconds)]]
+      streamingDuration: ['', [Validators.pattern(fs.VALIDATION_PATTERNS.durationInSeconds)]]
     });
 
     this.contextForm.valueChanges

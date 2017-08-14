@@ -1,7 +1,7 @@
 <div class="input-text form-group {{wrapClassName}}" [class.has-error]="formErrors">
   <label *ngIf="label" class="control-label" [attr.for]="name">{{label}}</label>
   <div class="cs-relative" [ngClass]="{'input-text__flex-container': iconAsSibling, 'reverse': iconAsSibling && iconDirection == 'left'}">
-    <input class="input-text__input form-control {{inputClass}}"
+    <input [readonly]="readonly" class="input-text__input form-control {{inputClass}}"
            [ngClass]="{
               'input-icon': iconName,
               'sibling': iconAsSibling,
