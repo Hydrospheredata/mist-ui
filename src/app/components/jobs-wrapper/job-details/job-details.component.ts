@@ -20,6 +20,7 @@ import '@node_modules/codemirror/addon/display/placeholder';
 export class JobDetailsComponent implements OnInit, OnDestroy {
   job: Job;
   codeMirrorOptions: {};
+  public jobArguments: string;
 
   private sub: any;
 
@@ -41,7 +42,8 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       mode: { name: 'javascript', json: true },
       lineWrapping: true,
       readOnly: true,
-      scrollbarStyle: 'null'
+      scrollbarStyle: 'null',
+      smartIndent: true
     }
   }
 
@@ -54,6 +56,9 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     this.jobStore.jobs.subscribe(data => {
       let job = data.find(item => item.jobId === jobId);
       this.job = job;
+      if (job) {
+        this.jobArguments = JSON.stringify(JSON.parse(job.params).arguments, null, 2);
+      }
     });
   }
 

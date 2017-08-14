@@ -91,7 +91,7 @@ export class DialogJobFormComponent implements OnInit {
   }
 
   onChangeEndpoint() {
-    this.executeParams = this.selectedEndpoint.executeExample();
+    this.executeParams = this.selectedEndpoint.executeExample() || '{}';
   }
 
   submit(form) {

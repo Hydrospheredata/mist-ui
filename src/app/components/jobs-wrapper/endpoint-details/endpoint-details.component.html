@@ -90,8 +90,8 @@
               </div>
             </div>
           </td>
-          <td [title]="job.status" class='jobs-table__td jobs-table__td--status cs-text-overflow-ellipsis'>
-            <div class="cs-text-overflow-ellipsis">
+          <td  class='jobs-table__td jobs-table__td--status cs-text-overflow-ellipsis'>
+            <div *ngIf="job.status" [title]="job.status" class="cs-text-overflow-ellipsis">
               <span class='mist-label'>Status</span>
               <span class='job-status'
                     [ngClass]="{'font-color--success': job.isFinished(),
@@ -104,8 +104,8 @@
               </span>
             </div>
           </td>
-          <td title="KILL" class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
-            <a href='#' class='mist-link' (click)="killJob($event, job)"
+          <td class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
+            <a title="KILL"  href='#' class='mist-link' (click)="killJob($event, job)"
                *ngIf="job.isRunning()">
               <i class='material-icons'>delete_forever</i>
               <span>KILL</span>
