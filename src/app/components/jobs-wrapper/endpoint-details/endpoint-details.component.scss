@@ -47,7 +47,7 @@
   width: 100%;
 
   @media screen and (min-width: 600px) and (max-width: 959px) {
-    font-size: 12px;
+    font-size: 13px;
   }
   @media screen and (max-width: 1279px) and (min-width: 960px) {
     font-size: 14px;
@@ -84,6 +84,14 @@
     padding-left: 0.5rem;
   }
   &__td {
+    @media screen and (min-width: 600px) and (max-width: 959px) {
+      .mist-label {
+        font-size: 13px;
+      }
+      .context {
+        font-size: 13px;
+      }
+    }
     &.jobs-table__td--icon {
       width: 6%;
     }
@@ -91,8 +99,11 @@
       font-size: 18px;
       text-align: right;
       width: 22%;
-      @media screen and (max-width: 1279px) and (min-width: 600px) {
-        font-size: 14px;
+      @media screen and (min-width: 600px) and (max-width: 959px) {
+        font-size: 13px;
+      }
+      @media screen and (min-width: 960px) {
+        font-size: 14px
       }
     }
     &.jobs-table__td--actions {
@@ -105,17 +116,10 @@
       width: 22%;
     }
     &.jobs-table__td--endpoint {
-      font-size: 14px;
-      @media screen and (max-width: 1279px) and (min-width: 600px) {
-        font-size: 12px;
-      }
     }
     &.jobs-table__td--context {
       width: 18%;
       text-align: center;
-      @media screen and (max-width: 1279px) and (min-width: 600px) {
-        font-size: 12px;
-      }
     }
     i {
       font-size: 20px;

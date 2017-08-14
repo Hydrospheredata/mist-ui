@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { environment } from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {environment} from '../../environments/environment';
 import 'rxjs/Rx';
 import {
   Http,
@@ -9,24 +9,25 @@ import {
   Headers,
   XHRBackend
 } from '@angular/http';
+import {Location} from '@angular/common';
 
-import { MistRequestOptions } from './mist-request-options';
+import {MistRequestOptions} from './mist-request-options';
 
-import { LoaderService } from './loader.service';
+import {LoaderService} from './loader.service';
 
 @Injectable()
 export class HttpService extends Http {
   port: string;
   apiUrl: string;
 
-  constructor(
-    backend: XHRBackend,
-    defaultOptions: MistRequestOptions,
-    private loaderService: LoaderService
-  ) {
+  constructor(backend: XHRBackend,
+              defaultOptions: MistRequestOptions,
+              private location: Location,
+              private loaderService: LoaderService) {
     super(backend, defaultOptions);
     this.port = environment.production ? window.location.port : environment.port;
-    this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${environment.apiUrl}`;
+    const path = this.location.prepareExternalUrl(environment.apiUrl).replace("/ui" + environment.apiUrl, environment.apiUrl);
+    this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
   }
 
   get(url: string, options?: RequestOptionsArgs): Observable<any> {
