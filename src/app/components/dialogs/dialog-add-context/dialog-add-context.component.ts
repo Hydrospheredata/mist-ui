@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Context } from '@models/context';
 import { MdlDialogReference, MdlSnackbarService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
@@ -11,7 +11,7 @@ import { ContextStore } from '@stores/context.store';
   styleUrls: ['./dialog-add-context.component.scss'],
   providers: [FormsService]
 })
-export class DialogAddContextComponent implements OnInit {
+export class DialogAddContextComponent implements OnInit, OnDestroy {
   public contextForm: FormGroup;
   public formErrors = {
     name: '',
@@ -24,6 +24,7 @@ export class DialogAddContextComponent implements OnInit {
     runOptions: '',
     streamingDuration: ''
   };
+  private contextStoreSub;
 
   constructor(
     private fb: FormBuilder,
@@ -37,12 +38,16 @@ export class DialogAddContextComponent implements OnInit {
 
   ngOnInit() {
     const self = this;
-    this.contextStore.get('default')
+    this.contextStoreSub = this.contextStore.get('default')
       .subscribe(context => {
         self.setDefaultContext(context);
     });
 
     this.createContextForm();
+  }
+
+  ngOnDestroy() {
+    this.contextStoreSub.unsubscribe();
   }
 
   createContextForm(context?: Context) {

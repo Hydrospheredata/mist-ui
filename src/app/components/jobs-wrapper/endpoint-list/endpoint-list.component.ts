@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
@@ -12,10 +12,12 @@ import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components
   templateUrl: './endpoint-list.component.html',
   styleUrls: ['./endpoint-list.component.scss']
 })
-export class EndpointListComponent implements OnInit {
+export class EndpointListComponent implements OnInit, OnDestroy {
   endpoints: Endpoint[];
   runningJobs: Job[];
   searchQ: string;
+  private endpointStoreSub;
+  private jobStoreSub;
 
 
   constructor(
@@ -24,6 +26,15 @@ export class EndpointListComponent implements OnInit {
     private router: Router,
     public dialog: MdlDialogService
   ) { }
+
+  ngOnInit() {
+    this.loadInitialData();
+  }
+
+  ngOnDestroy() {
+    this.endpointStoreSub.unsubscribe();
+    this.jobStoreSub.unsubscribe();
+  }
 
   openDialogAddEndpointForm() {
 
@@ -36,10 +47,6 @@ export class EndpointListComponent implements OnInit {
       leaveTransitionDuration: 400,
       providers: [{provide: injectableEndpoint, useValue: null}]
     });
-  }
-
-  ngOnInit() {
-    this.loadInitialData();
   }
 
   loadInitialData() {

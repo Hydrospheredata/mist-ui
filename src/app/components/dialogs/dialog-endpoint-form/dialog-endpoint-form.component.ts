@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Inject, InjectionToken } from '@angular/core';
+import {Component, OnInit, HostListener, Inject, InjectionToken, OnDestroy} from '@angular/core';
 import { MdlDialogReference, MdlDialogService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
@@ -19,7 +19,7 @@ export let injectableEndpoint = new InjectionToken<Endpoint>('selectedEndpoint')
   styleUrls: ['./dialog-endpoint-form.component.scss'],
   providers: [FormsService, MdlSnackbarService]
 })
-export class DialogEndpointFormComponent implements OnInit {
+export class DialogEndpointFormComponent implements OnInit, OnDestroy {
   public formTitle: string;
   public endpointNameReadOnly: boolean;
   public endpointForm: FormGroup;
@@ -40,6 +40,8 @@ export class DialogEndpointFormComponent implements OnInit {
   private requestMethod: string;
   private port: string;
   private apiUrl: string;
+  private endpointFormSub;
+  private contextStoreSub;
 
   @HostListener('keydown.esc')
   public onEsc(): void {
@@ -74,15 +76,20 @@ export class DialogEndpointFormComponent implements OnInit {
   ngOnInit() {
     this.createEndpointFrom();
     this.contextStore.getAll();
-    this.contextStore.contexts.subscribe(data => { this.contexts = data });
+    this.contextStoreSub = this.contextStore.contexts.subscribe(data => { this.contexts = data });
     if (this.selectedEndpoint) {
       this.updateEndpointFormValues(this.selectedEndpoint);
     }
-    this.endpointForm.valueChanges.subscribe(data => {
+    this.endpointFormSub = this.endpointForm.valueChanges.subscribe(data => {
       this.requestBody = `curl -X ${this.requestMethod} --header 'Content-Type: application/json' --header 'Accept: text/plain, application/json'
       -d '${JSON.stringify(data)}'
       '${this.apiUrl}/endpoints'`;
     })
+  }
+
+  ngOnDestroy() {
+    this.contextStoreSub.unsubscribe();
+    this.endpointFormSub.unsubscribe();
   }
 
   private updateEndpointFormValues(endpoint: Endpoint) {

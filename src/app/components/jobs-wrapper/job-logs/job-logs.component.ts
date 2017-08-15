@@ -14,9 +14,10 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('jobLogs') elem: ElementRef;
   @Input() jobId: string;
   private parent: Element;
-  private subscriber: any;
+  private webSocketLogsServiceSub: any;
   public errorMessage: string;
   public logs: string[];
+  private httpLogsServiceSub;
 
   constructor(
     private webSocketLogsService: WebSocketLogsService,
@@ -28,11 +29,11 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     if (this.jobId) {
-      this.httpLogsService.get(this.jobId).subscribe(
+      this.httpLogsServiceSub = this.httpLogsService.get(this.jobId).subscribe(
         (logs) => { this.logs = logs.concat(this.logs); },
         (error) => { this.errorHandler(error) }
       );
-      this.subscriber = this.webSocketLogsService.connect(this.jobId)
+      this.webSocketLogsServiceSub = this.webSocketLogsService.connect(this.jobId)
         .subscribe(
           (data) => { this.pushLogs(data); },
           (error) => { this.errorHandler(error) }
@@ -59,9 +60,10 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.webSocketLogsService.disconnect();
-    if (this.subscriber) {
-      this.subscriber.unsubscribe()
+    if (this.webSocketLogsServiceSub) {
+      this.webSocketLogsServiceSub.unsubscribe()
     }
+    this.httpLogsServiceSub.unsubscribe();
   }
 
   private pushLogs(data) {

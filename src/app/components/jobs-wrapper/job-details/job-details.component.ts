@@ -21,8 +21,8 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   job: Job;
   codeMirrorOptions: {};
   public jobArguments: string;
-
-  private sub: any;
+  private activatedRouteSub: any;
+  private jobStoreSub: any;
 
   constructor(
     private dialog: MdlDialogService,
@@ -31,7 +31,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.sub = this.activatedRoute.params
+    this.activatedRouteSub = this.activatedRoute.params
       .subscribe((params) => {
         this.loadInitialData(params['jobId'])
       });
@@ -48,12 +48,13 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.activatedRouteSub.unsubscribe();
+    this.jobStoreSub.unsubscribe();
   }
 
   loadInitialData(jobId) {
     this.jobStore.get(jobId);
-    this.jobStore.jobs.subscribe(data => {
+    this.jobStoreSub = this.jobStore.jobs.subscribe(data => {
       let job = data.find(item => item.jobId === jobId);
       this.job = job;
       if (job) {

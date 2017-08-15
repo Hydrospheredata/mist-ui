@@ -21,7 +21,8 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
   jobs: Job[];
   context: string;
   statusFilter: { success: boolean, running: boolean, failed: boolean };
-  private sub: any;
+  private activatedRouteSub: any;
+  private contextStoreSub;
   public contexts: Context[];
   public currentContext: Context;
 
@@ -35,7 +36,7 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setFilterOptions();
-    this.sub = this.activatedRoute.params
+    this.activatedRouteSub = this.activatedRoute.params
       .map((params) => {
         this.currentContext = params['endpointId'];
         return params['endpointId'];
@@ -43,13 +44,14 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
       .subscribe((id) => { this.loadInitialData(id) });
 
     this.contextStore.getAll();
-    this.contextStore.contexts
+    this.contextStoreSub = this.contextStore.contexts
       .subscribe((contexts) => this.contexts = contexts)
 
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.activatedRouteSub.unsubscribe();
+    this.contextStoreSub.unsubscribe();
   }
 
   loadInitialData(id: string) {
@@ -81,7 +83,8 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
 
   killJob(event, job: Job) {
     event.preventDefault();
-    this.jobStore.kill(job.jobId)
+    event.stopPropagation();
+    this.jobStore.kill(job.jobId);
   }
 
   toggleStatusFilter(option) {
