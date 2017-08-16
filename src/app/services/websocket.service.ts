@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 export class WebsocketService {
 
   protected apiUrl: string;
+  protected port: string;
 
   constructor(location:Location) {
     let url="ws";
