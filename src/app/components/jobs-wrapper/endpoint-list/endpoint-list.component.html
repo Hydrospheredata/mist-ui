@@ -44,10 +44,9 @@
             [mdl-badge]="runningJobs.length"></span>
     </li>
     <ng-template ngFor let-endpoint [ngForOf]="endpoints | search : 'name' : searchQ">
-      <li class='mdl-list__item endpoint-list__item'
+      <li class='cs-cursor-pointer mdl-list__item endpoint-list__item' [routerLink]="[endpoint.name]"
           routerLinkActive='endpoint-list__item--active'>
-        <a class='mdl-list__item-primary-content endpoint-list__item-content'
-           [routerLink]="[endpoint.name]">
+        <a class='mdl-list__item-primary-content endpoint-list__item-content'>
           {{ endpoint.name }}
         </a>
         <span class='endpoint-list__badge'

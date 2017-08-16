@@ -9,6 +9,7 @@
         <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
           <mist-input-text class="control-label "
                            label="Name *"
+                           readonly="{{endpointNameReadOnly}}"
                            [formErrors]="formErrors.name"
                            formControlName="name">
           </mist-input-text>
@@ -17,7 +18,6 @@
                            [formErrors]="formErrors.path" formControlName="path" iconName="device_hub"
                            iconDirection="right">
           </mist-input-text>
-
           <mist-input-text class=""
                            label="Class *"
                            placeholder="StreamingTextSearch$"
@@ -29,17 +29,36 @@
               <mdl-select formControlName="defaultContext" [(ngModel)]="defaultContext">
                 <mdl-option *ngFor="let context of contexts" [value]="context.name">{{context.name}}</mdl-option>
               </mdl-select>
-              <mdl-icon title="Add context" class="cs-cursor-pointer mdl-color-text--light-blue-700 cs-ml-16"
+              <mdl-icon title="Add context"
+                        class="cs-cursor-pointer mdl-color-text--light-blue-700 cs-ml-16"
                         (click)="showDialogContext()">add_circle
               </mdl-icon>
             </div>
           </div>
-
+          <div class="input-text form-group">
+            <label _ngcontent-c5="" class="control-label">CURL Parameters</label>
+            <div fxLayout="row" fxLayoutAlign="space-around center" class="cs-relative input-text__flex-container">
+              <input fxFlex="90%"
+                     readonly
+                     [(ngModel)]="requestBody"
+                     [ngModelOptions]="{standalone: true}"
+                     class="input-text__input form-control input-icon sibling"
+                     #inputTarget
+                     placeholder="">
+              <mdl-button fxFlex="10%" class=""
+                          (cbOnSuccess)="copiedToClipBoardSuccessfully(inputTarget)"
+                          [ngxClipboard]="inputTarget"
+                          title="Copy CURL params">
+                <mdl-icon>content_copy</mdl-icon></mdl-button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--12-col cs-text-right">
-          <button (click)="dialogRef.hide()" type="button" mdl-button class='mat-button mat-button--big'>CANCEL</button>
+          <button (click)="dialogRef.hide()"
+                  type="button" mdl-button
+                  class='mat-button mat-button--big'>CANCEL</button>
           <button type="submit" mdl-button [disabled]="endpointForm.invalid"
                   class='mat-button mat-button--big mat-button--primary'
                   mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Add endpoint

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener, InjectionToken } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, InjectionToken, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MdlDialogReference } from '@angular-mdl/core';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export let injectableJob = new InjectionToken<Job>('job');
   providers: [FormsService]
 })
 
-export class DialogCloneJobFormComponent implements OnInit {
+export class DialogCloneJobFormComponent implements OnInit, OnDestroy {
   public jobForm: FormGroup;
   data: Job;
   job: Job;
@@ -30,6 +30,8 @@ export class DialogCloneJobFormComponent implements OnInit {
   public formErrors: object = {
     executeParams: ''
   };
+  private jobFormSub;
+  private jobStoreSub;
 
   constructor(
     @Inject(injectableJob) data: Job,
@@ -50,15 +52,20 @@ export class DialogCloneJobFormComponent implements OnInit {
   ngOnInit() {
     const fs = this.formsService;
     this.job = this.data;
-    this.executeParams = this.preBuildParams() || '{}'
+    this.executeParams = this.preBuildParams() || '{}';
     this.buildCodeMirrorOptions();
     this.createJobForm();
-    this.jobForm.valueChanges
+    this.jobFormSub = this.jobForm.valueChanges
       .subscribe(form => {
         if (this.jobForm.invalid) {
           fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.jobFormSub.unsubscribe();
+    this.jobStoreSub.unsubscribe();
   }
 
   createJobForm() {
@@ -71,7 +78,7 @@ export class DialogCloneJobFormComponent implements OnInit {
     const fs = this.formsService;
     let params = this.executeParams || '{}';
     if (form.valid) {
-      this.jobStore.add(this.job.endpoint, params).subscribe((id) => {
+      this.jobStoreSub = this.jobStore.add(this.job.endpoint, params).subscribe((id) => {
         console.log(`init job ${id}`);
         this.dialogRef.hide();
         this.router.navigate(['/jobs', this.job.endpoint, id])

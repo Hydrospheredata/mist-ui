@@ -13,9 +13,9 @@ export let injectableJsonString = new InjectionToken<object>('injectableJsonStri
   styleUrls: ['./dialog-full-screen-json.component.scss']
 })
 export class DialogFullScreenJsonComponent implements OnInit {
-	jsonString: object;
-	codeMirrorOptions: {};
-	data: object;
+  jsonString: object;
+  codeMirrorOptions: {};
+  data: object;
 
   @HostListener('keydown.esc')
   public onEsc(): void {

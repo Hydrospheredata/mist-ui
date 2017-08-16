@@ -74,7 +74,7 @@ export class JobStore {
   }
 
   public kill(id: string): void {
-    let obs = this.backendService.kill(id)
+    let obs = this.backendService.kill(id);
     obs.subscribe((job) => {
       this.updateItem(job);
       this.removeItem(job, 'runningJobs');

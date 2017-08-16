@@ -34,7 +34,25 @@
       </div>
     </div>
 
-    <div class="cs-text-right">
+    <div class="input-text form-group">
+      <label _ngcontent-c5="" class="control-label">CURL Parameters</label>
+      <div fxLayout="row" fxLayoutAlign="space-around center" class="cs-relative input-text__flex-container">
+        <input fxFlex="90%"
+               readonly
+               [(ngModel)]="requestBody"
+               [ngModelOptions]="{standalone: true}"
+               class="input-text__input form-control input-icon sibling"
+               #inputTarget
+               placeholder="">
+        <mdl-button fxFlex="10%" class=""
+                    (cbOnSuccess)="copiedToClipBoardSuccessfully(inputTarget)"
+                    [ngxClipboard]="inputTarget"
+                    title="Copy CURL params">
+          <mdl-icon>content_copy</mdl-icon></mdl-button>
+      </div>
+    </div>
+
+    <div class="cs-text-right cs-mt-30">
       <button (click)="dialogRef.hide()" mdl-button class='mat-button mat-button--big'>CANCEL</button>
       <button
         mdl-button

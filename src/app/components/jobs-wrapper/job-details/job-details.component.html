@@ -7,8 +7,8 @@
         Back to Jobs
       </a>
     </div>
+    <div class="h3">{{job.endpoint}}</div>
     <div fxLayout="row" fxLayoutAlign="space-between center" class='mist-page-header__row'>
-
       <div fxFlex.gt="75" fxFlex.md="65" fxFlex.sm="60" class="cs-text-overflow-ellipsis .h3">
         <i class='material-icons status-icon'
            [ngClass]="{'status-icon--failed': job.isFailed(),
@@ -71,7 +71,7 @@
           Parameters
         </div>
         <div class='job-details__container'>
-          <codemirror [ngModel]="job.params"
+          <codemirror [ngModel]="jobArguments"
                       [config]="codeMirrorOptions">
           </codemirror>
           <span class='material-icons job-details__full-screen-icon'

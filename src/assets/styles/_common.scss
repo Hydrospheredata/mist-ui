@@ -8,8 +8,17 @@
   &-pt-20 {
     padding-top: 20px;
   }
+  &-pt-10 {
+    padding-top: 10px;
+  }
+  &-pb-10 {
+    padding-bottom: 10px;
+  }
   &-mt-20 {
     margin-top: 20px;
+  }
+  &-mt-30 {
+    margin-top: 30px;
   }
   &-mb-16 {
     margin-bottom: 1rem;
@@ -68,6 +77,12 @@
     &.error {
       color: $color--failed;
     }
+  }
+  &-right {
+    float: right;
+  }
+  &-left {
+    float: left;
   }
   &-form {
     &-input {

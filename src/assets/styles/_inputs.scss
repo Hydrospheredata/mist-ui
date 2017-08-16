@@ -32,6 +32,12 @@ input.mist-input--text:focus {
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
+input[type=text] {
+  &.form-control {
+    height: 45px;
+  }
+}
+
 .form-control:focus {
   border-color: #04143c;
   outline: 0;

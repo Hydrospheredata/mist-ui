@@ -6,6 +6,9 @@ import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { JSONValidator } from '@app/validators/json.validator';
 import { FormsService } from '@services/forms.service';
+import { MdlSnackbarService } from '@angular-mdl/core';
+import { environment } from 'environments/environment';
+import { Location } from '@angular/common';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
@@ -18,7 +21,7 @@ export let injectableSelectedEndpoint = new InjectionToken<Endpoint>('selectedEn
   selector: 'mist-dialog-job-form',
   templateUrl: './dialog-job-form.component.html',
   styleUrls: ['./dialog-job-form.component.scss'],
-  providers: [FormsService]
+  providers: [FormsService, MdlSnackbarService]
 })
 
 export class DialogJobFormComponent implements OnInit {
@@ -31,6 +34,9 @@ export class DialogJobFormComponent implements OnInit {
   public formErrors: object = {
     executeParams: ''
   };
+  private requestBody: string;
+  private port: string;
+  private apiUrl: string;
 
   constructor(
     @Inject(injectableSelectedEndpoint) data: Endpoint,
@@ -38,9 +44,14 @@ export class DialogJobFormComponent implements OnInit {
     private jobStore: JobStore,
     private fb: FormBuilder,
     private formsService: FormsService,
+    private mdlSnackbarService: MdlSnackbarService,
+    private location: Location,
     public dialogRef: MdlDialogReference) {
 
     this.data = data;
+    this.port = environment.production ? window.location.port : environment.port;
+    const path = this.location.prepareExternalUrl(environment.apiUrl).replace("/ui" + environment.apiUrl, environment.apiUrl);
+    this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
   }
 
   @HostListener('keydown.esc')
@@ -60,7 +71,14 @@ export class DialogJobFormComponent implements OnInit {
     this.jobForm.valueChanges
       .subscribe(form => {
         if (this.jobForm.invalid) {
+          let executeParams = this.executeParams || '{}';
+          const id = this.selectedEndpoint.name;
+          executeParams = JSON.stringify(JSON.parse(executeParams));
+
           fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
+          this.requestBody = `curl -X POST --header 'Content-Type: application/json' --header 'Accept: text/plain, application/json'
+          -d '${executeParams}'
+          '${this.apiUrl}/endpoints/${id}/jobs'`;
         }
       });
   }
@@ -73,13 +91,14 @@ export class DialogJobFormComponent implements OnInit {
   }
 
   onChangeEndpoint() {
-    this.executeParams = this.selectedEndpoint.executeExample();
+    this.executeParams = this.selectedEndpoint.executeExample() || '{}';
   }
 
   submit(form) {
     let fs = this.formsService;
     let endpointId = this.selectedEndpoint.name;
     let params = this.executeParams || '{}';
+
     if (form.valid) {
       this.jobStore.add(endpointId, params).subscribe((id) => {
         console.log(`init job ${id}`);
@@ -100,6 +119,14 @@ export class DialogJobFormComponent implements OnInit {
       lineWrapping: true
     }
   }
+
+  copiedToClipBoardSuccessfully(inputTarget) {
+    this.mdlSnackbarService.showSnackbar({
+      message: `CURL params were copied out to clipboard successfully`,
+      timeout: 5000
+    });
+  }
+
 }
 
 
