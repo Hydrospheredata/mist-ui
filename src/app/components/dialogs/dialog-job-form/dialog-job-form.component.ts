@@ -34,7 +34,7 @@ export class DialogJobFormComponent implements OnInit {
   public formErrors: object = {
     executeParams: ''
   };
-  private requestBody: string;
+  public requestBody: string;
   private port: string;
   private apiUrl: string;
 
