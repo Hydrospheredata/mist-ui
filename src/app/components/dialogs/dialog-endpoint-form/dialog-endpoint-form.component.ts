@@ -11,13 +11,15 @@ import { MdlSnackbarService } from '@angular-mdl/core';
 import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
 import { environment } from 'environments/environment';
 import { Location } from '@angular/common';
+import { AlertService } from '@services/alert.service';
+
 export let injectableEndpoint = new InjectionToken<Endpoint>('selectedEndpoint');
 
 @Component({
   selector: 'mist-dialog-add-endpoint',
   templateUrl: './dialog-endpoint-form.component.html',
   styleUrls: ['./dialog-endpoint-form.component.scss'],
-  providers: [FormsService, MdlSnackbarService]
+  providers: [FormsService, MdlSnackbarService, AlertService]
 })
 export class DialogEndpointFormComponent implements OnInit, OnDestroy {
   public formTitle: string;
@@ -56,7 +58,8 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
               private dialog: MdlDialogService,
               private contextStore: ContextStore,
               @Inject(injectableEndpoint) data: Endpoint,
-              private location: Location
+              private location: Location,
+              private alertService: AlertService
               ) {
     this.port = environment.production ? window.location.port : environment.port;
     const path = this.location.prepareExternalUrl(environment.apiUrl).replace("/ui" + environment.apiUrl, environment.apiUrl);
@@ -80,16 +83,15 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
     if (this.selectedEndpoint) {
       this.updateEndpointFormValues(this.selectedEndpoint);
     }
-    this.endpointFormSub = this.endpointForm.valueChanges.subscribe(data => {
-      this.requestBody = `curl -X ${this.requestMethod} --header 'Content-Type: application/json' --header 'Accept: text/plain, application/json'
-      -d '${JSON.stringify(data)}'
-      '${this.apiUrl}/endpoints'`;
-    })
   }
 
   ngOnDestroy() {
-    this.contextStoreSub.unsubscribe();
-    this.endpointFormSub.unsubscribe();
+    if (this.contextStoreSub) {
+      this.contextStoreSub.unsubscribe();
+    }
+    if (this.endpointFormSub) {
+      this.endpointFormSub.unsubscribe();
+    }
   }
 
   private updateEndpointFormValues(endpoint: Endpoint) {
@@ -150,10 +152,7 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
           });
         }, (error) => {
           self.loading = false;
-          this.mdlSnackbarService.showSnackbar({
-            message: error,
-            timeout: 5000
-          });
+          this.alertService.error(error);
         });
 
     } else {

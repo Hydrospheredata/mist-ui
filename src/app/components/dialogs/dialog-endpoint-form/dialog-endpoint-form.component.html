@@ -1,5 +1,6 @@
 <div class="add-endpoint">
-  <mdl-icon class="close cs-cursor-pointer" (click)="dialogRef.hide()">clear</mdl-icon>
+
+  <mist-alert></mist-alert>
   <form *ngIf="!isCreateContextFormVisiblie" [formGroup]="endpointForm" #form="ngForm"
         (ngSubmit)="submitEnpointForm(endpointForm)">
     <h1 class="mdl-dialog__title mat-dialog-title">{{formTitle}}</h1>
@@ -33,23 +34,6 @@
                         class="cs-cursor-pointer mdl-color-text--light-blue-700 cs-ml-16"
                         (click)="showDialogContext()">add_circle
               </mdl-icon>
-            </div>
-          </div>
-          <div class="input-text form-group">
-            <label _ngcontent-c5="" class="control-label">CURL Parameters</label>
-            <div fxLayout="row" fxLayoutAlign="space-around center" class="cs-relative input-text__flex-container">
-              <input fxFlex="90%"
-                     readonly
-                     [(ngModel)]="requestBody"
-                     [ngModelOptions]="{standalone: true}"
-                     class="input-text__input form-control input-icon sibling"
-                     #inputTarget
-                     placeholder="">
-              <mdl-button fxFlex="10%" class=""
-                          (cbOnSuccess)="copiedToClipBoardSuccessfully(inputTarget)"
-                          [ngxClipboard]="inputTarget"
-                          title="Copy CURL params">
-                <mdl-icon>content_copy</mdl-icon></mdl-button>
             </div>
           </div>
         </div>

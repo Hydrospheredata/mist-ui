@@ -9,6 +9,7 @@ import { FormsService } from '@services/forms.service';
 import { MdlSnackbarService } from '@angular-mdl/core';
 import { environment } from 'environments/environment';
 import { Location } from '@angular/common';
+import { AlertService } from '@services/alert.service';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
@@ -21,7 +22,7 @@ export let injectableSelectedEndpoint = new InjectionToken<Endpoint>('selectedEn
   selector: 'mist-dialog-job-form',
   templateUrl: './dialog-job-form.component.html',
   styleUrls: ['./dialog-job-form.component.scss'],
-  providers: [FormsService, MdlSnackbarService]
+  providers: [FormsService, MdlSnackbarService, AlertService]
 })
 
 export class DialogJobFormComponent implements OnInit {
@@ -46,7 +47,8 @@ export class DialogJobFormComponent implements OnInit {
     private formsService: FormsService,
     private mdlSnackbarService: MdlSnackbarService,
     private location: Location,
-    public dialogRef: MdlDialogReference) {
+    public dialogRef: MdlDialogReference,
+    private alertService: AlertService) {
 
     this.data = data;
     this.port = environment.production ? window.location.port : environment.port;
@@ -73,7 +75,13 @@ export class DialogJobFormComponent implements OnInit {
         if (this.jobForm.invalid) {
           let executeParams = this.executeParams || '{}';
           const id = this.selectedEndpoint.name;
-          executeParams = JSON.stringify(JSON.parse(executeParams));
+
+          try {
+            executeParams = JSON.stringify(JSON.parse(executeParams));
+          } catch (error) {
+            fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
+            return;
+          }
 
           fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
           this.requestBody = `curl -X POST --header 'Content-Type: application/json' --header 'Accept: text/plain, application/json'
@@ -100,10 +108,17 @@ export class DialogJobFormComponent implements OnInit {
     let params = this.executeParams || '{}';
 
     if (form.valid) {
-      this.jobStore.add(endpointId, params).subscribe((id) => {
-        console.log(`init job ${id}`);
-      });
-      this.dialogRef.hide();
+      this.jobStore.add(endpointId, params)
+        .subscribe((id) => {
+          this.dialogRef.hide();
+          this.mdlSnackbarService.showSnackbar({
+            message: `Job ${id} initialisation was successful`,
+            timeout: 5000
+          });
+          console.log(`init job ${id}`);
+        }, (error) => {
+          this.alertService.error(error);
+        });
     } else {
       fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
       return false

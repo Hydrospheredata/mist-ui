@@ -60,8 +60,7 @@ import { SearchPipe } from '@pipes/search.pipe';
 import { SortByPipe } from '@pipes/sort-by.pipe';
 import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
-
-
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +86,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     JobStatusFilterPipe,
     SortByPipe,
     JobIdCutPipe,
-    LoaderComponent
+    LoaderComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

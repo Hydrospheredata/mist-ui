@@ -33,7 +33,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.activatedRouteSub = this.activatedRoute.params
       .subscribe((params) => {
-        this.loadInitialData(params['jobId'])
+        this.loadInitialData(params['jobId']);
       });
 
     this.codeMirrorOptions = {

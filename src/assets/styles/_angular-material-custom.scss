@@ -128,12 +128,14 @@
 .mat-ink-bar {
   background-color: $main-color;
 }
-
-.mdl-dialog__content {
-  overflow-x: auto;
-  max-height: 85vh;
+.mdl-dialog {
+  overflow-y: auto;
+  max-height: 100%;
+  .mdl-dialog__content {
+    overflow-x: auto;
+    max-height: 85vh;
+  }
 }
-
 .mdl-textfield {
   .mdl-textfield__label:after {
     bottom: 6px;
@@ -158,3 +160,4 @@
 .mdl-progress {
   width: 100%;
 }
+
