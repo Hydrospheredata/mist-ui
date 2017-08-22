@@ -18,7 +18,7 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     sparkConfValue: '',
     sparkConfKey: '',
     sparkConfs: {},
-    downtime: ''
+    downtime: '',
     maxJobs: '',
     precreated: '',
     runOptions: '',
