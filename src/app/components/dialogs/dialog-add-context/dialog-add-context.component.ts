@@ -18,10 +18,11 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     sparkConfValue: '',
     sparkConfKey: '',
     sparkConfs: {},
-    downtime: '',
+    downtime: ''
     maxJobs: '',
     precreated: '',
     runOptions: '',
+    workerMode: '',
     streamingDuration: ''
   };
   private contextStoreSub;
@@ -59,6 +60,7 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
       maxJobs: ['', [Validators.required, Validators.pattern(fs.VALIDATION_PATTERNS.number)]],
       precreated: [false],
       runOptions: [''],
+      workerMode: [''],
       streamingDuration: ['', [Validators.pattern(fs.VALIDATION_PATTERNS.durationInSeconds)]]
     });
 
@@ -97,6 +99,7 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     this.contextForm.patchValue( {name: context.name} );
     this.contextForm.patchValue( {downtime: context.downtime} );
     this.contextForm.patchValue( {maxJobs: context.maxJobs} );
+    this.contextForm.patchValue( {workerMode: context.workerMode} );
     this.contextForm.patchValue( {precreated: context.precreated} );
     this.contextForm.patchValue( {runOptions: context.runOptions} );
     this.contextForm.patchValue( {streamingDuration: context.streamingDuration} );
@@ -112,6 +115,7 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
       maxJobs: Number(control.maxJobs.value),
       precreated: control.precreated.value,
       runOptions: control.runOptions.value,
+      workerMode: control.workerMode.value,
       streamingDuration: control.streamingDuration.value
     });
 
