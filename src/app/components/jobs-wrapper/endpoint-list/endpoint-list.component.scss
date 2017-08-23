@@ -67,6 +67,15 @@
       &--active {
         background-color: #e6e9ed;
       }
+      &:hover {
+        mdl-icon {
+          visibility: visible;
+        }
+      }
+      mdl-icon {
+        z-index: 10;
+        visibility: hidden;
+      }
     }
     &-primary-content {
       padding-left: 1rem;

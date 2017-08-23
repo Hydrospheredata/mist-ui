@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { EndpointStore } from '@stores/endpoint.store';
 import { JobStore } from '@stores/job.store';
 import { Endpoint } from '@models/endpoint';
@@ -18,17 +18,27 @@ export class EndpointListComponent implements OnInit, OnDestroy {
   searchQ: string;
   private endpointStoreSub;
   private jobStoreSub;
+  public activeEndpoint: string;
 
 
   constructor(
     private endpointStore: EndpointStore,
     private jobStore: JobStore,
     private router: Router,
-    public dialog: MdlDialogService
-  ) { }
+    public dialog: MdlDialogService,
+    private activatedRoute: ActivatedRoute
+  ) {
+  }
 
   ngOnInit() {
     this.loadInitialData();
+    this.router.events.subscribe((params) => {
+      if (params && params['url']) {
+        this.activeEndpoint = params['url'].split(/\//);
+        this.activeEndpoint = this.activeEndpoint[this.activeEndpoint.length - 1];
+      }
+    });
+
   }
 
   ngOnDestroy() {
@@ -36,8 +46,7 @@ export class EndpointListComponent implements OnInit, OnDestroy {
     this.jobStoreSub.unsubscribe();
   }
 
-  openDialogAddEndpointForm() {
-
+  openDialogEndpointForm(endpoint = null) {
     this.dialog.showCustomDialog({
       component: DialogEndpointFormComponent,
       isModal: true,
@@ -45,7 +54,7 @@ export class EndpointListComponent implements OnInit, OnDestroy {
       clickOutsideToClose: true,
       enterTransitionDuration: 400,
       leaveTransitionDuration: 400,
-      providers: [{provide: injectableEndpoint, useValue: null}]
+      providers: [{provide: injectableEndpoint, useValue: endpoint}]
     });
   }
 
@@ -54,7 +63,7 @@ export class EndpointListComponent implements OnInit, OnDestroy {
     this.endpointStore.endpoints.subscribe((data) => { this.endpoints = data; });
     this.jobStore.getAllRunning();
     this.jobStore.runningJobs.subscribe((jobs) => {
-      this.runningJobs = jobs
+      this.runningJobs = jobs;
     })
   }
 
@@ -62,4 +71,5 @@ export class EndpointListComponent implements OnInit, OnDestroy {
     let result = this.runningJobs.filter((job) => { return job.endpoint === endpointId });
     return result.length
   }
+
 }

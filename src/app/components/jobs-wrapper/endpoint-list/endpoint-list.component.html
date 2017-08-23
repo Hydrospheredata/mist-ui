@@ -5,7 +5,7 @@
         <span class='h3'>Endpoints</span>
       </div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
-        <mdl-button (click)="openDialogAddEndpointForm()"
+        <mdl-button (click)="openDialogEndpointForm()"
                     class="mist-button blue border icon"
                     title="Add new endpoint"
                     mdl-colored="">
@@ -46,8 +46,10 @@
     <ng-template ngFor let-endpoint [ngForOf]="endpoints | search : 'name' : searchQ">
       <li class='cs-cursor-pointer mdl-list__item endpoint-list__item' [routerLink]="[endpoint.name]"
           routerLinkActive='endpoint-list__item--active'>
-        <a class='mdl-list__item-primary-content endpoint-list__item-content'>
-          {{ endpoint.name }}
+        <a fxLayout="row" fxLayoutAlign="space-between center" class='mdl-list__item-primary-content endpoint-list__item-content'>
+            <div>{{ endpoint.name }}</div>
+            <mdl-icon [ngClass]="{'cs-visible': activeEndpoint == endpoint.name}"
+              title="Edit endpoint" (click)="openDialogEndpointForm(endpoint)">settings</mdl-icon>
         </a>
         <span class='endpoint-list__badge'
               *ngIf="runningJobsCountBy(endpoint.name)"
@@ -55,5 +57,6 @@
       </li>
     </ng-template>
   </ul>
+
 </div>
 

@@ -4,12 +4,13 @@ import { MdlDialogReference, MdlSnackbarService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { FormsService } from '@services/forms.service';
 import { ContextStore } from '@stores/context.store';
+import { AlertService } from '@services/alert.service';
 
 @Component({
   selector: 'mist-dialog-add-context',
   templateUrl: './dialog-add-context.component.html',
   styleUrls: ['./dialog-add-context.component.scss'],
-  providers: [FormsService]
+  providers: [FormsService, AlertService]
 })
 export class DialogAddContextComponent implements OnInit, OnDestroy {
   public contextForm: FormGroup;
@@ -31,7 +32,8 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     public dialogRef: MdlDialogReference,
     private formsService: FormsService,
     private mdlSnackbarService: MdlSnackbarService,
-    private contextStore: ContextStore
+    private contextStore: ContextStore,
+    private alertService: AlertService
   ) {
 
   }
@@ -123,10 +125,7 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
           timeout: 5000
         });
         }, (error) => {
-          this.mdlSnackbarService.showSnackbar({
-            message: error,
-            timeout: 5000
-          });
+          this.alertService.error(error);
       });
 
   }
