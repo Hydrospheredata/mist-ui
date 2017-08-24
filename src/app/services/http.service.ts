@@ -19,19 +19,20 @@ import {LoaderService} from './loader.service';
 export class HttpService extends Http {
   port: string;
   apiUrl: string;
+  private requestCount: number;
 
   constructor(backend: XHRBackend,
               defaultOptions: MistRequestOptions,
               private location: Location,
               private loaderService: LoaderService) {
     super(backend, defaultOptions);
+    this.requestCount = 0;
     this.port = environment.production ? window.location.port : environment.port;
     const path = this.location.prepareExternalUrl(environment.apiUrl).replace("/ui" + environment.apiUrl, environment.apiUrl);
     this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
   }
 
   get(url: string, options?: RequestOptionsArgs): Observable<any> {
-
     this.showLoader();
 
     return super.get(this.getFullUrl(url), this.requestOptions(options))
@@ -127,10 +128,16 @@ export class HttpService extends Http {
   }
 
   private showLoader(): void {
-    this.loaderService.show();
+    if (this.requestCount === 0) {
+      this.loaderService.show();
+    }
+    this.requestCount++;
   }
 
   private hideLoader(): void {
-    this.loaderService.hide();
+    this.requestCount--;
+    if (this.requestCount === 0) {
+      this.loaderService.hide();
+    }
   }
 }
