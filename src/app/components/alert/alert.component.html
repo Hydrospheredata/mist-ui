@@ -1,6 +1,6 @@
 <div class="alert-wrap">
   <div *ngFor="let alert of alerts" class="{{ cssClass(alert) }} alert-dismissable">
-    <div class="message">{{alert.message}}</div>
+    <div class="message" [innerHTML]="alert.message | replaceToBrNewLineChar"></div>
     <a class="close cs-cursor-pointer mist-link"(click)="removeAlert(alert)"><mdl-icon>clear</mdl-icon></a>
   </div>
 

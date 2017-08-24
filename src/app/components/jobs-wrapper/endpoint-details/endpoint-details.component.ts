@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogJobFormComponent, injectableSelectedEndpoint } from '@components/dialogs/dialog-job-form/dialog-job-form.component';
@@ -25,6 +25,7 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
   private contextStoreSub;
   public contexts: Context[];
   public currentContext: Context;
+  public timeUpdaterLink: any;
 
   constructor(
     public dialog: MdlDialogService,
@@ -32,10 +33,13 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     private endpointStore: EndpointStore,
     private jobStore: JobStore,
     private contextStore: ContextStore,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.setFilterOptions();
+    this.timeUpdaterLink = this.jobStore.updateTime();
+
     this.activatedRouteSub = this.activatedRoute.params
       .map((params) => {
         this.currentContext = params['endpointId'];
@@ -46,12 +50,14 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     this.contextStore.getAll();
     this.contextStoreSub = this.contextStore.contexts
       .subscribe((contexts) => this.contexts = contexts)
-
   }
 
   ngOnDestroy() {
     this.activatedRouteSub.unsubscribe();
     this.contextStoreSub.unsubscribe();
+    if (this.timeUpdaterLink) {
+      clearInterval(this.timeUpdaterLink)
+    }
   }
 
   loadInitialData(id: string) {
@@ -64,7 +70,7 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
       const endpoint = data.find(item => item.name === id) || data[0];
       this.endpoint = endpoint;
     });
-    this.jobStore.jobs.subscribe((jobs) => {
+    this.jobStore.jobs.subscribe((jobs: Job[]) => {
       this.jobs = jobs;
     });
   }
@@ -109,18 +115,6 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
 
   private setFilterOptionsToLocalStorage() {
     localStorage.setItem('jobsStatusFilter', JSON.stringify(this.statusFilter));
-  }
-
-  public showAddContextDialog() {
-    this.dialog.showCustomDialog({
-      component: DialogEndpointFormComponent,
-      styles: {'width': '850px'},
-      isModal: true,
-      clickOutsideToClose: true,
-      enterTransitionDuration: 400,
-      leaveTransitionDuration: 400,
-      providers: [{provide: injectableEndpoint, useValue: this.endpoint}],
-    })
   }
 
 }

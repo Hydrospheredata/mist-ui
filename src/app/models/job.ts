@@ -9,6 +9,7 @@ export class Job {
   public jobResult: string;
   public params: string;
   public source: string;
+  public workerId: string;
 
   constructor(jobInfo: any) {
     this.jobId = jobInfo['jobId'];
@@ -21,6 +22,7 @@ export class Job {
     this.jobResult = jobInfo['jobResult'];
     this.params = jobInfo['params'];
     this.source = jobInfo['source'];
+    this.workerId = jobInfo['workerId'];
   }
 
   isFinished() {
