@@ -49,6 +49,12 @@
                      placeholder=""
                      formControlName="maxJobs">
     </mist-input-text>
+    <mist-input-text class=""
+                     [formErrors]="formErrors.workerMode"
+                     label="Worker Mode"
+                     placeholder=""
+                     formControlName="workerMode">
+    </mist-input-text>
     <mdl-checkbox class="cs-form-input" formControlName="precreated">Precreated</mdl-checkbox>
     <mist-input-text class=""
                      [formErrors]="formErrors.runOptions"

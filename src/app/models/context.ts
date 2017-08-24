@@ -5,6 +5,7 @@ export class Context {
   public maxJobs: number;
   public precreated: boolean;
   public runOptions: string;
+  public workerMode: string;
   public streamingDuration: string;
 
   constructor(context: object) {
@@ -14,6 +15,7 @@ export class Context {
     this.maxJobs = context['maxJobs'];
     this.precreated = context['precreated'];
     this.runOptions = context['runOptions'];
+    this.workerMode = context['workerMode'];
     this.streamingDuration = context['streamingDuration'];
   }
 }
