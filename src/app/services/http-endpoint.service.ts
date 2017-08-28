@@ -12,7 +12,6 @@ export class HttpEndpointService {
 
   constructor(private http: HttpService) {
     this.baseUrl = `/endpoints`;
-    this.getAll();
   }
 
   public getAll(): Observable<Endpoint[]> {
