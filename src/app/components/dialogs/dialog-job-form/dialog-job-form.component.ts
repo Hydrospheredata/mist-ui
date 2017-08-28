@@ -51,6 +51,7 @@ export class DialogJobFormComponent implements OnInit {
     private alertService: AlertService) {
 
     this.data = data;
+    this.selectedEndpoint = this.data || new Endpoint({});
     this.port = environment.production ? window.location.port : environment.port;
     const path = this.location.prepareExternalUrl(environment.apiUrl).replace("/ui" + environment.apiUrl, environment.apiUrl);
     this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
@@ -63,9 +64,8 @@ export class DialogJobFormComponent implements OnInit {
 
   ngOnInit() {
     const fs = this.formsService;
-    this.selectedEndpoint = this.data;
     this.endpointStore.endpoints.subscribe(data => { this.endpoints = data });
-    if (this.selectedEndpoint) {
+    if (this.selectedEndpoint && this.selectedEndpoint.executeExample) {
       this.executeParams = this.selectedEndpoint.executeExample();
     }
     this.buildCodeMirrorOptions();
@@ -74,7 +74,7 @@ export class DialogJobFormComponent implements OnInit {
       .subscribe(form => {
         if (this.jobForm.invalid) {
           let executeParams = this.executeParams || '{}';
-          const id = this.selectedEndpoint.name;
+          const id = this.selectedEndpoint && this.selectedEndpoint.name ? this.selectedEndpoint.name : 'overview';
 
           try {
             executeParams = JSON.stringify(JSON.parse(executeParams));
