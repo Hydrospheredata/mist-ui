@@ -44,6 +44,7 @@ import { WebSocketJobService } from '@services/web-socket-job.service';
 import { HttpService } from '@services/http.service';
 import { LoaderService } from '@services/loader.service';
 import { MistRequestOptions } from '@services/mist-request-options';
+import { HttpWorkersService } from '@services/http-workers.service';
 
 // factories
 import { httpServiceFactory } from './factories/http-service-factory';
@@ -52,6 +53,7 @@ import { httpServiceFactory } from './factories/http-service-factory';
 import { JobStore } from '@stores/job.store';
 import { EndpointStore } from '@stores/endpoint.store';
 import { ContextStore } from '@stores/context.store';
+import { WorkersStore } from '@stores/workers.store';
 
 // pipes
 import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
@@ -61,6 +63,7 @@ import { SortByPipe } from '@pipes/sort-by.pipe';
 import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { ReplaceToBrNewLineCharPipe } from './pipes/replace-to-br-new-line-char.pipe';
 
 @NgModule({
   declarations: [
@@ -80,14 +83,15 @@ import { AlertComponent } from './components/alert/alert.component';
     JobsWrapperComponent,
     JobLogsComponent,
     DialogCloneJobFormComponent,
+    LoaderComponent,
+    AlertComponent,
     // pipes
     SearchPipe,
     AgoDatePipe,
     JobStatusFilterPipe,
     SortByPipe,
     JobIdCutPipe,
-    LoaderComponent,
-    AlertComponent
+    ReplaceToBrNewLineCharPipe
   ],
   imports: [
     BrowserModule,
@@ -121,10 +125,12 @@ import { AlertComponent } from './components/alert/alert.component';
     WebSocketJobService,
     JobStore,
     EndpointStore,
+    WorkersStore,
     HttpContextsService,
     ContextStore,
     HttpService,
     LoaderService,
+    HttpWorkersService,
     {
       provide: HttpService,
       useFactory: httpServiceFactory,

@@ -121,4 +121,30 @@ export class JobStore {
       this.get(data.id)
     }
   }
+
+
+  /**
+   Updates real time create/end/start time "ago"
+   */
+  updateTime() {
+    return setInterval(() => {
+      if (!this.dataStore.selectedJobs.length) {
+        return;
+      }
+
+      for (let i = 0; i < this.dataStore.selectedJobs.length; i++) {
+        this.dataStore.selectedJobs[i].createTime++;
+        this.dataStore.selectedJobs[i].startTime++;
+        this.dataStore.selectedJobs[i].endTime++;
+
+        setTimeout(() => {
+          this.dataStore.selectedJobs[i].endTime--;
+          this.dataStore.selectedJobs[i].startTime--;
+          this.dataStore.selectedJobs[i].createTime--;
+        }, 60 * 1000);
+      }
+
+    }, 60 * 2 * 1000)
+  }
+
 }

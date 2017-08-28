@@ -82,6 +82,10 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
     this.contextStoreSub = this.contextStore.contexts.subscribe(data => { this.contexts = data });
     if (this.selectedEndpoint) {
       this.updateEndpointFormValues(this.selectedEndpoint);
+    } else {
+      this.endpointStore.endpoints.subscribe((data) => {
+        this.updateEndpointFormValues(data[data.length - 1]);
+      });
     }
   }
 

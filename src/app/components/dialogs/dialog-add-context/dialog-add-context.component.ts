@@ -58,8 +58,8 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     this.contextForm = this.fb.group({
       name: ['', [Validators.required]],
       sparkConfs: this.fb.array([this.initSparkConf()]),
-      downtime: ['', [Validators.required, Validators.pattern(fs.VALIDATION_PATTERNS.durationInSeconds)]],
-      maxJobs: ['', [Validators.required, Validators.pattern(fs.VALIDATION_PATTERNS.number)]],
+      downtime: ['', [Validators.pattern(fs.VALIDATION_PATTERNS.durationInSeconds)]],
+      maxJobs: ['', [Validators.pattern(fs.VALIDATION_PATTERNS.number)]],
       precreated: [false],
       runOptions: [''],
       workerMode: [''],
@@ -131,7 +131,6 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
         }, (error) => {
           this.alertService.error(error);
       });
-
   }
 
   addSparkConf() {

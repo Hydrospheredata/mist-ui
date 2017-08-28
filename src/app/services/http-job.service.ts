@@ -93,7 +93,8 @@ export class HttpJobService {
       endpoint: data.endpoint,
       jobResult: JSON.stringify(data.jobResult, null, '\t'),
       params: JSON.stringify(data.params, null, '\t'),
-      source: data.source
+      source: data.source,
+      workerId: data.workerId
     });
     return job;
   }

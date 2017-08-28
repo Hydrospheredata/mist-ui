@@ -9,7 +9,7 @@ import { AlertService } from '@services/alert.service';
   templateUrl: 'alert.component.html'
 })
 
-export class AlertComponent implements OnInit{
+export class AlertComponent implements OnInit {
   alerts: Alert[] = [];
 
   constructor(private alertService: AlertService) { }

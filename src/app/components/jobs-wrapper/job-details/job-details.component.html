@@ -55,8 +55,8 @@
           {{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}
         </span>
       </div>
-      <div class="cs-text-right">
-        <a title="SPARK UI" class='mist-link spark-ui'>
+      <div *ngIf="sparkUiLink" class="cs-text-right">
+        <a target="_blank" title="SPARK UI" href="{{sparkUiLink}}" class='mist-link spark-ui'>
           <i class='material-icons'>link</i>
           <span>SPARK UI</span>
         </a>
