@@ -115,9 +115,9 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     this.contextForm.patchValue( {sparkConfs: [{
       sparkConfValue: context.sparkConf[Object.keys(context.sparkConf)[0]],
     }, {
-      sparkConfValue: '128',
+      sparkConfValue: '2',
     }, {
-      sparkConfValue: '10g',
+      sparkConfValue: '2g',
     }, {
       sparkConfValue: 'FAIR',
     }, {
