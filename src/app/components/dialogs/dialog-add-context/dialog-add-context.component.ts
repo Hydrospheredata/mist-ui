@@ -55,9 +55,13 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
 
   createContextForm(context?: Context) {
     const fs = this.formsService;
+    let sparkConfs = [];
+    for (let i = 0; i < 4; i++) {
+      sparkConfs.push(this.initSparkConf());
+    }
     this.contextForm = this.fb.group({
       name: ['', [Validators.required]],
-      sparkConfs: this.fb.array([this.initSparkConf()]),
+      sparkConfs: this.fb.array(sparkConfs),
       downtime: ['', [Validators.pattern(fs.VALIDATION_PATTERNS.durationInSeconds)]],
       maxJobs: ['', [Validators.pattern(fs.VALIDATION_PATTERNS.number)]],
       precreated: [false],
@@ -96,8 +100,30 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
   }
 
   setDefaultContext(context) {
-    this.contextForm.patchValue( {sparkConfs: [{sparkConfKey: Object.keys(context.sparkConf)[0] }] } );
-    this.contextForm.patchValue( {sparkConfs: [{sparkConfValue: context.sparkConf[Object.keys(context.sparkConf)[0]] }]} );
+    this.contextForm.patchValue( {sparkConfs: [{
+      sparkConfKey: Object.keys(context.sparkConf)[0]
+    }, {
+      sparkConfKey: 'spark.default.parallelism'
+    }, {
+      sparkConfKey: 'spark.driver.memory'
+    }, {
+      sparkConfKey: 'spark.scheduler.mode'
+    }, {
+      sparkConfKey: 'spark.driver.allowmultiplecontexts'
+    },
+    ]});
+    this.contextForm.patchValue( {sparkConfs: [{
+      sparkConfValue: context.sparkConf[Object.keys(context.sparkConf)[0]],
+    }, {
+      sparkConfValue: '2',
+    }, {
+      sparkConfValue: '2g',
+    }, {
+      sparkConfValue: 'FAIR',
+    }, {
+      sparkConfValue: 'true',
+    }
+    ]} );
     this.contextForm.patchValue( {name: context.name} );
     this.contextForm.patchValue( {downtime: context.downtime} );
     this.contextForm.patchValue( {maxJobs: context.maxJobs} );

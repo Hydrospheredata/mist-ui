@@ -38,31 +38,44 @@
     </div>
 
     <mist-input-text class=""
-                     [formErrors]="formErrors.downtime"
-                     label="Downtime"
-                     placeholder=""
-                     formControlName="downtime">
+                     [formErrors]="formErrors.runOptions"
+                     label="Run Options"
+                     placeholder="--packages org.apache.bahir:spark-streaming-twitter_2.11:2.0.0"
+                     formControlName="runOptions">
+
     </mist-input-text>
+
+    <mdl-checkbox class="cs-form-input" formControlName="precreated">Reserve context for interactive queries</mdl-checkbox>
+
     <mist-input-text class=""
                      [formErrors]="formErrors.maxJobs"
-                     label="Max Jobs"
+                     label="Max Jobs per Spark driver node"
                      placeholder=""
                      formControlName="maxJobs">
     </mist-input-text>
+
+    <mist-input-text class=""
+                     [formErrors]="formErrors.downtime"
+                     label="Worker teardown timeout when idle"
+                     placeholder=""
+                     formControlName="downtime">
+    </mist-input-text>
+
+    <mist-input-text class=""
+                     [formErrors]="formErrors.streamingDuration"
+                     label="Streaming Duration (for streaming contexts)"
+                     placeholder=""
+                     formControlName="streamingDuration">
+    </mist-input-text>
+
     <mist-input-text class=""
                      [formErrors]="formErrors.workerMode"
                      label="Worker Mode"
                      placeholder=""
                      formControlName="workerMode">
     </mist-input-text>
-    <mdl-checkbox class="cs-form-input" formControlName="precreated">Precreated</mdl-checkbox>
-    <mist-input-text class=""
-                     [formErrors]="formErrors.runOptions"
-                     label="Run Options"
-                     placeholder=""
-                     formControlName="runOptions">
-    </mist-input-text>
-    <mist-input-text class="" [formErrors]="formErrors.streamingDuration" label="Streaming Duration" placeholder="" formControlName="streamingDuration"></mist-input-text>
+
+
 
     <div class="mdl-grid mdl-grid--no-spacing cs-mt-30">
       <div class="mdl-cell mdl-cell--4">

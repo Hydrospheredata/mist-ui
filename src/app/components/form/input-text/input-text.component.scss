@@ -76,14 +76,26 @@ input.form-control {
   &:focus::-webkit-input-placeholder {
     color: transparent;
   }
+  &::-webkit-input-placeholder {
+    color: #CCCCCC;
+  }
   &:focus:-ms-input-placeholder {
+    color: #CCCCCC;
+  }
+  &:-ms-input-placeholder {
     color: transparent;
   }
-  &:focus::-moz-placeholder {
-    color: transparent;
+  &::-moz-placeholder {
+      color: #CCCCCC;
   }
   &:focus:-moz-placeholder {
     color: transparent;
+  }
+  &:-moz-placeholder {
+    color: #CCCCCC;
+  }
+  &:-moz-placeholder {
+      color: transparent;
   }
 }
 
