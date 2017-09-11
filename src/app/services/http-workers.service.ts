@@ -20,4 +20,8 @@ export class HttpWorkersService {
       })
   }
 
+  delete(worker: Workers) {
+    return this.http.delete(`${this.baseUrl}/${worker.name}`)
+  }
+
 }

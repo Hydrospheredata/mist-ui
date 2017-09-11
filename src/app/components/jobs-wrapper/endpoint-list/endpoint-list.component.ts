@@ -42,8 +42,12 @@ export class EndpointListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.endpointStoreSub.unsubscribe();
-    this.jobStoreSub.unsubscribe();
+    if (this.endpointStoreSub) {
+      this.endpointStoreSub.unsubscribe();
+    }
+    if (this.jobStoreSub) {
+      this.jobStoreSub.unsubscribe();
+    }
   }
 
   openDialogEndpointForm(endpoint = null) {

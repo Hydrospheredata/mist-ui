@@ -31,6 +31,8 @@ export class LoaderComponent implements AfterViewChecked, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

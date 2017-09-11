@@ -53,8 +53,12 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.activatedRouteSub.unsubscribe();
-    this.jobStoreSub.unsubscribe();
+    if (this.activatedRouteSub) {
+      this.activatedRouteSub.unsubscribe();
+    }
+    if (this.jobStoreSub) {
+      this.jobStoreSub.unsubscribe();
+    }
     if (this.timeUpdaterLink) {
       clearInterval(this.timeUpdaterLink)
     }

@@ -53,8 +53,12 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.activatedRouteSub.unsubscribe();
-    this.contextStoreSub.unsubscribe();
+    if (this.activatedRouteSub) {
+      this.activatedRouteSub.unsubscribe();
+    }
+    if (this.contextStoreSub) {
+      this.contextStoreSub.unsubscribe();
+    }
     if (this.timeUpdaterLink) {
       clearInterval(this.timeUpdaterLink)
     }

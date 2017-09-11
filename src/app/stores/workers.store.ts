@@ -40,4 +40,21 @@ export class WorkersStore {
     }
   }
 
+  delete(worker) {
+    return this.backendService.delete(worker)
+      .subscribe((removedWorker) => {
+        this.removeItem(worker);
+      });
+  }
+
+  private removeItem(worker: Workers) {
+    const removedWorker = this.dataStore.find(rmvdWorker => rmvdWorker.name === worker.name);
+    if (!removedWorker) {
+      return false;
+    }
+    const index: number = this.dataStore.indexOf(removedWorker);
+    this.dataStore.splice(index, 1);
+    this.updateStore();
+  }
+
 }
