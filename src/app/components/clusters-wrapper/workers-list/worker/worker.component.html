@@ -1,0 +1,52 @@
+<div *ngIf="worker">
+  <div class="mist-page-container">
+    <div class='mist-page-header'>
+      <div class='mist-page-header__row'>
+        <a class='mist-link mist-link--big' [routerLink]="['../']">
+          <i class='material-icons'>keyboard_backspace</i>
+          Back to Workers
+        </a>
+      </div>
+      <div class="h3">Worker's info section</div>
+      <hr>
+      <div class="h3">Worker {{worker.name}}</div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center"
+         class='mist-page-header__row mist-page-header__row--status'>
+
+      <div class='job-version'>
+        <span class='mist-label'>Down time</span>
+        <span>{{worker.initInfo.downtime}}</span>
+      </div>
+      <div title="Context = {{ worker.initInfo.logService }}" class='context'>
+        <span fxHide.md fxHide.sm class='context__label'>Log service</span>
+        <span class='context__value'>{{ worker.initInfo.logService }}</span>
+      </div>
+      <div title="Status {{ worker.initInfo.maxJobs }}" class='job-status'>
+        <span fxHide.md fxHide.sm class='mist-label'>Max jobs</span>
+        <span>{{ worker.initInfo.maxJobs }}</span>
+      </div>
+      <div class='context' title="{{worker.initInfo.sparkConf | json}}">
+        <span fxHide.md fxHide.sm class='mist-label'>Spark Conf</span>
+        <span>{{worker.initInfo.sparkConf | json}}</span>
+      </div>
+      <div class="cs-text-right">
+        <span>Streaming Duration</span>
+        <span>{{worker.initInfo.streamingDuration}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mist-page-container">
+    <div class='mist-page-header'>
+      <div class="h3">Worker's jobs section</div>
+      <hr>
+    </div>
+  </div>
+
+  <div *ngFor="let _job of worker.jobs; let i = index">
+    <mist-job-details [jobDetails]="_job"></mist-job-details>
+    <hr>
+  </div>
+</div>

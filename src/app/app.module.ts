@@ -66,6 +66,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ReplaceToBrNewLineCharPipe } from './pipes/replace-to-br-new-line-char.pipe';
 import { ClustersWrapperComponent } from './components/clusters-wrapper/clusters-wrapper.component';
 import { WorkersListComponent } from './components/clusters-wrapper/workers-list/workers-list.component';
+import { WorkerComponent } from './components/clusters-wrapper/workers-list/worker/worker.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { WorkersListComponent } from './components/clusters-wrapper/workers-list
     JobIdCutPipe,
     ReplaceToBrNewLineCharPipe,
     ClustersWrapperComponent,
-    WorkersListComponent
+    WorkersListComponent,
+    WorkerComponent
   ],
   imports: [
     BrowserModule,

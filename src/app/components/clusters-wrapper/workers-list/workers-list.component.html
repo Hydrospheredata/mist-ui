@@ -1,0 +1,23 @@
+<table class='mdl-data-table mdl-js-data-table workers-table mdl-shadow--2dp'>
+  <thead>
+  <tr>
+    <th>Address</th>
+    <th>Name</th>
+    <th>Spark UI</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-template ngFor let-worker [ngForOf]="workers">
+    <tr [routerLink]="[worker.name]" class='jobs-table__tr cs-cursor-pointer'>
+      <td [title]="worker.address" class='jobs-table__td jobs-table__td--job-id'>{{worker.address}}</td>
+      <td [title]="worker.name" class='jobs-table__td jobs-table__td--job-id'>{{worker.name}}</td>
+      <td [title]="worker.sparkUi" class='jobs-table__td jobs-table__td--job-id'>
+        <a class="mist-link" href="{{worker.sparkUi}}">{{worker.sparkUi}}</a>
+      </td>
+      <td><mdl-icon class="cs-cursor-pointer" (click)="deleteWorker(worker)" title="Delete worker">delete_forever</mdl-icon></td>
+    </tr>
+  </ng-template>
+  </tbody>
+</table>
+

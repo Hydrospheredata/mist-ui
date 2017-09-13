@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Workers } from '@models/workers';
 import { HttpWorkersService } from '@services/http-workers.service';
+import {Job} from '@models/job';
 
 @Injectable()
 export class WorkersStore {
@@ -25,6 +26,17 @@ export class WorkersStore {
         this.dataStore = contexts;
         this.updateStore();
       });
+  }
+
+  get(name: string) {
+    return this.backendService.get(name)
+      .map((worker) => {
+        for (let i = 0; i < worker.jobs.length; i++) {
+          worker.jobs[i] = new Job(worker.jobs[i]);
+        }
+        return worker;
+      });
+
   }
 
   updateStore() {
