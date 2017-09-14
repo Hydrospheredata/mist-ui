@@ -1,3 +1,9 @@
+@import "variables";
+
 .mist-page-container {
   padding: 1rem 3.5rem;
+}
+.job-details__container {
+  border: 2px solid $border-color;
+  padding: 10px;
 }
