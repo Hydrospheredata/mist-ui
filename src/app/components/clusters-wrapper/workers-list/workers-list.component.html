@@ -21,16 +21,8 @@
 </div>
 <div class='endpoint-list__row'>
   <ul class='mdl-list endpoint-list__ul'>
-    <li class='mdl-list__item endpoint-list__item'
-        routerLinkActive='endpoint-list__item--active'>
-      <span class='mdl-list__item-primary-content endpoint-list__item-content'>
-        <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>view_comfy</i>
-        Total
-      </span>
-      <span class='endpoint-list__badge'
-            *ngIf="workers.length"
-            [mdl-badge]="workers.length"></span>
-    </li>
+    <li class='mdl-list__item endpoint-list__item'>
+
     <ng-template ngFor let-worker [ngForOf]="workers | search : 'name' : searchQ">
       <li [routerLink]="['workers/' + worker.name]" class='cs-cursor-pointer mdl-list__item endpoint-list__item'
           routerLinkActive='endpoint-list__item--active'>
