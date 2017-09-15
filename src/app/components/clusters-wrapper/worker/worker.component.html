@@ -33,12 +33,12 @@
             <span>{{worker.initInfo.streamingDuration}}</span>
           </div>
           <div class="cs-text-right">
-            <span class="context mist-label">Address</span>
-            <span><a href="{{worker.initInfo.address}}">{{worker.initInfo.address}}</a></span>
+            <span fxHide.sm fxHide.md class="context mist-label">Address</span>
+            <span><a class="cs-inline-block cs-mb-8" title="Address: {{worker.address}}" href="{{worker.address}}">{{worker.address}}</a></span>
           </div>
-          <div class="cs-text-right">
-            <span class="context mist-label">Spark UI</span>
-            <span><a href="{{worker.initInfo.sparkUi}}">{{worker.initInfo.sparkUi}}</a></span>
+          <div class="cs-text-right ">
+            <span fxHide.sm fxHide.md class="context mist-label">Spark UI</span>
+            <span><a title=">Spark UI: {{worker.sparkUi}}" href="{{worker.sparkUi}}">{{worker.sparkUi}}</a></span>
           </div>
         </div>
 
