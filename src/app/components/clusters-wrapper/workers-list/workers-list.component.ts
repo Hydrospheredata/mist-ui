@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Workers } from '@models/workers';
 import { Router } from '@angular/router';
 import { WorkersStore } from '@stores/workers.store';
@@ -8,17 +8,21 @@ import { WorkersStore } from '@stores/workers.store';
   templateUrl: './workers-list.component.html',
   styleUrls: ['./workers-list.component.scss']
 })
-export class WorkersListComponent implements OnInit {
+export class WorkersListComponent implements OnInit, OnDestroy {
   public workers: Workers [];
+  public workerSubscriber;
 
   constructor(private workersStore: WorkersStore,
               private router: Router) { }
 
   ngOnInit() {
     this.workersStore.getAll();
-    this.workersStore.workers.subscribe((workers) => {
+    this.workerSubscriber = this.workersStore.workers
+      .subscribe((workers) => {
       if (!workers.length) {
         this.router.navigate(['/clusters/workers/overview']);
+      } else {
+        this.router.navigate([`/clusters/workers/${workers[0].name}`]);
       }
       this.workers = workers;
     });
@@ -26,6 +30,12 @@ export class WorkersListComponent implements OnInit {
 
   public deleteWorker(worker: Workers) {
     this.workersStore.delete(worker);
+  }
+
+  ngOnDestroy() {
+    if (this.workerSubscriber) {
+      this.workerSubscriber.unsubscribe();
+    }
   }
 
 }

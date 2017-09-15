@@ -9,4 +9,16 @@
     width: $badge-height;
     font-size: 14px;
     margin-right: 25px;
+}
+
+.workers-list__row {
+  .workers-list__item {
+    width: 100%;
+    &--active {
+      background: $form-border-color;
+    }
+    &:hover {
+      background: $form-border-color;
+    }
   }
+}
