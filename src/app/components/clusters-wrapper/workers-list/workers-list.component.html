@@ -1,23 +1,45 @@
-<table class='mdl-data-table mdl-js-data-table workers-table mdl-shadow--2dp'>
-  <thead>
-  <tr>
-    <th>Address</th>
-    <th>Name</th>
-    <th>Spark UI</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <ng-template ngFor let-worker [ngForOf]="workers">
-    <tr [routerLink]="[worker.name]" class='jobs-table__tr cs-cursor-pointer'>
-      <td [title]="worker.address" class='jobs-table__td jobs-table__td--job-id'>{{worker.address}}</td>
-      <td [title]="worker.name" class='jobs-table__td jobs-table__td--job-id'>{{worker.name}}</td>
-      <td [title]="worker.sparkUi" class='jobs-table__td jobs-table__td--job-id'>
-        <a class="mist-link" href="{{worker.sparkUi}}">{{worker.sparkUi}}</a>
-      </td>
-      <td><mdl-icon class="cs-cursor-pointer" (click)="deleteWorker(worker)" title="Delete worker">delete_forever</mdl-icon></td>
-    </tr>
-  </ng-template>
-  </tbody>
-</table>
+<div class='endpoint-list__row endpoint-list__row--big'>
+  <div class='endpoint-list__header'>
+    <div class="mdl-grid cs-align-center cs-mt-8 cs-mb-16 cs-text-right">
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet cs-text-left">
+        <span class='h3'>Workers</span>
+      </div>
 
+    </div>
+  </div>
+</div>
+<div class='endpoint-list__row'>
+  <div class='endpoint-list__search'>
+    <mist-input-text
+      inputClass="endpoint-list__search-input mist-input"
+      placeholder="Search"
+      [(ngModel)]="searchQ"
+      iconName="search"
+      iconDirection="left"
+    ></mist-input-text>
+  </div>
+</div>
+<div class='endpoint-list__row'>
+  <ul class='mdl-list endpoint-list__ul'>
+    <li class='mdl-list__item endpoint-list__item'
+        routerLinkActive='endpoint-list__item--active'>
+      <span class='mdl-list__item-primary-content endpoint-list__item-content'>
+        <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>view_comfy</i>
+        Total
+      </span>
+      <span class='endpoint-list__badge'
+            *ngIf="workers.length"
+            [mdl-badge]="workers.length"></span>
+    </li>
+    <ng-template ngFor let-worker [ngForOf]="workers | search : 'name' : searchQ">
+      <li [routerLink]="['workers/' + worker.name]" class='cs-cursor-pointer mdl-list__item endpoint-list__item'
+          routerLinkActive='endpoint-list__item--active'>
+        <a fxLayout="row" fxLayoutAlign="space-between center" class='mdl-list__item-primary-content endpoint-list__item-content'>
+          <div>{{ worker.name }}</div>
+          <mdl-icon title="Edit endpoint" (click)="deleteWorker(worker)">delete_forever</mdl-icon>
+        </a>
+      </li>
+    </ng-template>
+  </ul>
+
+</div>

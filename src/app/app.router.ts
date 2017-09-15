@@ -7,7 +7,7 @@ import { EndpointListComponent } from '@components/jobs-wrapper/endpoint-list/en
 import { EndpointDetailsComponent } from '@components/jobs-wrapper/endpoint-details/endpoint-details.component';
 import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
 import { ClustersWrapperComponent } from '@components/clusters-wrapper/clusters-wrapper.component';
-import { WorkerComponent } from '@components/clusters-wrapper/workers-list/worker/worker.component';
+import { WorkerComponent } from '@components/clusters-wrapper/worker/worker.component';
 import {WorkersListComponent} from '@components/clusters-wrapper/workers-list/workers-list.component';
 
 
@@ -28,14 +28,10 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'workers',
+        redirectTo: 'workers/overview',
         pathMatch: 'full'
       },
       {
-        path: 'workers',
-        pathMatch: 'prefix',
-        component: WorkersListComponent,
-      }, {
         path: 'workers/:workerId',
         pathMatch: 'prefix',
         component: WorkerComponent

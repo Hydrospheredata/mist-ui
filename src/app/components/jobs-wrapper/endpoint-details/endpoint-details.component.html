@@ -75,11 +75,6 @@
               {{ job.jobId | jobIdCut }}
             </div>
           </td>
-          <td [title]="'worker = ' + job.workerId" class='jobs-table__td'>
-            <div class="cs-text-overflow-ellipsis">
-              {{job.workerId}}
-            </div>
-          </td>
           <td [title]="'endpoint = ' + job.endpoint" class='jobs-table__td jobs-table__td--endpoint'>
             <div class='endpoint cs-block'>
               <div class="cs-text-overflow-ellipsis cs-text-center">

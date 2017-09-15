@@ -10,7 +10,8 @@ import { WorkersStore } from '@stores/workers.store';
 export class WorkerComponent implements OnInit {
   private activatedRouteSub: any;
   public worker;
-  codeMirrorOptions: object;
+  public codeMirrorOptions: object;
+  public pageId: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -21,6 +22,7 @@ export class WorkerComponent implements OnInit {
     this.activatedRouteSub = this.activatedRoute.params
       .subscribe((params) => {
         this.loadInitialData(params['workerId']);
+        this.pageId = params['workerId'];
       });
 
     this.codeMirrorOptions = {

@@ -1,8 +1,8 @@
-<div *ngIf="worker">
+<div *ngIf="worker && pageId != 'overview'">
   <div class="mist-page-container">
     <div class='mist-page-header'>
       <div class='mist-page-header__row'>
-        <a class='mist-link mist-link--big' [routerLink]="['../']">
+        <a class='mist-link mist-link--big' [routerLink]="['/clusters/workers/overview']">
           <i class='material-icons'>keyboard_backspace</i>
           Back to Workers
         </a>
@@ -31,6 +31,14 @@
           <div class="cs-text-right">
             <span class="context mist-label">Streaming Duration</span>
             <span>{{worker.initInfo.streamingDuration}}</span>
+          </div>
+          <div class="cs-text-right">
+            <span class="context mist-label">Address</span>
+            <span><a href="{{worker.initInfo.address}}">{{worker.initInfo.address}}</a></span>
+          </div>
+          <div class="cs-text-right">
+            <span class="context mist-label">Spark UI</span>
+            <span><a href="{{worker.initInfo.sparkUi}}">{{worker.initInfo.sparkUi}}</a></span>
           </div>
         </div>
 

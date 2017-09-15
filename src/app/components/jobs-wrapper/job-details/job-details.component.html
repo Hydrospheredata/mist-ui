@@ -30,9 +30,9 @@
     <div fxLayout="row" fxLayoutAlign="space-between center"
          class='mist-page-header__row mist-page-header__row--status'>
 
-      <div class='job-version'>
-        <span class='mist-label'>Version</span>
-        <span>1.2.4</span>
+      <div class='job-version cs-cursor-pointer'>
+        <span [routerLink]="'/clusters/workers/' + job.workerId" fxHide.md fxHide.sm class='mist-label context__label'>Worker</span>
+        <span>{{job.workerId}}</span>
       </div>
       <div title="Context = {{ job.context }}" class='context'>
         <span fxHide.md fxHide.sm class='context__label'>context</span>
