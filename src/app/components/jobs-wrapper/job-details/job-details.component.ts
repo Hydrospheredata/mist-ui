@@ -27,7 +27,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   private activatedRouteSub: any;
   private jobStoreSub: any;
   private jobWorkerSub: any;
-  public sparkUiLink: string;
+  public worker: Workers;
   private timeUpdaterLink;
 
   constructor(
@@ -86,7 +86,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     });
     this.jobWorkerSub = this.jobStore.getJobsWorker(jobId)
       .subscribe((worker: Workers) => {
-        this.sparkUiLink = worker.sparkUi;
+        this.worker = worker;
       });
   }
 

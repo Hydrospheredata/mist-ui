@@ -30,9 +30,9 @@
     <div fxLayout="row" fxLayoutAlign="space-between center"
          class='mist-page-header__row mist-page-header__row--status'>
 
-      <div class='job-version cs-cursor-pointer'>
-        <span [routerLink]="'/clusters/workers/' + job.workerId" fxHide.md fxHide.sm class='mist-label context__label'>Worker</span>
-        <span>{{job.workerId}}</span>
+      <div *ngIf="worker" class='job-version cs-cursor-pointer'>
+        <span [routerLink]="'/clusters/workers/' + worker.name" fxHide.md fxHide.sm class='mist-label context__label'>Worker</span>
+        <span>{{worker.name}}</span>
       </div>
       <div title="Context = {{ job.context }}" class='context'>
         <span fxHide.md fxHide.sm class='context__label'>context</span>
@@ -55,8 +55,8 @@
           {{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}
         </span>
       </div>
-      <div *ngIf="sparkUiLink" class="cs-text-right">
-        <a target="_blank" title="SPARK UI" href="{{sparkUiLink}}" class='mist-link spark-ui'>
+      <div *ngIf="worker" class="cs-text-right">
+        <a target="_blank" title="SPARK UI" href="{{worker.sparkUi}}" class='mist-link spark-ui'>
           <i class='material-icons'>link</i>
           <span>SPARK UI</span>
         </a>
