@@ -73,6 +73,9 @@
   &-block {
     display: block;
   }
+  &-inline-block {
+    display: inline-block;
+  }
   &-message {
     &.error {
       color: $color--failed;

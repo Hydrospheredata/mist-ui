@@ -1,6 +1,6 @@
 <div class='job-details-page mist-page-container' *ngIf="job">
   <div class='mist-page-header'>
-    <div class='mist-page-header__row'>
+    <div *ngIf="!jobDetails" class='mist-page-header__row'>
       <a class='mist-link mist-link--big'
          [routerLink]="['../']">
         <i class='material-icons'>keyboard_backspace</i>
@@ -30,9 +30,9 @@
     <div fxLayout="row" fxLayoutAlign="space-between center"
          class='mist-page-header__row mist-page-header__row--status'>
 
-      <div class='job-version'>
-        <span class='mist-label'>Version</span>
-        <span>1.2.4</span>
+      <div class='job-version cs-cursor-pointer'>
+        <span [routerLink]="'/clusters/workers/' + job.workerId" fxHide.md fxHide.sm class='mist-label context__label'>Worker</span>
+        <span>{{job.workerId}}</span>
       </div>
       <div title="Context = {{ job.context }}" class='context'>
         <span fxHide.md fxHide.sm class='context__label'>context</span>
@@ -71,7 +71,7 @@
           Parameters
         </div>
         <div class='job-details__container'>
-          <codemirror [ngModel]="jobArguments"
+          <codemirror [ngModel]="jobDetails ? (job.params | json) : jobArguments"
                       [config]="codeMirrorOptions">
           </codemirror>
           <span class='material-icons job-details__full-screen-icon'
@@ -86,7 +86,7 @@
           Results
         </div>
         <div class='job-details__container'>
-          <codemirror [ngModel]="job.jobResult"
+          <codemirror [ngModel]="jobDetails ? (job.jobResult | json) : job.jobResult"
                       [config]="codeMirrorOptions">
           </codemirror>
           <span class='material-icons job-details__full-screen-icon'

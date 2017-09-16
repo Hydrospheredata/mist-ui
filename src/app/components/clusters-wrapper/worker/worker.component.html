@@ -1,0 +1,98 @@
+<div *ngIf="worker && pageId != 'overview'">
+  <div class="mist-page-container">
+    <div class='mist-page-header'>
+      <div class='mist-page-header__row'>
+        <a class='mist-link mist-link--big' [routerLink]="['/clusters/workers/overview']">
+          <i class='material-icons'>keyboard_backspace</i>
+          Back to Workers
+        </a>
+      </div>
+      <div class="h3">Worker {{worker.name}}</div>
+      <hr>
+    </div>
+    <div *ngIf="worker.initInfo">
+      <div  fxLayout="row" fxLayoutAlign="space-between start">
+        <div fxFlex="55%" fxLayout="column" fxLayoutAlign="space-between start"
+             class='mist-page-header__row mist-page-header__row--status'>
+
+          <div title="Down time {{ worker.initInfo.downtime }}" class=''>
+            <span class='context mist-label'>Down time</span>
+            <span>{{worker.initInfo.downtime}}</span>
+          </div>
+          <div title="Log service {{ worker.initInfo.logService }}">
+            <span class='context mist-label'>Log service</span>
+            <span class='context__value'>{{ worker.initInfo.logService }}</span>
+          </div>
+
+          <div title="Max Jobs {{ worker.initInfo.maxJobs }}" class=''>
+            <span class='mist-label context'>Max jobs</span>
+            <span>{{ worker.initInfo.maxJobs }}</span>
+          </div>
+          <div class="cs-text-right">
+            <span class="context mist-label">Streaming Duration</span>
+            <span>{{worker.initInfo.streamingDuration}}</span>
+          </div>
+          <div class="cs-text-right">
+            <span fxHide.sm fxHide.md class="context mist-label">Address</span>
+            <span><a class="cs-inline-block cs-mb-8" title="Address: {{worker.address}}" href="{{worker.address}}">{{worker.address}}</a></span>
+          </div>
+          <div class="cs-text-right ">
+            <span fxHide.sm fxHide.md class="context mist-label">Spark UI</span>
+            <span><a title=">Spark UI: {{worker.sparkUi}}" href="{{worker.sparkUi}}">{{worker.sparkUi}}</a></span>
+          </div>
+        </div>
+
+        <div fxFlex="45%" >
+          <span class="mist-label">Spark Conf</span>
+          <div class="job-details__container">
+            <codemirror [ngModel]="worker.initInfo.sparkConf | json" [config]="codeMirrorOptions"></codemirror>
+          </div>
+        </div>
+      </div>
+      <hr class="cs-mb-16">
+    </div>
+
+    <div *ngIf="!worker.initInfo">There is no worker's initial info</div>
+    <div class='mist-page-header'>
+      <div class="h3">Jobs</div>
+    </div>
+    <div *ngIf="!worker.jobs.length">There are no jobs yet</div>
+    <table *ngIf="worker.jobs.length" class='mdl-data-table mdl-js-data-table workers-table mdl-shadow--2dp cs-width-100'>
+      <thead>
+      <tr>
+        <th></th>
+        <th>Id</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-job [ngForOf]="worker.jobs">
+        <tr class='jobs-table__tr cs-cursor-pointer' [routerLink]="['/jobs', job.endpoint, job.jobId]">
+          <td>
+            <i class='material-icons status-icon cs-mr-8'
+                 [ngClass]="{'status-icon--failed': job.isFailed(),
+                'status-icon--success': job.isFinished(),
+                'status-icon--primary': job.isRunning()}">
+            </i>
+          </td>
+          <td [title]="job.jobId" class=''>{{job.jobId}}</td>
+          <td [title]="job.status" class=''>
+            <div *ngIf="job.status" [title]="job.status" class="cs-text-overflow-ellipsis">
+              <span class='mist-label'>Status</span>
+              <span class='job-status'
+                    [ngClass]="{'font-color--success': job.isFinished(),
+                  'font-color--primary': job.isRunning(),
+                  'font-color--failed': job.isFailed()}">
+                  {{ job.status }}
+              </span>
+              <span>
+                {{ job.isRunning() ? (job.runningTime() | agoDate) : (job.endTime | agoDate) }}
+              </span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>

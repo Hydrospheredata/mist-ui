@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobStore } from '@stores/job.store';
 import { MdlDialogService } from '@angular-mdl/core';
@@ -6,12 +6,11 @@ import { DialogFullScreenJsonComponent, injectableJsonString } from '@components
 import { DialogCloneJobFormComponent, injectableJob } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
 import { Job } from '@models/job';
 import { WorkersStore } from '@stores/workers.store';
-
+import { Workers } from '@models/workers';
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
 import '@node_modules/codemirror/addon/edit/closebrackets';
 import '@node_modules/codemirror/addon/display/placeholder';
-import {Workers} from '@models/workers';
 
 
 @Component({
@@ -20,11 +19,14 @@ import {Workers} from '@models/workers';
   styleUrls: ['./job-details.component.scss']
 })
 export class JobDetailsComponent implements OnInit, OnDestroy {
+  @Input() jobDetails;
+
   job: Job;
   codeMirrorOptions: {};
   public jobArguments: string;
   private activatedRouteSub: any;
   private jobStoreSub: any;
+  private jobWorkerSub: any;
   public sparkUiLink: string;
   private timeUpdaterLink;
 
@@ -36,11 +38,14 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.activatedRouteSub = this.activatedRoute.params
-      .subscribe((params) => {
-        this.loadInitialData(params['jobId']);
-      });
-
+    if (this.jobDetails) {
+      this.job = this.jobDetails;
+    } else {
+      this.activatedRouteSub = this.activatedRoute.params
+        .subscribe((params) => {
+          this.loadInitialData(params['jobId']);
+        });
+    }
     this.codeMirrorOptions = {
       matchBrackets: true,
       autoCloseBrackets: true,
@@ -53,26 +58,18 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.activatedRouteSub.unsubscribe();
-    this.jobStoreSub.unsubscribe();
+    if (this.activatedRouteSub) {
+      this.activatedRouteSub.unsubscribe();
+    }
+    if (this.jobStoreSub) {
+      this.jobStoreSub.unsubscribe();
+    }
     if (this.timeUpdaterLink) {
       clearInterval(this.timeUpdaterLink)
     }
-  }
-
-  private getSparkUiLink(job: Job): void {
-    if (!job) {
-      return;
+    if (this.jobWorkerSub) {
+      this.jobWorkerSub.unsubscribe();
     }
-
-    this.workersStore.getAll();
-    this.workersStore.workers.subscribe((workers: Workers[]) => {
-        workers.forEach((work) => {
-          if (job.workerId === work.name) {
-            this.sparkUiLink = work.sparkUi;
-          }
-        })
-      });
   }
 
   loadInitialData(jobId) {
@@ -83,11 +80,14 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         this.job = job;
 
         if (job) {
-          this.getSparkUiLink(job);
           this.timeUpdaterLink = this.jobStore.updateTime();
           this.jobArguments = JSON.stringify(JSON.parse(job.params).arguments, null, 2);
         }
     });
+    this.jobWorkerSub = this.jobStore.getJobsWorker(jobId)
+      .subscribe((worker: Workers) => {
+        this.sparkUiLink = worker.sparkUi;
+      });
   }
 
   openDialogJobForm() {
@@ -103,6 +103,9 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   openFullScreenJson(jsonString: string) {
+    if (typeof jsonString === 'object') {
+      jsonString = JSON.stringify(jsonString);
+    }
     this.dialog.showCustomDialog({
       component: DialogFullScreenJsonComponent,
       styles: { 'width': '100%', 'height': '100%'},

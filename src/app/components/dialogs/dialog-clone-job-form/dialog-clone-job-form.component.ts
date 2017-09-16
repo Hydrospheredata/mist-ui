@@ -64,8 +64,12 @@ export class DialogCloneJobFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.jobFormSub.unsubscribe();
-    this.jobStoreSub.unsubscribe();
+    if (this.jobFormSub) {
+      this.jobFormSub.unsubscribe();
+    }
+    if (this.jobStoreSub) {
+      this.jobStoreSub.unsubscribe();
+    }
   }
 
   createJobForm() {

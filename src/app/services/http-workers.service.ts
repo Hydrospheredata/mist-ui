@@ -20,4 +20,15 @@ export class HttpWorkersService {
       })
   }
 
+  get(id): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}`)
+      .map((res: Response) => {
+        return res.json();
+      })
+  }
+
+  delete(worker: Workers) {
+    return this.http.delete(`${this.baseUrl}/${worker.name}`)
+  }
+
 }

@@ -50,7 +50,9 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.contextStoreSub.unsubscribe();
+    if (this.contextStoreSub) {
+      this.contextStoreSub.unsubscribe();
+    }
   }
 
   createContextForm(context?: Context) {
