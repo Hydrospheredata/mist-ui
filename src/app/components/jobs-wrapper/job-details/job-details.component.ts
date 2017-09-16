@@ -26,6 +26,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   public jobArguments: string;
   private activatedRouteSub: any;
   private jobStoreSub: any;
+  private jobWorkerSub: any;
   public sparkUiLink: string;
   private timeUpdaterLink;
 
@@ -66,21 +67,9 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     if (this.timeUpdaterLink) {
       clearInterval(this.timeUpdaterLink)
     }
-  }
-
-  private getSparkUiLink(job: Job): void {
-    if (!job) {
-      return;
+    if (this.jobWorkerSub) {
+      this.jobWorkerSub.unsubscribe();
     }
-
-    this.workersStore.getAll();
-    this.workersStore.workers.subscribe((workers: Workers[]) => {
-        workers.forEach((work) => {
-          if (job.workerId === work.name) {
-            this.sparkUiLink = work.sparkUi;
-          }
-        })
-      });
   }
 
   loadInitialData(jobId) {
@@ -91,11 +80,14 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         this.job = job;
 
         if (job) {
-          this.getSparkUiLink(job);
           this.timeUpdaterLink = this.jobStore.updateTime();
           this.jobArguments = JSON.stringify(JSON.parse(job.params).arguments, null, 2);
         }
     });
+    this.jobWorkerSub = this.jobStore.getJobsWorker(jobId)
+      .subscribe((worker: Workers) => {
+        this.sparkUiLink = worker.sparkUi;
+      });
   }
 
   openDialogJobForm() {

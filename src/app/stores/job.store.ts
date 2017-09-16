@@ -147,4 +147,8 @@ export class JobStore {
     }, 60 * 2 * 1000)
   }
 
+  getJobsWorker(jobId: string) {
+    return this.backendService.getJobsWorker(jobId);
+  }
+
 }

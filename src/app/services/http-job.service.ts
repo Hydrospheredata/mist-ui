@@ -30,6 +30,13 @@ export class HttpJobService {
              .catch(this.handleError);
   }
 
+  public getJobsWorker(jobId: string) {
+    const apiUrl = `${this.baseUrl.jobs}/${jobId}/worker`;
+    return this.http.get(apiUrl)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
   public getByEndpoint(endpointId: string): Observable<Job[]> {
     const apiUrl = this.baseUrl.endpoints + `/${endpointId}/jobs`;
     return this.http.get(apiUrl)
