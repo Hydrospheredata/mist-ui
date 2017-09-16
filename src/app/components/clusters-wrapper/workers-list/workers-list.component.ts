@@ -11,6 +11,7 @@ import { WorkersStore } from '@stores/workers.store';
 export class WorkersListComponent implements OnInit, OnDestroy {
   public workers: Workers [];
   public workerSubscriber;
+  public searchQ: String;
 
   constructor(private workersStore: WorkersStore,
               private router: Router) { }
