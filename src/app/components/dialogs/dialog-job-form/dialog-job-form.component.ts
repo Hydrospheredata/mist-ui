@@ -57,7 +57,7 @@ export class DialogJobFormComponent implements OnInit {
     this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
   }
 
-  @HostListener('keydown.esc')
+  @HostListener('document:keydown.escape')
   public onEsc(): void {
     this.dialogRef.hide();
   }

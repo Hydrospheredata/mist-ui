@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Context } from '@models/context';
 import { MdlDialogReference, MdlSnackbarService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
@@ -47,6 +47,11 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     });
 
     this.createContextForm();
+  }
+
+  @HostListener('document:keydown.escape')
+  public onEsc(): void {
+    this.dialogRef.hide();
   }
 
   ngOnDestroy() {

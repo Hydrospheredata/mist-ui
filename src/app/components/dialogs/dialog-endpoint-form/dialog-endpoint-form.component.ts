@@ -45,7 +45,7 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
   private endpointFormSub;
   private contextStoreSub;
 
-  @HostListener('keydown.esc')
+  @HostListener('document:keydown.escape')
   public onEsc(): void {
     this.dialogRef.hide();
   }
