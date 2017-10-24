@@ -37,9 +37,11 @@ export class WorkerComponent implements OnInit {
   }
 
   loadInitialData(workerId: string) {
+    if (workerId !== 'overview') {
     this.workersStore.get(workerId)
       .subscribe((worker) => {
         this.worker = worker;
       });
+    }
   }
 }

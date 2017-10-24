@@ -72,7 +72,7 @@ export class DialogJobFormComponent implements OnInit {
     this.createJobForm();
     this.jobForm.valueChanges
       .subscribe(form => {
-        if (this.jobForm.invalid) {
+        if (!this.jobForm.invalid) {
           let executeParams = this.executeParams || '{}';
           const id = this.selectedEndpoint && this.selectedEndpoint.name ? this.selectedEndpoint.name : 'overview';
 
