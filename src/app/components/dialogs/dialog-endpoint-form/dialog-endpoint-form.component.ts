@@ -6,6 +6,7 @@ import { Context } from '@models/context';
 import { FormsService } from '@services/forms.service';
 import { EndpointStore } from '@stores/endpoint.store';
 import { ContextStore } from '@stores/context.store';
+import { JobStore } from '@stores/job.store'
 import { Endpoint } from '@models/endpoint';
 import { MdlSnackbarService } from '@angular-mdl/core';
 import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
@@ -45,7 +46,7 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
   private endpointFormSub;
   private contextStoreSub;
 
-  @HostListener('keydown.esc')
+  @HostListener('document:keydown.escape')
   public onEsc(): void {
     this.dialogRef.hide();
   }
@@ -54,6 +55,7 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
               public dialogRef: MdlDialogReference,
               private formsService: FormsService,
               private endpointStore: EndpointStore,
+              private jobStore: JobStore,
               private mdlSnackbarService: MdlSnackbarService,
               private dialog: MdlDialogService,
               private contextStore: ContextStore,
@@ -77,6 +79,7 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log(this.jobStore.jobs);
     this.createEndpointFrom();
     this.contextStore.getAll();
     this.contextStoreSub = this.contextStore.contexts.subscribe(data => { this.contexts = data });

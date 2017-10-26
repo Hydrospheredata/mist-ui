@@ -8,6 +8,13 @@
                      placeholder="Name"
                      formControlName="name">
     </mist-input-text>
+
+    <label>Worker Mode</label>
+    <div class="radio-group">
+      <mdl-radio value="shared" formControlName="workerMode" mdl-ripple>Shared</mdl-radio>
+      <mdl-radio value="exclusive" formControlName="workerMode" mdl-ripple>Exclusive</mdl-radio>
+    </div>
+
     <div class="" formArrayName="sparkConfs">
       <label>Spark Config</label>
       <div *ngFor="let sparkConf of contextForm['controls'].sparkConfs['controls']; let i = index">
@@ -45,7 +52,7 @@
 
     </mist-input-text>
 
-    <mdl-checkbox class="cs-form-input" formControlName="precreated">Reserve context for interactive queries</mdl-checkbox>
+    <mdl-checkbox *ngIf="contextForm.value.workerMode === 'shared'" class="cs-form-input" formControlName="precreated">Reserve context for interactive queries</mdl-checkbox>
 
     <mist-input-text class=""
                      [formErrors]="formErrors.maxJobs"
@@ -55,6 +62,7 @@
     </mist-input-text>
 
     <mist-input-text class=""
+                     *ngIf="contextForm.value.workerMode === 'shared'"
                      [formErrors]="formErrors.downtime"
                      label="Worker teardown timeout when idle"
                      placeholder=""
@@ -68,12 +76,6 @@
                      formControlName="streamingDuration">
     </mist-input-text>
 
-    <mist-input-text class=""
-                     [formErrors]="formErrors.workerMode"
-                     label="Worker Mode"
-                     placeholder=""
-                     formControlName="workerMode">
-    </mist-input-text>
 
 
 

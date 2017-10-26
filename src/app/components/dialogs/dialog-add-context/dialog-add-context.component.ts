@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Context } from '@models/context';
 import { MdlDialogReference, MdlSnackbarService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
@@ -49,6 +49,11 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     this.createContextForm();
   }
 
+  @HostListener('document:keydown.escape')
+  public onEsc(): void {
+    this.dialogRef.hide();
+  }
+
   ngOnDestroy() {
     if (this.contextStoreSub) {
       this.contextStoreSub.unsubscribe();
@@ -73,7 +78,7 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     });
 
     this.contextForm.valueChanges
-      .subscribe( () => {
+      .subscribe((data) => {
         fs.setErrors(this.contextForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addContext);
       });
 
@@ -148,6 +153,11 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
       workerMode: control.workerMode.value,
       streamingDuration: control.streamingDuration.value
     });
+
+    if (context.workerMode === 'exclusive') {
+      delete context.precreated;
+      delete context.downtime
+    }
 
     this.contextStore.createContext(context)
       .subscribe( (response) => {

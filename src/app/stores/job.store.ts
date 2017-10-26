@@ -45,7 +45,7 @@ export class JobStore {
   }
 
   public getAllRunning(): void {
-    this.backendService.where({status: ['initialized', 'started', 'queued']}).subscribe((jobs) => {
+    this.backendService.where({ status: ['initialized', 'started', 'queued'] }).subscribe((jobs) => {
       this.dataStore.runningJobs = jobs;
       this.updateStore('runningJobs');
     });
@@ -102,7 +102,7 @@ export class JobStore {
   // mode: 'selectedJobs' | 'runningJobs'
   private removeItem(job: Job, mode: string = 'selectedJobs') {
     let removedJob = this.dataStore[mode].find(rmvdJob => rmvdJob.jobId === job.jobId);
-    if(!removedJob) return false;
+    if (!removedJob) return false;
     let index: number = this.dataStore[mode].indexOf(removedJob);
     this.dataStore[mode].splice(index, 1);
     this.updateStore(mode);
@@ -136,12 +136,13 @@ export class JobStore {
         this.dataStore.selectedJobs[i].createTime++;
         this.dataStore.selectedJobs[i].startTime++;
         this.dataStore.selectedJobs[i].endTime++;
-
-        setTimeout(() => {
-          this.dataStore.selectedJobs[i].endTime--;
-          this.dataStore.selectedJobs[i].startTime--;
-          this.dataStore.selectedJobs[i].createTime--;
-        }, 60 * 1000);
+        ((i) => {
+          setTimeout(() => {
+            this.dataStore.selectedJobs[i].endTime--;
+            this.dataStore.selectedJobs[i].startTime--;
+            this.dataStore.selectedJobs[i].createTime--;
+          }, 60 * 1000);
+        })(i)
       }
 
     }, 60 * 2 * 1000)

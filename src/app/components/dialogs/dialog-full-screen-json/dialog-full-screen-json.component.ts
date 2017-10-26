@@ -17,7 +17,7 @@ export class DialogFullScreenJsonComponent implements OnInit {
   codeMirrorOptions: {};
   data: object;
 
-  @HostListener('keydown.esc')
+  @HostListener('document:keydown.escape')
   public onEsc(): void {
     this.dialogRef.hide();
   }

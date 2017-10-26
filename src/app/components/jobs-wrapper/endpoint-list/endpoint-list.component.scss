@@ -57,6 +57,7 @@
       display: inline-block;
     }
     &.endpoint-list__item {
+      outline: none;
       color: $main-color;
       font-family: $main-font-family;
       height: 100%;

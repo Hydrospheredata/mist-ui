@@ -44,7 +44,7 @@ export class DialogCloneJobFormComponent implements OnInit, OnDestroy {
     this.data = data;
   }
 
-  @HostListener('keydown.esc')
+  @HostListener('document:keydown.escape')
   public onEsc(): void {
     this.dialogRef.hide();
   }
