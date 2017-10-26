@@ -38,7 +38,8 @@ import { DialogCloneJobFormComponent } from '@components/dialogs/dialog-clone-jo
 // services
 import { HttpEndpointService } from '@services/http-endpoint.service';
 import { HttpJobService } from '@services/http-job.service';
-import { HttpContextsService } from '@services/http-contexts.service';
+import { HttpContextsService } from '@services/http-contexts.service'
+import { HttpArtifactsService } from '@services/http-artifacts.service';
 import { FormsService } from '@services/forms.service';
 import { WebSocketJobService } from '@services/web-socket-job.service';
 import { HttpService } from '@services/http.service';
@@ -128,6 +129,7 @@ import { WorkerComponent } from './components/clusters-wrapper/worker/worker.com
   providers: [
     HttpEndpointService,
     HttpJobService,
+    HttpArtifactsService,
     WebSocketJobService,
     JobStore,
     EndpointStore,

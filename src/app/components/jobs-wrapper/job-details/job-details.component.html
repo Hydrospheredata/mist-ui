@@ -75,7 +75,7 @@
                       [config]="codeMirrorOptions">
           </codemirror>
           <span class='material-icons job-details__full-screen-icon'
-                (click)="openFullScreenJson(job.params)">crop_free</span>
+                (click)="openFullScreenJson(jobDetails ? job.params : jobArguments)">crop_free</span>
         </div>
       </div>
       <div fxFlex="10" class='icon-separator'>

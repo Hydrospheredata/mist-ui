@@ -34,5 +34,6 @@ export class LoaderComponent implements AfterViewChecked, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.cd.detach();
   }
 }

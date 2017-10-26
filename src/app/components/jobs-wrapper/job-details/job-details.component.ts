@@ -91,7 +91,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   openDialogJobForm() {
-    let dialog = this.dialog.showCustomDialog({
+    const dialog = this.dialog.showCustomDialog({
       component: DialogCloneJobFormComponent,
       styles: {'max-width': '900px', 'width': '850px'},
       isModal: true,
