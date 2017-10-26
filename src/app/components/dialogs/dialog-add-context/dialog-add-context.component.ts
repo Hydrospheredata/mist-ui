@@ -78,7 +78,7 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     });
 
     this.contextForm.valueChanges
-      .subscribe( () => {
+      .subscribe((data) => {
         fs.setErrors(this.contextForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addContext);
       });
 
@@ -153,6 +153,11 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
       workerMode: control.workerMode.value,
       streamingDuration: control.streamingDuration.value
     });
+
+    if (context.workerMode === 'exclusive') {
+      delete context.precreated;
+      delete context.downtime
+    }
 
     this.contextStore.createContext(context)
       .subscribe( (response) => {
