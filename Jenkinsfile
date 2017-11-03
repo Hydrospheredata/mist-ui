@@ -4,7 +4,7 @@ def currentVersion() {
 }
 
 def changeVersion(version) {
-    sh "sed -i  's/"version":.*/"version": "${version}",/' package.json"
+    sh "sed -i  's/\"version\":.*/\"version\": \"${version}\",/' package.json"
 }
 
 def calculateReleaseVersion(currentVersion) {
