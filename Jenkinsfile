@@ -1,5 +1,4 @@
 def currentVersion() {
-    import groovy.json.JsonSlurper
     def JSON = readFile("package.json")
     def slurper = new JsonSlurper()
     def result = slurper.parseText(JSON)
@@ -7,8 +6,6 @@ def currentVersion() {
 }
 
 def changeVersion(version) {
-    import groovy.json.JsonSlurper
-    import groovy.json.JsonBuilder 
     def JSON = readFile("package.json")
     def slurper = new JsonSlurper()
     def result = slurper.parseText(JSON)
