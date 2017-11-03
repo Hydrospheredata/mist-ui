@@ -103,11 +103,7 @@ node("JenkinsOnDemand") {
             def curVersion = currentVersion()
             tagComment=generateTagComment(curVersion)
             sh "git commit -m 'Releasing ${curVersion}' -- package.json"
-            sh "git tag -a ${curVersion} -m '${tagComment}'"
-
-            sh "git checkout master"
-
-
+            sh "git tag -a v${curVersion} -m '${tagComment}'"
             pushSource(gitCredentialId, organization, repository, "")
             pushSource(gitCredentialId, organization, repository, "refs/tags/${curVersion}")
             def releaseInfo=createReleaseInGithub(gitCredentialId, organization, repository,curVersion,tagComment)
