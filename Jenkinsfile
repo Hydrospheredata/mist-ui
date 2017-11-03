@@ -1,20 +1,10 @@
 def currentVersion() {
-    import groovy.json.JsonSlurper
-    def JSON = readFile("package.json")
-    def slurper = new JsonSlurper()
-    def result = slurper.parseText(JSON)
-    return result.version
+    def version = sh(returnStdout: true, script: 'cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]'').trim()
+    return version
 }
 
 def changeVersion(version) {
-    import groovy.json.JsonSlurper
-    import groovy.json.JsonBuilder 
-    def JSON = readFile("package.json")
-    def slurper = new JsonSlurper()
-    def result = slurper.parseText(JSON)
-    def builder = new JsonBuilder(result) 
-    builder.content.version = version
-    writeFile file: 'package.json', text: builder
+    sh "sed -i  's/"version":.*/"version": "${version}",/' package.json"
 }
 
 def calculateReleaseVersion(currentVersion) {
