@@ -103,9 +103,9 @@ node("JenkinsOnDemand") {
             def curVersion = currentVersion()
             tagComment=generateTagComment(curVersion)
             sh "git commit -m 'Releasing ${curVersion}' -- package.json"
-            sh "git tag -a v${curVersion} -m '${tagComment}'"
+            sh "git tag -a ${curVersion} -m '${tagComment}'"
             pushSource(gitCredentialId, organization, repository, "")
-            pushSource(gitCredentialId, organization, repository, "refs/tags/v${curVersion}")
+            pushSource(gitCredentialId, organization, repository, "refs/tags/${curVersion}")
             def releaseInfo=createReleaseInGithub(gitCredentialId, organization, repository,curVersion,tagComment)
             def props = readJSON text: "${releaseInfo}"
             def releaseFile="mist-ui-${curVersion}.tar.gz"
