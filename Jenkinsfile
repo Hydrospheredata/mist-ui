@@ -102,7 +102,7 @@ node("JenkinsOnDemand") {
         stage("Publish"){
             def curVersion = currentVersion()
             tagComment=generateTagComment(curVersion)
-            sh "git commit -m 'Releasing ${curVersion}' -- version"
+            sh "git commit -m 'Releasing ${curVersion}' -- package.json"
             sh "git tag -a ${curVersion} -m '${tagComment}'"
 
             sh "git checkout master"
