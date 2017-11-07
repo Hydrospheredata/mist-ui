@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class MockActivatedRoute {
 
