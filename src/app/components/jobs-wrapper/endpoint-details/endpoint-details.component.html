@@ -52,6 +52,27 @@
   </div>
   <hr/>
   <div class='mist-page-content'>
+      <div *ngIf="!isOverview"  fxLayout="row" fxLayoutAlign="space-between start">
+          <div fxFlex="90%" fxLayout="column" fxLayoutAlign="space-between start"
+               class='mist-page-header__row mist-page-header__row--status'>
+               <div title="Language {{ endpoint?.lang }}" class=''>
+                  <span class='context mist-label'>Language</span>
+                  <span style="text-transform: capitalize">{{ endpoint?.lang }}</span>
+               </div>
+               <div title="Path {{ endpoint?.path }}" class=''>
+                  <span class='context mist-label'>Path</span>
+                  <span>{{ endpoint?.path }}</span>
+               </div>
+               <div title="Context {{ endpoint?.defaultContext }}" class=''>
+                  <span class='context mist-label'>Context</span>
+                  <span>{{ endpoint?.defaultContext }}</span>
+               </div>
+               <div title="Class {{ endpoint?.className }}" class=''>
+                  <span class='context mist-label'>Class</span>
+                  <span>{{ endpoint?.className }}</span>
+               </div>
+          </div>
+        </div>
     <table class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp'>
       <tbody>
       <ng-template ngFor let-job [ngForOf]="jobs | jobStatusFilter:statusFilter | sortBy:'createTime'">
