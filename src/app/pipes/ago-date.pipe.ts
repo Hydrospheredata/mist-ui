@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as moment from 'moment';
+import * as moment from 'moment/min/moment.min';
 // import * as moment-timer from 'moment-timer';
 
 @Pipe({
