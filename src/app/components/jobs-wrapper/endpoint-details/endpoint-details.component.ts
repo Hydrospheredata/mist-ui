@@ -24,7 +24,8 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
   private activatedRouteSub: any;
   private contextStoreSub;
   public contexts: Context[];
-  public currentContext: Context;
+  public currentContext: string;
+  public isOverview: boolean;
   public timeUpdaterLink: any;
 
   constructor(
@@ -43,6 +44,7 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     this.activatedRouteSub = this.activatedRoute.params
       .map((params) => {
         this.currentContext = params['endpointId'];
+        this.isOverview = this.currentContext === 'overview';
         return params['endpointId'];
       })
       .subscribe((id) => { this.loadInitialData(id) });

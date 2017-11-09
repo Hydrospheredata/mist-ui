@@ -69,10 +69,10 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
 
     this.selectedEndpoint = data;
     if (!this.selectedEndpoint) {
-      this.formTitle = 'Add Endpoint';
+      this.formTitle = 'Add Function';
       this.requestMethod = 'POST';
     } else {
-      this.formTitle = 'Update Endpoint';
+      this.formTitle = 'Update Function';
       this.endpointNameReadOnly = true;
       this.requestMethod = 'PUT';
     }
