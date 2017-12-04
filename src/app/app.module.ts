@@ -34,6 +34,7 @@ import { InputTextareaComponent } from '@components/form/input-textarea/input-te
 import { DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
 import { JobLogsComponent } from '@components/jobs-wrapper/job-logs/job-logs.component';
 import { DialogCloneJobFormComponent } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
+import { FunctionsWrapperComponent, FunctionsItemDetailComponent } from '@components/functions/_index';
 
 // services
 import { HttpEndpointService } from '@services/http-endpoint.service';
@@ -89,6 +90,8 @@ import { WorkerComponent } from './components/clusters-wrapper/worker/worker.com
     DialogCloneJobFormComponent,
     LoaderComponent,
     AlertComponent,
+    FunctionsWrapperComponent, 
+    FunctionsItemDetailComponent,
     // pipes
     SearchPipe,
     AgoDatePipe,
