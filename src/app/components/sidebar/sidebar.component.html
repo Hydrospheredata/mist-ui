@@ -1,0 +1,18 @@
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-header__row">
+            <h3 class='sidebar-title'>{{sidebarTitle}}</h3>
+        </div>
+        <div class="sidebar-header__row">
+            <mist-input-text class="sidebar-search" inputClass="sidebar-search" placeholder="Search" [(ngModel)]="searchQ" iconName="search" iconDirection="left"></mist-input-text>
+        </div>
+    </div>
+
+    <div class="sidebar-body">
+        <ul class='sidebar-list'>
+            <li *ngFor="let item of sidebarList" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
+                <span class="sidebar-list__item-name">{{ item.name }}</span>
+            </li>
+        </ul>
+    </div>
+</aside>

@@ -2,6 +2,8 @@
 @import "fonts.scss";
 @import "variables.scss";
 
+@import "content.scss";
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -18,6 +20,7 @@ html, body {
   font-family: $main-font-family !important;
   background-color: $main-bg-color;
   color:  $main-color;
+  height: 100%;
 }
 
 .h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
@@ -89,6 +92,7 @@ button:focus, input:focus {
 aside {
   background-color: $aside-bg-color;
   flex-shrink: 0;
+  overflow-y: auto;
 }
 
 li a {

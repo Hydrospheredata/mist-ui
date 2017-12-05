@@ -1,10 +1,19 @@
-<mist-loader></mist-loader>
+<!-- <mist-loader></mist-loader>
 <div class="mdl-layout__container">
   <div class="mdl-layout mdl-layout--no-drawer-button">
-    <!-- Navigation -->
-    <mist-navbar class="mdl-layout--fixed-header"></mist-navbar>
-    <!-- Router Outlet -->
+    <navbar class="mdl-layout--fixed-header"></navbar>
     <router-outlet></router-outlet>
   </div>
 </div>
+<dialog-outlet></dialog-outlet> -->
+
+
+<mist-loader></mist-loader>
+<div class="app-container">
+    <navbar></navbar>
+    <main class="app-body">
+        <router-outlet></router-outlet>
+    </main>
+</div>
 <dialog-outlet></dialog-outlet>
+

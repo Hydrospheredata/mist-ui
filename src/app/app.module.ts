@@ -35,6 +35,7 @@ import { DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dial
 import { JobLogsComponent } from '@components/jobs-wrapper/job-logs/job-logs.component';
 import { DialogCloneJobFormComponent } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
 import { FunctionsWrapperComponent, FunctionsItemDetailComponent } from '@components/functions/_index';
+import { SidebarComponent } from '@components/sidebar/sidebar.component';
 
 // services
 import { HttpEndpointService } from '@services/http-endpoint.service';
@@ -92,6 +93,7 @@ import { WorkerComponent } from './components/clusters-wrapper/worker/worker.com
     AlertComponent,
     FunctionsWrapperComponent, 
     FunctionsItemDetailComponent,
+    SidebarComponent,
     // pipes
     SearchPipe,
     AgoDatePipe,

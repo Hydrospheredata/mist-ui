@@ -13,17 +13,7 @@ import {WorkersListComponent} from '@components/clusters-wrapper/workers-list/wo
 import { FunctionsWrapperComponent, FunctionsItemDetailComponent } from '@components/functions/_index';
 
 
-// Route Configuration
 export const routes: Routes = [
-    {
-        path: '',
-        redirectTo: '/jobs/overview',
-        pathMatch: 'full'
-    },
-    {
-        path: 'home',
-        component: HomeComponent
-    },
     {
         path: 'clusters',
         component: ClustersWrapperComponent,
@@ -41,21 +31,20 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'settings',
-        component: HomeComponent
-    },
-    {
         path: 'jobs',
         component: JobsWrapperComponent,
         children: [
             {
+                path: '',
+                redirectTo: 'overview',
+                pathMatch: 'full'
+            },
+            {
                 path: ':endpointId',
-                pathMatch: 'prefix',
                 component: EndpointDetailsComponent
             },
             {
                 path: ':endpointId/:jobId',
-                pathMatch: 'prefix',
                 component: JobDetailsComponent
             }
         ]
