@@ -1,4 +1,28 @@
-<div class='workers-list__row workers-list__row--big'>
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-header__row">
+          <h3 class='sidebar-title'>Workers</h3>
+        </div>
+        <div class="sidebar-header__row">
+          <mist-input-text class="sidebar-search" inputClass="sidebar-search"
+            placeholder="Search"
+            [(ngModel)]="searchQ"
+            iconName="search"
+            iconDirection="left"
+          ></mist-input-text>
+        </div>
+    </div>
+    <div class="sidebar-body">
+        <ul class='sidebar-list'>
+            <li *ngFor="let item of workers | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="['workers/' + item.name]" routerLinkActive='__active'>
+                <span class="sidebar-list__item-name">{{ item.name }}</span>
+                <mdl-icon title="Edit workers" (click)="deleteWorker(item)">delete_forever</mdl-icon>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+<!-- <div class='workers-list__row workers-list__row--big'>
   <div class='workers-list__header'>
     <div class="mdl-grid cs-align-center cs-mt-8 cs-mb-16 cs-text-right">
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet cs-text-left">
@@ -32,4 +56,4 @@
     </ng-template>
   </ul>
 
-</div>
+</div> -->

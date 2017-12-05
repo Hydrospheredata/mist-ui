@@ -149,6 +149,7 @@ export class JobStore {
   }
 
   getJobsWorker(jobId: string) {
+    console.log(jobId);
     return this.backendService.getJobsWorker(jobId);
   }
 

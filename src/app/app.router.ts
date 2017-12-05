@@ -15,6 +15,11 @@ import { FunctionsWrapperComponent, FunctionsItemDetailComponent } from '@compon
 
 export const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'jobs',
+        pathMatch: 'full'
+    },
+    {
         path: 'clusters',
         component: ClustersWrapperComponent,
         children: [
