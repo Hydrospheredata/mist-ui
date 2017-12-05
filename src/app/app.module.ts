@@ -36,6 +36,11 @@ import { JobLogsComponent } from '@components/jobs-wrapper/job-logs/job-logs.com
 import { DialogCloneJobFormComponent } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
 import { FunctionsWrapperComponent, FunctionsItemDetailComponent } from '@components/functions/_index';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
+import { ClustersWrapperComponent } from '@components/clusters-wrapper/clusters-wrapper.component';
+import { WorkersListComponent } from '@components/clusters-wrapper/workers-list/workers-list.component';
+import { WorkerComponent } from '@components/clusters-wrapper/worker/worker.component';
+import { LoaderComponent } from '@components/loader/loader.component';
+import { AlertComponent } from '@components/alert/alert.component';
 
 // services
 import { HttpEndpointService } from '@services/http-endpoint.service';
@@ -63,13 +68,10 @@ import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
 import { AgoDatePipe } from '@pipes/ago-date.pipe';
 import { SearchPipe } from '@pipes/search.pipe';
 import { SortByPipe } from '@pipes/sort-by.pipe';
-import { JobIdCutPipe } from './pipes/job-id-cut.pipe';
-import { LoaderComponent } from './components/loader/loader.component';
-import { AlertComponent } from './components/alert/alert.component';
-import { ReplaceToBrNewLineCharPipe } from './pipes/replace-to-br-new-line-char.pipe';
-import { ClustersWrapperComponent } from './components/clusters-wrapper/clusters-wrapper.component';
-import { WorkersListComponent } from './components/clusters-wrapper/workers-list/workers-list.component';
-import { WorkerComponent } from './components/clusters-wrapper/worker/worker.component';
+import { JobIdCutPipe } from '@pipes/job-id-cut.pipe';
+import { ReplaceToBrNewLineCharPipe } from '@pipes/replace-to-br-new-line-char.pipe';
+
+
 
 @NgModule({
   declarations: [
