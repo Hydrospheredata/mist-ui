@@ -8,6 +8,13 @@
         flex-direction: row;
         min-height: 100%;
         width: 100%;
+        > mist-endpoint-list,
+            mist-workers-list {
+            flex-basis: 25%;
+        }
+        > div {
+            flex: 1 1 75%;
+        }
     }
     &-header {
         display: flex;
