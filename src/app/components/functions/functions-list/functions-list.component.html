@@ -2,11 +2,6 @@
     <div class="sidebar-header">
         <div class="sidebar-header__row">
             <h3 class='sidebar-title'>Functions</h3>
-            <mdl-button (click)="openDialogEndpointForm()" class="mist-button blue border icon" title="Add new endpoint"
-            mdl-colored="">
-            <mdl-icon>add</mdl-icon>
-            <span fxHide.sm fxHide.md>Add</span>
-            </mdl-button>
         </div>
         <div class="sidebar-header__row">
           <mist-input-text class="sidebar-search" inputClass="sidebar-search"
@@ -21,8 +16,6 @@
         <ul class='sidebar-list'>
             <li *ngFor="let item of endpoints | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
                 <span class="sidebar-list__item-name">{{ item.name }}</span>
-                <mdl-icon [ngClass]="{'cs-visible': activeEndpoint == item.name}"
-                  title="Edit endpoint" (click)="openDialogEndpointForm(item)">settings</mdl-icon>
                 <span class='endpoint-list__badge'
                       *ngIf="runningJobsCountBy(item.name)"
                       [mdl-badge]="runningJobsCountBy(item.name)"></span>
