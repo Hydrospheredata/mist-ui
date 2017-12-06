@@ -23,17 +23,11 @@ import { HomeComponent } from '@components/home/home.component';
 import { NavbarComponent } from '@components/navbar/navbar.component';
 import { EndpointListComponent } from '@components/jobs-wrapper/endpoint-list/endpoint-list.component';
 import { EndpointDetailsComponent } from '@components/jobs-wrapper/endpoint-details/endpoint-details.component';
-import { DialogJobFormComponent } from '@components/dialogs/dialog-job-form/dialog-job-form.component';
 import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
-import { DialogFullScreenJsonComponent } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
-import { DialogEndpointFormComponent } from '@components/dialogs/dialog-endpoint-form/dialog-endpoint-form.component';
-import { DialogAddContextComponent } from './components/dialogs/dialog-add-context/dialog-add-context.component';
 import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.component';
 import { InputTextComponent } from '@components/form/input-text/input-text.component';
 import { InputTextareaComponent } from '@components/form/input-textarea/input-textarea.component';
-import { DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
 import { JobLogsComponent } from '@components/jobs-wrapper/job-logs/job-logs.component';
-import { DialogCloneJobFormComponent } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
 import { FunctionsWrapperComponent, FunctionsItemDetailComponent, FunctionsListComponent } from '@components/functions/_index';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
 import { ClustersWrapperComponent } from '@components/clusters-wrapper/clusters-wrapper.component';
@@ -42,117 +36,130 @@ import { WorkerComponent } from '@components/clusters-wrapper/worker/worker.comp
 import { LoaderComponent } from '@components/loader/loader.component';
 import { AlertComponent } from '@components/alert/alert.component';
 
+import { 
+    DialogJobLogsComponent,
+    DialogJobFormComponent,
+    DialogFullScreenJsonComponent,
+    DialogEndpointFormComponent,
+    DialogAddContextComponent,
+    DialogCloneJobFormComponent
+} from '@components/dialogs/_index';
+
 // services
-import { HttpEndpointService } from '@services/http-endpoint.service';
-import { HttpJobService } from '@services/http-job.service';
-import { HttpContextsService } from '@services/http-contexts.service'
-import { HttpArtifactsService } from '@services/http-artifacts.service';
-import { FormsService } from '@services/forms.service';
-import { WebSocketJobService } from '@services/web-socket-job.service';
-import { HttpService } from '@services/http.service';
-import { LoaderService } from '@services/loader.service';
-import { MistRequestOptions } from '@services/mist-request-options';
-import { HttpWorkersService } from '@services/http-workers.service';
+import { 
+    HttpEndpointService,
+    HttpJobService,
+    HttpContextsService,
+    HttpArtifactsService,
+    FormsService,
+    WebSocketJobService,
+    HttpService,
+    LoaderService,
+    MistRequestOptions,
+    HttpWorkersService
+} from '@services/_index';
 
 // factories
 import { httpServiceFactory } from './factories/http-service-factory';
 
 // stores
-import { JobStore } from '@stores/job.store';
-import { EndpointStore } from '@stores/endpoint.store';
-import { ContextStore } from '@stores/context.store';
-import { WorkersStore } from '@stores/workers.store';
+import { 
+    JobStore, 
+    EndpointStore, 
+    ContextStore, 
+    WorkersStore 
+} from '@stores/_index';
 
 // pipes
-import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
-import { AgoDatePipe } from '@pipes/ago-date.pipe';
-import { SearchPipe } from '@pipes/search.pipe';
-import { SortByPipe } from '@pipes/sort-by.pipe';
-import { JobIdCutPipe } from '@pipes/job-id-cut.pipe';
-import { ReplaceToBrNewLineCharPipe } from '@pipes/replace-to-br-new-line-char.pipe';
+import { 
+    JobStatusFilterPipe,
+    AgoDatePipe,
+    SearchPipe,
+    SortByPipe,
+    JobIdCutPipe,
+    ReplaceToBrNewLineCharPipe
+} from '@pipes/_index';
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    NavbarComponent,
-    EndpointListComponent,
-    EndpointDetailsComponent,
-    DialogJobFormComponent,
-    JobDetailsComponent,
-    DialogEndpointFormComponent,
-    DialogAddContextComponent,
-    DialogFullScreenJsonComponent,
-    DialogJobLogsComponent,
-    InputTextComponent,
-    InputTextareaComponent,
-    JobsWrapperComponent,
-    JobLogsComponent,
-    DialogCloneJobFormComponent,
-    LoaderComponent,
-    AlertComponent,
-    FunctionsWrapperComponent, 
-    FunctionsItemDetailComponent,
-    FunctionsListComponent,
-    SidebarComponent,
-    // pipes
-    SearchPipe,
-    AgoDatePipe,
-    JobStatusFilterPipe,
-    SortByPipe,
-    JobIdCutPipe,
-    ReplaceToBrNewLineCharPipe,
-    ClustersWrapperComponent,
-    WorkersListComponent,
-    WorkerComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule,
-    routing,
-    // material modules
-    BrowserAnimationsModule,
-    MdlModule,
-    MdlDialogModule,
-    MdlSelectModule,
-    // codemirror
-    CodemirrorModule,
-    FlexLayoutModule,
-    ClipboardModule
-  ],
-  exports: [
-  ],
-  entryComponents: [
-    DialogJobFormComponent,
-    DialogFullScreenJsonComponent,
-    DialogEndpointFormComponent,
-    DialogAddContextComponent,
-    DialogJobLogsComponent,
-    DialogCloneJobFormComponent
-  ],
-  providers: [
-    HttpEndpointService,
-    HttpJobService,
-    HttpArtifactsService,
-    WebSocketJobService,
-    JobStore,
-    EndpointStore,
-    WorkersStore,
-    HttpContextsService,
-    ContextStore,
-    HttpService,
-    LoaderService,
-    HttpWorkersService,
-    {
-      provide: HttpService,
-      useFactory: httpServiceFactory,
-      deps: [XHRBackend, RequestOptions, Location, LoaderService ]
-    }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        NavbarComponent,
+        EndpointListComponent,
+        EndpointDetailsComponent,
+        DialogJobFormComponent,
+        JobDetailsComponent,
+        DialogEndpointFormComponent,
+        DialogAddContextComponent,
+        DialogFullScreenJsonComponent,
+        DialogJobLogsComponent,
+        InputTextComponent,
+        InputTextareaComponent,
+        JobsWrapperComponent,
+        JobLogsComponent,
+        DialogCloneJobFormComponent,
+        LoaderComponent,
+        AlertComponent,
+        FunctionsWrapperComponent, 
+        FunctionsItemDetailComponent,
+        FunctionsListComponent,
+        SidebarComponent,
+        // pipes
+        SearchPipe,
+        AgoDatePipe,
+        JobStatusFilterPipe,
+        SortByPipe,
+        JobIdCutPipe,
+        ReplaceToBrNewLineCharPipe,
+        ClustersWrapperComponent,
+        WorkersListComponent,
+        WorkerComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule,
+        routing,
+        // material modules
+        BrowserAnimationsModule,
+        MdlModule,
+        MdlDialogModule,
+        MdlSelectModule,
+        // codemirror
+        CodemirrorModule,
+        FlexLayoutModule,
+        ClipboardModule
+    ],
+    entryComponents: [
+        DialogJobFormComponent,
+        DialogFullScreenJsonComponent,
+        DialogEndpointFormComponent,
+        DialogAddContextComponent,
+        DialogJobLogsComponent,
+        DialogCloneJobFormComponent
+    ],
+    providers: [
+        HttpEndpointService,
+        HttpJobService,
+        HttpArtifactsService,
+        WebSocketJobService,
+        JobStore,
+        EndpointStore,
+        WorkersStore,
+        HttpContextsService,
+        ContextStore,
+        HttpService,
+        LoaderService,
+        HttpWorkersService,
+        {
+            provide: HttpService,
+            useFactory: httpServiceFactory,
+            deps: [XHRBackend, RequestOptions, Location, LoaderService ]
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
