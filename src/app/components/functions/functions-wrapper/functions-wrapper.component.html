@@ -1,4 +1,6 @@
 <div class="content-wrapper">
-    <sidebar [sidebarData]="functions" [sidebarTitle]="'Functions'"></sidebar>
-    <router-outlet></router-outlet>
+    <mist-functions-list></mist-functions-list>
+    <div class='mdl-layout__content'>
+        <router-outlet></router-outlet>
+    </div>
 </div>

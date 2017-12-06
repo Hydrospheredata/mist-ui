@@ -34,7 +34,7 @@ import { InputTextareaComponent } from '@components/form/input-textarea/input-te
 import { DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
 import { JobLogsComponent } from '@components/jobs-wrapper/job-logs/job-logs.component';
 import { DialogCloneJobFormComponent } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
-import { FunctionsWrapperComponent, FunctionsItemDetailComponent } from '@components/functions/_index';
+import { FunctionsWrapperComponent, FunctionsItemDetailComponent, FunctionsListComponent } from '@components/functions/_index';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
 import { ClustersWrapperComponent } from '@components/clusters-wrapper/clusters-wrapper.component';
 import { WorkersListComponent } from '@components/clusters-wrapper/workers-list/workers-list.component';
@@ -95,6 +95,7 @@ import { ReplaceToBrNewLineCharPipe } from '@pipes/replace-to-br-new-line-char.p
     AlertComponent,
     FunctionsWrapperComponent, 
     FunctionsItemDetailComponent,
+    FunctionsListComponent,
     SidebarComponent,
     // pipes
     SearchPipe,

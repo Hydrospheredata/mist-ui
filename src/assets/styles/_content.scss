@@ -9,7 +9,8 @@
         min-height: 100%;
         width: 100%;
         > mist-endpoint-list,
-            mist-workers-list {
+            mist-workers-list,
+            mist-functions-list {
             flex-basis: 25%;
         }
         > div {

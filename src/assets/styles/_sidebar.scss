@@ -48,13 +48,9 @@
       &:focus {
         background-color: $secondary-color;
       }
-      &.__main {
-        justify-content: flex-start;
-      }
-      > span {
-        font-size: 18px;
-        font-family:'Museo Sans Bold';
-        color: #04143c;
+      > div {
+        display: flex;
+        align-items: center;
       }
       &-status {
         display: flex;
@@ -73,6 +69,9 @@
         max-width: 14vw;
         line-break: strict;
         text-overflow: ellipsis;
+        font-size: 18px;
+        font-family: 'Museo Sans Bold';
+        color: #04143c;
       }
     }
   }

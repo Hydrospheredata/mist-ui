@@ -19,14 +19,18 @@
     </div>
     <div class="sidebar-body">
         <ul class='sidebar-list'>
-            <li class='sidebar-list__item __main' [routerLink]="['overview']" routerLinkActive='__active'>
-                <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>
-                  view_comfy
-                </i>
-                <span class="sidebar-list__item-name">All Jobs</span>
-                <span class='endpoint-list__badge'
-                      *ngIf="runningJobs.length"
-                      [mdl-badge]="runningJobs.length"></span>
+            <li class='sidebar-list__item' [routerLink]="['overview']" routerLinkActive='__active'>
+                <div>
+                    <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>
+                      view_comfy
+                    </i>
+                    <span class="sidebar-list__item-name">All Jobs</span>
+                </div>
+                <div>
+                    <span class='endpoint-list__badge'
+                          *ngIf="runningJobs.length"
+                          [mdl-badge]="runningJobs.length"></span>
+                </div>
             </li>
             <li *ngFor="let item of endpoints | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
                 <span class="sidebar-list__item-name">{{ item.name }}</span>
