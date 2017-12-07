@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as moment from 'moment/min/moment.min';
-// import * as moment-timer from 'moment-timer';
+import * as moment from 'moment';
+
+
 
 @Pipe({
   name: 'agoDate'
