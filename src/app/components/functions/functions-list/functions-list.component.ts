@@ -5,7 +5,7 @@ import { JobStore } from '@stores/job.store';
 import { Endpoint } from '@models/endpoint';
 import { Job } from '@models/job';
 import { MdlDialogService } from '@angular-mdl/core';
-import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components/dialogs/dialog-endpoint-form/dialog-endpoint-form.component';
+import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components/dialogs/_index';
 
 @Component({
   selector: 'mist-functions-list',

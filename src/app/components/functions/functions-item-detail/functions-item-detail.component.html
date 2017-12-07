@@ -1,20 +1,32 @@
-<div fxLayout="row" fxLayoutAlign="space-between start">
-    <div fxFlex="90%" fxLayout="column" fxLayoutAlign="space-between start" class='mist-page-header__row mist-page-header__row--status'>
-        <div title="Language {{ endpoint?.lang }}" class='mist-endpoint-detail'>
-            <span class='context mist-label'>Language</span>
-            <span style="text-transform: capitalize">{{ endpoint?.lang }}</span>
+<div class="mist-page-container">
+    <div class="mist-page-header">
+        <div class="cs-text-right" fxFlex.md="10" fxFlex.sm="10" fxFlex.lg="20">
+            <mdl-button (click)="openDialogEndpointForm(endpoint)" class="mist-button blue border icon" title="Edit" mdl-colored="">
+                <mdl-icon>edit</mdl-icon>
+                <span fxHide.md fxHide.sm>Edit</span>
+            </mdl-button>
         </div>
-        <div title="Path {{ endpoint?.path }}" class='mist-endpoint-detail'>
-            <span class='context mist-label'>Path</span>
-            <span>{{ endpoint?.path }}</span>
-        </div>
-        <div title="Context {{ endpoint?.defaultContext }}" class='mist-endpoint-detail'>
-            <span class='context mist-label'>Context</span>
-            <span>{{ endpoint?.defaultContext }}</span>
-        </div>
-        <div title="Class {{ endpoint?.className }}" class='mist-endpoint-detail'>
-            <span class='context mist-label'>Class</span>
-            <span>{{ endpoint?.className }}</span>
+    </div>
+    <div class="mist-page-content">
+        <div fxLayout="row" fxLayoutAlign="space-between start">
+            <div fxFlex="90%" fxLayout="column" fxLayoutAlign="space-between start" class='mist-page-header__row mist-page-header__row--status'>
+                <div title="Language {{ endpoint?.lang }}" class='mist-endpoint-detail'>
+                    <span class='context mist-label'>Language</span>
+                    <span style="text-transform: capitalize">{{ endpoint?.lang }}</span>
+                </div>
+                <div title="Path {{ endpoint?.path }}" class='mist-endpoint-detail'>
+                    <span class='context mist-label'>Path</span>
+                    <span>{{ endpoint?.path }}</span>
+                </div>
+                <div title="Context {{ endpoint?.defaultContext }}" class='mist-endpoint-detail'>
+                    <span class='context mist-label'>Context</span>
+                    <span>{{ endpoint?.defaultContext }}</span>
+                </div>
+                <div title="Class {{ endpoint?.className }}" class='mist-endpoint-detail'>
+                    <span class='context mist-label'>Class</span>
+                    <span>{{ endpoint?.className }}</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
