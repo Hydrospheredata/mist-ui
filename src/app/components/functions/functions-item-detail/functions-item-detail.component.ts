@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { JobStore, EndpointStore } from '@stores/_index';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components/dialogs/_index';
+import { Endpoint } from '@models/endpoint';
 
 
 
@@ -12,6 +13,8 @@ import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components
     styleUrls: ['./functions-item-detail.component.scss']
 })
 export class FunctionsItemDetailComponent {
+
+    private endpoint: Endpoint;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -30,10 +33,11 @@ export class FunctionsItemDetailComponent {
 
     loadInitialData(id: string) {
         this.jobStore.getByEndpoint(id);
-        this.endpointStore.endpoints.subscribe(data => {
-            const endpoint = data.find(item => item.name === id) || data[0];
-            this.endpoint = endpoint;
-        });
+        this.endpointStore.endpoints
+                .subscribe(data => {
+                    const endpoint = data.find(item => item.name === id) || data[0];
+                    this.endpoint = endpoint;
+                });
     }
 
     openDialogEndpointForm(endpoint = null) {
