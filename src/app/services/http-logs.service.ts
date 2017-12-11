@@ -26,10 +26,6 @@ export class HttpLogsService {
         const apiUrl = this.baseUrl + `/${jobId}/logs`;
         return this.http.get(apiUrl)
             .map((res: Response) => {
-                console.log("get");
-                console.log(res);
-                console.log(JSON.stringify(res._body, null, 4));
-                // res.json().then(data => console.log(data));
                 return res['_body'].split('\n');
             })
             .catch(this.handleError);

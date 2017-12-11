@@ -29,7 +29,6 @@ import { InputTextComponent } from '@components/form/input-text/input-text.compo
 import { InputTextareaComponent } from '@components/form/input-textarea/input-textarea.component';
 import { JobLogsComponent } from '@components/jobs-wrapper/job-logs/job-logs.component';
 import { FunctionsWrapperComponent, FunctionsItemDetailComponent, FunctionsListComponent } from '@components/functions/_index';
-import { SidebarComponent } from '@components/sidebar/sidebar.component';
 import { ClustersWrapperComponent } from '@components/clusters-wrapper/clusters-wrapper.component';
 import { WorkersListComponent } from '@components/clusters-wrapper/workers-list/workers-list.component';
 import { WorkerComponent } from '@components/clusters-wrapper/worker/worker.component';
@@ -105,7 +104,6 @@ import {
         FunctionsWrapperComponent, 
         FunctionsItemDetailComponent,
         FunctionsListComponent,
-        SidebarComponent,
         // pipes
         SearchPipe,
         AgoDatePipe,
