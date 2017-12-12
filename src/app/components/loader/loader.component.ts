@@ -1,8 +1,10 @@
 import { Component, OnDestroy, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { LoaderService } from '@services/loader.service';
-import { LoaderState } from './loader';
+import { LoaderService } from '@services/_index';
+import { LoaderState } from '@models/_index';
+
+
 
 @Component({
   selector: 'mist-loader',

@@ -149,7 +149,6 @@ import {
         WorkersStore,
         HttpContextsService,
         ContextStore,
-        HttpService,
         LoaderService,
         HttpWorkersService,
         {

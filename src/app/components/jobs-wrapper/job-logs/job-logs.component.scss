@@ -17,8 +17,10 @@
     color: #ffffff;
     padding: 1rem 3.5rem 3.5rem 3.5rem;
     margin-top: 6rem;
-    overflow-y: auto;
-    max-height: 600px;
+    overflow-y: hidden;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
   }
 
   &--error {
@@ -36,6 +38,17 @@
     &:hover {
       cursor: pointer;
     }
+  }
+
+  &--expand {
+    position: absolute;
+    transform: translate3d(-50%, 0, 0);
+    left: 50%;
+    bottom: 1rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: gray;
   }
 
 }

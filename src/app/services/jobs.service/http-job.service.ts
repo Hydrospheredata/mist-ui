@@ -4,7 +4,7 @@ import { Job } from '@models/job';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { HttpService } from '@services/http.service';
+import { HttpService } from '../http.service/http.service';
 
 @Injectable()
 export class HttpJobService {

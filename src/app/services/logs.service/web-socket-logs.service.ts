@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Observer } from 'rxjs/Observer';
-import { WebsocketService } from '@services/websocket.service';
+import { WebsocketService } from '../websocket.service/websocket.service';
 import { Location } from '@angular/common';
 
 
@@ -13,19 +13,23 @@ export class WebSocketLogsService extends WebsocketService {
     constructor(
         private location: Location
     ) {
-        super(location);
+        super(
+            location
+        );
         this.baseUrl = `${this.apiUrl}/ws/jobs/`;
     }
 
     public connect(id): Observable<any> {
+        console.log(id);
         if (!this.subject) {
             let url = this.baseUrl + `${id}`;
             this.subject = this.create(url);
             console.log('Successfully connected: ' + url);
         }
 
-        return this.subject.map((message) => {
+        return this.subject.map(message => {
             let data = JSON.parse(message.data);
+            console.log(data);
             if (data.event === 'logs') return data.events[0]
         });
     }

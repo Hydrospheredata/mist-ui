@@ -7,7 +7,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { HttpService } from '@services/http.service';
+import { HttpService } from '../http.service/http.service';
 
 
 

@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {environment} from '../../environments/environment';
-// import 'rxjs/Rx';
+import {environment} from '../../../environments/environment';
 import {
   Http,
   RequestOptionsArgs,
@@ -13,7 +12,9 @@ import {Location} from '@angular/common';
 
 import {MistRequestOptions} from './mist-request-options';
 
-import {LoaderService} from './loader.service';
+import {LoaderService} from '../loader.service/loader.service';
+
+
 
 @Injectable()
 export class HttpService extends Http {
