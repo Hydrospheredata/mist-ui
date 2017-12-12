@@ -19,6 +19,7 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
   private endpointStoreSub;
   private jobStoreSub;
   public activeEndpoint: string;
+  public endpointSubscriber;
 
 
   constructor(
@@ -48,6 +49,9 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
     if (this.jobStoreSub) {
       this.jobStoreSub.unsubscribe();
     }
+    if (this.endpointSubscriber) {
+      this.endpointSubscriber.unsubscribe();
+    }
   }
 
   openDialogEndpointForm(endpoint = null) {
@@ -64,7 +68,15 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
 
   loadInitialData() {
     this.endpointStore.getAll();
-    this.endpointStore.endpoints.subscribe((data) => { this.endpoints = data; });
+    this.endpointSubscriber = this.endpointStore.endpoints
+        .subscribe(data => { 
+          if (data.length) {
+            this.router.navigate([`/functions/${data[0].name}`]);
+          } else {
+            this.router.navigate(['/functions']);
+          }
+          this.endpoints = data; 
+        });
     this.jobStore.getAllRunning();
     this.jobStore.runningJobs.subscribe((jobs) => {
       this.runningJobs = jobs;
