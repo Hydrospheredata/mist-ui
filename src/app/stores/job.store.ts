@@ -115,7 +115,7 @@ export class JobStore {
     private wsConnect() {
         this.wsService.connect()
             .subscribe(
-                (message) => this.wsEventHandler(message),
+                (message) => { console.log("Successfully connected!"); this.wsEventHandler(message) },
                 (err) => { console.log(err); this.wsConnect(); }
             )
     }
