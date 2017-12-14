@@ -27,12 +27,13 @@
         }
     }
     &-info {
+        > *:not(:last-child) {
+            margin-bottom: 32px;
+        }
         &__list {
             margin: 0;
             padding: 0;
             list-style: none;
-        }
-        &__list {
             &-item {
                 margin-bottom: 15px;
                 display: flex;
@@ -47,6 +48,7 @@
                     font-size: 16px;
                     font-family: "Museo Sans Light";
                     text-transform: capitalize;
+                    white-space: nowrap;
                     &:after {
                         content: '.................................................................................';
                         margin-left: 6px;
@@ -56,6 +58,9 @@
                     margin-left: 6px;
                 }
             }
+        }
+        &__panel {
+
         }
     }
 }
