@@ -27,8 +27,7 @@
         }
     }
     &-info {
-        &__list,
-        &__sublist {
+        &__list {
             margin: 0;
             padding: 0;
             list-style: none;
@@ -36,10 +35,6 @@
         &__list {
             &-item {
                 margin-bottom: 15px;
-            }
-        }
-        &__sublist {
-            &-item {
                 display: flex;
                 align-items: center;
                 font-size: 16px;
@@ -53,7 +48,7 @@
                     font-family: "Museo Sans Light";
                     text-transform: capitalize;
                     &:after {
-                        content: '.........................................................................................................';
+                        content: '.................................................................................';
                         margin-left: 6px;
                     }
                 }
