@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { EndpointStore } from '@stores/endpoint.store';
-import { JobStore } from '@stores/job.store';
-import { Endpoint } from '@models/endpoint';
-import { Job } from '@models/job';
+import { JobStore, EndpointStore } from '@stores/_index';
+import { Job, Endpoint } from '@models/_index';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components/dialogs/_index';
 
@@ -81,11 +79,6 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
     this.jobStore.runningJobs.subscribe((jobs) => {
       this.runningJobs = jobs;
     })
-  }
-
-  runningJobsCountBy(endpointId: string): Number {
-    let result = this.runningJobs.filter((job) => { return job.endpoint === endpointId });
-    return result.length
   }
 
 }

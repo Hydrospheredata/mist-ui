@@ -46,7 +46,7 @@ export class WebSocketJobService extends WebsocketService {
             this.subject = this.create();
             console.log('Successfully connected: ' + this.baseUrl);
         }
-        return this.subject.map((message) => { return message; });
+        return this.subject;
     }
 
 }

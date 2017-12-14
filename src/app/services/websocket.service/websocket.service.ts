@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import 'rxjs/add/observable/dom/webSocket';
 
 
 
@@ -13,7 +14,7 @@ export class WebsocketService {
     protected apiUrl: string;
     protected baseUrl: string;
     protected port: string;
-    protected subject: Subject<MessageEvent>;
+    protected subject;
     protected ws: WebSocket;
 
     constructor(
@@ -29,23 +30,16 @@ export class WebsocketService {
     }
 
     protected create(url: string = ''): Subject<MessageEvent> {
-        this.ws = new WebSocket(url ? url : this.baseUrl);
+        const wsUrl = url ? url : this.baseUrl;
 
-        let observable = Observable.create((obs: Observer<MessageEvent>) => {
-            this.ws.onmessage = obs.next.bind(obs);
-            this.ws.onerror = obs.error.bind(obs);
-            this.ws.onclose = obs.complete.bind(obs);
+        this.subject = Observable.webSocket(wsUrl);
+        console.log(`${wsUrl}: `, this.subject);
 
-            return this.ws.close.bind(this.ws);
-        });
-
-        return Subject.create({}, observable);
+        return this.subject;
     }
 
     public disconnect() {
-        if (this.ws.readyState === WebSocket.OPEN) {
-            this.ws.close();
-        }
+        this.subject.unsubscribe();
     }
 
 }

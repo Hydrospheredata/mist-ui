@@ -3,6 +3,8 @@ import { MdlDialogService } from '@angular-mdl/core';
 import { injectableLogs, DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
 import { HttpLogsService, WebSocketLogsService } from '@services/_index';
 
+
+
 @Component({
     selector: 'mist-job-logs',
     templateUrl: './job-logs.component.html',
@@ -17,6 +19,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     public errorMessage: string;
     public logs: string[];
     private httpLogsServiceSub;
+    private logTypes: string[] = ['Debug', 'Info', 'Warn', 'Error'];
 
     constructor(
         private webSocketLogsService: WebSocketLogsService,
@@ -30,13 +33,13 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.jobId) {
             this.httpLogsServiceSub = this.httpLogsService.get(this.jobId)
                 .subscribe(
-                    (logs) => { this.logs = logs.concat(this.logs); console.log(this.logs); },
+                    (logs) => { console.log(logs); this.logs = logs.concat(this.logs); },
                     (error) => { this.errorHandler(error) }
                 );
             this.webSocketLogsServiceSub = this.webSocketLogsService
                 .connect(this.jobId)
                 .subscribe(
-                    (data) => { this.pushLogs(data); },
+                    (data) => { this.pushLogs(data.events); },
                     (error) => { this.errorHandler(error) }
                 );
         }
@@ -67,12 +70,18 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.httpLogsServiceSub.unsubscribe();
     }
 
-    private pushLogs(data) {
-        if (data) {
-            let date = new Date(data.timeStamp);
-            let log = `${date.toJSON()} [${data.from}] ${data.message}`;
-            this.logs.push(log);
+    private pushLogs(events) {
+        if (events) {
+            events.forEach(event => {
+                let date = new Date(event.timeStamp);
+                let log = `${this.setLogType(Number(event.level))} ${date.toJSON()} [${event.from}] ${event.message}`;
+                this.logs.push(log);
+            })
         }
+    }
+
+    private setLogType(logType: number) {
+        return this.logTypes[`${logType - 1}`].toUpperCase();
     }
 
     private errorHandler(error) {

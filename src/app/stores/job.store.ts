@@ -63,6 +63,7 @@ export class JobStore {
     }
 
     public get(id: string): void {
+        console.log(id);
         let obs = this.backendService.get(id)
         obs.subscribe((job) => {
             if (!this.dataStore.endpoint || this.dataStore.endpoint === job.endpoint) {
@@ -112,16 +113,18 @@ export class JobStore {
     }
 
     private wsConnect() {
-        this.wsService.connect().subscribe((message) => {
-            this.wsEventHandler(message);
-        })
+        this.wsService.connect()
+            .subscribe(
+                (message) => this.wsEventHandler(message),
+                (err) => { console.log(err); this.wsConnect(); }
+            )
     }
 
     private wsEventHandler(message) {
-        let data = JSON.parse(message.data);
+        // let data = JSON.parse(message.data);
         let events = this.wsService.getEvents();
-        if (events.includes(data.event)) {
-            this.get(data.id)
+        if (events.includes(message.event)) {
+            this.get(message.id)
         }
     }
 

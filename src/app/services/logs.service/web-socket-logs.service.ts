@@ -20,18 +20,13 @@ export class WebSocketLogsService extends WebsocketService {
     }
 
     public connect(id): Observable<any> {
-        console.log(id);
         if (!this.subject) {
             let url = this.baseUrl + `${id}`;
             this.subject = this.create(url);
             console.log('Successfully connected: ' + url);
         }
 
-        return this.subject.map(message => {
-            let data = JSON.parse(message.data);
-            console.log(data);
-            if (data.event === 'logs') return data.events[0]
-        });
+        return this.subject;
     }
 
 }

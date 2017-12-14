@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { JobStore, EndpointStore } from '@stores/_index';
-import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -9,11 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
     templateUrl: './jobs-wrapper.component.html',
     styleUrls: ['./jobs-wrapper.component.scss']
 })
-export class JobsWrapperComponent implements OnInit {
+export class JobsWrapperComponent {
 
-    constructor(
-    ) { }
-
-    ngOnInit() { }
+    constructor() { }
 
 }
