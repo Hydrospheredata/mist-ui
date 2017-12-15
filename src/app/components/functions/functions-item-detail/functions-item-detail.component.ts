@@ -14,7 +14,7 @@ import { Endpoint } from '@models/endpoint';
 })
 export class FunctionsItemDetailComponent {
 
-    private endpoint: Endpoint;
+    public endpoint: Endpoint;
 
     constructor(
         private activatedRoute: ActivatedRoute,
