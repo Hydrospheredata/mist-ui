@@ -28,7 +28,7 @@
       </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center"
-         class='mist-page-header__row mist-page-header__row--status'>
+         class='mist-page-header__row'>
 
       <div *ngIf="worker" class='job-version cs-cursor-pointer'>
         <span [routerLink]="'/clusters/workers/' + worker.name" fxHide.md fxHide.sm class='mist-label context__label'>Worker</span>
