@@ -19,7 +19,7 @@ export class WebSocketLogsService extends WebsocketService{
 
   public connect(id): Observable<any> {
     if (!this.subject) {
-      let url = this.baseUrl + `${id}`;
+      let url = this.baseUrl + `${id}` + "?withLogs=true";
       this.subject = this.create(url);
       console.log('Successfully connected: ' + url);
     }
