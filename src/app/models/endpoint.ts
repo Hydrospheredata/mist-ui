@@ -68,5 +68,13 @@ export class Endpoint {
     if (t == 'MOption') {
         return this.make(args[0]);
     }
+    if (t == 'MObj') {
+        let newObj = {};
+        for (let key in paramType.fields) {
+          newObj[key] = this.make(paramType.fields[key]);
+        }
+        return newObj;
+    }
+
   }
 }
