@@ -1,100 +1,89 @@
-<div class='job-details-page mist-page-container' *ngIf="job">
-  <div class='mist-page-header'>
-    <div *ngIf="!jobDetails" class='mist-page-header__row'>
-      <a class='mist-link mist-link--big'
-         [routerLink]="['../']">
-        <i class='material-icons'>keyboard_backspace</i>
-        Back to Jobs
-      </a>
-    </div>
-    <div class="h3">{{job.endpoint}}</div>
-    <div fxLayout="row" fxLayoutAlign="space-between center" class='mist-page-header__row'>
-      <div fxFlex.gt="75" fxFlex.md="65" fxFlex.sm="60" class="cs-text-overflow-ellipsis .h3">
-        <i class='material-icons status-icon'
-           [ngClass]="{'status-icon--failed': job.isFailed(),
-          'status-icon--success': job.isFinished(),
-          'status-icon--primary': job.isRunning()}">
-        </i>
-        <span [title]="job.jobId" class='job-id'
-              [ngClass]="{'font-color--failed': job.isFailed()}">{{ job.jobId }}</span>
-      </div>
-
-
-      <div fxFlex.gt="25" fxFlex.md="35" fxFlex.sm="40" class="cs-text-right">
-        <button mdl-button mdl-button="" mdl-button-type="raised" mdl-colored="primary" mdl-ripple="" class='clone-job-button mat-button--primary mat-button'
-                (click)="openDialogJobForm()">
-          Copy Job
-        </button>
-      </div>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="space-between center"
-         class='mist-page-header__row mist-page-header__row--status'>
-
-      <div *ngIf="worker" class='job-version cs-cursor-pointer'>
-        <span [routerLink]="'/clusters/workers/' + worker.name" fxHide.md fxHide.sm class='mist-label context__label'>Worker</span>
-        <span>{{worker.name}}</span>
-      </div>
-      <div title="Context = {{ job.context }}" class='context'>
-        <span fxHide.md fxHide.sm class='context__label'>context</span>
-        <span class='context__value'>{{ job.context }}</span>
-      </div>
-      <div title="Status {{ job.status }}" class='job-status'>
-        <span fxHide.md fxHide.sm class='mist-label'>Status</span>
-        <span [ngClass]="{'font-color--success': job.isFinished(),
-          'font-color--primary': job.isRunning(),
-          'font-color--failed': job.isFailed()}">
-          {{ job.status }}
-        </span>
-      </div>
-      <div
-        title="{{ job.isRunning() ? 'Started' : 'Finished' }} {{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}">
-        <span fxHide.md fxHide.sm class='mist-label'>
-          {{ job.isRunning() ? 'Started' : 'Finished' }}
-        </span>
-        <span>
-          {{ job.isRunning() ? (job.createTime | agoDate) : (job.endTime | agoDate) }}
-        </span>
-      </div>
-      <div *ngIf="worker" class="cs-text-right">
-        <a target="_blank" title="SPARK UI" href="{{worker.sparkUi}}" class='mist-link spark-ui'>
-          <i class='material-icons'>link</i>
-          <span>SPARK UI</span>
-        </a>
-      </div>
-    </div>
-  </div>
-  <hr class="mist__separator--horizontal"/>
-  <div class='mist-page-content'>
-    <div fxLayout='row' fxLayoutAlign="center" class='job-container'>
-      <div fxFlex="45" class='job-details cs-text-left'>
-        <div class='mist-label'>
-          Parameters
+<div class="mist-page-container" *ngIf="job">
+    <div class="mist-page-header">
+        <div *ngIf="!jobDetails" class='mist-page-header__row'>
+            <a class='mist-link mist-link--big' [routerLink]="['../']">
+                <i class='material-icons'>keyboard_backspace</i>
+                Back to Jobs
+            </a>
         </div>
-        <div class='job-details__container'>
-          <codemirror [ngModel]="jobDetails ? (job.params | json) : jobArguments"
-                      [config]="codeMirrorOptions">
-          </codemirror>
-          <span class='material-icons job-details__full-screen-icon'
-                (click)="openFullScreenJson(jobDetails ? job.params : jobArguments)">crop_free</span>
+        <div class='mist-page-header__row' fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="h3 mist-page-header__title">{{job.endpoint}}</div>
+            <button mdl-button mdl-button="" mdl-button-type="raised" mdl-colored="primary" mdl-ripple="" class='clone-job-button mat-button--primary mat-button' (click)="openDialogJobForm()">
+                Copy Job
+            </button>
         </div>
-      </div>
-      <div fxFlex="10" class='icon-separator'>
-        <mdl-icon>forward</mdl-icon>
-      </div>
-      <div fxFlex="45" class='job-details job-details--results cs-text-left'>
-        <div class='mist-label'>
-          Results
-        </div>
-        <div class='job-details__container'>
-          <codemirror [ngModel]="jobDetails ? (job.jobResult | json) : job.jobResult"
-                      [config]="codeMirrorOptions">
-          </codemirror>
-          <span class='material-icons job-details__full-screen-icon'
-                (click)="openFullScreenJson(job.jobResult)">crop_free</span>
-        </div>
-      </div>
     </div>
+    <div class="mist-page-content">
+        <div class="content-info">
+            <ul class="content-info__list">
+                <li class="content-info__list-item __title">Total info</li>
+                <li class="content-info__list-item" *ngIf="worker">
+                    <span class="content-info__list-item-title">Worker</span>
+                    <span class="content-info__list-item-value" [routerLink]="'/clusters/workers/' + worker.name" style="cursor: pointer;">{{ worker.name }}</span>
+                </li>
+                <li class="content-info__list-item">
+                    <span class="content-info__list-item-title">Context</span>
+                    <span class="content-info__list-item-value">{{ job.context }}</span>
+                </li>
+                <li class="content-info__list-item">
+                    <span class="content-info__list-item-title">Status</span>
+                    <span class="content-info__list-item-value" style="text-transform: uppercase;"
+                        [ngClass]="{
+                            'font-color--success': job.isFinished(), 
+                            'font-color--primary': job.isRunning(), 
+                            'font-color--failed': job.isFailed()
+                        }">{{ job.status }}</span>
+                </li>
+                <li class="content-info__list-item" *ngIf="worker">
+                    <span class="content-info__list-item-title">SPARK UI</span>
+                    <span class="content-info__list-item-value">
+                        <a target="_blank" title="SPARK UI" href="{{worker.sparkUi}}" class='mist-link spark-ui'>
+                            {{worker.sparkUi}}
+                        </a>
+                    </span>
+                </li>
+            </ul>
+            <ul class="content-info__list">
+                <li class="content-info__list-item __title">Time info</li>
+                <li class="content-info__list-item">
+                    <span class="content-info__list-item-title">Queued</span>
+                    <span class="content-info__list-item-value">{{ setDate(job.createTime) }} ({{setDuration(job.startTime, job.createTime)}})</span>
+                </li>
+                <li class="content-info__list-item">
+                    <span class="content-info__list-item-title">Started</span>
+                    <span class="content-info__list-item-value">{{ setDate(job.startTime) }} ({{setDuration(job.endTime, job.startTime)}})</span>
+                </li>
+                <li class="content-info__list-item">
+                    <span class="content-info__list-item-title">Finished</span>
+                    <span class="content-info__list-item-value">{{ setDate(job.endTime) }} ({{job.endTime | agoDate}})</span>
+                </li>
+            </ul>
+        </div>
+        <hr class="mist__separator--horizontal"/>
+        <div fxLayout='row' fxLayoutAlign="center" class='job-container'>
+            <div fxFlex="45" class='job-details cs-text-left'>
+                <div class='mist-label'>Parameters</div>
+                <div class='job-details__container'>
+                    <codemirror [ngModel]="jobDetails ? (job.params | json) : jobArguments" [config]="codeMirrorOptions"></codemirror>
+                    <span class='material-icons job-details__full-screen-icon'
+                    (click)="openFullScreenJson(jobDetails ? job.params : jobArguments)">crop_free</span>
+                </div>
+            </div>
+            <div fxFlex="10" class='icon-separator'>
+                <mdl-icon>forward</mdl-icon>
+            </div>
+            <div fxFlex="45" class='job-details job-details--results cs-text-left'>
+                <div class='mist-label'>
+                    Results
+                </div>
+                <div class='job-details__container'>
+                    <codemirror [ngModel]="jobDetails ? (job.jobResult | json) : job.jobResult" [config]="codeMirrorOptions"></codemirror>
+                    <span class='material-icons job-details__full-screen-icon'
+                    (click)="openFullScreenJson(job.jobResult)">crop_free</span>
+                </div>
+            </div>
+        </div>
 
-    <mist-job-logs [jobId]="job.jobId"></mist-job-logs>
-  </div>
+        <mist-job-logs [jobId]="job.jobId"></mist-job-logs>
+    </div>
 </div>

@@ -12,6 +12,8 @@ import '@node_modules/codemirror/addon/edit/matchbrackets';
 import '@node_modules/codemirror/addon/edit/closebrackets';
 import '@node_modules/codemirror/addon/display/placeholder';
 
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'mist-job-details',
@@ -111,6 +113,14 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       styles: { 'width': '100%', 'height': '100%'},
       providers: [{provide: injectableJsonString, useValue: jsonString}],
     });
+  }
+
+  public setDate(timestamp: number) {
+    return moment(timestamp).format('MMM Do, kk:mm:ss.SSSS');
+  }
+
+  public setDuration(then: number, now: number) {
+    return moment(moment.duration(moment(then).diff(moment(now))).asMilliseconds()).format('mm:ss:SSSS');
   }
 
 }

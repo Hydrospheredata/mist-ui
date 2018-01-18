@@ -1,5 +1,9 @@
 @import "variables.scss";
 
+.mist-page-header__title {
+    margin: 0;
+}
+
 .job-details-page {
   &.mist-page-container {
     padding: 1rem 3.5rem;
@@ -89,4 +93,14 @@
     min-width: 400px;
     padding: 0 25px 0 25px;
   }
+}
+
+.mist-page {
+    &-container {
+        padding: 32px;
+    }
+    &-header {
+        padding-bottom: 24px;
+        justify-content: flex-end;
+    }
 }
