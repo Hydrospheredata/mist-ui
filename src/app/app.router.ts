@@ -10,54 +10,60 @@ import { ClustersWrapperComponent } from '@components/clusters-wrapper/clusters-
 import { WorkerComponent } from '@components/clusters-wrapper/worker/worker.component';
 import {WorkersListComponent} from '@components/clusters-wrapper/workers-list/workers-list.component';
 
+import { FunctionsWrapperComponent, FunctionsItemDetailComponent } from '@components/functions/_index';
 
-// Route Configuration
+
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/jobs/overview',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
-    path: 'clusters',
-    component: ClustersWrapperComponent,
-    children: [
-      {
+    {
         path: '',
-        redirectTo: 'workers/overview',
+        redirectTo: 'jobs',
         pathMatch: 'full'
-      },
-      {
-        path: 'workers/:workerId',
-        pathMatch: 'prefix',
-        component: WorkerComponent
-      }
-    ]
-  },
-  {
-    path: 'settings',
-    component: HomeComponent
-  },
-  {
-    path: 'jobs',
-    component: JobsWrapperComponent,
-    children: [
-      {
-        path: ':endpointId',
-        pathMatch: 'prefix',
-        component: EndpointDetailsComponent
-      },
-      {
-        path: ':endpointId/:jobId',
-        pathMatch: 'prefix',
-        component: JobDetailsComponent
-      }
-    ]
-  }
+    },
+    {
+        path: 'clusters',
+        component: ClustersWrapperComponent,
+        children: [
+            {
+                path: '',
+                redirectTo: 'workers/overview',
+                pathMatch: 'full'
+            },
+            {
+                path: 'workers/:workerId',
+                pathMatch: 'prefix',
+                component: WorkerComponent
+            }
+        ]
+    },
+    {
+        path: 'jobs',
+        component: JobsWrapperComponent,
+        children: [
+            {
+                path: '',
+                redirectTo: 'overview',
+                pathMatch: 'full'
+            },
+            {
+                path: ':endpointId',
+                component: EndpointDetailsComponent
+            },
+            {
+                path: ':endpointId/:jobId',
+                component: JobDetailsComponent
+            }
+        ]
+    },
+    {
+        path: 'functions',
+        component: FunctionsWrapperComponent,
+        children: [
+            {
+                path: ':functionId',
+                component: FunctionsItemDetailComponent
+            }
+        ]
+    }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

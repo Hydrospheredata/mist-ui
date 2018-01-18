@@ -1,47 +1,34 @@
-<header class='mdl-layout__header'>
-  <div class='mdl-layout__header-row mist-navigation-row' fxLayout='row'>
-
-    <div fxFlex="25">
-      <a [routerLink]="['/']" class='mist-logo'><img src="./assets/images/logo.png"></a>
-      <div class='mdl-layout-spacer'></div>
-    </div>
-
-    <nav class='mdl-navigation' fxFlex="75">
-      <div fxLayout='row' class="cs-width-100" fxLayoutAlign="center center" >
-        <div fxFlex="24" fxFlex.sm="33" fxFlex.md="30" fxFlex.lg="20">
-          <a class='mdl-navigation__link cs-text-center'
-             [routerLink]="['/jobs/overview']"
-             routerLinkActive='is-active'>
-            <i class='material-icons md-40'>list</i>
-            <span>Functions</span>
-          </a>
-        </div>
-
-        <div fxFlex="24" fxFlex.sm="33" fxFlex.md="30" fxFlex.lg="20">
-          <a class='mdl-navigation__link cs-text-center'
-             [routerLink]="['/clusters']"
-             routerLinkActive='is-active'
-             [class.disabled]="false">
-            <i class='material-icons md-40'>device_hub</i>
-            <span>Clusters</span>
-          </a>
-        </div>
-
-        <div fxFlex="24" fxFlex.sm="33" fxFlex.md="30" fxFlex.lg="20">
-          <a class='mdl-navigation__link cs-text-center'
-             [routerLink]="['/settings']"
-             routerLinkActive='is-active'
-             [class.disabled]="true">
-            <i class='material-icons md-40 rotate-90'>tune</i>
-            <span>Settings</span>
-          </a>
-        </div>
-      </div>
-
+<header class='navbar'>
+    <img class="navbar__logo" [routerLink]="['/']" src="./assets/images/logo.png">
+    <nav class="navbar__menu">
+        <a class="navbar__menu-item" [routerLink]="['/jobs']" routerLinkActive='__active'>
+            <svg width="19px" height="18px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60.123 60.123">
+                <path d="M57.124,51.893H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,51.893,57.124,51.893z"/>
+                <path d="M57.124,33.062H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3   C60.124,31.719,58.781,33.062,57.124,33.062z"/>
+                <path d="M57.124,14.231H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,14.231,57.124,14.231z"/>
+                <circle cx="4.029" cy="11.463" r="4.029"/>
+                <circle cx="4.029" cy="30.062" r="4.029"/>
+                <circle cx="4.029" cy="48.661" r="4.029"/>
+            </svg>
+            <span class="models-link-label">Jobs</span>
+        </a>
+        <a class="navbar__menu-item" [routerLink]="['/functions']" routerLinkActive='__active'>
+            <svg width="19px" height="18px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60.123 60.123">
+                <path d="M57.124,51.893H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,51.893,57.124,51.893z"/>
+                <path d="M57.124,33.062H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3   C60.124,31.719,58.781,33.062,57.124,33.062z"/>
+                <path d="M57.124,14.231H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,14.231,57.124,14.231z"/>
+                <circle cx="4.029" cy="11.463" r="4.029"/>
+                <circle cx="4.029" cy="30.062" r="4.029"/>
+                <circle cx="4.029" cy="48.661" r="4.029"/>
+            </svg>
+            <span class="services-link-label">Functions</span>
+        </a>
+        <a class="navbar__menu-item" [routerLink]="['/clusters']" routerLinkActive='__active'>
+            <svg width="19px" height="18px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
+                <path d="M773.1,716.9H990V990H716.9V824.1L500,594.4L283.1,824.1V990H10V716.9h216.9L446.4,500V326.4c-32.3-11.9-58.7-31.5-79.1-58.7c-20.4-27.2-30.6-58.7-30.7-94.4c0-44.2,16.2-82.5,48.5-114.8C417.5,26.2,455.7,10,499.9,10c44.2,0,82.5,16.1,114.8,48.5c32.3,32.4,48.5,70.7,48.5,114.8c0,35.7-10.2,67.2-30.7,94.4c-20.4,27.2-46.8,46.8-79.1,58.7V500L773.1,716.9z"/>
+            </svg>
+            <span class="services-link-label">Clusters</span>
+        </a>
     </nav>
-    <div class='mdl-layout-spacer'></div>
-  </div>
 </header>
-<div class="mdl-layout__drawer">
-  <span class="mdl-layout__title"></span>
-</div>
+

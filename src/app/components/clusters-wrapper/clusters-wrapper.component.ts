@@ -1,16 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { WorkersStore } from '@stores/workers.store';
+
+
 
 @Component({
-  selector: 'mist-clusters-wrapper',
-  templateUrl: './clusters-wrapper.component.html',
-  styleUrls: ['./clusters-wrapper.component.scss']
+    selector: 'mist-clusters-wrapper',
+    templateUrl: './clusters-wrapper.component.html',
+    styleUrls: ['./clusters-wrapper.component.scss']
 })
-export class ClustersWrapperComponent implements OnInit {
+export class ClustersWrapperComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+    public workerSubscriber;
+    public searchQ: String;
 
-  ngOnInit() {
+    constructor(
+        private workersStore: WorkersStore,
+        private router: Router
+    ) { }
 
-  }
+    ngOnInit() {
+        // this.workersStore.getAll();
+        // this.workerSubscriber = this.workersStore.workers
+        //     .subscribe((workers) => {
+        //         if (!workers.length) {
+        //             this.router.navigate(['/clusters/workers/overview']);
+        //         } else {
+        //             this.router.navigate([`/clusters/workers/${workers[0].name}`]);
+        //         }
+        //         this.workers = workers;
+        //     });
+    }
+
+    ngOnDestroy() {
+        // if (this.workerSubscriber) {
+        //     this.workerSubscriber.unsubscribe();
+        // }
+    }
 
 }

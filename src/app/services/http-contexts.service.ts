@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Context } from '@models/context';
 import {Observable} from 'rxjs/Observable';
-import {HttpService} from '@services/http.service';
+import {HttpService} from './http.service/http.service';
 
 @Injectable()
 export class HttpContextsService {

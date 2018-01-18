@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
+
+
 @Component({
-  selector: 'mist-jobs-wrapper',
-  templateUrl: './jobs-wrapper.component.html',
-  styleUrls: ['./jobs-wrapper.component.scss']
+    selector: 'mist-jobs-wrapper',
+    templateUrl: './jobs-wrapper.component.html',
+    styleUrls: ['./jobs-wrapper.component.scss']
 })
-export class JobsWrapperComponent implements OnInit {
+export class JobsWrapperComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+    constructor() { }
 
 }

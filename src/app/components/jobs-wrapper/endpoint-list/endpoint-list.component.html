@@ -1,62 +1,38 @@
-<div class='endpoint-list__row endpoint-list__row--big'>
-  <div class='endpoint-list__header'>
-    <div class="mdl-grid cs-align-center cs-mt-8 cs-mb-16 cs-text-right">
-      <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet cs-text-left">
-        <span class='h3'>Functions</span>
-      </div>
-      <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
-        <mdl-button (click)="openDialogEndpointForm()"
-                    class="mist-button blue border icon"
-                    title="Add new endpoint"
-                    mdl-colored="">
-          <!--(click)="openDialogAddEndpointForm()"-->
-          <mdl-icon>add</mdl-icon>
-          <span fxHide.sm fxHide.md>Add</span>
-        </mdl-button>
-      </div>
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-header__row">
+            <h3 class='sidebar-title'>Jobs</h3>
+        </div>
+        <div class="sidebar-header__row">
+          <mist-input-text class="sidebar-search" inputClass="sidebar-search"
+            placeholder="Search"
+            [(ngModel)]="searchQ"
+            iconName="search"
+            iconDirection="left"
+          ></mist-input-text>
+        </div>
     </div>
-  </div>
-</div>
-<div class='endpoint-list__row'>
-  <div class='endpoint-list__search'>
-    <mist-input-text
-      inputClass="endpoint-list__search-input mist-input"
-      placeholder="Search"
-      [(ngModel)]="searchQ"
-      iconName="search"
-      iconDirection="left"
-    ></mist-input-text>
-  </div>
-</div>
-<div class='endpoint-list__row'>
-  <ul class='mdl-list endpoint-list__ul'>
-    <li class='mdl-list__item endpoint-list__item'
-        routerLinkActive='endpoint-list__item--active'>
-      <a class='mdl-list__item-primary-content endpoint-list__item-content'
-         routerLink="overview">
-        <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>
-          view_comfy
-        </i>
-        All Jobs
-      </a>
-      <span class='endpoint-list__badge'
-            *ngIf="runningJobs.length"
-            [mdl-badge]="runningJobs.length"></span>
-    </li>
-    <ng-template ngFor let-endpoint [ngForOf]="endpoints | search : 'name' : searchQ">
-      <li class='cs-cursor-pointer mdl-list__item endpoint-list__item' [routerLink]="[endpoint.name]"
-          routerLinkActive='endpoint-list__item--active'>
-        <a fxLayout="row" fxLayoutAlign="space-between center" class='mdl-list__item-primary-content endpoint-list__item-content'>
-            <div>{{ endpoint.name }}</div>
-            <mdl-icon [ngClass]="{'cs-visible': activeEndpoint == endpoint.name}"
-              title="Edit endpoint" (click)="openDialogEndpointForm(endpoint)">settings</mdl-icon>
-        </a>
-        <span class='endpoint-list__badge'
-              *ngIf="runningJobsCountBy(endpoint.name)"
-              [mdl-badge]="runningJobsCountBy(endpoint.name)"></span>
-      </li>
-    </ng-template>
-  </ul>
-
-</div>
-
+    <div class="sidebar-body">
+        <ul class='sidebar-list'>
+            <li class='sidebar-list__item' [routerLink]="['overview']" routerLinkActive='__active'>
+                <div>
+                    <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>
+                      view_comfy
+                    </i>
+                    <span class="sidebar-list__item-name">All Jobs</span>
+                </div>
+                <div>
+                    <span class='endpoint-list__badge'
+                          *ngIf="runningJobs.length"
+                          [mdl-badge]="runningJobs.length"></span>
+                </div>
+            </li>
+            <li *ngFor="let item of endpoints | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
+                <span class="sidebar-list__item-name">{{ item.name }}</span>
+                <span class='endpoint-list__badge'
+                      *ngIf="runningJobsCountBy(item.name)"
+                      [mdl-badge]="runningJobsCountBy(item.name)"></span>
+            </li>
+        </ul>
+    </div>
+</aside>

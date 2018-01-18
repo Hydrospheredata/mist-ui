@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { HttpService } from '@services/http.service';
+import { HttpService } from '@services/http.service/http.service';
 import { Observable } from 'rxjs/Observable';
-import { Workers } from '@models/workers';
+import { Workers } from '@models/_index';
 
 @Injectable()
 export class HttpWorkersService {

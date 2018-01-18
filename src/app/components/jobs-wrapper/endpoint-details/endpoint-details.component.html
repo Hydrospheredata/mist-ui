@@ -52,7 +52,7 @@
   </div>
   <hr/>
   <div class='mist-page-content'>
-      <div *ngIf="!isOverview"  fxLayout="row" fxLayoutAlign="space-between start">
+      <!-- <div *ngIf="!isOverview"  fxLayout="row" fxLayoutAlign="space-between start">
           <div fxFlex="90%" fxLayout="column" fxLayoutAlign="space-between start"
                class='mist-page-header__row mist-page-header__row--status'>
                <div title="Language {{ endpoint?.lang }}" class='mist-endpoint-detail'>
@@ -72,7 +72,7 @@
                   <span>{{ endpoint?.className }}</span>
                </div>
           </div>
-        </div>
+        </div> -->
     <table class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp'>
       <tbody>
       <ng-template ngFor let-job [ngForOf]="jobs | jobStatusFilter:statusFilter | sortBy:'createTime'">

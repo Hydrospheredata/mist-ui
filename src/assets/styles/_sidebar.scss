@@ -1,0 +1,116 @@
+@import "variables.scss";
+
+.sidebar {
+  height: 100%;
+  &-header {
+    padding: 45px 32px 26px;
+    border-bottom: 2px solid #d4d7d9;
+    &__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &:not(:last-child) {
+        margin-bottom: 26px;
+      }
+    }
+  }
+  &-title {
+    font-weight: 700;
+    font-family: $main-font-family;
+    font-size: $title-font-size;
+    margin: 0;
+    line-height: 1;
+    text-transform: capitalize;
+  }
+  &-search {
+    flex-basis: 100%;
+    margin-bottom: 0;
+  }
+  &-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    &__item {
+      height: 0px;
+      line-height: 15px;
+      border-bottom: 1px solid $secondary-color;
+      padding: 23px 36px;
+      padding-right: 12px;
+      cursor: pointer;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &.__active,
+      &:hover,
+      &:focus {
+        background-color: $secondary-color;
+      }
+      > div {
+        display: flex;
+        align-items: center;
+      }
+      &-status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      &-details {
+        display: inline-flex;
+        justify-content: flex-end;
+        padding-right: 10px;
+        > span {
+          padding-right: 30px;
+        }
+      }
+      &-name {
+        max-width: 14vw;
+        line-break: strict;
+        text-overflow: ellipsis;
+        font-size: 18px;
+        font-family: 'Museo Sans Bold';
+        color: #04143c;
+      }
+    }
+  }
+  &-filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    &__label {
+      color: #818994;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding-right: 10px;
+    }
+    &__button {
+      height: 33px;
+      border-radius: 5px;
+      background-color: #e6e9ed;
+      border: none;
+      cursor: pointer;
+      margin-right: 10px;
+      display: inline-flex;
+      &--label {
+        font-family: $main-font-family;        
+        color: #818994;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0.35px;
+      }
+      &--icon {
+        margin-top: 5px;
+        margin-right: 5px;
+      }
+    }
+  &__selected {
+    background: none;
+  }
+  }
+}
