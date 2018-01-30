@@ -18,7 +18,7 @@ export class HttpJobService {
 
   public getAll(): Observable<Job[]> {
     return this.http.get(this.baseUrl.jobs)
-             .map((res: Response) => { return this.extractJobs(res) })
+             .map((res: Response) => { console.log(res); return this.extractJobs(res) })
              .catch(this.handleError);
   }
 
@@ -75,7 +75,8 @@ export class HttpJobService {
   }
 
   private extractJobs(res: Response) {
-    const data = res.json();
+    const data = res.json().data;
+    const count = res.json().count;
     const jobs: Job[] = [];
     for(let index in data) {
       let job = this.toJob(data[index]);
