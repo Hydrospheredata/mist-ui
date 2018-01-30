@@ -32,6 +32,12 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   public worker: Workers;
   private timeUpdaterLink;
 
+  public jobCreateTime: string;
+  public jobStartTime: string;
+  public jobEndTime: string;
+  public jobCreateTimeDuration: string;
+  public jobStartTimeDuration: string;
+
   constructor(
     private dialog: MdlDialogService,
     private activatedRoute: ActivatedRoute,
@@ -81,6 +87,21 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         let job = data.find(item => item.jobId === jobId);
         this.job = job;
 
+        if (this.job) {
+          if (this.job.createTime) {
+            this.jobCreateTime = this.setDate(this.job.createTime);
+            this.jobCreateTimeDuration = this.setDuration(this.job.endTime, this.job.createTime);
+          }
+          if (this.job.startTime) {
+            this.jobStartTime = this.setDate(this.job.startTime);
+            this.jobCreateTimeDuration = this.setDuration(this.job.startTime, this.job.createTime);
+            this.jobStartTimeDuration = this.setDuration(this.job.endTime, this.job.startTime);
+          }
+          if (this.job.endTime) {
+            this.jobEndTime = this.setDate(this.job.endTime);
+          }
+        }
+
         if (job) {
           this.timeUpdaterLink = this.jobStore.updateTime();
           this.jobArguments = JSON.stringify(JSON.parse(job.params).arguments, null, 2);
@@ -115,12 +136,12 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  public setDate(timestamp: number) {
+  private setDate(timestamp: number) {
     return moment(timestamp).format('MMM Do, kk:mm:ss.SSSS');
   }
 
-  public setDuration(then: number, now: number) {
-    return moment(moment.duration(moment(then).diff(moment(now))).asMilliseconds()).format('mm:ss:SSSS');
+  private setDuration(then: number, now: number) {
+    return moment(moment.duration(moment(then).diff(moment(now))).asMilliseconds()).format('mm:ss.SSSS');
   }
 
 }

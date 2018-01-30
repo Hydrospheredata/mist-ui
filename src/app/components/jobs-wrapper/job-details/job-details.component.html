@@ -47,15 +47,15 @@
                 <li class="content-info__list-item __title">Time info</li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Queued</span>
-                    <span class="content-info__list-item-value">{{ setDate(job.createTime) }} ({{setDuration(job.startTime, job.createTime)}})</span>
+                    <span class="content-info__list-item-value">{{ jobCreateTime }} ({{ jobCreateTimeDuration }})</span>
                 </li>
-                <li class="content-info__list-item">
+                <li class="content-info__list-item" *ngIf="jobStartTime">
                     <span class="content-info__list-item-title">Started</span>
-                    <span class="content-info__list-item-value">{{ setDate(job.startTime) }} ({{setDuration(job.endTime, job.startTime)}})</span>
+                    <span class="content-info__list-item-value">{{ jobStartTime }} ({{ jobStartTimeDuration }})</span>
                 </li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Finished</span>
-                    <span class="content-info__list-item-value">{{ setDate(job.endTime) }} ({{job.endTime | agoDate}})</span>
+                    <span class="content-info__list-item-value">{{ jobEndTime }} ({{ job.endTime | agoDate }})</span>
                 </li>
             </ul>
         </div>
