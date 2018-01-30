@@ -75,8 +75,7 @@ export class HttpJobService {
   }
 
   private extractJobs(res: Response) {
-    const data = res.json().data;
-    const count = res.json().count;
+    const data = res.json();
     const jobs: Job[] = [];
     for(let index in data) {
       let job = this.toJob(data[index]);

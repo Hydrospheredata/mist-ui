@@ -29,9 +29,9 @@ export class WebsocketService {
         this.apiUrl = `${url}://${window.location.hostname}:${this.port}${path}`;
     }
 
-    protected create(url: string = ''): Subject<MessageEvent> {
-        const wsUrl = url ? url : this.baseUrl;
-
+    protected create(url: string = '', withLogs: boolean = false): Subject<MessageEvent> {
+        let wsUrl = url ? url : this.baseUrl;
+        wsUrl = `${wsUrl}?withLogs=${withLogs}`;
         this.subject = Observable.webSocket(wsUrl);
         console.log(`${wsUrl}: `, this.subject);
 
