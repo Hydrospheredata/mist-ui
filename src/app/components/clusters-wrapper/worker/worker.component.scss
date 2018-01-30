@@ -7,3 +7,11 @@
   border: 2px solid $border-color;
   padding: 10px;
 }
+
+.content-info {
+    flex-direction: column;
+    > *:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 32px;
+    }
+}
