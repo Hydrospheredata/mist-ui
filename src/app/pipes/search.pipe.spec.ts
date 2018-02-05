@@ -16,7 +16,7 @@ describe('SearchPipe', () => {
 
   it('filter items by name', () => {
     expect(pipe.transform(items, 'name', 'simple')).toEqual(mockFunctionList)
-  })
+  });
 
   it('return items if args undefiened', () => {
     expect(pipe.transform(items, 'name', '')).toEqual(mockFunctionList)

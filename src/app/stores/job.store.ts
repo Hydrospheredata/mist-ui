@@ -66,7 +66,7 @@ export class JobStore {
 
     public get(id: string): void {
         console.log(id);
-        let obs = this.backendService.get(id)
+        let obs = this.backendService.get(id);
         obs.subscribe((job) => {
             if (!this.dataStore.functionId || this.dataStore.functionId === job.functionId) {
                 this.updateItem(job);
@@ -108,7 +108,9 @@ export class JobStore {
     // mode: 'selectedJobs' | 'runningJobs'
     private removeItem(job: Job, mode: string = 'selectedJobs') {
         let removedJob = this.dataStore[mode].find(rmvdJob => rmvdJob.jobId === job.jobId);
-        if (!removedJob) return false;
+        if (!removedJob) {
+          return false;
+        }
         let index: number = this.dataStore[mode].indexOf(removedJob);
         this.dataStore[mode].splice(index, 1);
         this.updateStore(mode);
@@ -117,7 +119,7 @@ export class JobStore {
     private wsConnect() {
         this.wsService.connect()
             .subscribe(
-                (message) => { console.log("Successfully connected!"); this.wsEventHandler(message) },
+                (message) => { console.log('Successfully connected!'); this.wsEventHandler(message) },
                 (err) => { console.log(err); this.wsConnect(); }
             )
     }
@@ -144,11 +146,11 @@ export class JobStore {
                 this.dataStore.selectedJobs[i].createTime++;
                 this.dataStore.selectedJobs[i].startTime++;
                 this.dataStore.selectedJobs[i].endTime++;
-                ((i) => {
+                ((idx) => {
                     setTimeout(() => {
-                        this.dataStore.selectedJobs[i].endTime--;
-                        this.dataStore.selectedJobs[i].startTime--;
-                        this.dataStore.selectedJobs[i].createTime--;
+                        this.dataStore.selectedJobs[idx].endTime--;
+                        this.dataStore.selectedJobs[idx].startTime--;
+                        this.dataStore.selectedJobs[idx].createTime--;
                     }, 60 * 1000);
                 })(i)
             }

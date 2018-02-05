@@ -45,7 +45,7 @@ export class HttpArtifactsService {
         return contexts.json();
       })
   }
-  //TODO: proper upload
+  // TODO: proper upload
   public uploadArtifact(context: any) {
     return this.http.post(this.baseUrl, JSON.stringify(context))
       .map((response) => response.json())

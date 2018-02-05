@@ -2,7 +2,10 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobStore } from '@stores/job.store';
 import { MdlDialogService } from '@angular-mdl/core';
-import { DialogFullScreenJsonComponent, injectableJsonString } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
+import {
+  DialogFullScreenJsonComponent,
+  injectableJsonString
+} from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 import { DialogCloneJobFormComponent, injectableJob } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
 import { Job } from '@models/job';
 import { WorkersStore } from '@stores/workers.store';

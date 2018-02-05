@@ -16,10 +16,10 @@ export class InputTextareaComponent implements ControlValueAccessor {
   protected onChange: (_: any) => void = noop;
   protected onTouched: () => void = noop;
 
-  @Input() public label: string = '';
-  @Input() public name: string = '';
-  @Input() public placeholder: string = '';
-  @Input() public className: string = '';
+  @Input() public label = '';
+  @Input() public name = '';
+  @Input() public placeholder = '';
+  @Input() public className = '';
   @Input() public errors: any;
 
   constructor() { }

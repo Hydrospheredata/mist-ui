@@ -53,7 +53,7 @@ export class DialogJobFormComponent implements OnInit {
     this.data = data;
     this.selectedFunction = this.data || new FunctionInfo({});
     this.port = environment.production ? window.location.port : environment.port;
-    const path = this.location.prepareExternalUrl(environment.apiUrl).replace("/ui" + environment.apiUrl, environment.apiUrl);
+    const path = this.location.prepareExternalUrl(environment.apiUrl).replace('/ui' + environment.apiUrl, environment.apiUrl);
     this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
   }
 

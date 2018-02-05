@@ -95,7 +95,7 @@ export class DialogCloneJobFormComponent implements OnInit, OnDestroy {
 
   private preBuildParams() {
     let params = JSON.parse(this.job.params);
-    let args = JSON.stringify(params.arguments, null, "\t");
+    let args = JSON.stringify(params.arguments, null, '\t');
     return args;
   }
 

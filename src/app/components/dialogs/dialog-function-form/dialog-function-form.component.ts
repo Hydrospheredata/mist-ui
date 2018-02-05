@@ -68,7 +68,7 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         private alertService: AlertService
     ) {
         this.port = environment.production ? window.location.port : environment.port;
-        const path = this.location.prepareExternalUrl(environment.apiUrl).replace("/ui" + environment.apiUrl, environment.apiUrl);
+        const path = this.location.prepareExternalUrl(environment.apiUrl).replace('/ui' + environment.apiUrl, environment.apiUrl);
         this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
 
         this.functionInfo = data;

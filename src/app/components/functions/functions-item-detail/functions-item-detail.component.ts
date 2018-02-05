@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobStore, FunctionStore } from '@stores/_index';
 import { MdlDialogService } from '@angular-mdl/core';
@@ -8,11 +8,11 @@ import { FunctionInfo } from '@models/function';
 
 
 @Component({
-    selector: 'functions-item-detail-component',
+    selector: 'mist-functions-item-detail-component',
     templateUrl: './functions-item-detail.component.html',
     styleUrls: ['./functions-item-detail.component.scss']
 })
-export class FunctionsItemDetailComponent {
+export class FunctionsItemDetailComponent implements OnInit {
 
     public functionInfo: FunctionInfo;
 

@@ -1,7 +1,7 @@
 import { ModuleWithProviders, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from '@components/home/home.component';
 import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.component'
 import { FunctionListComponent } from '@components/jobs-wrapper/function-list/function-list.component';
 import { FunctionDetailsComponent } from '@components/jobs-wrapper/function-details/function-details.component';

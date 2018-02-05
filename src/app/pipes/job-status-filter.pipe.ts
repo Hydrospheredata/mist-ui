@@ -1,8 +1,7 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {Pipe, PipeTransform} from '@angular/core';
 import 'rxjs/add/operator/filter';
 
-import { Job } from '../models/job';
+import {Job} from '@models/job';
 
 @Pipe({
   name: 'jobStatusFilter',
@@ -13,9 +12,9 @@ export class JobStatusFilterPipe implements PipeTransform {
   transform(jobs: Job[], statusFilter: any): any {
     if (!jobs) return undefined;
     return jobs.filter((job) => {
-      let result = statusFilter.failed && job.isFailed()
-      result = result || statusFilter.success && job.isFinished()
-      result = result || statusFilter.running && job.isRunning()
+      let result = statusFilter.failed && job.isFailed();
+      result = result || statusFilter.success && job.isFinished();
+      result = result || statusFilter.running && job.isRunning();
       return result;
     });
   }
