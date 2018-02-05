@@ -1,6 +1,6 @@
 @import "variables.scss";
 
-.endpoint-list__ {
+.function-list__ {
   &row {
     position: relative;
     overflow: inherit;
@@ -8,7 +8,7 @@
     box-sizing: border-box;
     width: 100%;
   }
-  &.endpoint-list__row--big {
+  &.function-list__row--big {
     height: 100px;
   }
   &search {
@@ -24,7 +24,7 @@
   &title {
   }
   &__item {
-    .endpoint-list__item--hover-disabled:hover {
+    .function-list__item--hover-disabled:hover {
       background-color: $aside-bg-color;
     }
   }
@@ -56,7 +56,7 @@
       color: $label-color;
       display: inline-block;
     }
-    &.endpoint-list__item {
+    &.function-list__item {
       outline: none;
       color: $main-color;
       font-family: $main-font-family;
@@ -85,7 +85,7 @@
     }
   }
   &item-icon {
-    &.endpoint-list__item-icon {
+    &.function-list__item-icon {
       color: $main-color;
       margin-right: 16px;
     }

@@ -1,6 +1,6 @@
 @import "variables.scss";
 
-.endpoint-details {
+.function-details {
   position: relative;
 
   &__settings {
@@ -36,7 +36,7 @@
       cursor: pointer;
     }
 
-    &.endpoint-details__status-filter-option--active {
+    &.function-details__status-filter-option--active {
       background-color: #e9ecf2;
     }
   }
@@ -116,7 +116,7 @@
     &.jobs-table__td--status {
       width: 22%;
     }
-    &.jobs-table__td--endpoint {
+    &.jobs-table__td--function {
     }
     &.jobs-table__td--context {
       width: 18%;
@@ -128,7 +128,7 @@
   }
 }
 
-.mist-endpoint-detail {
+.mist-function-detail {
   margin-bottom: 10px;
 }
 
