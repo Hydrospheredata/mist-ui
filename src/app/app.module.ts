@@ -39,7 +39,7 @@ import {
     DialogJobLogsComponent,
     DialogJobFormComponent,
     DialogFullScreenJsonComponent,
-    DialogEndpointFormComponent,
+    DialogFunctionFormComponent,
     DialogAddContextComponent,
     DialogCloneJobFormComponent
 } from '@components/dialogs/_index';
@@ -90,7 +90,7 @@ import {
         FunctionDetailsComponent,
         DialogJobFormComponent,
         JobDetailsComponent,
-        DialogEndpointFormComponent,
+        DialogFunctionFormComponent,
         DialogAddContextComponent,
         DialogFullScreenJsonComponent,
         DialogJobLogsComponent,
@@ -134,7 +134,7 @@ import {
     entryComponents: [
         DialogJobFormComponent,
         DialogFullScreenJsonComponent,
-        DialogEndpointFormComponent,
+        DialogFunctionFormComponent,
         DialogAddContextComponent,
         DialogJobLogsComponent,
         DialogCloneJobFormComponent

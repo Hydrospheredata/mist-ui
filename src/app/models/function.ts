@@ -6,9 +6,7 @@ export class FunctionInfo {
   public execute: string;
   public className: string;
   public defaultContext: string;
-  public contextSettings: JSON;
   public file: File;
-  public endpointStore: string;
   public path: string;
 
   constructor(functionInfo: Object) {
@@ -20,8 +18,6 @@ export class FunctionInfo {
     this.defaultContext = functionInfo['defaultContext'];
     this.className = functionInfo['className'];
     this.file = functionInfo['file'];
-    this.contextSettings = functionInfo['contextSettings'];
-    this.endpointStore = functionInfo['endpointStore'];
     this.path = functionInfo['path'];
   }
 

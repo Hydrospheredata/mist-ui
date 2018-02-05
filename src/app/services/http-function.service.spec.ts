@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { HttpFunctionService } from './http-function.service';
 
-describe('EndpointDataService', () => {
+describe('FunctionDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobStore, FunctionStore } from '@stores/_index';
 import { MdlDialogService } from '@angular-mdl/core';
-import { DialogEndpointFormComponent, injectableFunction } from '@app/components/dialogs/_index';
+import { DialogFunctionFormComponent, injectableFunction } from '@app/components/dialogs/_index';
 import { FunctionInfo } from '@models/function';
 
 
@@ -32,7 +32,7 @@ export class FunctionsItemDetailComponent {
     }
 
     loadInitialData(id: string) {
-        this.jobStore.getByEndpoint(id);
+        this.jobStore.getByFunctionId(id);
         this.functionStore.functions
                 .subscribe(data => {
                     const foundFunction = data.find(item => item.name === id) || data[0];
@@ -40,9 +40,9 @@ export class FunctionsItemDetailComponent {
                 });
     }
 
-    openDialogEndpointForm(functionInfo = null) {
+    openDialogFunctionForm(functionInfo = null) {
         this.dialog.showCustomDialog({
-            component: DialogEndpointFormComponent,
+            component: DialogFunctionFormComponent,
             isModal: true,
             styles: {'width': '850px', 'max-height': '100%'},
             clickOutsideToClose: true,

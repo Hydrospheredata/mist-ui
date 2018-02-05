@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdlDialogService } from '@angular-mdl/core';
 import {
-    DialogEndpointFormComponent,
+    DialogFunctionFormComponent,
     injectableFunction,
     DialogJobFormComponent,
     injectableSelectedFunction
@@ -13,7 +13,7 @@ import { Context, FunctionInfo, Job } from '@models/_index';
 
 
 @Component({
-    selector: 'mist-endpoint-details',
+    selector: 'mist-function-details',
     templateUrl: './function-details.component.html',
     styleUrls: ['./function-details.component.scss'],
     providers: []
@@ -71,7 +71,7 @@ export class FunctionDetailsComponent implements OnInit, OnDestroy {
         if (id === 'overview') {
             this.jobStore.getAll();
         } else {
-            this.jobStore.getByEndpoint(id);
+            this.jobStore.getByFunctionId(id);
         }
 
         this.functionStore.functions

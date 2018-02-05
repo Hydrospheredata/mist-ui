@@ -18,13 +18,13 @@ export class JobStore {
     private _selectedJobs: BehaviorSubject<Job[]>;
     private _runningJobs: BehaviorSubject<Job[]>;
     private dataStore: {functionId: string, selectedJobs: Job[], runningJobs: Job[]} = {
-        functionId: null, 
-        selectedJobs: [], 
-        runningJobs: [] 
+        functionId: null,
+        selectedJobs: [],
+        runningJobs: []
     };
 
     constructor(
-        private backendService: HttpJobService, 
+        private backendService: HttpJobService,
         private wsService: WebSocketJobService
     ) {
         this._selectedJobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
@@ -56,10 +56,10 @@ export class JobStore {
         });
     }
 
-    public getByEndpoint(functionId: string) {
-        this.backendService.getByFunctionId(functionId).subscribe((jobs) => {
+    public getByFunctionId(id: string) {
+        this.backendService.getByFunctionId(id).subscribe((jobs) => {
             this.dataStore.selectedJobs = jobs;
-            this.dataStore.functionId = functionId;
+            this.dataStore.functionId = id;
             this.updateStore();
         });
     }

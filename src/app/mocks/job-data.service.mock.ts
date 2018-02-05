@@ -16,7 +16,7 @@ export class MockJobDataService {
     this.jobs = this._jobs.asObservable();
   }
 
-  public getAllByEndpointId(id: string) {
+  public getAllByFunctionId(id: string) {
   	this.dataStore.jobs = mockJobsList;
   	this._jobs.next(Object.assign({}, this.dataStore).jobs);
   }

@@ -15,7 +15,7 @@ export class FormsService {
   private _MESSAGES = {
     ERRORS: {
       forms: {
-        addEndpoint: {
+        addFunction: {
           name: {
             'required': 'Name is required.'
           },

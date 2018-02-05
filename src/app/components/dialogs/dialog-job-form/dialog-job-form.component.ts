@@ -84,7 +84,7 @@ export class DialogJobFormComponent implements OnInit {
           }
 
           fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
-          this.requestBody = `curl -X POST -d '${executeParams}' '${this.apiUrl}/endpoints/${id}/jobs'`;
+          this.requestBody = `curl -X POST -d '${executeParams}' '${this.apiUrl}/functions/${id}/jobs'`;
         }
       });
   }
@@ -92,11 +92,11 @@ export class DialogJobFormComponent implements OnInit {
   createJobForm() {
     this.jobForm = this.fb.group({
       executeParams: ['', [JSONValidator.validate]],
-      selectedEndpoint: ['']
+      selectedFunction: ['']
     })
   }
 
-  onChangeEndpoint() {
+  onChangeFunction() {
     this.executeParams = this.selectedFunction.executeExample() || '{}';
   }
 

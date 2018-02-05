@@ -16,7 +16,7 @@ export class FunctionListComponent implements OnInit, OnDestroy {
     searchQ: string;
     private functionStoreSub;
     private jobStoreSub;
-    public activeEndpoint: string;
+    public activeFunction: string;
 
 
     constructor(
@@ -31,8 +31,8 @@ export class FunctionListComponent implements OnInit, OnDestroy {
         this.router.events
             .subscribe((params) => {
                 if (params && params['url']) {
-                    this.activeEndpoint = params['url'].split(/\//);
-                    this.activeEndpoint = this.activeEndpoint[this.activeEndpoint.length - 1];
+                    this.activeFunction = params['url'].split(/\//);
+                    this.activeFunction = this.activeFunction[this.activeFunction.length - 1];
                 }
             });
     }

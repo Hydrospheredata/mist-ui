@@ -19,12 +19,12 @@ export let injectableFunction = new InjectionToken<FunctionInfo>('selectedFuncti
 
 
 @Component({
-    selector: 'mist-dialog-add-endpoint',
+    selector: 'mist-dialog-add-function',
     templateUrl: './dialog-function-form.component.html',
     styleUrls: ['./dialog-function-form.component.scss'],
     providers: [FormsService, MdlSnackbarService, AlertService]
 })
-export class DialogEndpointFormComponent implements OnInit, OnDestroy {
+export class DialogFunctionFormComponent implements OnInit, OnDestroy {
     public formTitle: string;
     public functionNameReadOnly: boolean;
     public functionForm: FormGroup;
@@ -124,10 +124,10 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
 
         this.functionForm.valueChanges
             .subscribe( () => {
-                fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addEndpoint);
+                fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);
             });
 
-        fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addEndpoint);
+        fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);
     }
 
     submitFunctionForm(form) {
@@ -170,7 +170,7 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
                 );
 
         } else {
-            fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addEndpoint);
+            fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);
             return false;
         }
     }

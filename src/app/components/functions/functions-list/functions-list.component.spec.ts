@@ -4,26 +4,26 @@ import { HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { EndpointListComponent } from './functionName-list.component';
-import { EndpointDataService } from '@services/functionName-data.service'
+import { FunctionsListComponent } from './functions-list.component';
+import { FunctionDataService } from '@services/function-data.service'
 import { MockFunctionDataService } from '@mocks/function-data.service.mock'
 import { mockFunction, mockFunctionList } from '@mocks/function.mock'
 
 describe('FunctionListComponent', () => {
-  let component: EndpointListComponent;
-  let fixture: ComponentFixture<EndpointListComponent>;
+  let component: FunctionsListComponent;
+  let fixture: ComponentFixture<FunctionsListComponent>;
   let mockEdSvc: MockFunctionDataService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule, RouterTestingModule],
-      declarations: [EndpointListComponent, SearchPipe],
-      providers: [{ provide: EndpointDataService, useClass: mockEdSvc }]
+      declarations: [FunctionsListComponent, SearchPipe],
+      providers: [{ provide: FunctionDataService, useClass: mockEdSvc }]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EndpointListComponent);
+    fixture = TestBed.createComponent(FunctionsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

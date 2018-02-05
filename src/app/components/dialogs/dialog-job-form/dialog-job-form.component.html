@@ -7,13 +7,13 @@
     <div class='job-form'>
       <div class='job-form__header' fxLayout="row" fxLayoutAlign="space-between center">
         <div class='job-form__select' fxFlex="45">
-          <div class='mist-label'>Endpoint</div>
+          <div class='mist-label'>Function</div>
           <mdl-select [hidden]="!selectedFunction" class="no-label"
                       [placeholder]=""
                       [label]=""
                       [(ngModel)]="selectedFunction"
-                      formControlName="selectedEndpoint"
-                      (ngModelChange)="onChangeEndpoint()">
+                      formControlName="selectedFunction"
+                      (ngModelChange)="onChangeFunction()">
             <mdl-option *ngFor="let functionInfo of functions" [value]="functionInfo">{{ functionInfo.name }}</mdl-option>
           </mdl-select>
         </div>
