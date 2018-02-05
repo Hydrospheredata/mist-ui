@@ -1,25 +1,25 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdlDialogService } from '@angular-mdl/core';
-import { 
-    DialogEndpointFormComponent, 
-    injectableEndpoint, 
-    DialogJobFormComponent, 
-    injectableSelectedEndpoint 
+import {
+    DialogEndpointFormComponent,
+    injectableFunction,
+    DialogJobFormComponent,
+    injectableSelectedFunction
 } from '@components/dialogs/_index';
-import { ContextStore, JobStore, EndpointStore } from '@stores/_index';
-import { Context, Endpoint, Job } from '@models/_index';
+import { ContextStore, JobStore, FunctionStore } from '@stores/_index';
+import { Context, FunctionInfo, Job } from '@models/_index';
 
 
 
 @Component({
     selector: 'mist-endpoint-details',
-    templateUrl: './endpoint-details.component.html',
-    styleUrls: ['./endpoint-details.component.scss'],
+    templateUrl: './function-details.component.html',
+    styleUrls: ['./function-details.component.scss'],
     providers: []
 })
-export class EndpointDetailsComponent implements OnInit, OnDestroy {
-    endpoint: Endpoint;
+export class FunctionDetailsComponent implements OnInit, OnDestroy {
+    functionInfo: FunctionInfo;
     jobs: Job[];
     context: string;
     statusFilter: { success: boolean, running: boolean, failed: boolean };
@@ -33,7 +33,7 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
     constructor(
         public dialog: MdlDialogService,
         private activatedRoute: ActivatedRoute,
-        private endpointStore: EndpointStore,
+        private functionStore: FunctionStore,
         private jobStore: JobStore,
         private contextStore: ContextStore,
     ) {}
@@ -44,9 +44,9 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
 
         this.activatedRouteSub = this.activatedRoute.params
             .map(params => {
-                this.currentContext = params['endpointId'];
+                this.currentContext = params['functionId'];
                 this.isOverview = this.currentContext === 'overview';
-                return params['endpointId'];
+                return params['functionId'];
             })
             .subscribe(id => { this.loadInitialData(id) });
 
@@ -73,11 +73,11 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
         } else {
             this.jobStore.getByEndpoint(id);
         }
-        
-        this.endpointStore.endpoints
+
+        this.functionStore.functions
             .subscribe(data => {
-                const endpoint = data.find(item => item.name === id) || data[0];
-                this.endpoint = endpoint;
+                const foundFunction = data.find(item => item.name === id) || data[0];
+                this.functionInfo = foundFunction;
             });
             this.jobStore.jobs
                 .subscribe((jobs: Job[]) => {
@@ -93,7 +93,7 @@ export class EndpointDetailsComponent implements OnInit, OnDestroy {
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{provide: injectableSelectedEndpoint, useValue: this.endpoint}],
+            providers: [{provide: injectableSelectedFunction, useValue: this.functionInfo}],
         });
     }
 

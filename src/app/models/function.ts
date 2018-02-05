@@ -1,4 +1,4 @@
-export class Endpoint {
+export class FunctionInfo {
   public name: string;
   public lang: string;
   // deprecated
@@ -11,18 +11,18 @@ export class Endpoint {
   public endpointStore: string;
   public path: string;
 
-  constructor(endpointInfo: Object) {
-    this.name = endpointInfo['name'];
-    this.lang = endpointInfo['lang'];
+  constructor(functionInfo: Object) {
+    this.name = functionInfo['name'];
+    this.lang = functionInfo['lang'];
     // deprecated
-    this.tags = endpointInfo['tags'];
-    this.execute = JSON.stringify(endpointInfo['execute']) || null;
-    this.defaultContext = endpointInfo['defaultContext'];
-    this.className = endpointInfo['className'];
-    this.file = endpointInfo['file'];
-    this.contextSettings = endpointInfo['contextSettings'];
-    this.endpointStore = endpointInfo['endpointStore'];
-    this.path = endpointInfo['path'];
+    this.tags = functionInfo['tags'];
+    this.execute = JSON.stringify(functionInfo['execute']) || null;
+    this.defaultContext = functionInfo['defaultContext'];
+    this.className = functionInfo['className'];
+    this.file = functionInfo['file'];
+    this.contextSettings = functionInfo['contextSettings'];
+    this.endpointStore = functionInfo['endpointStore'];
+    this.path = functionInfo['path'];
   }
 
   executeExample() {

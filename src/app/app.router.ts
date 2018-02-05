@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.component'
-import { EndpointListComponent } from '@components/jobs-wrapper/endpoint-list/endpoint-list.component';
-import { EndpointDetailsComponent } from '@components/jobs-wrapper/endpoint-details/endpoint-details.component';
+import { FunctionListComponent } from '@components/jobs-wrapper/function-list/function-list.component';
+import { FunctionDetailsComponent } from '@components/jobs-wrapper/function-details/function-details.component';
 import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
 import { ClustersWrapperComponent } from '@components/clusters-wrapper/clusters-wrapper.component';
 import { WorkerComponent } from '@components/clusters-wrapper/worker/worker.component';
@@ -45,11 +45,11 @@ export const routes: Routes = [
                 pathMatch: 'full'
             },
             {
-                path: ':endpointId',
-                component: EndpointDetailsComponent
+                path: ':functionId',
+                component: FunctionDetailsComponent
             },
             {
-                path: ':endpointId/:jobId',
+                path: ':functionId/:jobId',
                 component: JobDetailsComponent
             }
         ]

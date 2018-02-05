@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JobStore, EndpointStore } from '@stores/_index';
+import { JobStore, FunctionStore } from '@stores/_index';
 import { MdlDialogService } from '@angular-mdl/core';
-import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components/dialogs/_index';
-import { Endpoint } from '@models/endpoint';
+import { DialogEndpointFormComponent, injectableFunction } from '@app/components/dialogs/_index';
+import { FunctionInfo } from '@models/function';
 
 
 
@@ -14,12 +14,12 @@ import { Endpoint } from '@models/endpoint';
 })
 export class FunctionsItemDetailComponent {
 
-    public endpoint: Endpoint;
+    public functionInfo: FunctionInfo;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private jobStore: JobStore,
-        private endpointStore: EndpointStore,
+        private functionStore: FunctionStore,
         public dialog: MdlDialogService,
     ) {}
 
@@ -33,14 +33,14 @@ export class FunctionsItemDetailComponent {
 
     loadInitialData(id: string) {
         this.jobStore.getByEndpoint(id);
-        this.endpointStore.endpoints
+        this.functionStore.functions
                 .subscribe(data => {
-                    const endpoint = data.find(item => item.name === id) || data[0];
-                    this.endpoint = endpoint;
+                    const foundFunction = data.find(item => item.name === id) || data[0];
+                    this.functionInfo = foundFunction;
                 });
     }
 
-    openDialogEndpointForm(endpoint = null) {
+    openDialogEndpointForm(functionInfo = null) {
         this.dialog.showCustomDialog({
             component: DialogEndpointFormComponent,
             isModal: true,
@@ -48,7 +48,7 @@ export class FunctionsItemDetailComponent {
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{provide: injectableEndpoint, useValue: endpoint}]
+            providers: [{provide: injectableFunction, useValue: functionInfo}]
         });
     }
 

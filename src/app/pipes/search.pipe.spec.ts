@@ -1,5 +1,5 @@
 import { SearchPipe } from './search.pipe';
-import { mockEndpointsList } from '@mocks/endpoint.mock'
+import { mockFunctionList } from '@mocks/function.mock'
 
 describe('SearchPipe', () => {
 	let pipe: SearchPipe;
@@ -7,7 +7,7 @@ describe('SearchPipe', () => {
 
   beforeEach(() => {
     pipe = new SearchPipe();
-    items = mockEndpointsList;
+    items = mockFunctionList;
   });
 
   it('create an instance', () => {
@@ -15,10 +15,10 @@ describe('SearchPipe', () => {
   });
 
   it('filter items by name', () => {
-    expect(pipe.transform(items, 'name', 'simple')).toEqual(mockEndpointsList)
+    expect(pipe.transform(items, 'name', 'simple')).toEqual(mockFunctionList)
   })
 
   it('return items if args undefiened', () => {
-    expect(pipe.transform(items, 'name', '')).toEqual(mockEndpointsList)
+    expect(pipe.transform(items, 'name', '')).toEqual(mockFunctionList)
   })
 });

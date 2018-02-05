@@ -55,21 +55,21 @@
       <!-- <div *ngIf="!isOverview"  fxLayout="row" fxLayoutAlign="space-between start">
           <div fxFlex="90%" fxLayout="column" fxLayoutAlign="space-between start"
                class='mist-page-header__row mist-page-header__row--status'>
-               <div title="Language {{ endpoint?.lang }}" class='mist-endpoint-detail'>
+               <div title="Language {{ functionId?.lang }}" class='mist-functionId-detail'>
                   <span class='context mist-label'>Language</span>
-                  <span style="text-transform: capitalize">{{ endpoint?.lang }}</span>
+                  <span style="text-transform: capitalize">{{ functionId?.lang }}</span>
                </div>
-               <div title="Path {{ endpoint?.path }}" class='mist-endpoint-detail'>
+               <div title="Path {{ functionId?.path }}" class='mist-functionId-detail'>
                   <span class='context mist-label'>Path</span>
-                  <span>{{ endpoint?.path }}</span>
+                  <span>{{ functionId?.path }}</span>
                </div>
-               <div title="Context {{ endpoint?.defaultContext }}" class='mist-endpoint-detail'>
+               <div title="Context {{ functionId?.defaultContext }}" class='mist-functionId-detail'>
                   <span class='context mist-label'>Context</span>
-                  <span>{{ endpoint?.defaultContext }}</span>
+                  <span>{{ functionId?.defaultContext }}</span>
                </div>
-               <div title="Class {{ endpoint?.className }}" class='mist-endpoint-detail'>
+               <div title="Class {{ functionId?.className }}" class='mist-functionId-detail'>
                   <span class='context mist-label'>Class</span>
-                  <span>{{ endpoint?.className }}</span>
+                  <span>{{ functionId?.className }}</span>
                </div>
           </div>
         </div> -->
@@ -88,10 +88,10 @@
               {{ job.jobId | jobIdCut }}
             </div>
           </td>
-          <td [title]="'endpoint = ' + job.endpoint" class='jobs-table__td jobs-table__td--endpoint'>
+          <td [title]="'function = ' + job.functionId" class='jobs-table__td jobs-table__td--endpoint'>
             <div class='endpoint cs-block'>
               <div class="cs-text-overflow-ellipsis cs-text-center">
-                <span>{{ job.endpoint }}</span>
+                <span>{{ job.functionId }}</span>
               </div>
             </div>
           </td>

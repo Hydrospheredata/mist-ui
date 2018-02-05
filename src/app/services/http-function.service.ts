@@ -1,26 +1,26 @@
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
-import {Endpoint} from '@models/endpoint';
+import {FunctionInfo} from '@models/function';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {HttpService} from './http.service/http.service';
 
 @Injectable()
-export class HttpEndpointService {
+export class HttpFunctionService {
   private baseUrl: string;
 
   constructor(private http: HttpService) {
-    this.baseUrl = `/endpoints`;
+    this.baseUrl = `/functions`;
   }
 
-  public getAll(): Observable<Endpoint[]> {
+  public getAll(): Observable<FunctionInfo[]> {
     return this.http.get(this.baseUrl)
       .map((res: Response) => this.extractEndpoints(res))
       .catch(this.handleError);
   }
 
-  public get(id: string): Observable<Endpoint> {
+  public get(id: string): Observable<FunctionInfo> {
     let apiUrl = this.baseUrl + `/${id}`;
     return this.http.get(apiUrl)
       .map((res: Response) => this.extractEndpoint(res))
@@ -29,12 +29,12 @@ export class HttpEndpointService {
 
   private extractEndpoints(res: Response) {
     let data = res.json();
-    let endpoints: Endpoint[] = [];
+    let functions: FunctionInfo[] = [];
     for (let index in data) {
-      let job = this.toEndpoint(data[index]);
-      endpoints.push(job);
+      let functionInfo = this.toFunction(data[index]);
+      functions.push(functionInfo);
     }
-    return endpoints;
+    return functions;
   }
 
   private extractEndpoint(res: Response) {
@@ -45,7 +45,7 @@ export class HttpEndpointService {
       return Observable.throw(e)
     } finally {
       if (data) {
-        return this.toEndpoint(data);
+        return this.toFunction(data);
       }
     }
   }
@@ -55,8 +55,8 @@ export class HttpEndpointService {
     return data || {};
   }
 
-  private toEndpoint(data) {
-    const endpoint = new Endpoint({
+  private toFunction(data) {
+    const fn = new FunctionInfo({
       name: data['name'],
       lang: data['lang'],
       tags: data['tags'],
@@ -67,7 +67,7 @@ export class HttpEndpointService {
       contextSettings: data['contextSettings'],
       endpointStore: data['endpointStore'],
     });
-    return endpoint;
+    return fn;
   }
 
   private handleError(error: Response | any) {
@@ -89,18 +89,18 @@ export class HttpEndpointService {
     return Observable.throw(errMsg);
   }
 
-  public createEndpoint(endpoint: Endpoint) {
-    const _endpoint: string = JSON.stringify(endpoint);
+  public createFunction(functionInfo: FunctionInfo) {
+    const _function: string = JSON.stringify(functionInfo);
 
-    return this.http.post(this.baseUrl, _endpoint)
+    return this.http.post(this.baseUrl, _function)
       .map(this.extractEndpoint.bind(this))
       .catch(this.handleError);
   }
 
-  public updateEndpoint(endpoint: Endpoint) {
-    const _endpoint: string = JSON.stringify(endpoint);
+  public updateFunction(functionInfo: FunctionInfo) {
+    const _function: string = JSON.stringify(functionInfo);
 
-    return this.http.put(this.baseUrl, _endpoint)
+    return this.http.put(this.baseUrl, _function)
       .map(this.extractEndpoint.bind(this))
       .catch(this.handleError);
   }

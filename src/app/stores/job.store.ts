@@ -17,8 +17,8 @@ export class JobStore {
     runningJobs: Observable<Job[]>;
     private _selectedJobs: BehaviorSubject<Job[]>;
     private _runningJobs: BehaviorSubject<Job[]>;
-    private dataStore: {endpoint: string, selectedJobs: Job[], runningJobs: Job[]} = {
-        endpoint: null, 
+    private dataStore: {functionId: string, selectedJobs: Job[], runningJobs: Job[]} = {
+        functionId: null, 
         selectedJobs: [], 
         runningJobs: [] 
     };
@@ -34,8 +34,8 @@ export class JobStore {
         this.wsConnect();
     }
 
-    public add(endpointId: string, args: string = '{}'): Observable<string> {
-        return this.backendService.create(endpointId, args).map((data) => {
+    public add(functionId: string, args: string = '{}'): Observable<string> {
+        return this.backendService.create(functionId, args).map((data) => {
             this.get(data.id);
             return data.id;
         });
@@ -44,7 +44,7 @@ export class JobStore {
     public getAll(): void {
         this.backendService.getAll().subscribe((jobs) => {
             this.dataStore.selectedJobs = jobs;
-            this.dataStore.endpoint = null;
+            this.dataStore.functionId = null;
             this.updateStore();
         });
     }
@@ -56,10 +56,10 @@ export class JobStore {
         });
     }
 
-    public getByEndpoint(endpointId: string) {
-        this.backendService.getByEndpoint(endpointId).subscribe((jobs) => {
+    public getByEndpoint(functionId: string) {
+        this.backendService.getByFunctionId(functionId).subscribe((jobs) => {
             this.dataStore.selectedJobs = jobs;
-            this.dataStore.endpoint = endpointId;
+            this.dataStore.functionId = functionId;
             this.updateStore();
         });
     }
@@ -68,7 +68,7 @@ export class JobStore {
         console.log(id);
         let obs = this.backendService.get(id)
         obs.subscribe((job) => {
-            if (!this.dataStore.endpoint || this.dataStore.endpoint === job.endpoint) {
+            if (!this.dataStore.functionId || this.dataStore.functionId === job.functionId) {
                 this.updateItem(job);
             }
             if (job.isRunning()) {

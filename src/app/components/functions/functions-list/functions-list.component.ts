@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { JobStore, EndpointStore } from '@stores/_index';
-import { Job, Endpoint } from '@models/_index';
+import { JobStore, FunctionStore } from '@stores/_index';
+import { Job, FunctionInfo } from '@models/_index';
 import { MdlDialogService } from '@angular-mdl/core';
-import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components/dialogs/_index';
+import { DialogEndpointFormComponent, injectableFunction } from '@app/components/dialogs/_index';
 
 @Component({
   selector: 'mist-functions-list',
@@ -11,17 +11,17 @@ import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components
   styleUrls: ['./functions-list.component.scss']
 })
 export class FunctionsListComponent implements OnInit, OnDestroy {
-  endpoints: Endpoint[];
+  functions: FunctionInfo[];
   runningJobs: Job[];
   searchQ: string;
-  private endpointStoreSub;
+  private functionStoreSub;
   private jobStoreSub;
-  public activeEndpoint: string;
-  public endpointSubscriber;
+  public activeFunction: string;
+  public functionSubscriber;
 
 
   constructor(
-    private endpointStore: EndpointStore,
+    private functionStore: FunctionStore,
     private jobStore: JobStore,
     private router: Router,
     public dialog: MdlDialogService,
@@ -33,26 +33,26 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
     this.loadInitialData();
     this.router.events.subscribe((params) => {
       if (params && params['url']) {
-        this.activeEndpoint = params['url'].split(/\//);
-        this.activeEndpoint = this.activeEndpoint[this.activeEndpoint.length - 1];
+        this.activeFunction = params['url'].split(/\//);
+        this.activeFunction = this.activeFunction[this.activeFunction.length - 1];
       }
     });
 
   }
 
   ngOnDestroy() {
-    if (this.endpointStoreSub) {
-      this.endpointStoreSub.unsubscribe();
+    if (this.functionStoreSub) {
+      this.functionStoreSub.unsubscribe();
     }
     if (this.jobStoreSub) {
       this.jobStoreSub.unsubscribe();
     }
-    if (this.endpointSubscriber) {
-      this.endpointSubscriber.unsubscribe();
+    if (this.functionSubscriber) {
+      this.functionSubscriber.unsubscribe();
     }
   }
 
-  openDialogEndpointForm(endpoint = null) {
+  openDialogEndpointForm(functionInfo = null) {
     this.dialog.showCustomDialog({
       component: DialogEndpointFormComponent,
       isModal: true,
@@ -60,20 +60,20 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
       clickOutsideToClose: true,
       enterTransitionDuration: 400,
       leaveTransitionDuration: 400,
-      providers: [{provide: injectableEndpoint, useValue: endpoint}]
+      providers: [{provide: injectableFunction, useValue: functionInfo}]
     });
   }
 
   loadInitialData() {
-    this.endpointStore.getAll();
-    this.endpointSubscriber = this.endpointStore.endpoints
-        .subscribe(data => { 
+    this.functionStore.getAll();
+    this.functionSubscriber = this.functionStore.functions
+        .subscribe(data => {
           if (data.length) {
             this.router.navigate([`/functions/${data[0].name}`]);
           } else {
             this.router.navigate(['/functions']);
           }
-          this.endpoints = data; 
+          this.functions = data;
         });
     this.jobStore.getAllRunning();
     this.jobStore.runningJobs.subscribe((jobs) => {

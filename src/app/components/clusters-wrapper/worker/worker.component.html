@@ -10,7 +10,7 @@
           <div class="h3">Worker {{worker.name}}</div>
           <hr>
         </div>
-        
+
         <div *ngIf="worker.initInfo">
             <div class="content-info">
                 <ul class="content-info__list">
@@ -69,7 +69,7 @@
             </thead>
             <tbody>
                 <ng-template ngFor let-job [ngForOf]="worker.jobs">
-                    <tr class='jobs-table__tr cs-cursor-pointer' [routerLink]="['/jobs', job.endpoint, job.jobId]">
+                    <tr class='jobs-table__tr cs-cursor-pointer' [routerLink]="['/jobs', job.functionId, job.jobId]">
                         <td>
                             <i class='material-icons status-icon cs-mr-8'
                             [ngClass]="{'status-icon--failed': job.isFailed(),

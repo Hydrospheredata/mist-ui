@@ -1,26 +1,26 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { JobStore, EndpointStore } from '@stores/_index';
-import { Job, Endpoint } from '@models/_index';
+import { JobStore, FunctionStore } from '@stores/_index';
+import { Job, FunctionInfo } from '@models/_index';
 
 
 
 @Component({
-    selector: 'mist-endpoint-list',
-    templateUrl: './endpoint-list.component.html',
-    styleUrls: ['./endpoint-list.component.scss']
+    selector: 'mist-function-list',
+    templateUrl: './function-list.component.html',
+    styleUrls: ['./function-list.component.scss']
 })
-export class EndpointListComponent implements OnInit, OnDestroy {
-    endpoints: Endpoint[];
+export class FunctionListComponent implements OnInit, OnDestroy {
+    functions: FunctionInfo[];
     runningJobs: Job[];
     searchQ: string;
-    private endpointStoreSub;
+    private functionStoreSub;
     private jobStoreSub;
     public activeEndpoint: string;
 
 
     constructor(
-        private endpointStore: EndpointStore,
+        private functionStore: FunctionStore,
         private jobStore: JobStore,
         private router: Router,
         private activatedRoute: ActivatedRoute
@@ -38,8 +38,8 @@ export class EndpointListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.endpointStoreSub) {
-            this.endpointStoreSub.unsubscribe();
+        if (this.functionStoreSub) {
+            this.functionStoreSub.unsubscribe();
         }
         if (this.jobStoreSub) {
             this.jobStoreSub.unsubscribe();
@@ -47,10 +47,10 @@ export class EndpointListComponent implements OnInit, OnDestroy {
     }
 
     loadInitialData() {
-        this.endpointStore.getAll();
-        this.endpointStore.endpoints
-            .subscribe(data => { 
-                this.endpoints = data; 
+        this.functionStore.getAll();
+        this.functionStore.functions
+            .subscribe(data => {
+                this.functions = data;
             });
         this.jobStore.getAllRunning();
         this.jobStore.runningJobs
@@ -59,8 +59,8 @@ export class EndpointListComponent implements OnInit, OnDestroy {
             });
     }
 
-    runningJobsCountBy(endpointId: string): Number {
-        let result = this.runningJobs.filter(job => job.endpoint === endpointId );
+    runningJobsCountBy(functionId: string): Number {
+        let result = this.runningJobs.filter(job => job.functionId === functionId );
         return result.length;
     }
 

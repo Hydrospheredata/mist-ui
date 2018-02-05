@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogEndpointFormComponent } from './dialog-endpoint-form.component';
+import { DialogEndpointFormComponent } from './dialog-function-form.component';
 
 describe('DialogEndpointFormComponent', () => {
   let component: DialogEndpointFormComponent;

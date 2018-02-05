@@ -8,19 +8,19 @@
       <div class='job-form__header' fxLayout="row" fxLayoutAlign="space-between center">
         <div class='job-form__select' fxFlex="45">
           <div class='mist-label'>Endpoint</div>
-          <mdl-select [hidden]="!selectedEndpoint" class="no-label"
+          <mdl-select [hidden]="!selectedFunction" class="no-label"
                       [placeholder]=""
                       [label]=""
-                      [(ngModel)]="selectedEndpoint"
+                      [(ngModel)]="selectedFunction"
                       formControlName="selectedEndpoint"
                       (ngModelChange)="onChangeEndpoint()">
-            <mdl-option *ngFor="let endpoint of endpoints" [value]="endpoint">{{ endpoint.name }}</mdl-option>
+            <mdl-option *ngFor="let functionInfo of functions" [value]="functionInfo">{{ functionInfo.name }}</mdl-option>
           </mdl-select>
         </div>
         <div fxFlex="55">
           <div class='context job-form__context'>
             <span class='context__label'>Context</span>
-            <span class='context__value'>{{selectedEndpoint.defaultContext}}</span>
+            <span class='context__value'>{{selectedFunction.defaultContext}}</span>
           </div>
         </div>
       </div>

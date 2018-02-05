@@ -27,7 +27,7 @@
                           [mdl-badge]="runningJobs.length"></span>
                 </div>
             </li>
-            <li *ngFor="let item of endpoints | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
+            <li *ngFor="let item of functions | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
                 <span class="sidebar-list__item-name">{{ item.name }}</span>
                 <span class='endpoint-list__badge'
                       *ngIf="runningJobsCountBy(item.name)"

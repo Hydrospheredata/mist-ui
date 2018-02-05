@@ -19,7 +19,7 @@
     </div>
     <div class="sidebar-body">
         <ul class='sidebar-list'>
-            <li *ngFor="let item of endpoints | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
+            <li *ngFor="let item of functions | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
                 <span class="sidebar-list__item-name">{{ item.name }}</span>
             </li>
         </ul>
