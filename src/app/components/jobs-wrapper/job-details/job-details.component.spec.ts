@@ -15,22 +15,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JobDetailsComponent } from './job-details.component';
 import { DialogFullScreenJsonComponent } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 import { AgoDatePipe } from '@pipes/ago-date.pipe';
-import { EndpointDataService } from '@services/endpoint-data.service';
+import { FunctionDataService } from '@services/function-data.service';
 import { JobDataService } from '@services/job-data.service';
-import { MockEndpointDataService } from '@mocks/endpoint-data.service.mock';
+import { MockFunctionDataService } from '@mocks/function-data.service.mock';
 import { MockJobDataService } from '@mocks/job-data.service.mock';
 import { MockActivatedRoute } from '@mocks/activated-route.mock';
 import { Job } from '@models/job';
-import { Endpoint } from '@models/endpoint';
+import { FunctionInfo } from '@models/function';
 import { mockJob } from '@mocks/job.mock';
-import { mockEndpoint } from '@mocks/endpoint.mock';
+import { mockFunction } from '@mocks/function.mock';
 
 describe('JobDetailsComponent', () => {
   let component: JobDetailsComponent;
   let fixture: ComponentFixture<JobDetailsComponent>;
   let job: Job;
-  let endpoint: Endpoint;
-  let endpointStub;
+  let functionInfo: FunctionInfo;
+  let functionStub;
   let jobStub;
   let activatedRoute: MockActivatedRoute;
 
@@ -50,7 +50,7 @@ describe('JobDetailsComponent', () => {
         AgoDatePipe
       ],
       providers: [
-        { provide: EndpointDataService, useClass: MockEndpointDataService },
+        { provide: FunctionDataService, useClass: MockFunctionDataService },
         { provide: JobDataService, useClass: MockJobDataService },
         { provide: ActivatedRoute, useValue: activatedRoute }
       ]
@@ -61,9 +61,9 @@ describe('JobDetailsComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(JobDetailsComponent);
     component = fixture.componentInstance;
-    endpoint = mockEndpoint;
+    functionInfo = mockFunction;
     job = mockJob;
-    activatedRoute.testParams = { endpointId: endpoint.name, jobId: job.jobId };
+    activatedRoute.testParams = { functionId: functionInfo.name, jobId: job.jobId };
       fixture.detectChanges();
       fixture.whenStable().then(() => {
         fixture.detectChanges();
@@ -74,8 +74,8 @@ describe('JobDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('loads endpoint', () => {
-    expect(component.endpoint).toBeTruthy();
+  it('loads function', () => {
+    expect(component.functionInfo).toBeTruthy();
   });
 
   it('loads job', () => {

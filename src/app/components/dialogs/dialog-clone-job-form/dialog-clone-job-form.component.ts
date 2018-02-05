@@ -82,10 +82,10 @@ export class DialogCloneJobFormComponent implements OnInit, OnDestroy {
     const fs = this.formsService;
     let params = this.executeParams || '{}';
     if (form.valid) {
-      this.jobStoreSub = this.jobStore.add(this.job.endpoint, params).subscribe((id) => {
+      this.jobStoreSub = this.jobStore.add(this.job.functionId, params).subscribe((id) => {
         console.log(`init job ${id}`);
         this.dialogRef.hide();
-        this.router.navigate(['/jobs', this.job.endpoint, id])
+        this.router.navigate(['/jobs', this.job.functionId, id])
       });
     } else {
       fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
@@ -95,7 +95,7 @@ export class DialogCloneJobFormComponent implements OnInit, OnDestroy {
 
   private preBuildParams() {
     let params = JSON.parse(this.job.params);
-    let args = JSON.stringify(params.arguments, null, "\t");
+    let args = JSON.stringify(params.arguments, null, '\t');
     return args;
   }
 

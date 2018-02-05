@@ -4,30 +4,30 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { Context } from '@models/context';
 import { FormsService } from '@services/forms.service';
-import { EndpointStore } from '@stores/endpoint.store';
+import { FunctionStore } from '@stores/function.store';
 import { ContextStore } from '@stores/context.store';
 import { JobStore } from '@stores/job.store'
-import { Endpoint } from '@models/endpoint';
+import { FunctionInfo } from '@models/function';
 import { MdlSnackbarService } from '@angular-mdl/core';
 import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
 import { environment } from 'environments/environment';
 import { Location } from '@angular/common';
 import { AlertService } from '@services/alert.service';
 
-export let injectableEndpoint = new InjectionToken<Endpoint>('selectedEndpoint');
+export let injectableFunction = new InjectionToken<FunctionInfo>('selectedFunction');
 
 
 
 @Component({
-    selector: 'mist-dialog-add-endpoint',
-    templateUrl: './dialog-endpoint-form.component.html',
-    styleUrls: ['./dialog-endpoint-form.component.scss'],
+    selector: 'mist-dialog-add-function',
+    templateUrl: './dialog-function-form.component.html',
+    styleUrls: ['./dialog-function-form.component.scss'],
     providers: [FormsService, MdlSnackbarService, AlertService]
 })
-export class DialogEndpointFormComponent implements OnInit, OnDestroy {
+export class DialogFunctionFormComponent implements OnInit, OnDestroy {
     public formTitle: string;
-    public endpointNameReadOnly: boolean;
-    public endpointForm: FormGroup;
+    public functionNameReadOnly: boolean;
+    public functionForm: FormGroup;
     public contexts: Context[];
     public file: File;
     public formErrors = {
@@ -39,15 +39,15 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
     public loading: boolean;
     public isCreateContextFormVisiblie: boolean;
     public defaultContext: string;
-    public selectedEndpoint: Endpoint;
-    private data: Endpoint;
+    public functionInfo: FunctionInfo;
+    private data: FunctionInfo;
     private requestBody: string;
     private requestMethod: string;
     private port: string;
     private apiUrl: string;
-    private endpointFormSub;
+    private functionFormSub;
     private contextStoreSub;
-    private endpointStoreSub;
+    private functionStoreSub;
 
     @HostListener('document:keydown.escape')
     public onEsc() {
@@ -58,36 +58,36 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         public dialogRef: MdlDialogReference,
         private formsService: FormsService,
-        private endpointStore: EndpointStore,
+        private functionStore: FunctionStore,
         private jobStore: JobStore,
         private mdlSnackbarService: MdlSnackbarService,
         private dialog: MdlDialogService,
         private contextStore: ContextStore,
-        @Inject(injectableEndpoint) data: Endpoint,
+        @Inject(injectableFunction) data: FunctionInfo,
         private location: Location,
         private alertService: AlertService
     ) {
         this.port = environment.production ? window.location.port : environment.port;
-        const path = this.location.prepareExternalUrl(environment.apiUrl).replace("/ui" + environment.apiUrl, environment.apiUrl);
+        const path = this.location.prepareExternalUrl(environment.apiUrl).replace('/ui' + environment.apiUrl, environment.apiUrl);
         this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
 
-        this.selectedEndpoint = data;
-        if (!this.selectedEndpoint) {
+        this.functionInfo = data;
+        if (!this.functionInfo) {
             this.formTitle = 'Add Function';
             this.requestMethod = 'POST';
         } else {
             this.formTitle = 'Update Function';
-            this.endpointNameReadOnly = true;
+            this.functionNameReadOnly = true;
             this.requestMethod = 'PUT';
         }
     }
 
     ngOnInit() {
-        this.createEndpointFrom();
+        this.createFunctionFrom();
         this.contextStore.getAll();
         this.contextStoreSub = this.contextStore.contexts.subscribe(data => { this.contexts = data });
-        if (this.selectedEndpoint) {
-            this.updateEndpointFormValues(this.selectedEndpoint);
+        if (this.functionInfo) {
+            this.updateFunctionFormValues(this.functionInfo);
         };
     }
 
@@ -95,47 +95,47 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
         if (this.contextStoreSub) {
             this.contextStoreSub.unsubscribe();
         }
-        if (this.endpointFormSub) {
-            this.endpointFormSub.unsubscribe();
+        if (this.functionFormSub) {
+            this.functionFormSub.unsubscribe();
         }
-        if (this.endpointFormSub) {
-            this.endpointFormSub.unsubscribe();
+        if (this.functionFormSub) {
+            this.functionFormSub.unsubscribe();
         }
     }
 
-    private updateEndpointFormValues(endpoint: Endpoint) {
-        this.defaultContext = endpoint.defaultContext;
-        this.endpointForm.setValue({
-            name: endpoint.name,
-            path: endpoint.path,
-            defaultContext: endpoint.defaultContext,
-            className: endpoint.className || '',
+    private updateFunctionFormValues(functionInfo: FunctionInfo) {
+        this.defaultContext = functionInfo.defaultContext;
+        this.functionForm.setValue({
+            name: functionInfo.name,
+            path: functionInfo.path,
+            defaultContext: functionInfo.defaultContext,
+            className: functionInfo.className || '',
         });
     }
 
-    createEndpointFrom() {
+    createFunctionFrom() {
         const fs = this.formsService;
-        this.endpointForm = this.fb.group({
+        this.functionForm = this.fb.group({
             name: ['', [Validators.required]],
             path: ['', [Validators.required]],
             defaultContext: ['', [Validators.required]],
             className: ['', [Validators.required]],
         });
 
-        this.endpointForm.valueChanges
+        this.functionForm.valueChanges
             .subscribe( () => {
-                fs.setErrors(this.endpointForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addEndpoint);
+                fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);
             });
 
-        fs.setErrors(this.endpointForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addEndpoint);
+        fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);
     }
 
-    submitEnpointForm(form) {
-        let endpointRequestMethod;
+    submitFunctionForm(form) {
+        let functionRequestMethod;
         const self = this;
         const fs = this.formsService;
-        let endpointMessage = 'has been successfully ';
-        const _endpoint = new Endpoint({
+        let functionMessage = 'has been successfully ';
+        const _function = new FunctionInfo({
             name: form.controls.name.value,
             path: form.controls.path.value,
             className: form.controls.className.value,
@@ -145,24 +145,24 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
 
         if (form.valid) {
             this.loading = true;
-            if (!this.selectedEndpoint) {
-                endpointRequestMethod = this.endpointStore.createEndpoint(_endpoint);
-                endpointMessage += 'added';
+            if (!this.functionInfo) {
+                functionRequestMethod = this.functionStore.createFunction(_function);
+                functionMessage += 'added';
             } else {
-                endpointRequestMethod = this.endpointStore.updateEndpoint(_endpoint);
-                endpointMessage += 'updated';
+                functionRequestMethod = this.functionStore.updateFunction(_function);
+                functionMessage += 'updated';
             }
-            
-            endpointRequestMethod
+
+            functionRequestMethod
                 .subscribe(
-                    (endpoint) => {
+                    (functionInfo) => {
                         self.loading = false;
                         this.dialogRef.hide();
                         this.mdlSnackbarService.showSnackbar({
-                        message: `${endpoint.name} ${endpointMessage}`,
+                        message: `${functionInfo.name} ${functionMessage}`,
                         timeout: 5000
                         });
-                    }, 
+                    },
                     (error) => {
                         self.loading = false;
                         this.alertService.error(error);
@@ -170,7 +170,7 @@ export class DialogEndpointFormComponent implements OnInit, OnDestroy {
                 );
 
         } else {
-            fs.setErrors(this.endpointForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addEndpoint);
+            fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);
             return false;
         }
     }

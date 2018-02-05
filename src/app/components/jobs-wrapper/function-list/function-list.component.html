@@ -16,20 +16,20 @@
         <ul class='sidebar-list'>
             <li class='sidebar-list__item' [routerLink]="['overview']" routerLinkActive='__active'>
                 <div>
-                    <i class='material-icons mdl-list__item-icon endpoint-list__item-icon'>
+                    <i class='material-icons mdl-list__item-icon function-list__item-icon'>
                       view_comfy
                     </i>
                     <span class="sidebar-list__item-name">All Jobs</span>
                 </div>
                 <div>
-                    <span class='endpoint-list__badge'
+                    <span class='function-list__badge'
                           *ngIf="runningJobs.length"
                           [mdl-badge]="runningJobs.length"></span>
                 </div>
             </li>
-            <li *ngFor="let item of endpoints | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
+            <li *ngFor="let item of functions | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
                 <span class="sidebar-list__item-name">{{ item.name }}</span>
-                <span class='endpoint-list__badge'
+                <span class='function-list__badge'
                       *ngIf="runningJobsCountBy(item.name)"
                       [mdl-badge]="runningJobsCountBy(item.name)"></span>
             </li>

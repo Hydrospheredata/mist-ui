@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { EndpointStore } from './endpoint.store';
+import { FunctionStore } from './function.store';
 
 describe('JobStore', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [EndpointStore]
+      providers: [FunctionStore]
     });
   });
 
-  it('should be created', inject([EndpointStore], (service: EndpointStore) => {
+  it('should be created', inject([FunctionStore], (service: FunctionStore) => {
     expect(service).toBeTruthy();
   }));
 });

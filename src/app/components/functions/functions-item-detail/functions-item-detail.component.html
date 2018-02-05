@@ -1,7 +1,7 @@
 <div class="mist-page-container">
     <div class="mist-page-header">
         <div class="cs-text-right" fxFlex.md="10" fxFlex.sm="10" fxFlex.lg="20">
-            <mdl-button (click)="openDialogEndpointForm(endpoint)" class="mist-button blue border icon" title="Edit" mdl-colored="">
+            <mdl-button (click)="openDialogFunctionForm(functionInfo)" class="mist-button blue border icon" title="Edit" mdl-colored="">
                 <mdl-icon>edit</mdl-icon>
                 <span fxHide.md fxHide.sm>Edit</span>
             </mdl-button>
@@ -12,19 +12,19 @@
             <ul class="content-info__list">
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Language</span>
-                    <span class="content-info__list-item-value">{{ endpoint?.lang }}</span>
+                    <span class="content-info__list-item-value">{{ functionInfo?.lang }}</span>
                 </li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Path</span>
-                    <span class="content-info__list-item-value">{{ endpoint?.path }}</span>
+                    <span class="content-info__list-item-value">{{ functionInfo?.path }}</span>
                 </li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Context</span>
-                    <span class="content-info__list-item-value">{{ endpoint?.defaultContext }}</span>
+                    <span class="content-info__list-item-value">{{ functionInfo?.defaultContext }}</span>
                 </li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Class</span>
-                    <span class="content-info__list-item-value">{{ endpoint?.className }}</span>
+                    <span class="content-info__list-item-value">{{ functionInfo?.className }}</span>
                 </li>
             </ul>
         </div>

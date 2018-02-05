@@ -1,4 +1,4 @@
-export class Endpoint {
+export class FunctionInfo {
   public name: string;
   public lang: string;
   // deprecated
@@ -6,23 +6,19 @@ export class Endpoint {
   public execute: string;
   public className: string;
   public defaultContext: string;
-  public contextSettings: JSON;
   public file: File;
-  public endpointStore: string;
   public path: string;
 
-  constructor(endpointInfo: Object) {
-    this.name = endpointInfo['name'];
-    this.lang = endpointInfo['lang'];
+  constructor(functionInfo: Object) {
+    this.name = functionInfo['name'];
+    this.lang = functionInfo['lang'];
     // deprecated
-    this.tags = endpointInfo['tags'];
-    this.execute = JSON.stringify(endpointInfo['execute']) || null;
-    this.defaultContext = endpointInfo['defaultContext'];
-    this.className = endpointInfo['className'];
-    this.file = endpointInfo['file'];
-    this.contextSettings = endpointInfo['contextSettings'];
-    this.endpointStore = endpointInfo['endpointStore'];
-    this.path = endpointInfo['path'];
+    this.tags = functionInfo['tags'];
+    this.execute = JSON.stringify(functionInfo['execute']) || null;
+    this.defaultContext = functionInfo['defaultContext'];
+    this.className = functionInfo['className'];
+    this.file = functionInfo['file'];
+    this.path = functionInfo['path'];
   }
 
   executeExample() {
@@ -43,32 +39,32 @@ export class Endpoint {
   private make(paramType) {
     let t = paramType.type;
     let args = paramType.args;
-    if (t == 'MString') {
+    if (t === 'MString') {
         return 'string';
     }
-    if (t == 'MAny') {
+    if (t === 'MAny') {
         return {};
     }
-    if (t == 'MMap') {
+    if (t === 'MMap') {
         let newObj = {};
         newObj[this.make(args[0])] = this.make(args[1]);
         return newObj;
     }
-    if (t == 'MInt') {
+    if (t === 'MInt') {
         return Math.round(Math.random() * 10);
     }
-    if (t == 'MDouble') {
+    if (t === 'MDouble') {
         return Math.random() * 10;
     }
-    if (t == 'MList') {
+    if (t === 'MList') {
         let list = [];
         list.push(this.make(args[0]));
         return list;
     }
-    if (t == 'MOption') {
+    if (t === 'MOption') {
         return this.make(args[0]);
     }
-    if (t == 'MObj') {
+    if (t === 'MObj') {
         let newObj = {};
         for (let key in paramType.fields) {
           newObj[key] = this.make(paramType.fields[key]);

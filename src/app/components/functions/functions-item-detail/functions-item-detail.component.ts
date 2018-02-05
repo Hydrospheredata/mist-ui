@@ -1,25 +1,25 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JobStore, EndpointStore } from '@stores/_index';
+import { JobStore, FunctionStore } from '@stores/_index';
 import { MdlDialogService } from '@angular-mdl/core';
-import { DialogEndpointFormComponent, injectableEndpoint } from '@app/components/dialogs/_index';
-import { Endpoint } from '@models/endpoint';
+import { DialogFunctionFormComponent, injectableFunction } from '@app/components/dialogs/_index';
+import { FunctionInfo } from '@models/function';
 
 
 
 @Component({
-    selector: 'functions-item-detail-component',
+    selector: 'mist-functions-item-detail-component',
     templateUrl: './functions-item-detail.component.html',
     styleUrls: ['./functions-item-detail.component.scss']
 })
-export class FunctionsItemDetailComponent {
+export class FunctionsItemDetailComponent implements OnInit {
 
-    public endpoint: Endpoint;
+    public functionInfo: FunctionInfo;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private jobStore: JobStore,
-        private endpointStore: EndpointStore,
+        private functionStore: FunctionStore,
         public dialog: MdlDialogService,
     ) {}
 
@@ -32,23 +32,23 @@ export class FunctionsItemDetailComponent {
     }
 
     loadInitialData(id: string) {
-        this.jobStore.getByEndpoint(id);
-        this.endpointStore.endpoints
+        this.jobStore.getByFunctionId(id);
+        this.functionStore.functions
                 .subscribe(data => {
-                    const endpoint = data.find(item => item.name === id) || data[0];
-                    this.endpoint = endpoint;
+                    const foundFunction = data.find(item => item.name === id) || data[0];
+                    this.functionInfo = foundFunction;
                 });
     }
 
-    openDialogEndpointForm(endpoint = null) {
+    openDialogFunctionForm(functionInfo = null) {
         this.dialog.showCustomDialog({
-            component: DialogEndpointFormComponent,
+            component: DialogFunctionFormComponent,
             isModal: true,
             styles: {'width': '850px', 'max-height': '100%'},
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{provide: injectableEndpoint, useValue: endpoint}]
+            providers: [{provide: injectableFunction, useValue: functionInfo}]
         });
     }
 

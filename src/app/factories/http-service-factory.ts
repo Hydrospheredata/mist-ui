@@ -4,7 +4,7 @@ import { MistRequestOptions, HttpService, LoaderService } from '@services/_index
 
 
 
-function httpServiceFactory(backend: XHRBackend, options: MistRequestOptions, location:Location, loaderService: LoaderService ) {
+function httpServiceFactory(backend: XHRBackend, options: MistRequestOptions, location: Location, loaderService: LoaderService ) {
   return new HttpService(backend, options, location, loaderService);
 }
 

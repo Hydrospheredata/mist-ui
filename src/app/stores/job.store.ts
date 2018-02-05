@@ -17,14 +17,14 @@ export class JobStore {
     runningJobs: Observable<Job[]>;
     private _selectedJobs: BehaviorSubject<Job[]>;
     private _runningJobs: BehaviorSubject<Job[]>;
-    private dataStore: {endpoint: string, selectedJobs: Job[], runningJobs: Job[]} = {
-        endpoint: null, 
-        selectedJobs: [], 
-        runningJobs: [] 
+    private dataStore: {functionId: string, selectedJobs: Job[], runningJobs: Job[]} = {
+        functionId: null,
+        selectedJobs: [],
+        runningJobs: []
     };
 
     constructor(
-        private backendService: HttpJobService, 
+        private backendService: HttpJobService,
         private wsService: WebSocketJobService
     ) {
         this._selectedJobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
@@ -34,8 +34,8 @@ export class JobStore {
         this.wsConnect();
     }
 
-    public add(endpointId: string, args: string = '{}'): Observable<string> {
-        return this.backendService.create(endpointId, args).map((data) => {
+    public add(functionId: string, args: string = '{}'): Observable<string> {
+        return this.backendService.create(functionId, args).map((data) => {
             this.get(data.id);
             return data.id;
         });
@@ -44,7 +44,7 @@ export class JobStore {
     public getAll(): void {
         this.backendService.getAll().subscribe((jobs) => {
             this.dataStore.selectedJobs = jobs;
-            this.dataStore.endpoint = null;
+            this.dataStore.functionId = null;
             this.updateStore();
         });
     }
@@ -56,19 +56,19 @@ export class JobStore {
         });
     }
 
-    public getByEndpoint(endpointId: string) {
-        this.backendService.getByEndpoint(endpointId).subscribe((jobs) => {
+    public getByFunctionId(id: string) {
+        this.backendService.getByFunctionId(id).subscribe((jobs) => {
             this.dataStore.selectedJobs = jobs;
-            this.dataStore.endpoint = endpointId;
+            this.dataStore.functionId = id;
             this.updateStore();
         });
     }
 
     public get(id: string): void {
         console.log(id);
-        let obs = this.backendService.get(id)
+        let obs = this.backendService.get(id);
         obs.subscribe((job) => {
-            if (!this.dataStore.endpoint || this.dataStore.endpoint === job.endpoint) {
+            if (!this.dataStore.functionId || this.dataStore.functionId === job.functionId) {
                 this.updateItem(job);
             }
             if (job.isRunning()) {
@@ -108,7 +108,9 @@ export class JobStore {
     // mode: 'selectedJobs' | 'runningJobs'
     private removeItem(job: Job, mode: string = 'selectedJobs') {
         let removedJob = this.dataStore[mode].find(rmvdJob => rmvdJob.jobId === job.jobId);
-        if (!removedJob) return false;
+        if (!removedJob) {
+          return false;
+        }
         let index: number = this.dataStore[mode].indexOf(removedJob);
         this.dataStore[mode].splice(index, 1);
         this.updateStore(mode);
@@ -117,7 +119,7 @@ export class JobStore {
     private wsConnect() {
         this.wsService.connect()
             .subscribe(
-                (message) => { console.log("Successfully connected!"); this.wsEventHandler(message) },
+                (message) => { console.log('Successfully connected!'); this.wsEventHandler(message) },
                 (err) => { console.log(err); this.wsConnect(); }
             )
     }
@@ -144,11 +146,11 @@ export class JobStore {
                 this.dataStore.selectedJobs[i].createTime++;
                 this.dataStore.selectedJobs[i].startTime++;
                 this.dataStore.selectedJobs[i].endTime++;
-                ((i) => {
+                ((idx) => {
                     setTimeout(() => {
-                        this.dataStore.selectedJobs[i].endTime--;
-                        this.dataStore.selectedJobs[i].startTime--;
-                        this.dataStore.selectedJobs[i].createTime--;
+                        this.dataStore.selectedJobs[idx].endTime--;
+                        this.dataStore.selectedJobs[idx].startTime--;
+                        this.dataStore.selectedJobs[idx].createTime--;
                     }, 60 * 1000);
                 })(i)
             }

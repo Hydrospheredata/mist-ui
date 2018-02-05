@@ -1,10 +1,10 @@
-import { Endpoint } from '@models/endpoint';
+import { FunctionInfo } from '@models/function';
 
-export const mockEndpoint: Endpoint = new Endpoint({
+export const mockFunction: FunctionInfo = new FunctionInfo({
   name: 'simple-context',
   lang: 'scala',
   tags: ['streaming'],
   execute: '{"numbers":{"type":"MList","args":[{"type":"MInt","args":[]}]},"multiplier":{"type":"MOption","args":[{"type":"MInt","args":[]}]}}'
 })
 
-export const mockEndpointsList: Endpoint[] = [ mockEndpoint ];
+export const mockFunctionList: FunctionInfo[] = [ mockFunction ];

@@ -10,7 +10,7 @@ export * from './alert.service';
 export * from './forms.service';
 export * from './http-artifacts.service';
 export * from './http-contexts.service';
-export * from './http-endpoint.service';
+export * from './http-function.service';
 
 
 export * from './http-workers.service';

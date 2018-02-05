@@ -5,7 +5,7 @@ export class Job {
   public createTime: number;
   public endTime: number;
   public startTime: number;
-  public endpoint: string;
+  public functionId: string;
   public jobResult: string;
   public params: string;
   public source: string;
@@ -15,7 +15,7 @@ export class Job {
     this.jobId = jobInfo['jobId'];
     this.status = jobInfo['status'];
     this.context = jobInfo['context'];
-    this.endpoint = jobInfo['endpoint'];
+    this.functionId = jobInfo['function'];
     this.createTime = jobInfo['createTime'];
     this.endTime = jobInfo['endTime'];
     this.startTime = jobInfo['startTime'];

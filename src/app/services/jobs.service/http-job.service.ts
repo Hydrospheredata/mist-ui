@@ -10,7 +10,7 @@ import { HttpService } from '../http.service/http.service';
 export class HttpJobService {
   private baseUrl = {
     jobs: '/jobs',
-    endpoints: '/endpoints'
+    functions: '/functions'
   };
 
   constructor(private http: HttpService) {
@@ -37,8 +37,8 @@ export class HttpJobService {
       .catch(this.handleError);
   }
 
-  public getByEndpoint(endpointId: string): Observable<Job[]> {
-    const apiUrl = this.baseUrl.endpoints + `/${endpointId}/jobs`;
+  public getByFunctionId(id: string): Observable<Job[]> {
+    const apiUrl = this.baseUrl.functions + `/${id}/jobs`;
     return this.http.get(apiUrl)
              .map((res: Response) => { return this.extractJobs(res) })
              .catch(this.handleError);
@@ -51,8 +51,8 @@ export class HttpJobService {
              .catch(this.handleError);
   }
 
-  public create(endpointId: string, args: string): Observable<any> {
-    const apiUrl = this.baseUrl.endpoints + `/${endpointId}/jobs`;
+  public create(functionId: string, args: string): Observable<any> {
+    const apiUrl = this.baseUrl.functions + `/${functionId}/jobs`;
 
     return this.http.post(apiUrl, JSON.stringify(JSON.parse(args)))
              .map(this.extractData)
@@ -97,7 +97,7 @@ export class HttpJobService {
       createTime: data.createTime,
       startTime: data.startTime,
       endTime: data.endTime,
-      endpoint: data.endpoint,
+      'function': data.function,
       jobResult: JSON.stringify(data.jobResult, null, '\t'),
       params: JSON.stringify(data.params, null, '\t'),
       source: data.source,

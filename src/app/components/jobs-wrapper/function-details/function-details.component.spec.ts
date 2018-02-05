@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { EndpointDetailsComponent } from './endpoint-details.component';
+import { FunctionDetailsComponent } from './function-details.component';
 import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
 import { AgoDatePipe } from '@pipes/ago-date.pipe';
 
-describe('EndpointDetailsComponent', () => {
-  let component: EndpointDetailsComponent;
-  let fixture: ComponentFixture<EndpointDetailsComponent>;
+describe('FunctionDetailsComponent', () => {
+  let component: FunctionDetailsComponent;
+  let fixture: ComponentFixture<FunctionDetailsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        EndpointDetailsComponent,
+        FunctionDetailsComponent,
         JobStatusFilterPipe,
         AgoDatePipe
       ],
@@ -22,7 +22,7 @@ describe('EndpointDetailsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EndpointDetailsComponent);
+    fixture = TestBed.createComponent(FunctionDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

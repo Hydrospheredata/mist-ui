@@ -2,8 +2,8 @@
     <div class="sidebar-header">
         <div class="sidebar-header__row">
             <h3 class='sidebar-title'>Functions</h3>
-            <mdl-button (click)="openDialogEndpointForm()" class="mist-button blue border icon" title="Add new endpoint"
-                mdl-colored="">
+            <mdl-button (click)="openDialogFunctionForm()" class="mist-button blue border icon" title="Add new function"
+                        mdl-colored="">
                 <mdl-icon>add</mdl-icon>
                 <span fxHide.sm fxHide.md>Add</span>
             </mdl-button>
@@ -19,7 +19,7 @@
     </div>
     <div class="sidebar-body">
         <ul class='sidebar-list'>
-            <li *ngFor="let item of endpoints | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
+            <li *ngFor="let item of functions | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]" routerLinkActive='__active'>
                 <span class="sidebar-list__item-name">{{ item.name }}</span>
             </li>
         </ul>

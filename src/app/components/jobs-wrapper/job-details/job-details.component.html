@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class='mist-page-header__row' fxLayout="row" fxLayoutAlign="space-between center">
-            <div class="h3 mist-page-header__title">{{job.endpoint}}</div>
+            <div class="h3 mist-page-header__title">{{job.functionId}}</div>
             <button mdl-button mdl-button="" mdl-button-type="raised" mdl-colored="primary" mdl-ripple="" class='clone-job-button mat-button--primary mat-button' (click)="openDialogJobForm()">
                 Copy Job
             </button>
@@ -29,8 +29,8 @@
                     <span class="content-info__list-item-title">Status</span>
                     <span class="content-info__list-item-value" style="text-transform: uppercase;"
                         [ngClass]="{
-                            'font-color--success': job.isFinished(), 
-                            'font-color--primary': job.isRunning(), 
+                            'font-color--success': job.isFinished(),
+                            'font-color--primary': job.isRunning(),
                             'font-color--failed': job.isFailed()
                         }">{{ job.status }}</span>
                 </li>

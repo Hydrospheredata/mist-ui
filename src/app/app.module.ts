@@ -21,8 +21,8 @@ import { ClipboardModule } from '@node_modules/ngx-clipboard';
 import { AppComponent } from './app.component';
 import { HomeComponent } from '@components/home/home.component';
 import { NavbarComponent } from '@components/navbar/navbar.component';
-import { EndpointListComponent } from '@components/jobs-wrapper/endpoint-list/endpoint-list.component';
-import { EndpointDetailsComponent } from '@components/jobs-wrapper/endpoint-details/endpoint-details.component';
+import { FunctionListComponent } from '@components/jobs-wrapper/function-list/function-list.component';
+import { FunctionDetailsComponent } from '@components/jobs-wrapper/function-details/function-details.component';
 import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
 import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.component';
 import { InputTextComponent } from '@components/form/input-text/input-text.component';
@@ -35,18 +35,18 @@ import { WorkerComponent } from '@components/clusters-wrapper/worker/worker.comp
 import { LoaderComponent } from '@components/loader/loader.component';
 import { AlertComponent } from '@components/alert/alert.component';
 
-import { 
+import {
     DialogJobLogsComponent,
     DialogJobFormComponent,
     DialogFullScreenJsonComponent,
-    DialogEndpointFormComponent,
+    DialogFunctionFormComponent,
     DialogAddContextComponent,
     DialogCloneJobFormComponent
 } from '@components/dialogs/_index';
 
 // services
-import { 
-    HttpEndpointService,
+import {
+    HttpFunctionService,
     HttpJobService,
     HttpContextsService,
     HttpArtifactsService,
@@ -62,15 +62,15 @@ import {
 import { httpServiceFactory } from './factories/http-service-factory';
 
 // stores
-import { 
-    JobStore, 
-    EndpointStore, 
-    ContextStore, 
-    WorkersStore 
+import {
+    JobStore,
+    FunctionStore,
+    ContextStore,
+    WorkersStore
 } from '@stores/_index';
 
 // pipes
-import { 
+import {
     JobStatusFilterPipe,
     AgoDatePipe,
     SearchPipe,
@@ -86,11 +86,11 @@ import {
         AppComponent,
         HomeComponent,
         NavbarComponent,
-        EndpointListComponent,
-        EndpointDetailsComponent,
+        FunctionListComponent,
+        FunctionDetailsComponent,
         DialogJobFormComponent,
         JobDetailsComponent,
-        DialogEndpointFormComponent,
+        DialogFunctionFormComponent,
         DialogAddContextComponent,
         DialogFullScreenJsonComponent,
         DialogJobLogsComponent,
@@ -101,7 +101,7 @@ import {
         DialogCloneJobFormComponent,
         LoaderComponent,
         AlertComponent,
-        FunctionsWrapperComponent, 
+        FunctionsWrapperComponent,
         FunctionsItemDetailComponent,
         FunctionsListComponent,
         // pipes
@@ -134,18 +134,18 @@ import {
     entryComponents: [
         DialogJobFormComponent,
         DialogFullScreenJsonComponent,
-        DialogEndpointFormComponent,
+        DialogFunctionFormComponent,
         DialogAddContextComponent,
         DialogJobLogsComponent,
         DialogCloneJobFormComponent
     ],
     providers: [
-        HttpEndpointService,
+        HttpFunctionService,
         HttpJobService,
         HttpArtifactsService,
         WebSocketJobService,
         JobStore,
-        EndpointStore,
+        FunctionStore,
         WorkersStore,
         HttpContextsService,
         ContextStore,

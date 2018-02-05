@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavbarComponent } from '@components/navbar/navbar.component';
 
 
 describe('AppComponent', () => {

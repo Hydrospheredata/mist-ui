@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, HostListener, InjectionToken } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MdlDialogReference } from '@angular-mdl/core';
-import { Endpoint } from '@models/endpoint';
-import { EndpointStore } from '@stores/endpoint.store';
+import { FunctionInfo } from '@models/function';
+import { FunctionStore } from '@stores/function.store';
 import { JobStore } from '@stores/job.store';
 import { JSONValidator } from '@app/validators/json.validator';
 import { FormsService } from '@services/forms.service';
@@ -16,7 +16,7 @@ import '@node_modules/codemirror/addon/edit/matchbrackets';
 import '@node_modules/codemirror/addon/edit/closebrackets';
 import '@node_modules/codemirror/addon/display/placeholder';
 
-export let injectableSelectedEndpoint = new InjectionToken<Endpoint>('selectedEndpoint');
+export let injectableSelectedFunction = new InjectionToken<FunctionInfo>('selectedFunction');
 
 @Component({
   selector: 'mist-dialog-job-form',
@@ -27,9 +27,9 @@ export let injectableSelectedEndpoint = new InjectionToken<Endpoint>('selectedEn
 
 export class DialogJobFormComponent implements OnInit {
   public jobForm: FormGroup;
-  data: Endpoint;
-  endpoints: Endpoint[];
-  selectedEndpoint: Endpoint;
+  data: FunctionInfo;
+  functions: FunctionInfo[];
+  selectedFunction: FunctionInfo;
   codeMirrorOptions: {};
   executeParams: string;
   public formErrors: object = {
@@ -40,8 +40,8 @@ export class DialogJobFormComponent implements OnInit {
   private apiUrl: string;
 
   constructor(
-    @Inject(injectableSelectedEndpoint) data: Endpoint,
-    private endpointStore: EndpointStore,
+    @Inject(injectableSelectedFunction) data: FunctionInfo,
+    private functionStore: FunctionStore,
     private jobStore: JobStore,
     private fb: FormBuilder,
     private formsService: FormsService,
@@ -51,9 +51,9 @@ export class DialogJobFormComponent implements OnInit {
     private alertService: AlertService) {
 
     this.data = data;
-    this.selectedEndpoint = this.data || new Endpoint({});
+    this.selectedFunction = this.data || new FunctionInfo({});
     this.port = environment.production ? window.location.port : environment.port;
-    const path = this.location.prepareExternalUrl(environment.apiUrl).replace("/ui" + environment.apiUrl, environment.apiUrl);
+    const path = this.location.prepareExternalUrl(environment.apiUrl).replace('/ui' + environment.apiUrl, environment.apiUrl);
     this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
   }
 
@@ -64,9 +64,9 @@ export class DialogJobFormComponent implements OnInit {
 
   ngOnInit() {
     const fs = this.formsService;
-    this.endpointStore.endpoints.subscribe(data => { this.endpoints = data });
-    if (this.selectedEndpoint && this.selectedEndpoint.executeExample) {
-      this.executeParams = this.selectedEndpoint.executeExample();
+    this.functionStore.functions.subscribe(data => { this.functions = data });
+    if (this.selectedFunction && this.selectedFunction.executeExample) {
+      this.executeParams = this.selectedFunction.executeExample();
     }
     this.buildCodeMirrorOptions();
     this.createJobForm();
@@ -74,7 +74,7 @@ export class DialogJobFormComponent implements OnInit {
       .subscribe(form => {
         if (!this.jobForm.invalid) {
           let executeParams = this.executeParams || '{}';
-          const id = this.selectedEndpoint && this.selectedEndpoint.name ? this.selectedEndpoint.name : 'overview';
+          const id = this.selectedFunction && this.selectedFunction.name ? this.selectedFunction.name : 'overview';
 
           try {
             executeParams = JSON.stringify(JSON.parse(executeParams));
@@ -84,7 +84,7 @@ export class DialogJobFormComponent implements OnInit {
           }
 
           fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
-          this.requestBody = `curl -X POST -d '${executeParams}' '${this.apiUrl}/endpoints/${id}/jobs'`;
+          this.requestBody = `curl -X POST -d '${executeParams}' '${this.apiUrl}/functions/${id}/jobs'`;
         }
       });
   }
@@ -92,21 +92,21 @@ export class DialogJobFormComponent implements OnInit {
   createJobForm() {
     this.jobForm = this.fb.group({
       executeParams: ['', [JSONValidator.validate]],
-      selectedEndpoint: ['']
+      selectedFunction: ['']
     })
   }
 
-  onChangeEndpoint() {
-    this.executeParams = this.selectedEndpoint.executeExample() || '{}';
+  onChangeFunction() {
+    this.executeParams = this.selectedFunction.executeExample() || '{}';
   }
 
   submit(form) {
     let fs = this.formsService;
-    let endpointId = this.selectedEndpoint.name;
+    let functionId = this.selectedFunction.name;
     let params = this.executeParams || '{}';
 
     if (form.valid) {
-      this.jobStore.add(endpointId, params)
+      this.jobStore.add(functionId, params)
         .subscribe((id) => {
           this.dialogRef.hide();
           this.mdlSnackbarService.showSnackbar({
