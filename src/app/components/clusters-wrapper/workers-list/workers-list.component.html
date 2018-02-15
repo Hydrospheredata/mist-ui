@@ -15,8 +15,8 @@
     <div class="sidebar-body">
         <ul class='sidebar-list'>
             <li *ngFor="let item of workers | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="['workers/' + item.name]" routerLinkActive='__active'>
-                <span class="sidebar-list__item-name">{{ item.name }}</span>
-                <mdl-icon title="Edit workers" (click)="deleteWorker(item)">delete_forever</mdl-icon>
+              <span class="cs-text-overflow-ellipsis sidebar-list__item-name">{{ item.name }}</span>
+              <mdl-icon title="Edit workers" (click)="deleteWorker(item)">delete_forever</mdl-icon>
             </li>
         </ul>
     </div>
