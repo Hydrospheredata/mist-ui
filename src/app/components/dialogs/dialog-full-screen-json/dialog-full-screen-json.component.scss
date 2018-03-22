@@ -1,14 +1,20 @@
-.full-screen-json {
-  &--toggle {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+.dialog-fullscreen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  &__btn {
     color: #818994;
-
     &:hover {
       cursor: pointer;
     }
   }
-
+  &__content {
+    overflow-y: auto;
+    width: 100%;
+    .CodeMirror {
+      height: 100%;
+    }
+  }
 }
 

@@ -1,11 +1,11 @@
-<div class="mdl-dialog__content full-screen-json">
-  <div class='full-screen-json'>
-    <codemirror [(ngModel)]="jsonString"
-          [config]="codeMirrorOptions">
+<div class="dialog-fullscreen">
+  <div class="dialog-fullscreen__header">
+    <div class="cs-text-right">
+      <mdl-icon class='dialog-fullscreen__btn' (click)="dialogRef.hide()">crop_free</mdl-icon>
+    </div>
+  </div>
+  <div class="dialog-fullscreen__content">
+    <codemirror [(ngModel)]="jsonString" [config]="codeMirrorOptions">
     </codemirror>
   </div>
-  <div class="cs-text-right">
-    <mdl-icon class='full-screen-json--toggle' (click)="dialogRef.hide()">crop_free</mdl-icon>
-  </div>
 </div>
-

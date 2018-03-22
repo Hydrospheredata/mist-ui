@@ -12,7 +12,7 @@ export class DialogJobLogsComponent implements OnInit {
   public logs: object;
 
   constructor(@Inject(injectableLogs) data: object,
-              public dialogRef: MdlDialogReference
+    public dialogRef: MdlDialogReference
   ) {
     this.logs = data;
   }
