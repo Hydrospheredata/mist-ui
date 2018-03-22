@@ -129,8 +129,8 @@
   background-color: $main-color;
 }
 .mdl-dialog {
-  overflow-y: auto;
-  max-height: 100%;
+  // overflow-y: auto;
+  // max-height: 100%;
   .mdl-dialog__content {
     overflow-x: auto;
     max-height: 85vh;
