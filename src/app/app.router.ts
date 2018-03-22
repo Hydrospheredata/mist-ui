@@ -1,14 +1,13 @@
 import { ModuleWithProviders, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from '@components/home/home.component';
 import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.component'
 import { FunctionListComponent } from '@components/jobs-wrapper/function-list/function-list.component';
 import { FunctionDetailsComponent } from '@components/jobs-wrapper/function-details/function-details.component';
 import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
 import { ClustersWrapperComponent } from '@components/clusters-wrapper/clusters-wrapper.component';
 import { WorkerComponent } from '@components/clusters-wrapper/worker/worker.component';
-import {WorkersListComponent} from '@components/clusters-wrapper/workers-list/workers-list.component';
+import { WorkersListComponent } from '@components/clusters-wrapper/workers-list/workers-list.component';
 
 import { FunctionsWrapperComponent, FunctionsItemDetailComponent } from '@components/functions/_index';
 

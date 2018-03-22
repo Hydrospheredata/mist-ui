@@ -19,7 +19,6 @@ import { ClipboardModule } from '@node_modules/ngx-clipboard';
 
 // components
 import { AppComponent } from './app.component';
-import { HomeComponent } from '@components/home/home.component';
 import { NavbarComponent } from '@components/navbar/navbar.component';
 import { FunctionListComponent } from '@components/jobs-wrapper/function-list/function-list.component';
 import { FunctionDetailsComponent } from '@components/jobs-wrapper/function-details/function-details.component';
@@ -84,7 +83,6 @@ import {
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent,
         NavbarComponent,
         FunctionListComponent,
         FunctionDetailsComponent,
@@ -154,7 +152,7 @@ import {
         {
             provide: HttpService,
             useFactory: httpServiceFactory,
-            deps: [XHRBackend, RequestOptions, Location, LoaderService ]
+            deps: [XHRBackend, RequestOptions, Location, LoaderService]
         }
     ],
     bootstrap: [AppComponent]
