@@ -5,7 +5,7 @@ export * from './logs.service/_index';
 export * from './jobs.service/_index';
 
 
-
+export * from './status.service';
 export * from './alert.service';
 export * from './forms.service';
 export * from './http-artifacts.service';

@@ -20,6 +20,7 @@ import { ClipboardModule } from '@node_modules/ngx-clipboard';
 // components
 import { AppComponent } from './app.component';
 import { NavbarComponent } from '@components/navbar/navbar.component';
+import { FooterComponent } from '@components/footer/footer.component';
 import { FunctionListComponent } from '@components/jobs-wrapper/function-list/function-list.component';
 import { FunctionDetailsComponent } from '@components/jobs-wrapper/function-details/function-details.component';
 import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
@@ -54,7 +55,8 @@ import {
     HttpService,
     LoaderService,
     MistRequestOptions,
-    HttpWorkersService
+    HttpWorkersService,
+    StatusService,
 } from '@services/_index';
 
 // factories
@@ -84,6 +86,7 @@ import {
     declarations: [
         AppComponent,
         NavbarComponent,
+        FooterComponent,
         FunctionListComponent,
         FunctionDetailsComponent,
         DialogJobFormComponent,
@@ -149,6 +152,7 @@ import {
         ContextStore,
         LoaderService,
         HttpWorkersService,
+        StatusService,
         {
             provide: HttpService,
             useFactory: httpServiceFactory,

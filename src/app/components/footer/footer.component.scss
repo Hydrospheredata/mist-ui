@@ -1,0 +1,16 @@
+footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    padding: 0 1.5rem;
+    background-color: #f8f9fb;
+    > span {
+        &:not(:first-child) {
+            margin-left: 8px;
+        }
+        &:not(:last-child) {
+            margin-right: 8px;
+        }
+    }
+}
