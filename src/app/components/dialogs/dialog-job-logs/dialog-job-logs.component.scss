@@ -30,4 +30,25 @@
     }
   }
 
+  &__navigation {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 16px 12px;
+    &-btn {
+      color: #ffffff;
+      font-size: 32px;
+      cursor: pointer;
+      &:hover {
+        color: #818994;
+      }
+      &.disable {
+        color: #818994;
+        cursor: pointer;
+      }
+    }
+  }
+
 }

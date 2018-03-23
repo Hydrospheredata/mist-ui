@@ -14,6 +14,8 @@ import { HttpLogsService, WebSocketLogsService } from '@services/_index';
 export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('jobLogs') elem: ElementRef;
     @Input() jobId: string;
+    public isTop = true;
+    public isBottom = false;
     private parent: Element;
     private webSocketLogsServiceSub: any;
     public errorMessage: string;
@@ -47,18 +49,42 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.parent = this.elem.nativeElement.parentElement;
+        console.log(this.parent);
+    }
+
+    public scrollTo(direction: string) {
+        const container = this.elem.nativeElement.querySelector('.job-logs--container');
+        const height = container.scrollHeight;
+        if (direction === 'top') {
+            container.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+        } else {
+            container.scrollTo({ left: 0, top: height, behavior: 'smooth' });
+        }
+    }
+
+    public onScroll(event) {
+        if (event.target.scrollTop > 0) {
+            this.isTop = false;
+        } else {
+            this.isTop = true;
+        }
+        if (event.target.scrollTop < event.target.scrollHeight - event.target.offsetHeight) {
+            this.isBottom = false;
+        } else {
+            this.isBottom = true;
+        }
     }
 
     showDialogJobLogs() {
         this.dialog.showCustomDialog({
             component: DialogJobLogsComponent,
-            styles: {'width': '100%', 'height': '100%'},
+            styles: { 'width': '100%', 'height': '100%' },
             classes: 'job-logs--dialog',
             isModal: true,
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{provide: injectableLogs, useValue: this.logs}],
+            providers: [{ provide: injectableLogs, useValue: this.logs }],
         });
     }
 
