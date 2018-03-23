@@ -2,7 +2,7 @@ import { BaseRequestOptions } from '@angular/http';
 
 export class MistRequestOptions extends BaseRequestOptions {
 
-  constructor (mistOptions?: any) {
+  constructor(mistOptions?: any) {
 
     super();
 
@@ -10,8 +10,10 @@ export class MistRequestOptions extends BaseRequestOptions {
 
     if (mistOptions != null) {
       for (let option in mistOptions) {
-        const optionValue = mistOptions[option];
-        this[option] = optionValue;
+        if (mistOptions.hasOwnProperty(option)) {
+          const optionValue = mistOptions[option];
+          this[option] = optionValue;
+        }
       }
     }
   }
