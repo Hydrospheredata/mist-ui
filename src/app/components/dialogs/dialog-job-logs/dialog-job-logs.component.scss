@@ -30,6 +30,18 @@
     }
   }
 
+  &--download {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: #ffffff;
+
+    &:hover {
+      color: #818994;
+      cursor: pointer;
+    }
+  }
+
   &__navigation {
     position: absolute;
     right: 0;

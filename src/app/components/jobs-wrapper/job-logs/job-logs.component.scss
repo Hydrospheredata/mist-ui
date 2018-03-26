@@ -45,6 +45,18 @@
     }
   }
 
+  &--download {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: #ffffff;
+
+    &:hover {
+      color: #818994;
+      cursor: pointer;
+    }
+  }
+
   &--expand {
     position: absolute;
     transform: translate3d(-50%, 0, 0);

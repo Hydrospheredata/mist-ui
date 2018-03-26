@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Inp
 import { MdlDialogService } from '@angular-mdl/core';
 import { injectableLogs, DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
 import { HttpLogsService, WebSocketLogsService } from '@services/_index';
+import * as FileSaver from 'file-saver';
+import { Job } from '@app/models/job';
 
 
 
@@ -13,7 +15,7 @@ import { HttpLogsService, WebSocketLogsService } from '@services/_index';
 })
 export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('jobLogs') elem: ElementRef;
-    @Input() jobId: string;
+    @Input() job: Job;
     public isTop = true;
     public isBottom = false;
     private parent: Element;
@@ -32,14 +34,14 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
-        if (this.jobId) {
-            this.httpLogsServiceSub = this.httpLogsService.get(this.jobId)
+        if (this.job) {
+            this.httpLogsServiceSub = this.httpLogsService.get(this.job.jobId)
                 .subscribe(
-                    (logs) => { console.log(logs); this.logs = logs.concat(this.logs); },
+                    (logs) => { this.logs = logs.concat(this.logs) },
                     (error) => { this.errorHandler(error) }
                 );
             this.webSocketLogsServiceSub = this.webSocketLogsService
-                .connect(this.jobId)
+                .connect(this.job.jobId)
                 .subscribe(
                     (data) => { this.pushLogs(data.events); },
                     (error) => { this.errorHandler(error) }
@@ -75,7 +77,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    showDialogJobLogs() {
+    public showDialogJobLogs() {
         this.dialog.showCustomDialog({
             component: DialogJobLogsComponent,
             styles: { 'width': '100%', 'height': '100%' },
@@ -84,8 +86,18 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{ provide: injectableLogs, useValue: this.logs }],
+            providers: [{ provide: injectableLogs, useValue: { job: this.job, logs: this.logs } }],
         });
+    }
+
+    /**
+     * downloadLogs
+     */
+    public downloadLogs() {
+        console.log(this.job);
+        const blob = new Blob([this.logs.join('\n')], { type: 'application/text' });
+        const fileName = `${this.job.jobId}.log`;
+        FileSaver.saveAs(blob, fileName);
     }
 
     ngOnDestroy() {
@@ -111,7 +123,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private errorHandler(error) {
-        this.errorMessage = `Logs for ${this.jobId}: ` + error
+        this.errorMessage = `Logs for ${this.job.jobId}: ` + error
     }
 
 }
