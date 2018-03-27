@@ -34,7 +34,7 @@ export class Job {
   }
 
   isRunning() {
-    return ['initialized', 'started', 'queued'].includes(this.status)
+    return ['initialized', 'started', 'worker-assigned', 'job-file-downloading', 'queued'].includes(this.status)
   }
 
   runningTime() {

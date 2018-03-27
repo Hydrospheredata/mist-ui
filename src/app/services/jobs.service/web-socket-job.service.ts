@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 @Injectable()
 export class WebSocketJobService extends WebsocketService {
 
-    public static readonly RUNNING_EVENTS: string[] = ['initialized', 'queued', 'started'];
+    public static readonly RUNNING_EVENTS: string[] = ['initialized', 'queued', 'started', 'worker-assigned', 'job-file-downloading'];
     public static readonly FAILED_EVENTS: string[] = ['canceled', 'failed'];
     public static readonly FINISHED_EVENTS: string[] = ['finished'];
 
