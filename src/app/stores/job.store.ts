@@ -50,7 +50,7 @@ export class JobStore {
     }
 
     public getAllRunning(): void {
-        this.backendService.where({ status: ['initialized', 'started', 'worker-assigned', 'job-file-downloading', 'queued'] }).subscribe((jobs) => {
+        this.backendService.where({ status: ['initialized', 'started', 'job-file-downloading', 'queued'] }).subscribe((jobs) => {
             this.dataStore.runningJobs = jobs;
             this.updateStore('runningJobs');
         });
