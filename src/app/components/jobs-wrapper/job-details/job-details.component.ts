@@ -109,7 +109,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
           this.timeUpdaterLink = this.jobStore.updateTime();
           this.jobArguments = JSON.stringify(JSON.parse(job.params).arguments, null, 2);
         }
-    });
+      });
     this.jobWorkerSub = this.jobStore.getJobsWorker(jobId)
       .subscribe((worker: Workers) => {
         this.worker = worker;
@@ -119,12 +119,12 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   openDialogJobForm() {
     const dialog = this.dialog.showCustomDialog({
       component: DialogCloneJobFormComponent,
-      styles: {'max-width': '900px', 'width': '850px'},
+      styles: { 'max-width': '900px', 'width': '850px' },
       isModal: true,
       clickOutsideToClose: true,
       enterTransitionDuration: 400,
       leaveTransitionDuration: 400,
-      providers: [{provide: injectableJob, useValue: this.job}],
+      providers: [{ provide: injectableJob, useValue: this.job }],
     });
   }
 
@@ -134,8 +134,8 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     }
     this.dialog.showCustomDialog({
       component: DialogFullScreenJsonComponent,
-      styles: { 'width': '100%', 'height': '100%'},
-      providers: [{provide: injectableJsonString, useValue: jsonString}],
+      styles: { 'width': '100%', 'height': '100%' },
+      providers: [{ provide: injectableJsonString, useValue: jsonString }],
     });
   }
 

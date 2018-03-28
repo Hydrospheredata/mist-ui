@@ -30,7 +30,7 @@ export class Job {
   }
 
   isFailed() {
-    return ['failed','canceled'].includes(this.status)
+    return ['failed', 'canceled'].includes(this.status)
   }
 
   isRunning() {

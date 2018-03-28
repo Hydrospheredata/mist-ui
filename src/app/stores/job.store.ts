@@ -17,7 +17,7 @@ export class JobStore {
     runningJobs: Observable<Job[]>;
     private _selectedJobs: BehaviorSubject<Job[]>;
     private _runningJobs: BehaviorSubject<Job[]>;
-    private dataStore: {functionId: string, selectedJobs: Job[], runningJobs: Job[]} = {
+    private dataStore: { functionId: string, selectedJobs: Job[], runningJobs: Job[] } = {
         functionId: null,
         selectedJobs: [],
         runningJobs: []
@@ -50,10 +50,11 @@ export class JobStore {
     }
 
     public getAllRunning(): void {
-        this.backendService.where({ status: ['initialized', 'started', 'job-file-downloading', 'queued'] }).subscribe((jobs) => {
-            this.dataStore.runningJobs = jobs;
-            this.updateStore('runningJobs');
-        });
+        this.backendService.where({ status: ['initialized', 'started', 'job-file-downloading', 'queued'] })
+            .subscribe((jobs: Job[]) => {
+                this.dataStore.runningJobs = jobs;
+                this.updateStore('runningJobs');
+            });
     }
 
     public getByFunctionId(id: string) {
@@ -109,7 +110,7 @@ export class JobStore {
     private removeItem(job: Job, mode: string = 'selectedJobs') {
         let removedJob = this.dataStore[mode].find(rmvdJob => rmvdJob.jobId === job.jobId);
         if (!removedJob) {
-          return false;
+            return false;
         }
         let index: number = this.dataStore[mode].indexOf(removedJob);
         this.dataStore[mode].splice(index, 1);
@@ -158,7 +159,7 @@ export class JobStore {
         }, 60 * 2 * 1000)
     }
 
-    getJobsWorker(jobId: string) {
+    getJobsWorker(jobId: string): Observable<any> {
         return this.backendService.getJobsWorker(jobId);
     }
 

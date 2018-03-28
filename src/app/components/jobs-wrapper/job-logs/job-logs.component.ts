@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Inp
 import { MdlDialogService } from '@angular-mdl/core';
 import { injectableLogs, DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
 import { HttpLogsService, WebSocketLogsService } from '@services/_index';
-import * as FileSaver from 'file-saver';
 import { Job } from '@app/models/job';
 
 
@@ -51,7 +50,6 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.parent = this.elem.nativeElement.parentElement;
-        console.log(this.parent);
     }
 
     public scrollTo(direction: string) {
@@ -94,10 +92,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
      * downloadLogs
      */
     public downloadLogs() {
-        console.log(this.job);
-        const blob = new Blob([this.logs.join('\n')], { type: 'application/text' });
-        const fileName = `${this.job.jobId}.log`;
-        FileSaver.saveAs(blob, fileName);
+        this.httpLogsService.downloadLogs(this.job.jobId);
     }
 
     ngOnDestroy() {

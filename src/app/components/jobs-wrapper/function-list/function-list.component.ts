@@ -24,7 +24,7 @@ export class FunctionListComponent implements OnInit, OnDestroy {
         private jobStore: JobStore,
         private router: Router,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.loadInitialData();
@@ -48,19 +48,19 @@ export class FunctionListComponent implements OnInit, OnDestroy {
 
     loadInitialData() {
         this.functionStore.getAll();
-        this.functionStore.functions
+        this.functionStoreSub = this.functionStore.functions
             .subscribe(data => {
                 this.functions = data;
             });
         this.jobStore.getAllRunning();
-        this.jobStore.runningJobs
+        this.jobStoreSub = this.jobStore.runningJobs
             .subscribe(jobs => {
                 this.runningJobs = jobs;
             });
     }
 
     runningJobsCountBy(functionId: string): Number {
-        let result = this.runningJobs.filter(job => job.functionId === functionId );
+        let result = this.runningJobs.filter(job => job.functionId === functionId);
         return result.length;
     }
 

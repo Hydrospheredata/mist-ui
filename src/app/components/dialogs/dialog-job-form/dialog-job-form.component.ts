@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, HostListener, InjectionToken } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MdlDialogReference } from '@angular-mdl/core';
+import { MdlDialogReference, MdlDialogService } from '@angular-mdl/core';
 import { FunctionInfo } from '@models/function';
 import { FunctionStore } from '@stores/function.store';
 import { JobStore } from '@stores/job.store';
@@ -10,6 +10,11 @@ import { MdlSnackbarService } from '@angular-mdl/core';
 import { environment } from 'environments/environment';
 import { Location } from '@angular/common';
 import { AlertService } from '@services/alert.service';
+
+import {
+  DialogFullScreenJsonComponent,
+  injectableJsonString
+} from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
@@ -48,7 +53,9 @@ export class DialogJobFormComponent implements OnInit {
     private mdlSnackbarService: MdlSnackbarService,
     private location: Location,
     public dialogRef: MdlDialogReference,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private dialog: MdlDialogService,
+  ) {
 
     this.data = data;
     this.selectedFunction = this.data || new FunctionInfo({});
@@ -98,6 +105,17 @@ export class DialogJobFormComponent implements OnInit {
 
   onChangeFunction() {
     this.executeParams = this.selectedFunction.executeExample() || '{}';
+  }
+
+  openFullScreenJson(jsonString: string) {
+    if (typeof jsonString === 'object') {
+      jsonString = JSON.stringify(jsonString);
+    }
+    this.dialog.showCustomDialog({
+      component: DialogFullScreenJsonComponent,
+      styles: { 'width': '100%', 'height': '100%' },
+      providers: [{ provide: injectableJsonString, useValue: jsonString }],
+    });
   }
 
   submit(form) {
