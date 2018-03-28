@@ -7,6 +7,8 @@ import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { HttpService } from '../http.service/http.service';
+import * as FileSaver from 'file-saver';
+import { Logs } from 'selenium-webdriver';
 
 
 
@@ -28,6 +30,18 @@ export class HttpLogsService {
                 return res['_body'].split('\n');
             })
             .catch(this.handleError);
+    }
+
+    /**
+     * downloadLogs
+     */
+    public downloadLogs(jobId: string) {
+        const fileName = `${jobId}.log`;
+        this.get(jobId)
+            .subscribe((logs) => {
+                const blob = new Blob([logs.join('\n')], { type: 'application/text' });
+                FileSaver.saveAs(blob, fileName);
+            });
     }
 
     private handleError(error: Response | any): Observable<any> {
