@@ -76,7 +76,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       this.jobStoreSub.unsubscribe();
     }
     if (this.timeUpdaterLink) {
-      clearInterval(this.timeUpdaterLink)
+      clearInterval(this.timeUpdaterLink);
     }
     if (this.jobWorkerSub) {
       this.jobWorkerSub.unsubscribe();
@@ -89,8 +89,17 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       .subscribe((data: Job[]) => {
         let job = data.find(item => item.jobId === jobId);
         this.job = job;
+        // console.log(this.job);
 
         if (this.job) {
+          // if (this.job.workerId) {
+          //   this.workersStore.getAll();
+          //   this.jobStore.getJobsWorker(jobId)
+          //     .subscribe((worker: Workers) => {
+          //       console.log(worker);
+          //       this.worker = worker;
+          //     });
+          // }
           if (this.job.createTime) {
             this.jobCreateTime = this.setDate(this.job.createTime);
             this.jobCreateTimeDuration = this.setDuration(this.job.endTime, this.job.createTime);
@@ -103,17 +112,25 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
           if (this.job.endTime) {
             this.jobEndTime = this.setDate(this.job.endTime);
           }
-        }
-
-        if (job) {
           this.timeUpdaterLink = this.jobStore.updateTime();
           this.jobArguments = JSON.stringify(JSON.parse(job.params).arguments, null, 2);
         }
       });
-    this.jobWorkerSub = this.jobStore.getJobsWorker(jobId)
-      .subscribe((worker: Workers) => {
-        this.worker = worker;
-      });
+
+    // this.jobStore.getJobsWorker(jobId)
+    //   .subscribe((worker: Workers) => {
+    //     this.workersStore.getAll();
+    //     // console.log(worker);
+    //     // this.worker = worker;
+    //   });
+
+    // this.workersStore.getAll();
+    // this.jobWorkerSub = this.workersStore.workers
+    //   .subscribe((workers) => {
+    //     console.log(workers);
+    //     // workers.filter(worker)
+    //     // this.worker = worker;
+    //   });
   }
 
   openDialogJobForm() {

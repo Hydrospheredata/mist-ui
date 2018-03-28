@@ -66,7 +66,6 @@ export class JobStore {
     }
 
     public get(id: string): void {
-        console.log(id);
         let obs = this.backendService.get(id);
         obs.subscribe((job) => {
             if (!this.dataStore.functionId || this.dataStore.functionId === job.functionId) {
