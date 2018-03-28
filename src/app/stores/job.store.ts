@@ -14,9 +14,11 @@ import { HttpJobService, WebSocketJobService } from '@services/_index';
 @Injectable()
 export class JobStore {
     jobs: Observable<Job[]>;
+    worker: Observable<Worker[]>;
     runningJobs: Observable<Job[]>;
     private _selectedJobs: BehaviorSubject<Job[]>;
     private _runningJobs: BehaviorSubject<Job[]>;
+    private _worker: BehaviorSubject<Worker[]>;
     private dataStore: { functionId: string, selectedJobs: Job[], runningJobs: Job[] } = {
         functionId: null,
         selectedJobs: [],
@@ -29,7 +31,9 @@ export class JobStore {
     ) {
         this._selectedJobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
         this._runningJobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
+        this._worker = <BehaviorSubject<Worker[]>>new BehaviorSubject([]);
         this.jobs = this._selectedJobs.asObservable();
+        this.worker = this._worker.asObservable();
         this.runningJobs = this._runningJobs.asObservable();
         this.wsConnect();
     }
@@ -119,16 +123,17 @@ export class JobStore {
     private wsConnect() {
         this.wsService.connect()
             .subscribe(
-                (message) => { console.log('Successfully connected!'); this.wsEventHandler(message) },
+                (message) => { this.wsEventHandler(message) },
                 (err) => { console.log(err); this.wsConnect(); }
             )
     }
 
     private wsEventHandler(message) {
-        // let data = JSON.parse(message.data);
         let events = this.wsService.getEvents();
-        if (events.includes(message.event)) {
-            this.get(message.id)
+        if (events.includes(message.event) && message.event !== 'worker-assigned') {
+            this.get(message.id);
+        } else if (events.includes(message.event) && message.event === 'worker-assigned') {
+            this.getJobsWorker(message.id);
         }
     }
 
@@ -158,8 +163,13 @@ export class JobStore {
         }, 60 * 2 * 1000)
     }
 
-    getJobsWorker(jobId: string): Observable<any> {
-        return this.backendService.getJobsWorker(jobId);
+    getJobsWorker(jobId: string) {
+        let obs = this.backendService.getJobsWorker(jobId);
+        obs.subscribe((worker) => {
+            this._worker.next(worker);
+        }, error => {
+            console.log(error);
+        });
     }
 
 }

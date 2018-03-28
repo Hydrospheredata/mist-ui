@@ -52,7 +52,6 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
                                     message: message
                                 }
                             } else {
-                                console.log(log);
                                 logObject = {
                                     message: log
                                 }
@@ -136,7 +135,6 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
                     jobId: event.from,
                     message: event.message
                 }
-                console.log(log);
                 this.logs.push(log);
             })
         }

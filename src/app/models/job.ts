@@ -33,8 +33,12 @@ export class Job {
     return ['failed', 'canceled'].includes(this.status)
   }
 
+  isWorkerAssigned() {
+    return ['worker-assigned'].includes(this.status);
+  }
+
   isRunning() {
-    return ['initialized', 'started', 'job-file-downloading', 'queued'].includes(this.status)
+    return ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(this.status)
   }
 
   runningTime() {
