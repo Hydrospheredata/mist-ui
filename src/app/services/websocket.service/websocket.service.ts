@@ -33,7 +33,7 @@ export class WebsocketService {
         let wsUrl = url ? url : this.baseUrl;
         wsUrl = `${wsUrl}?withLogs=${withLogs}`;
         this.subject = Observable.webSocket(wsUrl);
-        console.log(`${wsUrl}: `, this.subject);
+        // console.log(`${wsUrl}: `, this.subject);
 
         return this.subject;
     }
