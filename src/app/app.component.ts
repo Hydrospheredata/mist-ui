@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
+import { MdlDialogOutletService } from '@angular-mdl/core';
+
+
 
 @Component({
   selector: 'mist-root',
@@ -8,6 +11,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   public title = 'WebMist!';
 
-  constructor() { }
+  constructor(
+    private dilalogOuletService: MdlDialogOutletService,
+    private viewConatinerRef: ViewContainerRef,
+  ) {
+    this.dilalogOuletService.setDefaultViewContainerRef(this.viewConatinerRef);
+  }
 
 }
+
+
