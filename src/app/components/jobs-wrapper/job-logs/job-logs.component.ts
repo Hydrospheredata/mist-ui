@@ -20,7 +20,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     private parent: Element;
     private webSocketLogsServiceSub: any;
     public errorMessage: string;
-    public logs: string[];
+    public logs: any[];
     private httpLogsServiceSub;
     private logTypes: string[] = ['Debug', 'Info', 'Warn', 'Error'];
 
@@ -33,10 +33,33 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
+        const regexp = /([a-zA-Z0-9_\-.,!?:…[\]]+)/g;
         if (this.job) {
             this.httpLogsServiceSub = this.httpLogsService.get(this.job.jobId)
                 .subscribe(
-                    (logs) => { this.logs = logs.concat(this.logs) },
+                    (logs) => {
+                        logs.pop();
+                        logs.forEach((log) => {
+                            let charIndex = log.indexOf(']');
+                            let logObject = {};
+                            if (charIndex !== -1) {
+                                let message = log.slice(charIndex + 2);
+                                let logsArray = log.match(regexp);
+                                logObject = {
+                                    type: logsArray[0],
+                                    date: logsArray[1],
+                                    jobId: logsArray[2],
+                                    message: message
+                                }
+                            } else {
+                                console.log(log);
+                                logObject = {
+                                    message: log
+                                }
+                            }
+                            this.logs.push(logObject);
+                        });
+                    },
                     (error) => { this.errorHandler(error) }
                 );
             this.webSocketLogsServiceSub = this.webSocketLogsService
@@ -107,7 +130,13 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
         if (events) {
             events.forEach(event => {
                 let date = new Date(event.timeStamp);
-                let log = `${this.setLogType(Number(event.level))} ${date.toJSON()} [${event.from}] ${event.message}`;
+                let log = {
+                    type: this.setLogType(Number(event.level)),
+                    date: date.toJSON(),
+                    jobId: event.from,
+                    message: event.message
+                }
+                console.log(log);
                 this.logs.push(log);
             })
         }

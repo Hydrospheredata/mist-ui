@@ -91,3 +91,28 @@
 
 }
 
+.log {
+  margin-bottom: 6px;
+  &-date {
+    color: #59606C;
+    font-style: italic;
+    min-width: 198px;
+    display: inline-block;
+  }
+  &-type {
+    &.__info {
+      color: #6696EA;
+    }
+    &.__warn {
+      color: #E0BE90;
+    }
+    &.__error {
+      color: #F9624D;
+    }
+  }
+  &-message {
+    &.__error {
+      margin-left: 51px;
+    }
+  }
+}

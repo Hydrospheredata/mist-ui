@@ -57,6 +57,7 @@ import {
     MistRequestOptions,
     HttpWorkersService,
     StatusService,
+    HttpLogsService
 } from '@services/_index';
 
 // factories
@@ -153,6 +154,7 @@ import {
         LoaderService,
         HttpWorkersService,
         StatusService,
+        HttpLogsService,
         {
             provide: HttpService,
             useFactory: httpServiceFactory,

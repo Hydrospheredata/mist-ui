@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, InjectionToken, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { MdlDialogReference } from '@angular-mdl/core';
-import * as FileSaver from 'file-saver';
+import { HttpLogsService } from '@services/_index';
 import { Job } from '@app/models/job';
 
 export let injectableLogs = new InjectionToken<string[]>('injectableLogs');
@@ -19,7 +19,8 @@ export class DialogJobLogsComponent implements OnInit {
 
   constructor(
     @Inject(injectableLogs) data: any,
-    public dialogRef: MdlDialogReference
+    public dialogRef: MdlDialogReference,
+    private httpLogsService: HttpLogsService
   ) {
     this.logs = data.logs;
     this.job = data.job;
@@ -55,10 +56,7 @@ export class DialogJobLogsComponent implements OnInit {
      * downloadLogs
      */
   public downloadLogs() {
-    console.log(this.job);
-    const blob = new Blob([this.logs.join('\n')], { type: 'application/text' });
-    const fileName = `${this.job.jobId}.log`;
-    FileSaver.saveAs(blob, fileName);
+    this.httpLogsService.downloadLogs(this.job.jobId);
   }
 
   @HostListener('document:keydown.escape')
