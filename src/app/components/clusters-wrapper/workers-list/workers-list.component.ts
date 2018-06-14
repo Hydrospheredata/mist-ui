@@ -9,24 +9,24 @@ import { WorkersStore } from '@stores/workers.store';
   styleUrls: ['./workers-list.component.scss']
 })
 export class WorkersListComponent implements OnInit, OnDestroy {
-  public workers: Workers [];
+  public workers: Workers[];
   public workerSubscriber;
   public searchQ: String;
 
   constructor(private workersStore: WorkersStore,
-              private router: Router) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.workersStore.getAll();
     this.workerSubscriber = this.workersStore.workers
       .subscribe((workers) => {
-      if (!workers.length) {
-        this.router.navigate(['/clusters/workers/overview']);
-      } else {
-        this.router.navigate([`/clusters/workers/${workers[0].name}`]);
-      }
-      this.workers = workers;
-    });
+        if (!workers.length) {
+          this.router.navigate(['/clusters/workers/overview']);
+        } else {
+          this.router.navigate([`/clusters/workers/${workers[0].name}`]);
+        }
+        this.workers = workers;
+      });
   }
 
   public deleteWorker(worker: Workers) {

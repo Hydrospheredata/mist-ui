@@ -16,6 +16,7 @@ export class HttpWorkersService {
   getAll(): Observable<Workers[]> {
     return this.http.get(this.baseUrl)
       .map((res: Response) => {
+        console.log(res.json());
         return res.json();
       })
   }

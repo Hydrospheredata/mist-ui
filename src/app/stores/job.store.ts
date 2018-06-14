@@ -5,9 +5,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/take';
 
 import { Job } from '@models/job';
 import { HttpJobService, WebSocketJobService } from '@services/_index';
+import { WorkersStore } from '@stores/workers.store';
 
 
 
@@ -27,7 +29,8 @@ export class JobStore {
 
     constructor(
         private backendService: HttpJobService,
-        private wsService: WebSocketJobService
+        private wsService: WebSocketJobService,
+        private workersStore: WorkersStore
     ) {
         this._selectedJobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
         this._runningJobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
@@ -129,12 +132,18 @@ export class JobStore {
     }
 
     private wsEventHandler(message) {
+        console.log(message);
         let events = this.wsService.getEvents();
-        if (events.includes(message.event) && message.event !== 'worker-assigned') {
-            this.get(message.id);
-        } else if (events.includes(message.event) && message.event === 'worker-assigned') {
-            this.getJobsWorker(message.id);
-        }
+        this.get(message.id);
+        // if (events.includes(message.event) && message.event === 'worker-assigned') {
+        //     this.workersStore.get(mpl < essage.workerId).take(1);
+        // }
+
+        // if (events.includes(message.event) && message.event !== 'worker-assigned') {
+        //     this.get(message.id);
+        // } else if (events.includes(message.event) && message.event === 'worker-assigned') {
+        //     this.getJobsWorker(message.id);
+        // }
     }
 
 
@@ -166,6 +175,7 @@ export class JobStore {
     getJobsWorker(jobId: string) {
         let obs = this.backendService.getJobsWorker(jobId);
         obs.subscribe((worker) => {
+            console.log(worker);
             this._worker.next(worker);
         }, error => {
             console.log(error);

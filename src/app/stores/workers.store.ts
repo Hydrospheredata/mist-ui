@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Workers } from '@models/workers';
 import { HttpWorkersService } from '@services/http-workers.service';
-import {Job} from '@models/job';
+import { Job } from '@models/job';
 
 @Injectable()
 export class WorkersStore {

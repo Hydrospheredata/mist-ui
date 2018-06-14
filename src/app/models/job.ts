@@ -41,6 +41,10 @@ export class Job {
     return ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(this.status)
   }
 
+  isCanceling() {
+    return ['canceling'].includes(this.status)
+  }
+
   runningTime() {
     return this.startTime || this.createTime
   }

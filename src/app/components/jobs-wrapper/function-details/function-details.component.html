@@ -7,30 +7,22 @@
         <div class="mdl-grid--no-spacing mdl-grid">
           <div class='mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--middle'>
             <span fxHide.sm>FILTER: </span>
-            <mdl-button [ngClass]="{'function-details__status-filter-option--active': statusFilter['success']}"
-                        (click)="toggleStatusFilter('success')"
-                        class="mist-button function-details__status-filter-option no-bg-on-hover mb-8 cs-non-transform"
-                        title="Success"
-                        mdl-colored="">
+            <mdl-button [ngClass]="{'function-details__status-filter-option--active': statusFilter['success']}" (click)="toggleStatusFilter('success')"
+              class="mist-button function-details__status-filter-option no-bg-on-hover mb-8 cs-non-transform" title="Success"
+              mdl-colored="">
               <mdl-icon>done</mdl-icon>
               <span fxHide.md fxHide.sm>Success</span>
             </mdl-button>
 
 
-            <mdl-button [ngClass]="{'function-details__status-filter-option--active': statusFilter['running']}"
-                        (click)="toggleStatusFilter('running')"
-                        class="mist-button function-details__status-filter-option no-bg-on-hover cs-non-transform"
-                        title="Running"
-                        mdl-colored="">
+            <mdl-button [ngClass]="{'function-details__status-filter-option--active': statusFilter['running']}" (click)="toggleStatusFilter('running')"
+              class="mist-button function-details__status-filter-option no-bg-on-hover cs-non-transform" title="Running" mdl-colored="">
               <mdl-icon>replay</mdl-icon>
               <span fxHide.md fxHide.sm>Running</span>
             </mdl-button>
 
-            <mdl-button (click)="toggleStatusFilter('failed')"
-                        [ngClass]="{'function-details__status-filter-option--active': statusFilter['failed']}"
-                        class="mist-button function-details__status-filter-option no-bg-on-hover cs-non-transform"
-                        title="Failed"
-                        mdl-colored="">
+            <mdl-button (click)="toggleStatusFilter('failed')" [ngClass]="{'function-details__status-filter-option--active': statusFilter['failed']}"
+              class="mist-button function-details__status-filter-option no-bg-on-hover cs-non-transform" title="Failed" mdl-colored="">
               <mdl-icon>clear</mdl-icon>
               <span fxHide.md fxHide.sm>Failed</span>
             </mdl-button>
@@ -39,10 +31,7 @@
       </div>
 
       <div class="cs-text-right" fxFlex.md="10" fxFlex.sm="10" fxFlex.lg="20">
-        <mdl-button (click)="openDialogJobForm()"
-                    class="mist-button blue border icon"
-                    title="Run New"
-                    mdl-colored="">
+        <mdl-button (click)="openDialogJobForm()" class="mist-button blue border icon" title="Run New" mdl-colored="">
           <mdl-icon>add</mdl-icon>
           <span fxHide.md fxHide.sm>Run New</span>
         </mdl-button>
@@ -52,7 +41,7 @@
   </div>
   <hr/>
   <div class='mist-page-content'>
-      <!-- <div *ngIf="!isOverview"  fxLayout="row" fxLayoutAlign="space-between start">
+    <!-- <div *ngIf="!isOverview"  fxLayout="row" fxLayoutAlign="space-between start">
           <div fxFlex="90%" fxLayout="column" fxLayoutAlign="space-between start"
                class='mist-page-header__row mist-page-header__row--status'>
                <div title="Language {{ functionId?.lang }}" class='mist-functionId-detail'>
@@ -75,56 +64,53 @@
         </div> -->
     <table class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp'>
       <tbody>
-      <ng-template ngFor let-job [ngForOf]="jobs | jobStatusFilter:statusFilter | sortBy:'createTime'">
-        <tr class='jobs-table__tr' [routerLink]="['/jobs', job.functionId, job.jobId]">
-          <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id'
-              [ngClass]="{'font-color--failed': job.isFailed()}">
-            <div class="cs-text-overflow-ellipsis">
-              <i class='material-icons status-icon cs-mr-8'
-                 [ngClass]="{'status-icon--failed': job.isFailed(),
+        <ng-template ngFor let-job [ngForOf]="jobs | jobStatusFilter:statusFilter | sortBy:'createTime'">
+          <tr class='jobs-table__tr' [routerLink]="['/jobs', job.functionId, job.jobId]">
+            <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': job.isFailed()}">
+              <div class="cs-text-overflow-ellipsis">
+                <i class='material-icons status-icon cs-mr-8' [ngClass]="{'status-icon--failed': job.isFailed(),
                 'status-icon--success': job.isFinished(),
                 'status-icon--primary': job.isRunning()}">
-              </i>
-              {{ job.jobId | jobIdCut }}
-            </div>
-          </td>
-          <td [title]="'function = ' + job.functionId" class='jobs-table__td jobs-table__td--function'>
-            <div class='function cs-block'>
-              <div class="cs-text-overflow-ellipsis cs-text-center">
-                <span>{{ job.functionId }}</span>
+                </i>
+                {{ job.jobId | jobIdCut }}
               </div>
-            </div>
-          </td>
-          <td [title]="'context = ' + job.context" class='jobs-table__td jobs-table__td--context'>
-            <div class='context cs-block'>
-              <div class="cs-text-overflow-ellipsis cs-text-center">
-                <span class='context__value'>{{ job.context }}</span>
+            </td>
+            <td [title]="'function = ' + job.functionId" class='jobs-table__td jobs-table__td--function'>
+              <div class='function cs-block'>
+                <div class="cs-text-overflow-ellipsis cs-text-center">
+                  <span>{{ job.functionId }}</span>
+                </div>
               </div>
-            </div>
-          </td>
-          <td  class='jobs-table__td jobs-table__td--status cs-text-overflow-ellipsis'>
-            <div *ngIf="job.status" [title]="job.status" class="cs-text-overflow-ellipsis">
-              <span class='mist-label'>Status</span>
-              <span class='job-status'
-                    [ngClass]="{'font-color--success': job.isFinished(),
+            </td>
+            <td [title]="'context = ' + job.context" class='jobs-table__td jobs-table__td--context'>
+              <div class='context cs-block'>
+                <div class="cs-text-overflow-ellipsis cs-text-center">
+                  <span class='context__value'>{{ job.context }}</span>
+                </div>
+              </div>
+            </td>
+            <td class='jobs-table__td jobs-table__td--status cs-text-overflow-ellipsis'>
+              <div *ngIf="job.status" [title]="job.status" class="cs-text-overflow-ellipsis">
+                <span class='mist-label'>Status</span>
+                <span class='job-status' [ngClass]="{'font-color--success': job.isFinished(),
                   'font-color--primary': job.isRunning(),
-                  'font-color--failed': job.isFailed()}">
+                  'font-color--failed': job.isFailed(),
+                  'font-color--failed': job.isCanceling()}">
                   {{ job.status }}
-              </span>
-              <span>
-                {{ job.isRunning() ? (job.runningTime() | agoDate) : (job.endTime | agoDate) }}
-              </span>
-            </div>
-          </td>
-          <td class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
-            <a title="KILL"  href='#' class='mist-link cs-pt-10 cs-pb-10' (click)="killJob($event, job)"
-               *ngIf="job.isRunning()">
-              <i class='material-icons'>delete_forever</i>
-              <span>KILL</span>
-            </a>
-          </td>
-        </tr>
-      </ng-template>
+                </span>
+                <span>
+                  {{ job.isRunning() ? (job.runningTime() | agoDate) : (job.endTime | agoDate) }}
+                </span>
+              </div>
+            </td>
+            <td class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
+              <a title="KILL" href='#' class='mist-link cs-pt-10 cs-pb-10' (click)="killJob($event, job)" *ngIf="job.isRunning()">
+                <i class='material-icons'>delete_forever</i>
+                <span>KILL</span>
+              </a>
+            </td>
+          </tr>
+        </ng-template>
       </tbody>
     </table>
   </div>

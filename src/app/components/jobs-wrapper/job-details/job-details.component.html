@@ -18,9 +18,10 @@
         <div class="content-info">
             <ul class="content-info__list">
                 <li class="content-info__list-item __title">Total info</li>
-                <li class="content-info__list-item" *ngIf="worker">
+                <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Worker</span>
-                    <span class="content-info__list-item-value" [routerLink]="'/clusters/workers/' + worker.name" style="cursor: pointer;">{{ worker.name }}</span>
+                    <span class="content-info__list-item-value" *ngIf="worker" [routerLink]="'/clusters/workers/' + worker.name" style="cursor: pointer;">{{ worker.name }}</span>
+                    <span class="content-info__list-item-value" *ngIf="!worker">{{ workerId }}</span>
                 </li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Context</span>

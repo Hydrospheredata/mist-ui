@@ -34,7 +34,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   private jobWorkerSub: any;
   public worker: Worker[];
   private timeUpdaterLink;
-
+  public workerId: string;
   public jobCreateTime: string;
   public jobStartTime: string;
   public jobEndTime: string;
@@ -85,13 +85,18 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
 
   loadInitialData(jobId) {
     this.jobStore.get(jobId);
-    this.jobStore.getJobsWorker(jobId);
     this.jobStoreSub = this.jobStore.jobs
-      .subscribe((data: Job[]) => {
-        let job = data.find(item => item.jobId === jobId);
-        this.job = job;
+      .subscribe((jobs: Job[]) => {
+        this.job = jobs.find(job => job.jobId === jobId);
 
         if (this.job) {
+          // this.workersStore.get(this.job.workerId)
+          //   .subscribe(worker => {
+          //     this.worker = worker;
+          //   }, (error) => {
+          //     this.workerId = this.job.workerId;
+          //   })
+
           if (this.job.createTime) {
             this.jobCreateTime = this.setDate(this.job.createTime);
             this.jobCreateTimeDuration = this.setDuration(this.job.endTime, this.job.createTime);
@@ -105,14 +110,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
             this.jobEndTime = this.setDate(this.job.endTime);
           }
           this.timeUpdaterLink = this.jobStore.updateTime();
-          this.jobArguments = JSON.stringify(JSON.parse(job.params).arguments, null, 2);
-        }
-      });
-
-    this.jobWorkerSub = this.jobStore.worker
-      .subscribe(worker => {
-        if (worker) {
-          this.worker = worker;
+          this.jobArguments = JSON.stringify(JSON.parse(this.job.params).arguments, null, 2);
         }
       });
   }

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Observer } from 'rxjs/Observer';
 import { WebsocketService } from '../websocket.service/websocket.service';
 import { Location } from '@angular/common';
 
@@ -11,7 +9,7 @@ import { Location } from '@angular/common';
 export class WebSocketJobService extends WebsocketService {
 
     public static readonly RUNNING_EVENTS: string[] = ['initialized', 'queued', 'started', 'worker-assigned', 'job-file-downloading'];
-    public static readonly FAILED_EVENTS: string[] = ['canceled', 'failed'];
+    public static readonly FAILED_EVENTS: string[] = ['canceling', 'canceled', 'failed'];
     public static readonly FINISHED_EVENTS: string[] = ['finished'];
 
     constructor(
@@ -25,8 +23,8 @@ export class WebSocketJobService extends WebsocketService {
 
     public getEvents(): string[] {
         return WebSocketJobService.RUNNING_EVENTS
-                    .concat(WebSocketJobService.FAILED_EVENTS)
-                    .concat(WebSocketJobService.FINISHED_EVENTS)
+            .concat(WebSocketJobService.FAILED_EVENTS)
+            .concat(WebSocketJobService.FINISHED_EVENTS)
     }
 
     public getRunningEvents(): string[] {
@@ -44,7 +42,7 @@ export class WebSocketJobService extends WebsocketService {
     public connect(): Observable<MessageEvent> {
         if (!this.subject) {
             this.subject = this.create();
-            console.log('Successfully connected: ' + this.baseUrl);
+            // console.log('Successfully connected: ' + this.baseUrl);
         }
         return this.subject;
     }
