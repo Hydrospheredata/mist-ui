@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JobStore, FunctionStore } from '@stores/_index';
+import { JobStore, FunctionStore } from '@app/modules/core/stores/_index';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogFunctionFormComponent, injectableFunction } from '@app/components/dialogs/_index';
-import { FunctionInfo } from '@models/function';
+import { Function } from '@shared/models';
 
 
 
@@ -14,41 +14,41 @@ import { FunctionInfo } from '@models/function';
 })
 export class FunctionsItemDetailComponent implements OnInit {
 
-    public functionInfo: FunctionInfo;
+    public functionInfo: Function;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private jobStore: JobStore,
         private functionStore: FunctionStore,
         public dialog: MdlDialogService,
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.activatedRoute.params
-                .map(params => {
-                    return params['functionId'];
-                })
-                .subscribe(id => this.loadInitialData(id));
+            .map(params => {
+                return params['functionId'];
+            })
+            .subscribe(id => this.loadInitialData(id));
     }
 
     loadInitialData(id: string) {
         this.jobStore.getByFunctionId(id);
         this.functionStore.functions
-                .subscribe(data => {
-                    const foundFunction = data.find(item => item.name === id) || data[0];
-                    this.functionInfo = foundFunction;
-                });
+            .subscribe(data => {
+                const foundFunction = data.find(item => item.name === id) || data[0];
+                this.functionInfo = foundFunction;
+            });
     }
 
     openDialogFunctionForm(functionInfo = null) {
         this.dialog.showCustomDialog({
             component: DialogFunctionFormComponent,
             isModal: true,
-            styles: {'width': '850px', 'max-height': '100%'},
+            styles: { 'width': '850px', 'max-height': '100%' },
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{provide: injectableFunction, useValue: functionInfo}]
+            providers: [{ provide: injectableFunction, useValue: functionInfo }]
         });
     }
 

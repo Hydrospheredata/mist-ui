@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { FunctionListComponent } from './function-list.component';
-import { FunctionDataService } from '@services/functionId-data.service'
+// import { FunctionDataService } from '@app/modules/coreservices/functionId-data.service'
 import { MockFunctionDataService } from '@mocks/function-data.service.mock'
 import { mockFunction, mockFunctionList } from '@mocks/function.mock'
 
@@ -17,8 +17,8 @@ describe('FunctionListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule, RouterTestingModule],
-      declarations: [FunctionListComponent, SearchPipe],
-      providers: [{ provide: FunctionDataService, useClass: mockFnSvc }]
+      declarations: [FunctionListComponent],
+      // providers: [{ provide: FunctionDataService, useClass: mockFnSvc }]
     }).compileComponents();
   }));
 

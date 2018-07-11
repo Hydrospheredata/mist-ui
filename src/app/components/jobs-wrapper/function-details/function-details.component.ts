@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdlDialogService } from '@angular-mdl/core';
 import {
@@ -7,8 +7,8 @@ import {
     DialogJobFormComponent,
     injectableSelectedFunction
 } from '@components/dialogs/_index';
-import { ContextStore, JobStore, FunctionStore } from '@stores/_index';
-import { Context, FunctionInfo, Job } from '@models/_index';
+import { ContextStore, JobStore, FunctionStore } from '@app/modules/core/stores/_index';
+import { Context, Function, Job } from '@shared/models';
 
 
 
@@ -19,7 +19,7 @@ import { Context, FunctionInfo, Job } from '@models/_index';
     providers: []
 })
 export class FunctionDetailsComponent implements OnInit, OnDestroy {
-    functionInfo: FunctionInfo;
+    functionInfo: Function;
     jobs: Job[];
     context: string;
     statusFilter: { success: boolean, running: boolean, failed: boolean };
@@ -36,7 +36,7 @@ export class FunctionDetailsComponent implements OnInit, OnDestroy {
         private functionStore: FunctionStore,
         private jobStore: JobStore,
         private contextStore: ContextStore,
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.setFilterOptions();
@@ -79,21 +79,21 @@ export class FunctionDetailsComponent implements OnInit, OnDestroy {
                 const foundFunction = data.find(item => item.name === id) || data[0];
                 this.functionInfo = foundFunction;
             });
-            this.jobStore.jobs
-                .subscribe((jobs: Job[]) => {
-                    this.jobs = jobs;
-                });
+        this.jobStore.jobs
+            .subscribe((jobs: Job[]) => {
+                this.jobs = jobs;
+            });
     }
 
     openDialogJobForm() {
         let dialog = this.dialog.showCustomDialog({
             component: DialogJobFormComponent,
-            styles: {'max-width': '900px', 'width': '850px'},
+            styles: { 'max-width': '900px', 'width': '850px' },
             isModal: true,
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{provide: injectableSelectedFunction, useValue: this.functionInfo}],
+            providers: [{ provide: injectableSelectedFunction, useValue: this.functionInfo }],
         });
     }
 

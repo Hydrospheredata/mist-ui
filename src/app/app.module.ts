@@ -1,39 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
-import { routing } from './app.router';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { Location } from '@angular/common';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// material modules
-import { MdlModule, MdlDialogModule } from '@angular-mdl/core';
-import { MdlSelectModule } from '@angular-mdl/select'
-
-// codemirror
-import { CodemirrorModule } from 'ng2-codemirror';
-
-// clipboard copy module
-import { ClipboardModule } from '@node_modules/ngx-clipboard';
-
-// components
+import { AppRoutingModule } from './app.router';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from '@components/navbar/navbar.component';
-import { FooterComponent } from '@components/footer/footer.component';
-import { FunctionListComponent } from '@components/jobs-wrapper/function-list/function-list.component';
-import { FunctionDetailsComponent } from '@components/jobs-wrapper/function-details/function-details.component';
-import { JobDetailsComponent } from '@components/jobs-wrapper/job-details/job-details.component';
-import { JobsWrapperComponent } from '@components/jobs-wrapper/jobs-wrapper.component';
-import { InputTextComponent } from '@components/form/input-text/input-text.component';
-import { InputTextareaComponent } from '@components/form/input-textarea/input-textarea.component';
-import { JobLogsComponent } from '@components/jobs-wrapper/job-logs/job-logs.component';
-import { FunctionsWrapperComponent, FunctionsItemDetailComponent, FunctionsListComponent } from '@components/functions/_index';
-import { ClustersWrapperComponent } from '@components/clusters-wrapper/clusters-wrapper.component';
-import { WorkersListComponent } from '@components/clusters-wrapper/workers-list/workers-list.component';
-import { WorkerComponent } from '@components/clusters-wrapper/worker/worker.component';
-import { LoaderComponent } from '@components/loader/loader.component';
-import { AlertComponent } from '@components/alert/alert.component';
 
 import {
     DialogJobLogsComponent,
@@ -44,94 +12,32 @@ import {
     DialogCloneJobFormComponent
 } from '@components/dialogs/_index';
 
-// services
-import {
-    HttpFunctionService,
-    HttpJobService,
-    HttpContextsService,
-    HttpArtifactsService,
-    FormsService,
-    WebSocketJobService,
-    HttpService,
-    LoaderService,
-    MistRequestOptions,
-    HttpWorkersService,
-    StatusService,
-    HttpLogsService
-} from '@services/_index';
-
-// factories
-import { httpServiceFactory } from './factories/http-service-factory';
-
-// stores
-import {
-    JobStore,
-    FunctionStore,
-    ContextStore,
-    WorkersStore
-} from '@stores/_index';
-
-// pipes
-import {
-    JobStatusFilterPipe,
-    AgoDatePipe,
-    SearchPipe,
-    SortByPipe,
-    JobIdCutPipe,
-    ReplaceToBrNewLineCharPipe
-} from '@pipes/_index';
+import { WorkersModule } from '@workers/workers.module';
+import { CoreModule } from '@core/core.module';
+import { SharedModule } from '@shared/shared.module';
+import { JobsModule } from '@jobs/jobs.module';
+import { FunctionsModule } from '@functions/functions.module';
 
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavbarComponent,
-        FooterComponent,
-        FunctionListComponent,
-        FunctionDetailsComponent,
         DialogJobFormComponent,
-        JobDetailsComponent,
         DialogFunctionFormComponent,
         DialogAddContextComponent,
         DialogFullScreenJsonComponent,
         DialogJobLogsComponent,
-        InputTextComponent,
-        InputTextareaComponent,
-        JobsWrapperComponent,
-        JobLogsComponent,
         DialogCloneJobFormComponent,
-        LoaderComponent,
-        AlertComponent,
-        FunctionsWrapperComponent,
-        FunctionsItemDetailComponent,
-        FunctionsListComponent,
-        // pipes
-        SearchPipe,
-        AgoDatePipe,
-        JobStatusFilterPipe,
-        SortByPipe,
-        JobIdCutPipe,
-        ReplaceToBrNewLineCharPipe,
-        ClustersWrapperComponent,
-        WorkersListComponent,
-        WorkerComponent
     ],
     imports: [
+        AppRoutingModule,
         BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpModule,
-        routing,
-        // material modules
-        BrowserAnimationsModule,
-        MdlModule,
-        MdlDialogModule,
-        MdlSelectModule,
-        // codemirror
-        CodemirrorModule,
-        FlexLayoutModule,
-        ClipboardModule
+        CoreModule,
+        SharedModule,
+        WorkersModule,
+        JobsModule,
+        FunctionsModule,
     ],
     entryComponents: [
         DialogJobFormComponent,
@@ -141,26 +47,7 @@ import {
         DialogJobLogsComponent,
         DialogCloneJobFormComponent
     ],
-    providers: [
-        HttpFunctionService,
-        HttpJobService,
-        HttpArtifactsService,
-        WebSocketJobService,
-        JobStore,
-        FunctionStore,
-        WorkersStore,
-        HttpContextsService,
-        ContextStore,
-        LoaderService,
-        HttpWorkersService,
-        StatusService,
-        HttpLogsService,
-        {
-            provide: HttpService,
-            useFactory: httpServiceFactory,
-            deps: [XHRBackend, RequestOptions, Location, LoaderService]
-        }
-    ],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

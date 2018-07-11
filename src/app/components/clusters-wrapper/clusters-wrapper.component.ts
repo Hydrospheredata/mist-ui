@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { WorkersStore } from '@stores/workers.store';
+// import { WorkersStore } from '@app/modules/core/stores/workers.store';
 
 
 
@@ -15,7 +15,7 @@ export class ClustersWrapperComponent implements OnInit, OnDestroy {
     public searchQ: String;
 
     constructor(
-        private workersStore: WorkersStore,
+        // private workersStore: WorkersStore,
         private router: Router
     ) { }
 

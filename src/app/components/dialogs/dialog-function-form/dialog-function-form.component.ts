@@ -1,20 +1,20 @@
-import {Component, OnInit, HostListener, Inject, InjectionToken, OnDestroy} from '@angular/core';
+import { Component, OnInit, HostListener, Inject, InjectionToken, OnDestroy } from '@angular/core';
 import { MdlDialogReference, MdlDialogService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { Context } from '@models/context';
-import { FormsService } from '@services/forms.service';
-import { FunctionStore } from '@stores/function.store';
-import { ContextStore } from '@stores/context.store';
-import { JobStore } from '@stores/job.store'
-import { FunctionInfo } from '@models/function';
+import { Context } from '@shared/models';
+import { FormsService } from '@app/modules/core/services/forms.service';
+import { FunctionStore } from '@app/modules/core/stores/function.store';
+import { ContextStore } from '@app/modules/core/stores/context.store';
+import { JobStore } from '@app/modules/core/stores/job.store'
+import { Function } from '@shared/models';
 import { MdlSnackbarService } from '@angular-mdl/core';
 import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
 import { environment } from 'environments/environment';
 import { Location } from '@angular/common';
-import { AlertService } from '@services/alert.service';
+import { AlertService } from '@app/modules/core/services/alert.service';
 
-export let injectableFunction = new InjectionToken<FunctionInfo>('selectedFunction');
+export let injectableFunction = new InjectionToken<Function>('selectedFunction');
 
 
 
@@ -39,8 +39,8 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
     public loading: boolean;
     public isCreateContextFormVisiblie: boolean;
     public defaultContext: string;
-    public functionInfo: FunctionInfo;
-    private data: FunctionInfo;
+    public functionInfo: Function;
+    private data: Function;
     private requestBody: string;
     private requestMethod: string;
     private port: string;
@@ -63,7 +63,7 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         private mdlSnackbarService: MdlSnackbarService,
         private dialog: MdlDialogService,
         private contextStore: ContextStore,
-        @Inject(injectableFunction) data: FunctionInfo,
+        @Inject(injectableFunction) data: Function,
         private location: Location,
         private alertService: AlertService
     ) {
@@ -103,7 +103,7 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         }
     }
 
-    private updateFunctionFormValues(functionInfo: FunctionInfo) {
+    private updateFunctionFormValues(functionInfo: Function) {
         this.defaultContext = functionInfo.defaultContext;
         this.functionForm.setValue({
             name: functionInfo.name,
@@ -123,7 +123,7 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         });
 
         this.functionForm.valueChanges
-            .subscribe( () => {
+            .subscribe(() => {
                 fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);
             });
 
@@ -135,7 +135,7 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         const self = this;
         const fs = this.formsService;
         let functionMessage = 'has been successfully ';
-        const _function = new FunctionInfo({
+        const _function = new Function({
             name: form.controls.name.value,
             path: form.controls.path.value,
             className: form.controls.className.value,
@@ -159,8 +159,8 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
                         self.loading = false;
                         this.dialogRef.hide();
                         this.mdlSnackbarService.showSnackbar({
-                        message: `${functionInfo.name} ${functionMessage}`,
-                        timeout: 5000
+                            message: `${functionInfo.name} ${functionMessage}`,
+                            timeout: 5000
                         });
                     },
                     (error) => {
@@ -178,7 +178,7 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
     showDialogContext() {
         this.dialog.showCustomDialog({
             component: DialogAddContextComponent,
-            styles: {'width': '850px'},
+            styles: { 'width': '850px' },
             isModal: true,
             clickOutsideToClose: true,
             enterTransitionDuration: 400,

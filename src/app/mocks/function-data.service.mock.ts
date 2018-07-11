@@ -1,18 +1,18 @@
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
 
-import {FunctionInfo} from '@models/function';
-import {mockFunctionList, mockFunction} from './function.mock'
+import { Function } from '@shared/models';
+import { mockFunctionList, mockFunction } from './function.mock'
 
 export class MockFunctionDataService {
-  functions: Observable<FunctionInfo[]>;
-  private _functions: BehaviorSubject<FunctionInfo[]>;
-  private dataStore: { functions: FunctionInfo[] };
+  functions: Observable<Function[]>;
+  private _functions: BehaviorSubject<Function[]>;
+  private dataStore: { functions: Function[] };
 
   constructor() {
-    this.dataStore = {functions: []};
-    this._functions = <BehaviorSubject<FunctionInfo[]>>new BehaviorSubject([]);
+    this.dataStore = { functions: [] };
+    this._functions = <BehaviorSubject<Function[]>>new BehaviorSubject([]);
     this.functions = this._functions.asObservable();
     this.getAll();
   }

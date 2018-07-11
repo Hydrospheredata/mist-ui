@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, InjectionToken, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { MdlDialogReference } from '@angular-mdl/core';
-import { HttpLogsService } from '@services/_index';
-import { Job } from '@app/models/job';
+import { HttpLogsService } from '@app/modules/core/services/_index';
+import { Job } from '@shared/models';
 
 export let injectableLogs = new InjectionToken<string[]>('injectableLogs');
 

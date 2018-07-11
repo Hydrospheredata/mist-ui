@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { WorkersStore } from '@stores/workers.store';
+// import { WorkersStore } from '@app/modules/core/stores/workers.store';
 
 @Component({
   selector: 'mist-worker',
@@ -15,7 +15,7 @@ export class WorkerComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private workersStore: WorkersStore
+    // private workersStore: WorkersStore
   ) { }
 
   ngOnInit() {
@@ -38,11 +38,11 @@ export class WorkerComponent implements OnInit {
 
   loadInitialData(workerId: string) {
     if (workerId !== 'overview') {
-      this.workersStore.get(workerId)
-        .subscribe((worker) => {
-          console.log(worker);
-          this.worker = worker;
-        });
+      // this.workersStore.get(workerId)
+      //   .subscribe((worker) => {
+      //     console.log(worker);
+      //     this.worker = worker;
+      //   });
     }
   }
 }

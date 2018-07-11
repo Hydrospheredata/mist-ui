@@ -1,0 +1,20 @@
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-header__row">
+      <h3 class='sidebar-title'>Workers</h3>
+    </div>
+    <div class="sidebar-header__row">
+      <mist-input-text class="sidebar-search" inputClass="sidebar-search" placeholder="Search" [(ngModel)]="searchQ" iconName="search"
+        iconDirection="left"></mist-input-text>
+    </div>
+  </div>
+  <div class="sidebar-body">
+    <ul class='sidebar-list'>
+      <li *ngFor="let item of workers$ | async | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]"
+        routerLinkActive='__active'>
+        <span class="cs-text-overflow-ellipsis sidebar-list__item-name">{{ item.name }}</span>
+        <mdl-icon title="Edit workers" (click)="deleteWorker(item)">delete_forever</mdl-icon>
+      </li>
+    </ul>
+  </div>
+</aside>

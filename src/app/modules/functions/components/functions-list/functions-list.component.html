@@ -1,0 +1,23 @@
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-header__row">
+            <h3 class='sidebar-title'>Functions</h3>
+            <mdl-button (click)="openDialogFunctionForm()" class="mist-button blue border icon" title="Add new function" mdl-colored="">
+                <mdl-icon>add</mdl-icon>
+                <span fxHide.sm fxHide.md>Add</span>
+            </mdl-button>
+        </div>
+        <div class="sidebar-header__row">
+            <mist-input-text class="sidebar-search" inputClass="sidebar-search" placeholder="Search" [(ngModel)]="searchQ" iconName="search"
+                iconDirection="left"></mist-input-text>
+        </div>
+    </div>
+    <div class="sidebar-body">
+        <ul class='sidebar-list'>
+            <li *ngFor="let item of functions$ | async | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]"
+                routerLinkActive='__active'>
+                <span class="sidebar-list__item-name">{{ item.name }}</span>
+            </li>
+        </ul>
+    </div>
+</aside>

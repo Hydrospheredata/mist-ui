@@ -1,0 +1,99 @@
+<div *ngIf="(worker$ | async) && pageId != 'overview'">
+    <div class="mist-page-container">
+        <div class='mist-page-header'>
+            <div class='mist-page-header__row'>
+                <a class='mist-link mist-link--big' [routerLink]="['../']">
+                    <i class='material-icons'>keyboard_backspace</i>
+                    Back to Workers
+                </a>
+            </div>
+            <div class="h3">Worker {{(worker$ | async).name}}</div>
+            <hr>
+        </div>
+
+        <div *ngIf="(worker$ | async)?.initInfo">
+            <div class="content-info">
+                <ul class="content-info__list">
+                    <li class="content-info__list-item">
+                        <span class="content-info__list-item-title">Down time</span>
+                        <span class="content-info__list-item-value">{{(worker$ | async).initInfo.downtime}}</span>
+                    </li>
+                    <li class="content-info__list-item">
+                        <span class="content-info__list-item-title">Log service</span>
+                        <span class="content-info__list-item-value">{{ (worker$ | async).initInfo.logService }}</span>
+                    </li>
+                    <li class="content-info__list-item">
+                        <span class="content-info__list-item-title">Max jobs</span>
+                        <span class="content-info__list-item-value">{{ (worker$ | async).initInfo.maxJobs }}</span>
+                    </li>
+                    <li class="content-info__list-item">
+                        <span class="content-info__list-item-title">Streaming Duration</span>
+                        <span class="content-info__list-item-value">{{(worker$ | async).initInfo.streamingDuration}}</span>
+                    </li>
+
+                    <li class="content-info__list-item">
+                        <span class="content-info__list-item-title">Address</span>
+                        <span class="content-info__list-item-value">
+                            <a class="cs-inline-block cs-mb-8" title="Address: {{(worker$ | async).address}}" href="{{(worker$ | async).address}}">{{(worker$ | async).address}}</a>
+                        </span>
+                    </li>
+                    <li class="content-info__list-item">
+                        <span class="content-info__list-item-title">Spark UI</span>
+                        <span class="content-info__list-item-value">
+                            <a title=">Spark UI: {{(worker$ | async).sparkUi}}" href="{{(worker$ | async).sparkUi}}">{{(worker$ | async).sparkUi}}</a>
+                        </span>
+                    </li>
+                </ul>
+                <div class="content-info__panel">
+                    <span class="mist-label">Spark Conf</span>
+                    <div class="job-details__container">
+                        <codemirror [ngModel]="(worker$ | async).initInfo.sparkConf | json" [config]="codeMirrorOptions"></codemirror>
+                    </div>
+                </div>
+            </div>
+            <hr class="cs-mb-16">
+        </div>
+
+        <div *ngIf="!(worker$ | async).initInfo">There is no worker's initial info</div>
+        <div class='mist-page-header'>
+            <div class="h3">Jobs</div>
+        </div>
+        <div *ngIf="!(worker$ | async).jobs?.length">There are no jobs yet</div>
+        <table *ngIf="(worker$ | async).jobs?.length" class='mdl-data-table mdl-js-data-table workers-table mdl-shadow--2dp cs-width-100'>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let job of (jobs$ | async)" class='jobs-table__tr cs-cursor-pointer' [routerLink]="['/jobs', job.functionId, job.jobId]">
+                    <td>
+                        <i class='material-icons status-icon cs-mr-8' [ngClass]="{'status-icon--failed': job.isFailed(),
+                                            'status-icon--success': job.isFinished(),
+                                            'status-icon--primary': job.isRunning()}">
+                        </i>
+                    </td>
+                    <td [title]="job.jobId" class=''>{{job.jobId}}</td>
+                    <td [title]="job.status" class=''>
+                        <div *ngIf="job.status" [title]="job.status" class="cs-text-overflow-ellipsis">
+                            <span class='mist-label'>Status</span>
+                            <span class='job-status' [ngClass]="{'font-color--success': job.isFinished(),
+                                                    'font-color--primary': job.isRunning(),
+                                                    'font-color--failed': job.isFailed()}">
+                                {{ job.status }}
+                            </span>
+                            <span>
+                                {{ job.isRunning() ? (job.runningTime() | agoDate) : (job.endTime | agoDate) }}
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- <ng-template ngFor let-job [ngForOf]="(worker$ | async).jobs">
+                    
+                </ng-template> -->
+            </tbody>
+        </table>
+    </div>
+</div>

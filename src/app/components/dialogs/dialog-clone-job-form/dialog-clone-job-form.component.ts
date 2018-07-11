@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MdlDialogReference } from '@angular-mdl/core';
 import { Router } from '@angular/router';
 import { JSONValidator } from '@app/validators/json.validator';
-import { JobStore } from '@stores/job.store';
-import { FormsService } from '@services/forms.service';
-import { Job } from '@models/job';
+import { JobStore } from '@app/modules/core/stores/job.store';
+import { FormsService } from '@app/modules/core/services/forms.service';
+import { Job } from '@shared/models';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';

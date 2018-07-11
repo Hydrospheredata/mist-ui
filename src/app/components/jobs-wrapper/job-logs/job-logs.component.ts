@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { MdlDialogService } from '@angular-mdl/core';
 import { injectableLogs, DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
-import { HttpLogsService, WebSocketLogsService } from '@services/_index';
-import { Job } from '@app/models/job';
+import { HttpLogsService, WebSocketLogsService } from '@app/modules/core/services/_index';
+import { Job } from '@shared/models';
 
 
 

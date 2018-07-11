@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Workers } from '@models/workers';
+import { Worker } from '@shared/models';
 import { Router } from '@angular/router';
-import { WorkersStore } from '@stores/workers.store';
+// import { WorkersStore } from '@app/modules/core/stores/workers.store';
 
 @Component({
   selector: 'mist-workers-list',
@@ -9,28 +9,30 @@ import { WorkersStore } from '@stores/workers.store';
   styleUrls: ['./workers-list.component.scss']
 })
 export class WorkersListComponent implements OnInit, OnDestroy {
-  public workers: Workers[];
+  public workers: Worker[];
   public workerSubscriber;
   public searchQ: String;
 
-  constructor(private workersStore: WorkersStore,
-    private router: Router) { }
+  constructor(
+    // private workersStore: WorkersStore,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    this.workersStore.getAll();
-    this.workerSubscriber = this.workersStore.workers
-      .subscribe((workers) => {
-        if (!workers.length) {
-          this.router.navigate(['/clusters/workers/overview']);
-        } else {
-          this.router.navigate([`/clusters/workers/${workers[0].name}`]);
-        }
-        this.workers = workers;
-      });
+    // this.workersStore.getAll();
+    // this.workerSubscriber = this.workersStore.workers
+    //   .subscribe((workers) => {
+    //     if (!workers.length) {
+    //       this.router.navigate(['/clusters/workers/overview']);
+    //     } else {
+    //       this.router.navigate([`/clusters/workers/${workers[0].name}`]);
+    //     }
+    //     this.workers = workers;
+    //   });
   }
 
-  public deleteWorker(worker: Workers) {
-    this.workersStore.delete(worker);
+  public deleteWorker(worker: Worker) {
+    // this.workersStore.delete(worker);
   }
 
   ngOnDestroy() {

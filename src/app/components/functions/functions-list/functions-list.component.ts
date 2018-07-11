@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { JobStore, FunctionStore } from '@stores/_index';
-import { Job, FunctionInfo } from '@models/_index';
+import { JobStore, FunctionStore } from '@app/modules/core/stores/_index';
+import { Job, Function } from '@shared/models';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogFunctionFormComponent, injectableFunction } from '@app/components/dialogs/_index';
 
@@ -11,7 +11,7 @@ import { DialogFunctionFormComponent, injectableFunction } from '@app/components
   styleUrls: ['./functions-list.component.scss']
 })
 export class FunctionsListComponent implements OnInit, OnDestroy {
-  functions: FunctionInfo[];
+  functions: Function[];
   runningJobs: Job[];
   searchQ: string;
   private functionStoreSub;
@@ -56,25 +56,25 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
     this.dialog.showCustomDialog({
       component: DialogFunctionFormComponent,
       isModal: true,
-      styles: {'width': '850px', 'max-height': '100%'},
+      styles: { 'width': '850px', 'max-height': '100%' },
       clickOutsideToClose: true,
       enterTransitionDuration: 400,
       leaveTransitionDuration: 400,
-      providers: [{provide: injectableFunction, useValue: functionInfo}]
+      providers: [{ provide: injectableFunction, useValue: functionInfo }]
     });
   }
 
   loadInitialData() {
     this.functionStore.getAll();
     this.functionSubscriber = this.functionStore.functions
-        .subscribe(data => {
-          if (data.length) {
-            this.router.navigate([`/functions/${data[0].name}`]);
-          } else {
-            this.router.navigate(['/functions']);
-          }
-          this.functions = data;
-        });
+      .subscribe(data => {
+        if (data.length) {
+          this.router.navigate([`/functions/${data[0].name}`]);
+        } else {
+          this.router.navigate(['/functions']);
+        }
+        this.functions = data;
+      });
     this.jobStore.getAllRunning();
     this.jobStore.runningJobs.subscribe((jobs) => {
       this.runningJobs = jobs;

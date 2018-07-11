@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { Context } from '@models/context';
+import { Context } from '@shared/models';
 import { MdlDialogReference, MdlSnackbarService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { FormsService } from '@services/forms.service';
-import { ContextStore } from '@stores/context.store';
-import { AlertService } from '@services/alert.service';
+import { FormsService } from '@app/modules/core/services/forms.service';
+import { ContextStore } from '@app/modules/core/stores/context.store';
+import { AlertService } from '@app/modules/core/services/alert.service';
 
 @Component({
   selector: 'mist-dialog-add-context',
@@ -44,7 +44,7 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     this.contextStoreSub = this.contextStore.get('default')
       .subscribe(context => {
         self.setDefaultContext(context);
-    });
+      });
 
     this.createContextForm();
   }
@@ -107,37 +107,41 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
   }
 
   setDefaultContext(context) {
-    this.contextForm.patchValue( {sparkConfs: [{
-      sparkConfKey: Object.keys(context.sparkConf)[0]
-    }, {
-      sparkConfKey: 'spark.default.parallelism'
-    }, {
-      sparkConfKey: 'spark.driver.memory'
-    }, {
-      sparkConfKey: 'spark.scheduler.mode'
-    }, {
-      sparkConfKey: 'spark.driver.allowmultiplecontexts'
-    },
-    ]});
-    this.contextForm.patchValue( {sparkConfs: [{
-      sparkConfValue: context.sparkConf[Object.keys(context.sparkConf)[0]],
-    }, {
-      sparkConfValue: '2',
-    }, {
-      sparkConfValue: '2g',
-    }, {
-      sparkConfValue: 'FAIR',
-    }, {
-      sparkConfValue: 'true',
-    }
-    ]} );
-    this.contextForm.patchValue( {name: context.name} );
-    this.contextForm.patchValue( {downtime: context.downtime} );
-    this.contextForm.patchValue( {maxJobs: context.maxJobs} );
-    this.contextForm.patchValue( {workerMode: context.workerMode} );
-    this.contextForm.patchValue( {precreated: context.precreated} );
-    this.contextForm.patchValue( {runOptions: context.runOptions} );
-    this.contextForm.patchValue( {streamingDuration: context.streamingDuration} );
+    this.contextForm.patchValue({
+      sparkConfs: [{
+        sparkConfKey: Object.keys(context.sparkConf)[0]
+      }, {
+        sparkConfKey: 'spark.default.parallelism'
+      }, {
+        sparkConfKey: 'spark.driver.memory'
+      }, {
+        sparkConfKey: 'spark.scheduler.mode'
+      }, {
+        sparkConfKey: 'spark.driver.allowmultiplecontexts'
+      },
+      ]
+    });
+    this.contextForm.patchValue({
+      sparkConfs: [{
+        sparkConfValue: context.sparkConf[Object.keys(context.sparkConf)[0]],
+      }, {
+        sparkConfValue: '2',
+      }, {
+        sparkConfValue: '2g',
+      }, {
+        sparkConfValue: 'FAIR',
+      }, {
+        sparkConfValue: 'true',
+      }
+      ]
+    });
+    this.contextForm.patchValue({ name: context.name });
+    this.contextForm.patchValue({ downtime: context.downtime });
+    this.contextForm.patchValue({ maxJobs: context.maxJobs });
+    this.contextForm.patchValue({ workerMode: context.workerMode });
+    this.contextForm.patchValue({ precreated: context.precreated });
+    this.contextForm.patchValue({ runOptions: context.runOptions });
+    this.contextForm.patchValue({ streamingDuration: context.streamingDuration });
   }
 
   submitContextForm(form) {
@@ -160,14 +164,14 @@ export class DialogAddContextComponent implements OnInit, OnDestroy {
     }
 
     this.contextStore.createContext(context)
-      .subscribe( (response) => {
+      .subscribe((response) => {
         this.dialogRef.hide();
         this.mdlSnackbarService.showSnackbar({
           message: `Context ${response.name} successfully added`,
           timeout: 5000
         });
-        }, (error) => {
-          this.alertService.error(error);
+      }, (error) => {
+        this.alertService.error(error);
       });
   }
 

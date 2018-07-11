@@ -1,0 +1,118 @@
+@import "variables.scss";
+.job-logs {
+  display: block;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: #0c152a;
+  position: relative;
+  margin-top: 6rem;
+  padding: 1rem 3.5rem 3.5rem 3.5rem;
+
+  &--title {
+    font-size: 16px;
+    padding-bottom: 3.5rem;
+    color: #818994;
+  }
+
+  &--container {
+    position: relative;
+    font-size: 14px;
+    font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    color: #ffffff;
+    overflow-y: scroll;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &--error {
+    position: relative;
+    text-align: center;
+    color: $color--failed;
+  }
+
+  &--toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #818994;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &--download {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: #ffffff;
+
+    &:hover {
+      color: #818994;
+      cursor: pointer;
+    }
+  }
+
+  &--expand {
+    position: absolute;
+    transform: translate3d(-50%, 0, 0);
+    left: 50%;
+    bottom: 1rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: gray;
+  }
+
+  &__navigation {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 16px 12px;
+    &-btn {
+      color: #ffffff;
+      font-size: 32px;
+      cursor: pointer;
+      &:hover {
+        color: #818994;
+      }
+      &.disable {
+        color: #818994;
+        cursor: pointer;
+      }
+    }
+  }
+
+}
+
+.log {
+  margin-bottom: 6px;
+  &-date {
+    color: #59606C;
+    font-style: italic;
+    min-width: 198px;
+    display: inline-block;
+  }
+  &-type {
+    &.__info {
+      color: #6696EA;
+    }
+    &.__warn {
+      color: #E0BE90;
+    }
+    &.__error {
+      color: #F9624D;
+    }
+  }
+  &-message {
+    &.__error {
+      margin-left: 51px;
+    }
+  }
+}

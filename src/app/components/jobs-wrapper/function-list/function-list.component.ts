@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { JobStore, FunctionStore } from '@stores/_index';
-import { Job, FunctionInfo } from '@models/_index';
+import { JobStore, FunctionStore } from '@app/modules/core/stores/_index';
+import { Job, Function } from '@shared/models';
 
 
 
@@ -11,7 +11,7 @@ import { Job, FunctionInfo } from '@models/_index';
     styleUrls: ['./function-list.component.scss']
 })
 export class FunctionListComponent implements OnInit, OnDestroy {
-    functions: FunctionInfo[];
+    functions: Function[];
     runningJobs: Job[];
     searchQ: string;
     private functionStoreSub;

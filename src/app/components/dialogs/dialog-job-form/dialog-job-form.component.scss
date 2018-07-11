@@ -11,11 +11,18 @@
 
   &__input {
     border: 2px solid $border-color;
+    position: relative;
+    > .job-details__full-screen-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1000;
+      cursor: pointer;
+    }
   }
 
   &__version {
     display: inline-block;
-    float: right;
     margin: 32px 32px 0px 0px;
     line-height: 40px;
     font-size: 18px;

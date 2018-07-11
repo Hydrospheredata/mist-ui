@@ -1,0 +1,17 @@
+@import "variables";
+
+.mist-page-container {
+  padding: 1rem 3.5rem;
+}
+.job-details__container {
+  border: 2px solid $border-color;
+  padding: 10px;
+}
+
+.content-info {
+    flex-direction: column;
+    > *:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 32px;
+    }
+}
