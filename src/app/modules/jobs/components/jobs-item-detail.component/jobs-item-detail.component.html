@@ -20,8 +20,10 @@
                 <li class="content-info__list-item __title">Total info</li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Worker</span>
-                    <!-- <span class="content-info__list-item-value" [routerLink]="'/workers/' + (worker$ | async).name" style="cursor: pointer;">{{ (worker$ | async).name }}</span> -->
-                    <!-- <span class="content-info__list-item-value" *ngIf="!worker">{{ workerId }}</span> -->
+                    <span class="content-info__list-item-value" *ngIf="(worker$ | async)">
+                        <a title="Worker" [routerLink]="'/workers/' + (worker$ | async).name" class='mist-link spark-ui'>{{ (worker$ | async).name }}</a>
+                    </span>
+                    <span class="content-info__list-item-value" *ngIf="!(worker$ | async)">{{ (job$ | async).workerId }}</span>
                 </li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Context</span>
@@ -35,11 +37,11 @@
                             'font-color--failed': (job$ | async).isFailed()
                         }">{{ (job$ | async).status }}</span>
                 </li>
-                <li class="content-info__list-item" *ngIf="worker">
+                <li class="content-info__list-item" *ngIf="(worker$ | async)">
                     <span class="content-info__list-item-title">SPARK UI</span>
-                    <!-- <span class="content-info__list-item-value">
-                        <a target="_blank" title="SPARK UI" href="{{worker.sparkUi}}" class='mist-link spark-ui'>{{ worker.sparkUi }}</a>
-                    </span> -->
+                    <span class="content-info__list-item-value">
+                        <a target="_blank" title="SPARK UI" href="{{(worker$ | async).sparkUi}}" class='mist-link spark-ui'>{{ (worker$ | async).sparkUi }}</a>
+                    </span>
                 </li>
             </ul>
             <!-- <ul class="content-info__list">

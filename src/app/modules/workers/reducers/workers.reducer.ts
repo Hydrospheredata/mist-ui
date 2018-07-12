@@ -15,6 +15,9 @@ export function reducer(state = initialState, action: fromWorker.WorkersActions)
         case fromWorker.WorkersActionTypes.GetSuccess: {
             return adapter.addAll(action.payload, state);
         }
+        case fromWorker.WorkersActionTypes.DeleteSuccess: {
+            return adapter.removeOne(action.payload, state);
+        }
 
         default: {
             return state;

@@ -22,6 +22,19 @@ export class WorkersEffects {
             })
         );
 
+    @Effect() deleteWorker$: Observable<Action> = this.actions$
+        .ofType(workersActions.WorkersActionTypes.Delete)
+        .pipe(
+            map((action: workersActions.Delete) => action.workerName),
+            switchMap((workerName: string) => {
+                return this.workersService.delete(workerName)
+                    .pipe(
+                        map(() => new workersActions.DeleteSuccess(workerName)),
+                        catchError(error => of(new workersActions.DeleteFail(error)))
+                    )
+            })
+        );
+
     constructor(
         private actions$: Actions,
         private workersService: HttpWorkersService

@@ -8,7 +8,7 @@ import {
 } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 import { DialogCloneJobFormComponent, injectableJob } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
 import { Job } from '@shared/models';
-// import { Workers } from '@shared/models';
+import { Worker } from '@shared/models';
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
 import '@node_modules/codemirror/addon/edit/closebrackets';
@@ -56,8 +56,8 @@ export class JobsItemDetailComponent implements OnInit, OnDestroy {
         // private workersStore: WorkersStore
     ) {
         this.job$ = this.store.select(fromJobs.getSelectedJob);
-        // this.worker$ = this.store.select(fromJobs.getJobWorker);
-        this.store.select(fromJobs.getJobWorker).subscribe(x => console.log(x));
+        this.worker$ = this.store.select(fromJobs.getJobWorker);
+        // this.store.select(fromJobs.getJobWorker).subscribe(x => console.log(x));
     }
 
     ngOnInit() {

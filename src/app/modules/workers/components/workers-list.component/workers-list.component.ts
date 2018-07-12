@@ -6,6 +6,7 @@ import { MistState } from '@app/modules/core/reducers';
 import { Observable } from 'rxjs/Observable';
 // import { WorkersStore } from '@app/modules/core/stores/workers.store';
 import * as fromWorkers from '@workers/reducers';
+import * as fromWorkersActions from '@workers/actions';
 
 @Component({
     selector: 'mist-workers-list',
@@ -40,6 +41,7 @@ export class WorkersListComponent implements OnInit, OnDestroy {
     }
 
     public deleteWorker(worker: Worker) {
+        this.store.dispatch(new fromWorkersActions.Delete(worker.name));
         // this.workersStore.delete(worker);
     }
 

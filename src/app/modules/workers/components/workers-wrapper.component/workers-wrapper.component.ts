@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { MistState } from '@app/modules/core/reducers';
+import { Store } from '@ngrx/store';
 // import { WorkersStore } from '@app/modules/corestores/workers.store';
+import * as fromWorkers from '@workers/actions';
 
 
 
@@ -16,8 +19,11 @@ export class WorkersWrapperComponent implements OnInit, OnDestroy {
 
     constructor(
         // private workersStore: WorkersStore,
-        private router: Router
-    ) { }
+        private router: Router,
+        private store: Store<MistState>,
+    ) {
+        // this.store.dispatch(new fromWorkers.Get);
+    }
 
     ngOnInit() {
         // this.workersStore.getAll();

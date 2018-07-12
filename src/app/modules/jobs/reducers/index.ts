@@ -53,7 +53,10 @@ export const getJobs = createSelector(
 export const getSelectedJob = createSelector(
     getJobEntities,
     fromRoot.getRouterState,
-    (entities, router): Job => router.state && entities[router.state.params.jobId]
+    (entities, router): Job => {
+        console.log(router.state && entities[router.state.params.jobId]);
+        return router.state && entities[router.state.params.jobId]
+    }
 );
 
 export const getJobWorkerId = createSelector(
@@ -65,7 +68,10 @@ export const getJobWorkerId = createSelector(
 export const getJobWorker = createSelector(
     getJobWorkerId,
     fromWorkers.getWorkerEntities,
-    (workerId, workerEntities): Worker => workerEntities[workerId]
+    (workerId, workerEntities): Worker => {
+        console.log(workerEntities[workerId])
+        return workerEntities[workerId]
+    }
 );
 
 export const getCurrentWorkerJobs = createSelector(

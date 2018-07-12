@@ -5,7 +5,8 @@ export enum WorkersActionTypes {
     GetSuccess = '[Workers] Get list of all workers with success',
     GetFail = '[Workers] Get list of all workers with fail',
     Delete = '[Workers] Delete worker',
-    DeleteSuccess = '[Workers] Delete worker with success'
+    DeleteSuccess = '[Workers] Delete worker with success',
+    DeleteFail = '[Workers] Delete worker with fail',
 };
 
 export class Get implements Action {
@@ -25,7 +26,7 @@ export class GetFail implements Action {
 export class Delete implements Action {
     readonly type = WorkersActionTypes.Delete;
 
-    constructor(public payload: any) { }
+    constructor(public workerName: string) { }
 }
 
 export class DeleteSuccess implements Action {
@@ -34,9 +35,16 @@ export class DeleteSuccess implements Action {
     constructor(public payload: any) { }
 }
 
+export class DeleteFail implements Action {
+    readonly type = WorkersActionTypes.DeleteFail;
+
+    constructor(public error) { }
+}
+
 export type WorkersActions
     = Get
     | GetSuccess
     | GetFail
     | Delete
-    | DeleteSuccess;
+    | DeleteSuccess
+    | DeleteFail;
