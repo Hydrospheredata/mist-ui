@@ -42,9 +42,13 @@
     <div class='mist-page-content'>
         <table class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp'>
             <tbody>
-                <tr *ngFor="let job of jobs$ | async | jobStatusFilter:statusFilter | sortBy:'createTime'; let i=index" class='jobs-table__tr'
-                    [routerLink]="['/jobs', job.functionId, job.jobId]">
-                    <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': job.isFailed()}">
+                <tr *ngFor="let job of jobs$ | async | sortBy:'createTime'; let i=index" class='jobs-table__tr' [routerLink]="['/jobs', job.functionId, job.jobId]">
+                    <td>
+                        <div class="cs-text-overflow-ellipsis">
+                            {{ job.jobId | jobIdCut }}
+                        </div>
+                    </td>
+                    <!-- <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': job.isFailed()}">
                         <div class="cs-text-overflow-ellipsis">
                             <i class='material-icons status-icon cs-mr-8' [ngClass]="{'status-icon--failed': job.isFailed(),
                                 'status-icon--success': job.isFinished(),
@@ -52,7 +56,7 @@
                             </i>
                             {{ job.jobId | jobIdCut }}
                         </div>
-                    </td>
+                    </td> -->
                     <td [title]="'function = ' + job.functionId" class='jobs-table__td jobs-table__td--function'>
                         <div class='function cs-block'>
                             <div class="cs-text-overflow-ellipsis cs-text-center">
@@ -70,23 +74,24 @@
                     <td class='jobs-table__td jobs-table__td--status cs-text-overflow-ellipsis'>
                         <div *ngIf="job.status" [title]="job.status" class="cs-text-overflow-ellipsis">
                             <span class='mist-label'>Status</span>
-                            <span class='job-status' [ngClass]="{'font-color--success': job.isFinished(),
-                                  'font-color--primary': job.isRunning(),
-                                  'font-color--failed': job.isFailed(),
-                                  'font-color--failed': job.isCanceling()}">
+                            <span>{{job.status}}</span>
+                            <!-- <span class='job-status' [ngClass]="{
+                                'font-color--success': job.isFinished(),
+                                'font-color--primary': job.isRunning(),
+                                'font-color--failed': job.isFailed() || job.isCanceling() }">
                                 {{ job.status }}
                             </span>
                             <span>
                                 {{ job.isRunning() ? (job.runningTime() | agoDate) : (job.endTime | agoDate) }}
-                            </span>
+                            </span> -->
                         </div>
                     </td>
-                    <td class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
+                    <!-- <td class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
                         <a title="KILL" href='#' class='mist-link cs-pt-10 cs-pb-10' (click)="killJob($event, job)" *ngIf="job.isRunning()">
                             <i class='material-icons'>delete_forever</i>
                             <span>KILL</span>
                         </a>
-                    </td>
+                    </td> -->
                 </tr>
                 <!-- <ng-template ngFor let-job [ngForOf]="jobs | jobStatusFilter:statusFilter | sortBy:'createTime'">
                     <tr class='jobs-table__tr' [routerLink]="['/jobs', job.functionId, job.jobId]">

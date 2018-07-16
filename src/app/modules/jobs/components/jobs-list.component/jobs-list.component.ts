@@ -5,6 +5,7 @@ import { Job, Function } from '@shared/models';
 import { MistState } from '@core/reducers';
 import { Store } from '@ngrx/store';
 import * as fromFunctions from '@functions/reducers';
+import * as fromJobs from '@jobs/reducers';
 import { Observable } from 'rxjs/Observable';
 
 

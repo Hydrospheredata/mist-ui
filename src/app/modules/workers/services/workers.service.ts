@@ -13,17 +13,17 @@ export class HttpWorkersService {
         this.baseUrl = '/workers';
     }
 
-    getAll(): Observable<Worker[]> {
+    public getAll(): Observable<Worker[]> {
         return this.http.get(this.baseUrl)
             .map((res: Response) => this.extractWorkers(res))
     }
 
-    get(id): Observable<any> {
+    public get(id): Observable<any> {
         return this.http.get(`${this.baseUrl}/${id}`)
             .map((res: Response) => res.json())
     }
 
-    delete(workerName: string) {
+    public delete(workerName: string) {
         return this.http.delete(`${this.baseUrl}/${workerName}`);
     }
 

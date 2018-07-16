@@ -92,8 +92,7 @@ export class HttpJobService {
     }
 
     private toJob(data): Job {
-        console.log(data);
-        const job = new Job({
+        return new Job({
             jobId: data.jobId,
             status: data.status,
             context: data.context,
@@ -106,7 +105,6 @@ export class HttpJobService {
             source: data.source,
             workerId: data.workerId
         });
-        return job;
     }
 
     private extractData(res: Response) {

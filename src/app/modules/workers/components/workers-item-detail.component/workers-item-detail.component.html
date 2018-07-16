@@ -1,12 +1,12 @@
 <div *ngIf="(worker$ | async) && pageId != 'overview'">
     <div class="mist-page-container">
         <div class='mist-page-header'>
-            <div class='mist-page-header__row'>
+            <!-- <div class='mist-page-header__row'>
                 <a class='mist-link mist-link--big' [routerLink]="['../']">
                     <i class='material-icons'>keyboard_backspace</i>
                     Back to Workers
                 </a>
-            </div>
+            </div> -->
             <div class="h3">Worker {{(worker$ | async).name}}</div>
             <hr>
         </div>

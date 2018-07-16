@@ -19,13 +19,18 @@ export function reducer(state = initialState, action: JobActions): State {
             return adapter.addOne(action.payload, state);
         }
         case JobActionTypes.AddSuccess: {
-            console.log(action.payload);
             return adapter.addOne(action.payload, state);
         }
         case JobActionTypes.UpdateSuccess: {
             return adapter.updateOne({
-                id: action.payload.id,
-                changes: action.payload
+                id: action.payload.jobId,
+                changes: {
+                    status: action.payload.status ? action.payload.status : undefined,
+                    startTime: action.payload.startTime ? action.payload.startTime : undefined,
+                    createTime: action.payload.createTime ? action.payload.createTime : undefined,
+                    params: action.payload.params ? action.payload.params : undefined,
+                    workerId: action.payload.workerId ? action.payload.workerId : undefined,
+                }
             }, state);
         }
 

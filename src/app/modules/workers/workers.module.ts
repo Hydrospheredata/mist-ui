@@ -11,7 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from '@workers/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { WorkersEffects } from '@workers/effects';
-import { HttpWorkersService } from '@workers/services';
+import { HttpWorkersService, WorkerGuard } from '@workers/services';
 
 @NgModule({
     declarations: [
@@ -31,6 +31,6 @@ import { HttpWorkersService } from '@workers/services';
         EffectsModule.forFeature([WorkersEffects])
     ],
     exports: [],
-    providers: [HttpWorkersService],
+    providers: [HttpWorkersService, WorkerGuard],
 })
 export class WorkersModule { }

@@ -5,7 +5,7 @@ import {
     // DialogFunctionFormComponent,
     // injectableFunction,
     DialogJobFormComponent,
-    injectableSelectedFunction
+    // injectableSelectedFunction
 } from '@components/dialogs/_index';
 // import { ContextStore, JobStore, FunctionStore } from '@app/modules/core/stores/_index';
 import { Context, Function, Job } from '@shared/models';
@@ -100,7 +100,7 @@ export class JobsOverviewComponent implements OnInit, OnDestroy {
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{ provide: injectableSelectedFunction, useValue: this.functionInfo }],
+            // providers: [{ provide: injectableSelectedFunction, useValue: this.functionInfo }],
         });
     }
 

@@ -25,7 +25,7 @@ import { MistState } from '@app/modules/core/reducers';
 import * as fromFunctions from '@functions/reducers';
 import * as jobsActions from '@jobs/actions';
 
-export let injectableSelectedFunction = new InjectionToken<Function>('selectedFunction');
+// export let injectableSelectedFunction = new InjectionToken<Function>('selectedFunction');
 
 @Component({
     selector: 'mist-dialog-job-form',
@@ -53,7 +53,7 @@ export class DialogJobFormComponent implements OnInit {
     public context: string;
 
     constructor(
-        @Inject(injectableSelectedFunction) data: Function,
+        // @Inject(injectableSelectedFunction) data: Function,
         // private jobStore: JobStore,
         private fb: FormBuilder,
         private formsService: FormsService,
@@ -115,7 +115,6 @@ export class DialogJobFormComponent implements OnInit {
             function: fn,
             executeParams: fn.executeExample()
         });
-
     }
 
     private formListener() {

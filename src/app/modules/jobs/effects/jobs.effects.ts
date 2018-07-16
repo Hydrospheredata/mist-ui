@@ -30,7 +30,7 @@ export class JobsEffects {
         .ofType(JobActionTypes.GetById)
         .pipe(
             map((action: JobsActions.GetById) => action.id),
-            switchMap((jobId: string) => {
+            switchMap((jobId: string, jobs) => {
                 return this.jobService.get(jobId)
                     .pipe(
                         map((job: Job) => {
@@ -67,16 +67,30 @@ export class JobsEffects {
         .pipe(
             map((action: JobsActions.Update) => action.payload),
             withLatestFrom(
-                this.store.select(fromJobs.getAllJobs)
+                this.store.select(fromJobs.getJobEntities)
             ),
-            switchMap(([message, jobs]) => {
+            switchMap(([message, entities]) => {
                 console.log(message);
-                // console.log(jobs);
-                // const job = jobs.findIndex(job => job.jobId === message.id);
-                // console.log(job);
-                return of(new JobsActions.UpdateSuccess(message))
+                if (entities[message.id]) {
+                    return of(new JobsActions.UpdateSuccess(this.transformMessageToJob(message)));
+                }
+                return of(new JobsActions.AddSuccess(this.transformMessageToJob(message)));
             })
         )
+
+    private transformMessageToJob(message): Job {
+        return new Job({
+            jobId: message.id ? message.id : undefined,
+            status: message.event ? message.event : undefined,
+            context: message.context ? message.context : undefined,
+            createTime: message.createTime ? message.createTime : undefined,
+            startTime: message.startTime ? message.startTime : undefined,
+            endTime: message.endTime ? message.endTime : undefined,
+            'function': message.function ? message.function : undefined,
+            params: JSON.stringify(message.params, null, '\t'),
+            workerId: message.workerId ? message.workerId : undefined
+        });
+    }
 
     constructor(
         private actions$: Actions,

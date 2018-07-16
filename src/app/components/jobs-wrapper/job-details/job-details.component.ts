@@ -6,7 +6,10 @@ import {
     DialogFullScreenJsonComponent,
     injectableJsonString
 } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
-import { DialogCloneJobFormComponent, injectableJob } from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
+import {
+    DialogCloneJobFormComponent,
+    // injectableJob
+} from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
 import { Job } from '@shared/models';
 // import { WorkersStore } from '@app/modules/core/stores/workers.store';
 // import { Workers } from '@shared/models';
@@ -131,7 +134,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{ provide: injectableJob, useValue: this.job }],
+            // providers: [{ provide: injectableJob, useValue: this.job }],
         });
     }
 
