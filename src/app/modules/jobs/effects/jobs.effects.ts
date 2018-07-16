@@ -30,12 +30,18 @@ export class JobsEffects {
         .ofType(JobActionTypes.GetById)
         .pipe(
             map((action: JobsActions.GetById) => action.id),
-            switchMap((jobId: string, jobs) => {
+            withLatestFrom(
+                this.store.select(fromJobs.getJobEntities)
+            ),
+            switchMap(([jobId, entities]) => {
                 return this.jobService.get(jobId)
                     .pipe(
                         map((job: Job) => {
-                            console.log(job);
-                            return new JobsActions.GetByIdSuccess(job)
+                            if (entities[job.jobId]) {
+                                console.log(job);
+                                return new JobsActions.UpdateSuccess(job);
+                            }
+                            return new JobsActions.AddSuccess(this.transformMessageToJob(job));
                         }),
                         catchError(error => of(new JobsActions.GetFail(error)))
                     )
@@ -46,7 +52,7 @@ export class JobsEffects {
         .ofType(JobActionTypes.Add)
         .pipe(
             map((action: JobsActions.Add) => action),
-            switchMap((params) => {
+            switchMap(params => {
                 return this.jobService.create(params.functionId, params.params)
                     .pipe(
                         map(job => {
@@ -79,17 +85,10 @@ export class JobsEffects {
         )
 
     private transformMessageToJob(message): Job {
-        return new Job({
-            jobId: message.id ? message.id : undefined,
-            status: message.event ? message.event : undefined,
-            context: message.context ? message.context : undefined,
-            createTime: message.createTime ? message.createTime : undefined,
-            startTime: message.startTime ? message.startTime : undefined,
-            endTime: message.endTime ? message.endTime : undefined,
-            'function': message.function ? message.function : undefined,
-            params: JSON.stringify(message.params, null, '\t'),
-            workerId: message.workerId ? message.workerId : undefined
-        });
+        let job = new Job(message);
+        job.jobId = message.id;
+        job.status = message.event;
+        return job;
     }
 
     constructor(

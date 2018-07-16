@@ -7,7 +7,7 @@ export class Job {
     public startTime: number;
     public functionId: string;
     public jobResult: string;
-    public params: string;
+    public params: any;
     public source: string;
     public workerId: string;
 
@@ -25,27 +25,27 @@ export class Job {
         this.workerId = jobInfo['workerId'];
     }
 
-    isFinished() {
+    public isFinished() {
         return ['finished'].includes(this.status)
     }
 
-    isFailed() {
+    public isFailed() {
         return ['failed', 'canceled'].includes(this.status)
     }
 
-    isWorkerAssigned() {
+    public isWorkerAssigned() {
         return ['worker-assigned'].includes(this.status);
     }
 
-    isRunning() {
+    public isRunning() {
         return ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(this.status)
     }
 
-    isCanceling() {
+    public isCanceling() {
         return ['canceling'].includes(this.status)
     }
 
-    runningTime() {
+    public runningTime() {
         return this.startTime || this.createTime
     }
 }

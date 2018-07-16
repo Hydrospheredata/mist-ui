@@ -24,6 +24,7 @@ import { MistState } from '@app/modules/core/reducers';
 import * as fromJobs from '@jobs/reducers';
 import * as fromWorkers from '@workers/reducers';
 import { Observable } from 'rxjs/Observable';
+import { withLatestFrom } from '../../../../../../node_modules/rxjs/operators';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class JobsItemDetailComponent implements OnInit, OnDestroy {
 
     job: Job;
     public job$: Observable<Job>;
-    codeMirrorOptions: {};
+    public jobParams$: Observable<string | object>;
     public jobArguments: string;
     // private activatedRouteSub: any;
     // private jobStoreSub: any;
@@ -60,7 +61,19 @@ export class JobsItemDetailComponent implements OnInit, OnDestroy {
     ) {
         this.job$ = this.store.select(fromJobs.getSelectedJob);
         this.worker$ = this.store.select(fromJobs.getJobWorker);
-        // this.store.select(fromJobs.getJobWorker).subscribe(x => console.log(x));
+        this.jobParams$ = this.store.select(fromJobs.getParamsOfCurrentJob);
+    }
+
+    public get codeMirrorOptions() {
+        return {
+            matchBrackets: true,
+            autoCloseBrackets: true,
+            mode: { name: 'javascript', json: true },
+            lineWrapping: true,
+            readOnly: true,
+            scrollbarStyle: 'null',
+            smartIndent: true
+        }
     }
 
     ngOnInit() {
@@ -72,15 +85,6 @@ export class JobsItemDetailComponent implements OnInit, OnDestroy {
         //             this.loadInitialData(params['jobId']);
         //         });
         // }
-        this.codeMirrorOptions = {
-            matchBrackets: true,
-            autoCloseBrackets: true,
-            mode: { name: 'javascript', json: true },
-            lineWrapping: true,
-            readOnly: true,
-            scrollbarStyle: 'null',
-            smartIndent: true
-        }
     }
 
     ngOnDestroy() {
@@ -105,12 +109,6 @@ export class JobsItemDetailComponent implements OnInit, OnDestroy {
         //         this.job = jobs.find(job => job.jobId === jobId);
 
         //         if (this.job) {
-        //             // this.workersStore.get(this.job.workerId)
-        //             //   .subscribe(worker => {
-        //             //     this.worker = worker;
-        //             //   }, (error) => {
-        //             //     this.workerId = this.job.workerId;
-        //             //   })
 
         //             if (this.job.createTime) {
         //                 this.jobCreateTime = this.setDate(this.job.createTime);

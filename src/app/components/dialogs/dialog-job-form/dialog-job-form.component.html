@@ -22,9 +22,8 @@
             <div class='job-form__main'>
                 <div class='mist-label'>Input Parameters</div>
                 <div class='job-form__input job-form__input--json'>
-                    <span class='material-icons job-details__full-screen-icon' (click)="openFullScreenJson(executeParams)">crop_free</span>
-                    <codemirror formControlName="executeParams" [config]="codeMirrorOptions">
-                    </codemirror>
+                    <span class='material-icons job-details__full-screen-icon' (click)="openFullScreenJson()">crop_free</span>
+                    <codemirror formControlName="executeParams" [config]="codeMirrorOptions"></codemirror>
                 </div>
                 <span class="cs-message error" *ngIf="jobForm.controls['executeParams'].invalid">{{formErrors.executeParams}}</span>
             </div>

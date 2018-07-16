@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener, InjectionToken, OnDestroy } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MdlDialogReference } from '@angular-mdl/core';
 import { Router } from '@angular/router';
@@ -28,22 +28,18 @@ import * as jobsActions from '@jobs/actions';
     providers: [FormsService]
 })
 
-export class DialogCloneJobFormComponent implements OnInit, OnDestroy {
+export class DialogCloneJobFormComponent implements OnInit {
     public jobForm: FormGroup;
     data: Job;
     job: Job;
     public job$: Observable<Job>;
-    // codeMirrorOptions: {};
     executeParams: string;
     public formErrors: object = {
         executeParams: ''
     };
     private jobFormSub;
-    private jobStoreSub;
 
     constructor(
-        // @Inject(injectableJob) data: Job,
-        // private jobStore: JobStore,
         private fb: FormBuilder,
         private formsService: FormsService,
         private router: Router,
@@ -51,7 +47,6 @@ export class DialogCloneJobFormComponent implements OnInit, OnDestroy {
         private store: Store<MistState>,
     ) {
         this.store.select(fromJobs.getSelectedJob).subscribe(job => this.job = job);
-        // this.data = data;
     }
 
     @HostListener('document:keydown.escape')
@@ -73,27 +68,8 @@ export class DialogCloneJobFormComponent implements OnInit, OnDestroy {
         this.createForm();
         this.updateForm();
         this.formListener();
-
-        // const fs = this.formsService;
-        // this.job = this.data;
-        // this.executeParams = this.preBuildParams() || '{}';
-        // this.createJobForm();
-        // this.jobFormSub = this.jobForm.valueChanges
-        //     .subscribe(form => {
-        //         if (this.jobForm.invalid) {
-        //             fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
-        //         }
-        //     });
     }
 
-    ngOnDestroy() {
-        if (this.jobFormSub) {
-            this.jobFormSub.unsubscribe();
-        }
-        // if (this.jobStoreSub) {
-        //     this.jobStoreSub.unsubscribe();
-        // }
-    }
 
     private createForm() {
         this.jobForm = this.fb.group({
@@ -163,20 +139,10 @@ export class DialogCloneJobFormComponent implements OnInit, OnDestroy {
     }
 
     private preBuildParams() {
-        let params = JSON.parse(this.job.params);
-        let args = JSON.stringify(params.arguments, null, '\t');
+        let args = JSON.stringify(this.job.params.arguments, null, '\t');
         return args;
     }
 
-    // private buildCodeMirrorOptions() {
-    //     this.codeMirrorOptions = {
-    //         placeholder: 'Parameters...',
-    //         matchBrackets: true,
-    //         autoCloseBrackets: true,
-    //         mode: { name: 'javascript', json: true },
-    //         lineWrapping: true
-    //     }
-    // }
 }
 
 

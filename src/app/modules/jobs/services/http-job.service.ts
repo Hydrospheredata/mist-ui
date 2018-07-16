@@ -92,19 +92,7 @@ export class HttpJobService {
     }
 
     private toJob(data): Job {
-        return new Job({
-            jobId: data.jobId,
-            status: data.status,
-            context: data.context,
-            createTime: data.createTime,
-            startTime: data.startTime,
-            endTime: data.endTime,
-            'function': data.function,
-            jobResult: JSON.stringify(data.jobResult, null, '\t'),
-            params: JSON.stringify(data.params, null, '\t'),
-            source: data.source,
-            workerId: data.workerId
-        });
+        return new Job(data);
     }
 
     private extractData(res: Response) {

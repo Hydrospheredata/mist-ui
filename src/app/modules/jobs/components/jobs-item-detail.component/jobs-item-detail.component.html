@@ -1,4 +1,4 @@
-<div class="mist-page-container" *ngIf="(job$ | async)">
+<div class="mist-page-container" *ngIf="(job$ | async) as job">
     <div class="mist-page-header">
         <div *ngIf="!jobDetails" class='mist-page-header__row'>
             <a class='mist-link mist-link--big' [routerLink]="['../']">
@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class='mist-page-header__row' fxLayout="row" fxLayoutAlign="space-between center">
-            <div class="h3 mist-page-header__title">{{(job$ | async).functionId}}</div>
+            <div class="h3 mist-page-header__title">{{job.functionId}}</div>
             <button mdl-button mdl-button="" mdl-button-type="raised" mdl-colored="primary" mdl-ripple="" class='clone-job-button mat-button--primary mat-button'
                 (click)="openDialogJobForm()">
                 Copy Job
@@ -23,19 +23,19 @@
                     <span class="content-info__list-item-value" *ngIf="(worker$ | async)">
                         <a title="Worker" [routerLink]="'/workers/' + (worker$ | async).name" class='mist-link spark-ui'>{{ (worker$ | async).name }}</a>
                     </span>
-                    <span class="content-info__list-item-value" *ngIf="!(worker$ | async)">{{ (job$ | async).workerId }}</span>
+                    <span class="content-info__list-item-value" *ngIf="!(worker$ | async)">{{ job.workerId }}</span>
                 </li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Context</span>
-                    <span class="content-info__list-item-value">{{ (job$ | async).context }}</span>
+                    <span class="content-info__list-item-value">{{ job.context }}</span>
                 </li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Status</span>
                     <span class="content-info__list-item-value" style="text-transform: uppercase;" [ngClass]="{
-                            'font-color--success': (job$ | async).isFinished(),
-                            'font-color--primary': (job$ | async).isRunning(),
-                            'font-color--failed': (job$ | async).isFailed()
-                        }">{{ (job$ | async).status }}</span>
+                            'font-color--success': job.isFinished(),
+                            'font-color--primary': job.isRunning(),
+                            'font-color--failed': job.isFailed()
+                        }">{{ job.status }}</span>
                 </li>
                 <li class="content-info__list-item" *ngIf="(worker$ | async)">
                     <span class="content-info__list-item-title">SPARK UI</span>
@@ -61,12 +61,12 @@
             </ul> -->
         </div>
         <hr class="mist__separator--horizontal" />
-        <!-- <div fxLayout='row' fxLayoutAlign="center" class='job-container'>
-            <div fxFlex="45" class='job-details cs-text-left'>
+        <div fxLayout='row' fxLayoutAlign="center" class='job-container'>
+            <div fxFlex="45" class='job-details cs-text-left' *ngIf="(jobParams$ | async) as params">
                 <div class='mist-label'>Parameters</div>
                 <div class='job-details__container'>
-                    <codemirror [ngModel]="jobDetails ? (job.params | json) : jobArguments" [config]="codeMirrorOptions"></codemirror>
-                    <span class='material-icons job-details__full-screen-icon' (click)="openFullScreenJson(jobDetails ? job.params : jobArguments)">crop_free</span>
+                    <codemirror [ngModel]="params | json" [config]="codeMirrorOptions"></codemirror>
+                    <span class='material-icons job-details__full-screen-icon' (click)="openFullScreenJson(params)">crop_free</span>
                 </div>
             </div>
             <div fxFlex="10" class='icon-separator'>
@@ -77,11 +77,11 @@
                     Results
                 </div>
                 <div class='job-details__container'>
-                    <codemirror [ngModel]="jobDetails ? (job.jobResult | json) : job.jobResult" [config]="codeMirrorOptions"></codemirror>
+                    <codemirror [ngModel]="job.jobResult | json" [config]="codeMirrorOptions"></codemirror>
                     <span class='material-icons job-details__full-screen-icon' (click)="openFullScreenJson(job.jobResult)">crop_free</span>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <mist-job-logs [job]="job"></mist-job-logs>
     </div>

@@ -56,6 +56,11 @@ export const getSelectedJob = createSelector(
     (entities, router): Job => router.state && entities[router.state.params.jobId]
 );
 
+export const getParamsOfCurrentJob = createSelector(
+    getSelectedJob,
+    job => job && job.params
+);
+
 export const getJobWorkerId = createSelector(
     getJobEntities,
     fromRoot.getRouterState,

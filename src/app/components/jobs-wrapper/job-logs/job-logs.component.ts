@@ -48,7 +48,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
                                 logObject = {
                                     type: logsArray[0],
                                     date: logsArray[1],
-                                    jobId: logsArray[2],
+                                    id: logsArray[2],
                                     message: message
                                 }
                             } else {
@@ -132,7 +132,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
                 let log = {
                     type: this.setLogType(Number(event.level)),
                     date: date.toJSON(),
-                    jobId: event.from,
+                    id: event.from,
                     message: event.message
                 }
                 this.logs.push(log);

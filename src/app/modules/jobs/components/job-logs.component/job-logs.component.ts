@@ -110,9 +110,6 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
-    /**
-     * downloadLogs
-     */
     public downloadLogs() {
         // this.httpLogsService.downloadLogs(this.job.jobId);
     }

@@ -99,6 +99,58 @@ export class DialogJobFormComponent implements OnInit {
         this.formListener();
     }
 
+    public onChangeFunction(event) {
+        const jobId = event.name;
+        this.jobForm.patchValue({ executeParams: event.executeExample() || '{}' });
+        this.requestBody = `curl -X POST -d '${event.executeExample() || '{}'}' '${this.apiUrl}/functions/${jobId}/jobs'`;
+    }
+
+    public openFullScreenJson() {
+        let jsonString = this.jobForm.value.executeParams
+        if (typeof jsonString === 'object') {
+            jsonString = JSON.stringify(jsonString);
+        }
+        this.dialog.showCustomDialog({
+            component: DialogFullScreenJsonComponent,
+            styles: { 'width': '100%', 'height': '100%' },
+            providers: [{ provide: injectableJsonString, useValue: jsonString }],
+        });
+    }
+
+    public submit() {
+        const form = this.jobForm;
+        const fs = this.formsService;
+        const functionId = form.value.function.name;
+        const params = form.value.executeParams || '{}';
+
+        if (form.invalid) {
+            fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
+            return false
+        }
+
+        this.store.dispatch(new jobsActions.Add(functionId, params));
+        this.dialogRef.hide();
+
+        // this.jobStore.add(functionId, params)
+        //     .subscribe((id) => {
+        //         this.dialogRef.hide();
+        //         this.mdlSnackbarService.showSnackbar({
+        //             message: `Job ${id} initialisation was successful`,
+        //             timeout: 5000
+        //         });
+        //         console.log(`init job ${id}`);
+        //     }, (error) => {
+        //         this.alertService.error(error);
+        //     });
+    }
+
+    public copiedToClipBoardSuccessfully() {
+        this.mdlSnackbarService.showSnackbar({
+            message: `CURL params were copied out to clipboard successfully`,
+            timeout: 5000
+        });
+    }
+
     private createForm() {
         this.jobForm = this.fb.group({
             executeParams: ['', [JSONValidator.validate]],
@@ -136,57 +188,6 @@ export class DialogJobFormComponent implements OnInit {
                     this.requestBody = `curl -X POST -d '${executeParams}' '${this.apiUrl}/functions/${jobId}/jobs'`;
                 }
             });
-    }
-
-    onChangeFunction(event) {
-        const jobId = event.name;
-        this.jobForm.patchValue({ executeParams: event.executeExample() || '{}' });
-        this.requestBody = `curl -X POST -d '${event.executeExample() || '{}'}' '${this.apiUrl}/functions/${jobId}/jobs'`;
-    }
-
-    openFullScreenJson(jsonString: string) {
-        if (typeof jsonString === 'object') {
-            jsonString = JSON.stringify(jsonString);
-        }
-        this.dialog.showCustomDialog({
-            component: DialogFullScreenJsonComponent,
-            styles: { 'width': '100%', 'height': '100%' },
-            providers: [{ provide: injectableJsonString, useValue: jsonString }],
-        });
-    }
-
-    submit() {
-        const form = this.jobForm;
-        const fs = this.formsService;
-        const functionId = form.value.function.name;
-        const params = form.value.executeParams || '{}';
-
-        if (form.invalid) {
-            fs.setErrors(this.jobForm, this.formErrors, fs.MESSAGES.ERRORS.forms.runJob);
-            return false
-        }
-
-        this.store.dispatch(new jobsActions.Add(functionId, params));
-        this.dialogRef.hide();
-
-        // this.jobStore.add(functionId, params)
-        //     .subscribe((id) => {
-        //         this.dialogRef.hide();
-        //         this.mdlSnackbarService.showSnackbar({
-        //             message: `Job ${id} initialisation was successful`,
-        //             timeout: 5000
-        //         });
-        //         console.log(`init job ${id}`);
-        //     }, (error) => {
-        //         this.alertService.error(error);
-        //     });
-    }
-
-    copiedToClipBoardSuccessfully() {
-        this.mdlSnackbarService.showSnackbar({
-            message: `CURL params were copied out to clipboard successfully`,
-            timeout: 5000
-        });
     }
 
 }

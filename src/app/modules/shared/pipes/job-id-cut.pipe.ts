@@ -1,14 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'jobIdCut'
+    name: 'jobIdCut'
 })
 export class JobIdCutPipe implements PipeTransform {
 
-  transform(value: string, args?: any): string {
-    const result: Array<string> = value.split('-');
+    transform(value: string, args?: any): string {
+        const result: Array<string> = value.split('-');
 
-    return result[result.length - 1];
-  }
+        return result[result.length - 1];
+    }
 
 }

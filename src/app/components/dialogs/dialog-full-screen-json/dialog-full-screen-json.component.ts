@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener, InjectionToken } from '@angular/core';
+import { Component, Inject, HostListener, InjectionToken } from '@angular/core';
 import { MdlDialogReference } from '@angular-mdl/core';
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
@@ -12,9 +12,7 @@ export let injectableJsonString = new InjectionToken<object>('injectableJsonStri
     templateUrl: './dialog-full-screen-json.component.html',
     styleUrls: ['./dialog-full-screen-json.component.scss']
 })
-export class DialogFullScreenJsonComponent implements OnInit {
-    jsonString: object;
-    codeMirrorOptions: {};
+export class DialogFullScreenJsonComponent {
     data: object;
 
     @HostListener('document:keydown.escape')
@@ -29,9 +27,8 @@ export class DialogFullScreenJsonComponent implements OnInit {
         this.data = data;
     }
 
-    ngOnInit() {
-        this.jsonString = this.data;
-        this.codeMirrorOptions = {
+    public get codeMirrorOptions() {
+        return {
             matchBrackets: true,
             autoCloseBrackets: true,
             mode: { name: 'javascript', json: true },
