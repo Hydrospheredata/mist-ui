@@ -14,6 +14,7 @@ import * as fromJobs from '@jobs/reducers';
 
 @Injectable()
 export class JobsEffects {
+
     @Effect() getAllJobs$: Observable<Action> = this.actions$
         .ofType(JobActionTypes.Get)
         .pipe(
@@ -34,7 +35,7 @@ export class JobsEffects {
                 this.store.select(fromJobs.getJobEntities)
             ),
             switchMap(([jobId, entities]) => {
-                return this.jobService.get(jobId)
+                return this.jobService.getJob(jobId)
                     .pipe(
                         map((job: Job) => {
                             if (entities[job.jobId]) {
@@ -79,6 +80,20 @@ export class JobsEffects {
                     return of(new JobsActions.UpdateSuccess(this.transformMessageToJob(message)));
                 }
                 return of(new JobsActions.AddSuccess(this.transformMessageToJob(message)));
+            })
+        )
+
+    @Effect() deleteJob$: Observable<Action> = this.actions$
+        .ofType(JobActionTypes.Delete)
+        .pipe(
+            map((action: JobsActions.Delete) => action.jobId),
+            switchMap((jobId: string) => {
+                return this.jobService.kill(jobId)
+                    .pipe(
+                        map(res => {
+                            return new JobsActions.DeleteSuccess(res);
+                        })
+                    )
             })
         )
 

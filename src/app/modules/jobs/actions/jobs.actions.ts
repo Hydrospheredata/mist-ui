@@ -59,7 +59,7 @@ export class AddFail implements Action {
 
 export class Delete implements Action {
     readonly type = JobActionTypes.Delete;
-    constructor(public payload: any) { }
+    constructor(public jobId: string) { }
 }
 export class DeleteSuccess implements Action {
     readonly type = JobActionTypes.DeleteSuccess;

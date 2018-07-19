@@ -1,8 +1,17 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { MdlDialogService } from '@angular-mdl/core';
-import { injectableLogs, DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
+import {
+    // injectableLogs,
+    DialogJobLogsComponent
+} from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
 // import { HttpLogsService, WebSocketLogsService } from '@app/modules/core/services/_index';
 import { Job } from '@shared/models';
+import { Store } from '@ngrx/store';
+import { MistState } from '@app/modules/core/reducers';
+import * as fromRoot from '@core/actions';
+import * as fromJobLogsActions from '@jobs/actions'
+import * as fromJobLogs from '@jobs/reducers';
+import { Observable } from 'rxjs';
 
 
 
@@ -21,19 +30,25 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     private webSocketLogsServiceSub: any;
     public errorMessage: string;
     public logs: any[];
+
+    public logs$: Observable<string[]>;
     private httpLogsServiceSub;
     private logTypes: string[] = ['Debug', 'Info', 'Warn', 'Error'];
 
     constructor(
         // private webSocketLogsService: WebSocketLogsService,
         // private httpLogsService: HttpLogsService,
-        public dialog: MdlDialogService
+        public dialog: MdlDialogService,
+        private store: Store<MistState>
     ) {
         this.logs = [];
+        this.store.dispatch(new fromJobLogsActions.GetLogs);
+        this.logs$ = this.store.select(fromJobLogs.getJobLogs);
     }
 
     ngOnInit() {
-        const regexp = /([a-zA-Z0-9_\-.,!?:…[\]]+)/g;
+        // console.log(this.job);
+        // const regexp = /([a-zA-Z0-9_\-.,!?:…[\]]+)/g;
         // if (this.job) {
         //     this.httpLogsServiceSub = this.httpLogsService.get(this.job.jobId)
         //         .subscribe(
@@ -106,7 +121,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{ provide: injectableLogs, useValue: { job: this.job, logs: this.logs } }],
+            // providers: [{ provide: injectableLogs, useValue: { job: this.job, logs: this.logs } }],
         });
     }
 
@@ -115,6 +130,8 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        // this.store.dispatch(new fromRoot.)
+
         // this.webSocketLogsService.disconnect();
         // if (this.webSocketLogsServiceSub) {
         //     this.webSocketLogsServiceSub.unsubscribe()

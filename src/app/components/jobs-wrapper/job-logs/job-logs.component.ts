@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { MdlDialogService } from '@angular-mdl/core';
-import { injectableLogs, DialogJobLogsComponent } from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
+import {
+    // injectableLogs,
+    DialogJobLogsComponent
+} from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
 import { HttpLogsService, WebSocketLogsService } from '@app/modules/core/services/_index';
 import { Job } from '@shared/models';
 
@@ -106,7 +109,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            providers: [{ provide: injectableLogs, useValue: { job: this.job, logs: this.logs } }],
+            // providers: [{ provide: injectableLogs, useValue: { job: this.job, logs: this.logs } }],
         });
     }
 

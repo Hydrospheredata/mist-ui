@@ -42,7 +42,6 @@ export class WebSocketJobService extends WebsocketService {
     public connect(): Observable<MessageEvent> {
         if (!this.subject) {
             this.subject = this.create();
-            // console.log('Successfully connected: ' + this.baseUrl);
         }
         return this.subject;
     }

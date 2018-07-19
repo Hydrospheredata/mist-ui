@@ -16,6 +16,15 @@ export class HttpJobService {
     constructor(private http: HttpService) {
     }
 
+    public get(): Observable<Job[]> {
+        return this.http.get(`${this.baseUrl.jobs}?paginate=true`)
+            .map((res: Response) => {
+                console.log(res.json().jobs);
+                return res.json()
+            })
+            .catch(this.handleError);
+    }
+
     public getAll(): Observable<Job[]> {
         return this.http.get(this.baseUrl.jobs)
             .map((res: Response) => this.extractJobs(res))
@@ -44,7 +53,7 @@ export class HttpJobService {
             .catch(this.handleError);
     }
 
-    public get(id: string): Observable<Job> {
+    public getJob(id: string): Observable<Job> {
         const apiUrl = this.baseUrl.jobs + `/${id}`;
         return this.http.get(apiUrl)
             .map((res: Response) => { return this.extractJob(res) })
@@ -62,7 +71,7 @@ export class HttpJobService {
     public kill(jobId: string): Observable<Job> {
         const apiUrl = this.baseUrl.jobs + `/${jobId}`;
         return this.http.delete(apiUrl)
-            .map((res: Response) => { return this.extractJob(res) })
+            .map((res: Response) => this.extractJob(res))
             .catch(this.handleError);
     }
 

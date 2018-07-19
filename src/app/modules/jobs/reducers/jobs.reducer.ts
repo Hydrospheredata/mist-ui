@@ -2,13 +2,17 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Job } from '@shared/models';
 import { JobActions, JobActionTypes } from '@jobs/actions';
 
-export interface State extends EntityState<Job> { }
+export interface State extends EntityState<Job> {
+    total: number
+}
 
 export const adapter: EntityAdapter<Job> = createEntityAdapter<Job>({
     selectId: (job: Job) => job.jobId,
 });
 
-export const initialState: State = adapter.getInitialState();
+export const initialState: State = adapter.getInitialState({
+    total: 0
+});
 
 export function reducer(state = initialState, action: JobActions): State {
     switch (action.type) {

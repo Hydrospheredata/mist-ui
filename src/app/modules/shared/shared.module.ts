@@ -14,7 +14,7 @@ import {
     SearchPipe,
     SortByPipe
 } from './pipes';
-import { InputTextComponent } from './components';
+import { InputTextComponent, PaginationComponent } from './components';
 
 const Pipes = [
     AgoDatePipe,
@@ -26,7 +26,8 @@ const Pipes = [
 ]
 
 const Components = [
-    InputTextComponent
+    InputTextComponent,
+    PaginationComponent
 ]
 
 const Modules = [

@@ -8,13 +8,11 @@ export enum JobLogsActionTypes {
 
 export class GetLogs implements Action {
     readonly type = JobLogsActionTypes.GetLogs;
-
-    constructor(public payload: any) { }
 }
 export class GetLogsSuccess implements Action {
     readonly type = JobLogsActionTypes.GetLogsSuccess;
 
-    constructor(public payload: any) { }
+    constructor(public payload: string[]) { }
 }
 export class GetLogsFail implements Action {
     readonly type = JobLogsActionTypes.GetLogsFail;

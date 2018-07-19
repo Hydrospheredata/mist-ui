@@ -10,8 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from '@jobs/reducers';
-import { JobsEffects } from '@jobs/effects';
-import { HttpJobService, WebSocketJobService } from '@jobs/services';
+import { JobsEffects, JobLogsEffects } from '@jobs/effects';
+import { HttpJobService, WebSocketJobService, HttpLogsService, WebSocketLogsService } from '@jobs/services';
 
 @NgModule({
     declarations: [
@@ -26,9 +26,9 @@ import { HttpJobService, WebSocketJobService } from '@jobs/services';
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forFeature('jobs', reducers),
-        EffectsModule.forFeature([JobsEffects])
+        EffectsModule.forFeature([JobsEffects, JobLogsEffects])
     ],
     exports: [],
-    providers: [HttpJobService, WebSocketJobService],
+    providers: [HttpJobService, WebSocketJobService, HttpLogsService, WebSocketLogsService],
 })
 export class JobsModule { }

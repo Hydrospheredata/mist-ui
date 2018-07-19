@@ -7,7 +7,7 @@ import { Job, Worker } from '@shared/models';
 
 export interface JobsState {
     jobs: fromJobs.State,
-    jobLogs: fromJobLogs.State
+    jobLogs: string[]
 }
 
 export interface State extends fromRoot.MistState {
@@ -31,6 +31,11 @@ export const getJobLogsEntitiesState = createSelector(
     state => state.jobLogs
 );
 
+export const getJobLogs = createSelector(
+    getJobLogsEntitiesState,
+    entities => entities
+)
+
 export const {
     selectEntities: getJobEntities,
     selectAll: getAllJobs,
@@ -49,6 +54,11 @@ export const getJobs = createSelector(
         }
     })
 )
+
+export const getSelectedJobId = createSelector(
+    fromRoot.getRouterState,
+    (router): string => router.state && router.state.params.jobId
+);
 
 export const getSelectedJob = createSelector(
     getJobEntities,

@@ -2,6 +2,8 @@ import { Action } from '@ngrx/store';
 
 export enum WebsocketActionTypes {
     WsConnect = '[Websocket] Connect',
+    WsLogsConnect = '[Websocket] Connect for current job',
+    WsLogsDisconnect = '[Websocket] Disconnect for current job',
     WsConnectSuccess = '[Websocket] Connect with success',
     WsConnectFail = '[Websocket] Connect with fail',
     WsStartedEvent = '[Websocket] Started event'
@@ -9,6 +11,14 @@ export enum WebsocketActionTypes {
 
 export class WsConnect implements Action {
     readonly type = WebsocketActionTypes.WsConnect;
+}
+
+export class WsLogsConnect implements Action {
+    readonly type = WebsocketActionTypes.WsLogsConnect;
+}
+
+export class WsLogsDisconnect implements Action {
+    readonly type = WebsocketActionTypes.WsLogsConnect;
 }
 
 export class WsConnectSuccess implements Action {
@@ -25,5 +35,6 @@ export class WsStartedEvent implements Action {
 
 export type WebsocketActions
     = WsConnect
+    | WsLogsConnect
     | WsConnectSuccess
     | WsConnectFail;

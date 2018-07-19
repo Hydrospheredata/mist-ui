@@ -12,6 +12,7 @@ import { Context, Function, Job } from '@shared/models';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
 import * as fromJobs from '@jobs/reducers';
+import * as fromJobsActions from '@jobs/actions';
 import { Observable } from 'rxjs/Observable';
 
 
@@ -107,7 +108,7 @@ export class JobsOverviewComponent implements OnInit, OnDestroy {
     killJob(event, job: Job) {
         event.preventDefault();
         event.stopPropagation();
-        // this.jobStore.kill(job.jobId);
+        this.store.dispatch(new fromJobsActions.Delete(job.jobId));
     }
 
     toggleStatusFilter(option) {
