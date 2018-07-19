@@ -42,7 +42,6 @@ export class JobLogsEffects {
                                 }
                                 logsNew.push(logObject);
                             });
-                            console.log(logsNew);
                             return new fromJobLogsActions.GetLogsSuccess(logsNew)
                         }),
                         catchError(error => of(new fromJobLogsActions.GetLogsFail(error)))

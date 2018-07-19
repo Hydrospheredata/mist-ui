@@ -11,6 +11,7 @@ import { of } from 'rxjs/observable/of';
 import { MdlSnackbarService } from '@angular-mdl/core';
 import { MistState } from '@app/modules/core/reducers';
 import * as fromJobs from '@jobs/reducers';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class JobsEffects {
@@ -56,11 +57,11 @@ export class JobsEffects {
                 return this.jobService.create(params.functionId, params.params)
                     .pipe(
                         map(job => {
-                            console.log(job);
                             this.mdlSnackbarService.showSnackbar({
                                 message: `Job ${job.id} initialisation was successful`,
                                 timeout: 5000
                             });
+                            this.router.navigate(['/jobs', params.functionId, job.id])
                             return new JobsActions.GetById(job.id);
                         }),
                         catchError(error => of(new JobsActions.AddFail(error)))
@@ -108,6 +109,7 @@ export class JobsEffects {
         private actions$: Actions,
         private jobService: HttpJobService,
         private mdlSnackbarService: MdlSnackbarService,
-        private store: Store<MistState>
+        private store: Store<MistState>,
+        private router: Router
     ) { }
 }
