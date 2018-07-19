@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
-import { HttpFunctionService } from './http-function.service';
+import { HttpFunctionService } from '@app/modules/core/services/http-function.service';
 
 describe('FunctionDataService', () => {
   beforeEach(() => {

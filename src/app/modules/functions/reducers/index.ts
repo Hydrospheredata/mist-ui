@@ -1,7 +1,7 @@
-import * as fromRoot from '@core/reducers';
-import * as fromFunctions from './functions.reducer';
+import * as fromRoot from '@app/modules/core/reducers';
+import * as fromFunctions from '@app/modules/functions/reducers/functions.reducer';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import { Function } from '@shared/models';
+import { Function } from '@app/modules/shared/models';
 
 export interface FunctionsState {
     functions: fromFunctions.State

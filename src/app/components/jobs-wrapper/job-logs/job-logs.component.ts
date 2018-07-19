@@ -3,9 +3,9 @@ import { MdlDialogService } from '@angular-mdl/core';
 import {
     // injectableLogs,
     DialogJobLogsComponent
-} from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
+} from '@app/components/dialogs/dialog-job-logs/dialog-job-logs.component';
 import { HttpLogsService, WebSocketLogsService } from '@app/modules/core/services/_index';
-import { Job } from '@shared/models';
+import { Job } from '@app/modules/shared/models';
 
 
 

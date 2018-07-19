@@ -13,8 +13,8 @@ import {
     ReplaceToBrNewLineCharPipe,
     SearchPipe,
     SortByPipe
-} from './pipes';
-import { InputTextComponent, PaginationComponent } from './components';
+} from '@app/modules/shared/pipes';
+import { InputTextComponent, PaginationComponent } from '@app/modules/shared/components';
 
 const Pipes = [
     AgoDatePipe,

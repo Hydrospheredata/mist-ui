@@ -1,1 +1,1 @@
-export * from './workers.effects';
+export * from '@app/modules/workers/effects/workers.effects';

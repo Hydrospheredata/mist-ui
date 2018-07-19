@@ -12,18 +12,18 @@ import { CodemirrorModule } from 'ng2-codemirror';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { JobsItemDetailComponent } from './jobs-item-detail.component';
-import { DialogFullScreenJsonComponent } from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
-import { AgoDatePipe } from '@shared/pipes/ago-date.pipe';
+import { JobsItemDetailComponent } from '@app/modules/jobs/components/jobs-item-detail.component/jobs-item-detail.component';
+import { DialogFullScreenJsonComponent } from '@app/components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
+import { AgoDatePipe } from '@app/modules/shared/pipes/ago-date.pipe';
 // import { FunctionDataService } from '@app/modules/coreservices/function-data.service';
 // import { JobDataService } from '@app/modules/coreservices/job-data.service';
-import { MockFunctionDataService } from '@mocks/function-data.service.mock';
-import { MockJobDataService } from '@mocks/job-data.service.mock';
-import { MockActivatedRoute } from '@mocks/activated-route.mock';
-import { Job } from '@shared/models';
-import { Function } from '@shared/models';
-import { mockJob } from '@mocks/job.mock';
-import { mockFunction } from '@mocks/function.mock';
+import { MockFunctionDataService } from '@app/mocks/function-data.service.mock';
+import { MockJobDataService } from '@app/mocks/job-data.service.mock';
+import { MockActivatedRoute } from '@app/mocks/activated-route.mock';
+import { Job } from '@app/modules/shared/models';
+import { Function } from '@app/modules/shared/models';
+import { mockJob } from '@app/mocks/job.mock';
+import { mockFunction } from '@app/mocks/function.mock';
 
 describe('JobsItemDetailComponent', () => {
   let component: JobsItemDetailComponent;

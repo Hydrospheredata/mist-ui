@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 // import { Router } from '@angular/router';
 // import { JobStore } from '@app/modules/core/stores/_index';
-import { Job, Function } from '@shared/models';
-import { MistState } from '@core/reducers';
+import { Job, Function } from '@app/modules/shared/models';
+import { MistState } from '@app/modules/core/reducers';
 import { Store } from '@ngrx/store';
-import * as fromFunctions from '@functions/reducers';
-import * as fromJobs from '@jobs/reducers';
+import * as fromFunctions from '@app/modules/functions/reducers';
+import * as fromJobs from '@app/modules/jobs/reducers';
 import { Observable } from 'rxjs/Observable';
 
 

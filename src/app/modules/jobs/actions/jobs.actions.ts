@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Job } from '@shared/models';
+import { Job } from '@app/modules/shared/models';
 
 export enum JobActionTypes {
     Get = '[Job] Get list of all jobs',

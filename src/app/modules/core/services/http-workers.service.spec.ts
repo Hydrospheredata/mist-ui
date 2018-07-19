@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { HttpWorkersService } from './http-workers.service';
+import { HttpWorkersService } from '@app/modules/core/services/http-workers.service';
 
 describe('HttpWorkersService', () => {
   beforeEach(() => {

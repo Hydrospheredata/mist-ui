@@ -1,2 +1,2 @@
-export * from './jobs.actions';
-export * from './job-logs.actions';
+export * from '@app/modules/jobs/actions/jobs.actions';
+export * from '@app/modules/jobs/actions/job-logs.actions';

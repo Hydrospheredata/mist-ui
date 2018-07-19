@@ -1,16 +1,16 @@
-export * from './loader.service/loader.service';
-export * from './http.service/_index';
-export * from './websocket.service/websocket.service';
-export * from './logs.service/_index';
-export * from './jobs.service/_index';
+export * from '@app/modules/core/services/loader.service/loader.service';
+export * from '@app/modules/core/services/http.service/_index';
+export * from '@app/modules/core/services/websocket.service/websocket.service';
+export * from '@app/modules/core/services/logs.service/_index';
+export * from '@app/modules/core/services/jobs.service/_index';
 
 
-export * from './status.service';
-export * from './alert.service';
-export * from './forms.service';
-export * from './http-artifacts.service';
-export * from './http-contexts.service';
-export * from './http-function.service';
+export * from '@app/modules/core/services/status.service';
+export * from '@app/modules/core/services/alert.service';
+export * from '@app/modules/core/services/forms.service';
+export * from '@app/modules/core/services/http-artifacts.service';
+export * from '@app/modules/core/services/http-contexts.service';
+export * from '@app/modules/core/services/http-function.service';
 
 
-export * from './http-workers.service';
+export * from '@app/modules/core/services/http-workers.service';

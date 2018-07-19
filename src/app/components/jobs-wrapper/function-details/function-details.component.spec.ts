@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { FunctionDetailsComponent } from './function-details.component';
-import { JobStatusFilterPipe } from '@pipes/job-status-filter.pipe';
-import { AgoDatePipe } from '@pipes/ago-date.pipe';
+import { FunctionDetailsComponent } from '@app/components/jobs-wrapper/function-details/function-details.component';
+import { JobStatusFilterPipe, AgoDatePipe } from '@app/modules/shared/pipes';
 
 describe('FunctionDetailsComponent', () => {
   let component: FunctionDetailsComponent;
@@ -16,9 +15,9 @@ describe('FunctionDetailsComponent', () => {
         JobStatusFilterPipe,
         AgoDatePipe
       ],
-      imports: [ RouterTestingModule ]
+      imports: [RouterTestingModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

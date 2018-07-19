@@ -1,2 +1,2 @@
-export * from './http-logs.service';
-export * from './web-socket-logs.service';
+export * from '@app/modules/jobs/services/logs.service/http-logs.service';
+export * from '@app/modules/jobs/services/logs.service/web-socket-logs.service';

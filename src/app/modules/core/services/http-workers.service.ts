@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 // import { HttpService } from '@app/modules/coreservices/http.service/http.service';
 import { Observable } from 'rxjs/Observable';
-import { Worker } from '@shared/models';
+import { Worker } from '@app/modules/shared/models';
 import { HttpService } from '@app/modules/core/services/http.service/_index';
 
 @Injectable()

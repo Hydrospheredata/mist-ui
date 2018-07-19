@@ -3,9 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { switchMap, map, catchError } from 'rxjs/operators';
-import { HttpWorkersService } from '@workers/services';
-import { Worker } from '@shared/models';
-import * as workersActions from '@workers/actions';
+import { HttpWorkersService } from '@app/modules/workers/services';
+import { Worker } from '@app/modules/shared/models';
+import * as workersActions from '@app/modules/workers/actions';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()

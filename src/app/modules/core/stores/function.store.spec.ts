@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { FunctionStore } from './function.store';
+import { FunctionStore } from '@app/modules/core/stores/function.store';
 
 describe('JobStore', () => {
   beforeEach(() => {

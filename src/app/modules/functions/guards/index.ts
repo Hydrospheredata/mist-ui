@@ -1,1 +1,1 @@
-export * from './functions.guard';
+export * from '@app/modules/functions/guards/functions.guard';

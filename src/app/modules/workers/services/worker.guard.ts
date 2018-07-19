@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { MistState } from '@app/modules/core/reducers';
 import { Store } from '@ngrx/store';
-import * as fromWorkers from '@workers/actions';
+import * as fromWorkers from '@app/modules/workers/actions';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 

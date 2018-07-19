@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { MistState } from '@core/reducers';
-import * as fromFunctions from '@functions/reducers';
+import { MistState } from '@app/modules/core/reducers';
+import * as fromFunctions from '@app/modules/functions/reducers';
 
 @Injectable()
 export class FunctionsGuard implements CanActivate {

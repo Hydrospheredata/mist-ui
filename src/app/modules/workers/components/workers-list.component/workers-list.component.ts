@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Worker } from '@shared/models';
+import { Worker } from '@app/modules/shared/models';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
 import { Observable } from 'rxjs/Observable';
 // import { WorkersStore } from '@app/modules/core/stores/workers.store';
-import * as fromWorkers from '@workers/reducers';
-import * as fromWorkersActions from '@workers/actions';
+import * as fromWorkers from '@app/modules/workers/reducers';
+import * as fromWorkersActions from '@app/modules/workers/actions';
 
 @Component({
     selector: 'mist-workers-list',

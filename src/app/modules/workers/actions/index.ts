@@ -1,1 +1,1 @@
-export * from './workers.actions';
+export * from '@app/modules/workers/actions/workers.actions';

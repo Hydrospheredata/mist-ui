@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogCloneJobFormComponent } from './dialog-clone-job-form.component';
+import { DialogCloneJobFormComponent } from '@app/components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
 
 describe('DialogCloneJobFormComponent', () => {
   let component: DialogCloneJobFormComponent;

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { WorkersWrapperComponent, WorkersItemDetailComponent } from '@app/modules/workers/components';
-import { WorkerGuard } from '@workers/services';
+import { WorkerGuard } from '@app/modules/workers/services';
 
 const routes: Routes = [
     {

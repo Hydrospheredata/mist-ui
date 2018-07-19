@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
-import * as WSActions from '@core/actions';
+import * as WSActions from '@app/modules/core/actions';
 import { switchMap, map, catchError, filter, withLatestFrom } from 'rxjs/operators';
-import { WebSocketJobService, WebSocketLogsService } from '@jobs/services';
+import { WebSocketJobService, WebSocketLogsService } from '@app/modules/jobs/services';
 import { of } from 'rxjs/observable/of';
-import * as fromJobs from '@jobs/actions';
+import * as fromJobs from '@app/modules/jobs/actions';
 import { MistState } from '@app/modules/core/reducers';
-import * as fromJobsSelectors from '@jobs/reducers';
+import * as fromJobsSelectors from '@app/modules/jobs/reducers';
 
 @Injectable()
 export class WebsocketEffects {

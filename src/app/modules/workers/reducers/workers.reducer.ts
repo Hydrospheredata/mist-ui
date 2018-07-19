@@ -1,6 +1,6 @@
-import * as fromWorker from '@workers/actions';
+import * as fromWorker from '@app/modules/workers/actions';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Worker } from '@shared/models';
+import { Worker } from '@app/modules/shared/models';
 
 export interface State extends EntityState<Worker> { };
 

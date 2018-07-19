@@ -1,1 +1,1 @@
-export * from './functions.actions';
+export * from '@app/modules/functions/actions/functions.actions';

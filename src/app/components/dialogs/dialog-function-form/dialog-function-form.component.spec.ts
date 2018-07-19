@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogFunctionFormComponent } from './dialog-function-form.component';
+import { DialogFunctionFormComponent } from '@app/components/dialogs/dialog-function-form/dialog-function-form.component';
 
 describe('DialogFunctionFormComponent', () => {
   let component: DialogFunctionFormComponent;

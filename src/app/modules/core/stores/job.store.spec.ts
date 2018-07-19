@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { JobStore } from './job.store';
+import { JobStore } from '@app/modules/core/stores/job.store';
 
 describe('JobStore', () => {
   beforeEach(() => {

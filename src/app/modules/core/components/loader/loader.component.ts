@@ -2,7 +2,7 @@ import { Component, OnDestroy, ChangeDetectorRef, AfterViewChecked } from '@angu
 import { Subscription } from 'rxjs/Subscription';
 
 import { LoaderService } from '@app/modules/core/services/loader.service/loader.service';
-import { LoaderState } from '@shared/models';
+import { LoaderState } from '@app/modules/shared/models';
 
 
 

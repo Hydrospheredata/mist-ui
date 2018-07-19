@@ -1,2 +1,2 @@
-export * from './workers.service';
-export * from './worker.guard';
+export * from '@app/modules/workers/services/workers.service';
+export * from '@app/modules/workers/services/worker.guard';

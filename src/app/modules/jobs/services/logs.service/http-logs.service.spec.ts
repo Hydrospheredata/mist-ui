@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { HttpLogsService } from './http-logs.service';
+import { HttpLogsService } from '@app/modules/jobs/services/logs.service/http-logs.service';
 
 describe('HttpLogsService', () => {
   beforeEach(() => {

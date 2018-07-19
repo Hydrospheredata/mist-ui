@@ -1,6 +1,6 @@
-import { FunctionActions, FunctionActionTypes } from '@functions/actions';
+import { FunctionActions, FunctionActionTypes } from '@app/modules/functions/actions';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Function } from '@shared/models';
+import { Function } from '@app/modules/shared/models';
 
 export interface State extends EntityState<Function> { }
 

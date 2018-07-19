@@ -10,7 +10,7 @@ import {
 } from '@angular/http';
 import { Location } from '@angular/common';
 
-import { MistRequestOptions } from './mist-request-options';
+import { MistRequestOptions } from '@app/modules/core/services/http.service/mist-request-options';
 
 import { LoaderService } from '@app/modules/core/services/loader.service/loader.service';
 

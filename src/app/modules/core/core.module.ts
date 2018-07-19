@@ -6,7 +6,7 @@ import {
     NavbarComponent,
     FooterComponent,
     AlertComponent
-} from './components';
+} from '@app/modules/core/components';
 import { MdlModule } from '@angular-mdl/core';
 import { RouterModule } from '@angular/router';
 import {
@@ -21,17 +21,17 @@ import {
     // HttpLogsService,
     HttpService,
     WebsocketService
-} from '@core/services/_index';
+} from '@app/modules/core/services/_index';
 // import { JobStore, FunctionStore, WorkersStore, ContextStore } from '@core/stores/_index';
-import { httpServiceFactory } from '@core/factories';
+import { httpServiceFactory } from '@app/modules/core/factories';
 import { XHRBackend, RequestOptions, HttpModule } from '@angular/http';
-import { SharedModule } from '@shared/shared.module';
+import { SharedModule } from '@app/modules/shared/shared.module';
 import { StoreModule } from '@ngrx/store';
-import { reducers, defaultRouterState, CustomRouterStateSerializer } from '@core/reducers';
+import { reducers, defaultRouterState, CustomRouterStateSerializer } from '@app/modules/core/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
-import { WebsocketEffects } from '@app/modules/core/effects';
+import { WebsocketEffects, ContextEffects } from '@app/modules/core/effects';
 
 const Components = [
     LoaderComponent,
@@ -50,7 +50,7 @@ const Components = [
         SharedModule,
         StoreModule.forRoot(reducers, defaultRouterState),
         StoreDevtoolsModule.instrument(),
-        EffectsModule.forRoot([WebsocketEffects]),
+        EffectsModule.forRoot([WebsocketEffects, ContextEffects]),
         StoreRouterConnectingModule
     ],
     exports: [

@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { HttpContextsService } from './http-contexts.service';
+import { HttpContextsService } from '@app/modules/core/services/http-contexts.service';
 
 describe('HttpContextsService', () => {
   beforeEach(() => {

@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject, InjectionToken, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { MdlDialogReference } from '@angular-mdl/core';
-import { HttpLogsService } from '@jobs/services';
-import { Job } from '@shared/models';
+import { HttpLogsService } from '@app/modules/jobs/services';
+import { Job } from '@app/modules/shared/models';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { MistState } from '@core/reducers';
+import { MistState } from '@app/modules/core/reducers';
 
 // export let injectableLogs = new InjectionToken<string[]>('injectableLogs');
 
-import * as fromJobLogs from '@jobs/reducers';
+import * as fromJobLogs from '@app/modules/jobs/reducers';
 
 @Component({
     selector: 'mist-dialog-job-logs',

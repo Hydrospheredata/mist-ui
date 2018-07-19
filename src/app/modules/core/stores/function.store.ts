@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
-import { Function } from '@shared/models';
+import { Function } from '@app/modules/shared/models';
 import { HttpFunctionService } from '@app/modules/core/services/http-function.service';
 
 @Injectable()

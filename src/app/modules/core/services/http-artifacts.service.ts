@@ -3,7 +3,7 @@ import { Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Observable} from 'rxjs/Observable';
-import {HttpService} from './http.service/http.service';
+import {HttpService} from '@app/modules/core/services/http.service/http.service';
 
 @Injectable()
 export class HttpArtifactsService {

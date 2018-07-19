@@ -1,2 +1,2 @@
-export * from './http.service/_index';
-export * from './websocket.service/websocket.service';
+export * from '@app/modules/core/services/http.service/_index';
+export * from '@app/modules/core/services/websocket.service/websocket.service';

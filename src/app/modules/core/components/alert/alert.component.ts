@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Alert, AlertType } from '@shared/models';
+import { Alert, AlertType } from '@app/modules/shared/models';
 import { AlertService } from '@app/modules/core/services/alert.service';
 
 @Component({

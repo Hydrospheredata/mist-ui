@@ -5,19 +5,19 @@ import { Router } from '@angular/router';
 import { JSONValidator } from '@app/validators/json.validator';
 // import { JobStore } from '@app/modules/core/stores/job.store';
 import { FormsService } from '@app/modules/core/services/forms.service';
-import { Job } from '@shared/models';
+import { Job } from '@app/modules/shared/models';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
 import '@node_modules/codemirror/addon/edit/closebrackets';
 import '@node_modules/codemirror/addon/display/placeholder';
 import { Store } from '@ngrx/store';
-import { MistState } from '@core/reducers';
+import { MistState } from '@app/modules/core/reducers';
 
-import * as fromJobs from '@jobs/reducers';
+import * as fromJobs from '@app/modules/jobs/reducers';
 import { Observable } from 'rxjs/Observable';
 
-import * as jobsActions from '@jobs/actions';
+import * as jobsActions from '@app/modules/jobs/actions';
 
 // export let injectableJob = new InjectionToken<Job>('job');
 

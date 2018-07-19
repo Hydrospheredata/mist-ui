@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { HttpWorkersService } from '@app/modules/core/services/http-workers.service';
-import { Job, Worker } from '@shared/models';
+import { Job, Worker } from '@app/modules/shared/models';
 
 @Injectable()
 export class WorkersStore {

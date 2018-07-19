@@ -1,2 +1,2 @@
-export * from './http.service';
-export * from './mist-request-options';
+export * from '@app/modules/core/services/http.service/http.service';
+export * from '@app/modules/core/services/http.service/mist-request-options';

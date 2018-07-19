@@ -1,7 +1,7 @@
-import * as fromRoot from '@core/reducers';
-import * as fromWorkers from './workers.reducer';
+import * as fromRoot from '@app/modules/core/reducers';
+import * as fromWorkers from '@app/modules/workers/reducers/workers.reducer';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import { Worker } from '@shared/models';
+import { Worker } from '@app/modules/shared/models';
 
 export interface WorkersState {
     workers: fromWorkers.State

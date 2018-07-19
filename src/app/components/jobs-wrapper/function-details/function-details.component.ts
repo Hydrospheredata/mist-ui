@@ -6,9 +6,9 @@ import {
     injectableFunction,
     DialogJobFormComponent,
     // injectableSelectedFunction
-} from '@components/dialogs/_index';
+} from '@app/components/dialogs/_index';
 import { ContextStore, JobStore, FunctionStore } from '@app/modules/core/stores/_index';
-import { Context, Function, Job } from '@shared/models';
+import { Context, Function, Job } from '@app/modules/shared/models';
 
 
 

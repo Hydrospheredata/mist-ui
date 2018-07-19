@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Worker } from '@shared/models';
+import { Worker } from '@app/modules/shared/models';
 import { Router } from '@angular/router';
 // import { WorkersStore } from '@app/modules/core/stores/workers.store';
 

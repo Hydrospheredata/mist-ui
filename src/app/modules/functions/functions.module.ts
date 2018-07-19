@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FunctionsWrapperComponent, FunctionsListComponent, FunctionsItemDetailComponent } from './components';
+import { FunctionsWrapperComponent, FunctionsListComponent, FunctionsItemDetailComponent } from '@app/modules/functions/components';
 import { RouterModule } from '@angular/router';
-import { FunctionsRoutingModule } from './functions.router';
-import { SharedModule } from '@shared/shared.module';
+import { FunctionsRoutingModule } from '@app/modules/functions/functions.router';
+import { SharedModule } from '@app/modules/shared/shared.module';
 import { MdlModule } from '@angular-mdl/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from '@functions/reducers';
+import { reducers } from '@app/modules/functions/reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { FunctionsEffects } from '@functions/effects';
-import { HttpFunctionService } from '@functions/services';
+import { FunctionsEffects } from '@app/modules/functions/effects';
+import { HttpFunctionService } from '@app/modules/functions/services';
 
 @NgModule({
     declarations: [FunctionsWrapperComponent, FunctionsListComponent, FunctionsItemDetailComponent],

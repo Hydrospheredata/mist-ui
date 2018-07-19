@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '../../../../../../node_modules/@ngrx/store';
+import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
 import { Observable } from '../../../../../../node_modules/rxjs/Observable';
 // import { WorkersStore } from '@app/modules/core/stores/workers.store';
-import { Worker, Job } from '@shared/models';
-import * as fromWorkers from '@workers/reducers';
-import * as fromJobs from '@jobs/reducers';
+import { Worker, Job } from '@app/modules/shared/models';
+import * as fromWorkers from '@app/modules/workers/reducers';
+import * as fromJobs from '@app/modules/jobs/reducers';
 
 
 @Component({

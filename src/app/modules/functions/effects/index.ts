@@ -1,1 +1,1 @@
-export * from './functions.effects';
+export * from '@app/modules/functions/effects/functions.effects';

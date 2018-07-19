@@ -4,10 +4,10 @@ import { HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { JobsListComponent } from './jobs-list.component';
+import { JobsListComponent } from '@app/modules/jobs/components/jobs-list.component/jobs-list.component';
 // import { FunctionDataService } from '@app/modules/coreservices/functionId-data.service'
-import { MockFunctionDataService } from '@mocks/function-data.service.mock'
-import { mockFunction, mockFunctionList } from '@mocks/function.mock'
+import { MockFunctionDataService } from '@app/mocks/function-data.service.mock'
+import { mockFunction, mockFunctionList } from '@app/mocks/function.mock'
 
 describe('JobsListComponent', () => {
   let component: JobsListComponent;

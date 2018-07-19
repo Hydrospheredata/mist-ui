@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import 'rxjs/add/operator/filter';
 
-import { Job } from '@shared/models';
+import { Job } from '@app/modules/shared/models';
 
 @Pipe({
     name: 'jobStatusFilter',

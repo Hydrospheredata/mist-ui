@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
-import { JobActionTypes } from '@jobs/actions';
-import { HttpJobService } from '@jobs/services';
-import { Job } from '@shared/models';
+import { JobActionTypes } from '@app/modules/jobs/actions';
+import { HttpJobService } from '@app/modules/jobs/services';
+import { Job } from '@app/modules/shared/models';
 import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
-import * as JobsActions from '@jobs/actions';
+import * as JobsActions from '@app/modules/jobs/actions';
 import { of } from 'rxjs/observable/of';
 import { MdlSnackbarService } from '@angular-mdl/core';
 import { MistState } from '@app/modules/core/reducers';
-import * as fromJobs from '@jobs/reducers';
+import * as fromJobs from '@app/modules/jobs/reducers';
 import { Router } from '@angular/router';
 
 @Injectable()

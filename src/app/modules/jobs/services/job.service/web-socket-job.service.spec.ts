@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { WebSocketJobService } from './web-socket-job.service';
+import { WebSocketJobService } from '@app/modules/jobs/services/job.service/web-socket-job.service';
 
 describe('WebSocketJobService', () => {
   beforeEach(() => {

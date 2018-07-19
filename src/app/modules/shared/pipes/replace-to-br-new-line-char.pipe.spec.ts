@@ -1,4 +1,4 @@
-import { ReplaceToBrNewLineCharPipe } from './replace-to-br-new-line-char.pipe';
+import { ReplaceToBrNewLineCharPipe } from '@app/modules/shared/pipes/replace-to-br-new-line-char.pipe';
 
 describe('ReplaceToBrNewLineCharPipe', () => {
   it('create an instance', () => {

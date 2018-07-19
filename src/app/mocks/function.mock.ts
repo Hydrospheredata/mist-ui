@@ -1,4 +1,4 @@
-import { Function } from '@shared/models';
+import { Function } from '@app/modules/shared/models';
 
 export const mockFunction: Function = new Function({
   name: 'simple-context',

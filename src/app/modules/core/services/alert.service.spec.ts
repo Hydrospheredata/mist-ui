@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { AlertService } from './alert.service';
+import { AlertService } from '@app/modules/core/services/alert.service';
 
 describe('AlertService', () => {
   beforeEach(() => {

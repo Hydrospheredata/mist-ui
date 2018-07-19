@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FunctionsWrapperComponent, FunctionsItemDetailComponent } from './components';
+import { FunctionsWrapperComponent, FunctionsItemDetailComponent } from '@app/modules/functions/components';
 
 const routes: Routes = [
     {

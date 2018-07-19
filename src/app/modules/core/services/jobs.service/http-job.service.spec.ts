@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
-import { HttpJobService } from './http-job.service';
+import { HttpJobService } from '@app/modules/core/services/jobs.service/http-job.service';
 
 describe('HttpJobService', () => {
   beforeEach(() => {

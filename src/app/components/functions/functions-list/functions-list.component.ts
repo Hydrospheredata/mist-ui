@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { JobStore, FunctionStore } from '@app/modules/core/stores/_index';
-import { Job, Function } from '@shared/models';
+import { Job, Function } from '@app/modules/shared/models';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogFunctionFormComponent, injectableFunction } from '@app/components/dialogs/_index';
 

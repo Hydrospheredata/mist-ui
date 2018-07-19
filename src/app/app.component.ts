@@ -1,11 +1,11 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { MdlDialogOutletService } from '@angular-mdl/core';
 import { Store } from '@ngrx/store';
-import { MistState } from '@core/reducers';
-import * as fromFunctions from '@functions/actions';
-import * as fromJobs from '@jobs/actions';
-import * as fromRoot from '@core/actions';
-import * as fromWorkers from '@workers/actions';
+import { MistState } from '@app/modules/core/reducers';
+import * as fromFunctions from '@app/modules/functions/actions';
+import * as fromJobs from '@app/modules/jobs/actions';
+import * as fromRoot from '@app/modules/core/actions';
+import * as fromWorkers from '@app/modules/workers/actions';
 
 
 

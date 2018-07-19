@@ -2,15 +2,15 @@ import { Component, OnInit, HostListener, Inject, InjectionToken, OnDestroy } fr
 import { MdlDialogReference, MdlDialogService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { Context } from '@shared/models';
+import { Context } from '@app/modules/shared/models';
 import { FormsService } from '@app/modules/core/services/forms.service';
-import { FunctionStore } from '@app/modules/core/stores/function.store';
-import { ContextStore } from '@app/modules/core/stores/context.store';
-import { JobStore } from '@app/modules/core/stores/job.store'
-import { Function } from '@shared/models';
+// import { FunctionStore } from '@app/modules/core/stores/function.store';
+// import { ContextStore } from '@app/modules/core/stores/context.store';
+// import { JobStore } from '@app/modules/core/stores/job.store'
+import { Function } from '@app/modules/shared/models';
 import { MdlSnackbarService } from '@angular-mdl/core';
-import { DialogAddContextComponent } from '@components/dialogs/dialog-add-context/dialog-add-context.component';
-import { environment } from 'environments/environment';
+import { DialogAddContextComponent } from '@app/components/dialogs/dialog-add-context/dialog-add-context.component';
+import { environment } from '@environments/environment';
 import { Location } from '@angular/common';
 import { AlertService } from '@app/modules/core/services/alert.service';
 
@@ -58,11 +58,11 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         public dialogRef: MdlDialogReference,
         private formsService: FormsService,
-        private functionStore: FunctionStore,
-        private jobStore: JobStore,
+        // private functionStore: FunctionStore,
+        // private jobStore: JobStore,
         private mdlSnackbarService: MdlSnackbarService,
         private dialog: MdlDialogService,
-        private contextStore: ContextStore,
+        // private contextStore: ContextStore,
         @Inject(injectableFunction) data: Function,
         private location: Location,
         private alertService: AlertService
@@ -83,12 +83,12 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.createFunctionFrom();
-        this.contextStore.getAll();
-        this.contextStoreSub = this.contextStore.contexts.subscribe(data => { this.contexts = data });
-        if (this.functionInfo) {
-            this.updateFunctionFormValues(this.functionInfo);
-        };
+        this.createFunctionForm();
+        // this.contextStore.getAll();
+        // this.contextStoreSub = this.contextStore.contexts.subscribe(data => { this.contexts = data });
+        // if (this.functionInfo) {
+        //     this.updateFunctionFormValues(this.functionInfo);
+        // };
     }
 
     ngOnDestroy() {
@@ -113,7 +113,7 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         });
     }
 
-    createFunctionFrom() {
+    private createFunctionForm() {
         const fs = this.formsService;
         this.functionForm = this.fb.group({
             name: ['', [Validators.required]],
@@ -130,7 +130,7 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);
     }
 
-    submitFunctionForm(form) {
+    public submitFunctionForm(form) {
         let functionRequestMethod;
         const self = this;
         const fs = this.formsService;
@@ -145,13 +145,13 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
 
         if (form.valid) {
             this.loading = true;
-            if (!this.functionInfo) {
-                functionRequestMethod = this.functionStore.createFunction(_function);
-                functionMessage += 'added';
-            } else {
-                functionRequestMethod = this.functionStore.updateFunction(_function);
-                functionMessage += 'updated';
-            }
+            // if (!this.functionInfo) {
+            //     functionRequestMethod = this.functionStore.createFunction(_function);
+            //     functionMessage += 'added';
+            // } else {
+            //     functionRequestMethod = this.functionStore.updateFunction(_function);
+            //     functionMessage += 'updated';
+            // }
 
             functionRequestMethod
                 .subscribe(
@@ -175,7 +175,7 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         }
     }
 
-    showDialogContext() {
+    public showDialogContext() {
         this.dialog.showCustomDialog({
             component: DialogAddContextComponent,
             styles: { 'width': '850px' },

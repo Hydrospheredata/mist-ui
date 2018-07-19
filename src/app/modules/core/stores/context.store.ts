@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { Context } from '@shared/models';
+import { Context } from '@app/modules/shared/models';
 import { HttpContextsService } from '@app/modules/core/services/http-contexts.service';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class ContextStore {
   }
 
   getAll() {
-    this.backendService.getContext()
+    this.backendService.get()
       .subscribe((contexts) => {
         this.dataStore = contexts;
         this.updateStore();
@@ -28,7 +28,7 @@ export class ContextStore {
   }
 
   get(id: string): Observable<Context> {
-    return this.backendService.getContext(id)
+    return this.backendService.get(id)
       .map((contexts) => {
         this.updateItem(contexts);
         this.updateStore();
@@ -51,7 +51,7 @@ export class ContextStore {
 
   createContext(context: Context) {
     const self = this;
-    return this.backendService.createContext(context)
+    return this.backendService.create(context)
       .map(_context => {
         self.dataStore.push(_context);
         self.updateStore();

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorkersWrapperComponent } from './workers-wrapper.component';
+import { WorkersWrapperComponent } from '@app/modules/workers/components/workers-wrapper.component/workers-wrapper.component';
 
 describe('WorkersWrapperComponent', () => {
   let component: WorkersWrapperComponent;

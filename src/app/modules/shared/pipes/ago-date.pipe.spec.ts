@@ -1,4 +1,4 @@
-import { AgoDatePipe } from './ago-date.pipe';
+import { AgoDatePipe } from '@app/modules/shared/pipes/ago-date.pipe';
 
 describe('AgoDatePipe', () => {
   it('create an instance', () => {

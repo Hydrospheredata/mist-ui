@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MistState } from '@app/modules/core/reducers';
 import { Store } from '@ngrx/store';
 // import { WorkersStore } from '@app/modules/corestores/workers.store';
-import * as fromWorkers from '@workers/actions';
+import * as fromWorkers from '@app/modules/workers/actions';
 
 
 

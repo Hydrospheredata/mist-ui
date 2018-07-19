@@ -3,14 +3,14 @@ import { MdlDialogService } from '@angular-mdl/core';
 import {
     // injectableLogs,
     DialogJobLogsComponent
-} from '@components/dialogs/dialog-job-logs/dialog-job-logs.component';
+} from '@app/components/dialogs/dialog-job-logs/dialog-job-logs.component';
 // import { HttpLogsService, WebSocketLogsService } from '@app/modules/core/services/_index';
-import { Job } from '@shared/models';
+import { Job } from '@app/modules/shared/models';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
-import * as fromRoot from '@core/actions';
-import * as fromJobLogsActions from '@jobs/actions'
-import * as fromJobLogs from '@jobs/reducers';
+import * as fromRoot from '@app/modules/core/actions';
+import * as fromJobLogsActions from '@app/modules/jobs/actions'
+import * as fromJobLogs from '@app/modules/jobs/reducers';
 import { Observable } from 'rxjs';
 
 

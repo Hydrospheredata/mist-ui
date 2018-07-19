@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app.router';
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from '@app/app.router';
+import { AppComponent } from '@app/app.component';
 
 import {
     DialogJobLogsComponent,
@@ -10,13 +10,13 @@ import {
     DialogFunctionFormComponent,
     DialogAddContextComponent,
     DialogCloneJobFormComponent
-} from '@components/dialogs/_index';
+} from '@app/components/dialogs/_index';
 
-import { WorkersModule } from '@workers/workers.module';
-import { CoreModule } from '@core/core.module';
-import { SharedModule } from '@shared/shared.module';
-import { JobsModule } from '@jobs/jobs.module';
-import { FunctionsModule } from '@functions/functions.module';
+import { WorkersModule } from '@app/modules/workers/workers.module';
+import { CoreModule } from '@app/modules/core/core.module';
+import { SharedModule } from '@app/modules/shared/shared.module';
+import { JobsModule } from '@app/modules/jobs/jobs.module';
+import { FunctionsModule } from '@app/modules/functions/functions.module';
 
 
 

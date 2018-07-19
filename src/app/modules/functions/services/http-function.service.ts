@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { Function } from '@shared/models';
+import { Function } from '@app/modules/shared/models';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { HttpService } from '@core/services/http.service/http.service';
+import { HttpService } from '@app/modules/core/services/http.service/http.service';
 
 @Injectable()
 export class HttpFunctionService {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Observer } from 'rxjs/Observer';
-import { WebsocketService } from '../websocket.service/websocket.service';
+import { WebsocketService } from '@app/modules/core/services/websocket.service/websocket.service';
 import { Location } from '@angular/common';
 
 

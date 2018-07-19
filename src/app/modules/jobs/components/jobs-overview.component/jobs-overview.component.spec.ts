@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { JobsOverviewComponent } from './jobs-overview.component';
+import { JobsOverviewComponent } from '@app/modules/jobs/components/jobs-overview.component/jobs-overview.component';
 import { JobStatusFilterPipe } from '@app/modules/shared/pipes/job-status-filter.pipe';
 import { AgoDatePipe } from '@app/modules/shared/pipes/ago-date.pipe';
 

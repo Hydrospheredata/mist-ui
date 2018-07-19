@@ -1,9 +1,9 @@
-import * as fromRoot from '@core/reducers';
-import * as fromJobs from './jobs.reducer';
-import * as fromJobLogs from './job-logs.reducer';
-import * as fromWorkers from '@workers/reducers';
+import * as fromRoot from '@app/modules/core/reducers';
+import * as fromJobs from '@app/modules/jobs/reducers/jobs.reducer';
+import * as fromJobLogs from '@app/modules/jobs/reducers/job-logs.reducer';
+import * as fromWorkers from '@app/modules/workers/reducers';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import { Job, Worker } from '@shared/models';
+import { Job, Worker } from '@app/modules/shared/models';
 
 export interface JobsState {
     jobs: fromJobs.State,

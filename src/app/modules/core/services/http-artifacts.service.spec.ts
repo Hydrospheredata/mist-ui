@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { HttpArtifactsService } from './http-artifacts.service';
+import { HttpArtifactsService } from '@app/modules/core/services/http-artifacts.service';
 
 describe('HttpArtifactsService', () => {
   beforeEach(() => {

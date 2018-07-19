@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { Job } from '@shared/models';
+import { Job } from '@app/modules/shared/models';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { HttpService } from '@core/services';
+import { HttpService } from '@app/modules/core/services';
 
 @Injectable()
 export class HttpJobService {

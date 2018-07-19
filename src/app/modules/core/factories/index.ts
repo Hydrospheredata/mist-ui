@@ -1,1 +1,1 @@
-export * from './http-service-factory';
+export * from '@app/modules/core/factories/http-service-factory';

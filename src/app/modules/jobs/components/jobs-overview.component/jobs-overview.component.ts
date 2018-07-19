@@ -6,13 +6,13 @@ import {
     // injectableFunction,
     DialogJobFormComponent,
     // injectableSelectedFunction
-} from '@components/dialogs/_index';
+} from '@app/components/dialogs/_index';
 // import { ContextStore, JobStore, FunctionStore } from '@app/modules/core/stores/_index';
-import { Context, Function, Job } from '@shared/models';
+import { Context, Function, Job } from '@app/modules/shared/models';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
-import * as fromJobs from '@jobs/reducers';
-import * as fromJobsActions from '@jobs/actions';
+import * as fromJobs from '@app/modules/jobs/reducers';
+import * as fromJobsActions from '@app/modules/jobs/actions';
 import { Observable } from 'rxjs/Observable';
 
 

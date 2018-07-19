@@ -1,6 +1,6 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Job } from '@shared/models';
-import { JobActions, JobActionTypes } from '@jobs/actions';
+import { Job } from '@app/modules/shared/models';
+import { JobActions, JobActionTypes } from '@app/modules/jobs/actions';
 
 export interface State extends EntityState<Job> {
     total: number

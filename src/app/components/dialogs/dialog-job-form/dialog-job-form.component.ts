@@ -1,19 +1,19 @@
 import { Component, OnInit, Inject, HostListener, InjectionToken } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MdlDialogReference, MdlDialogService } from '@angular-mdl/core';
-import { Function } from '@shared/models';
+import { Function } from '@app/modules/shared/models';
 import { JobStore } from '@app/modules/core/stores/job.store';
 import { JSONValidator } from '@app/validators/json.validator';
 import { FormsService } from '@app/modules/core/services/forms.service';
 import { MdlSnackbarService } from '@angular-mdl/core';
-import { environment } from 'environments/environment';
+import { environment } from '@environments/environment';
 import { Location } from '@angular/common';
 import { AlertService } from '@app/modules/core/services/alert.service';
 
 import {
     DialogFullScreenJsonComponent,
     injectableJsonString
-} from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
+} from '@app/components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
@@ -22,8 +22,8 @@ import '@node_modules/codemirror/addon/display/placeholder';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
-import * as fromFunctions from '@functions/reducers';
-import * as jobsActions from '@jobs/actions';
+import * as fromFunctions from '@app/modules/functions/reducers';
+import * as jobsActions from '@app/modules/jobs/actions';
 
 // export let injectableSelectedFunction = new InjectionToken<Function>('selectedFunction');
 

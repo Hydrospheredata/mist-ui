@@ -5,13 +5,13 @@ import { MdlDialogService } from '@angular-mdl/core';
 import {
     DialogFullScreenJsonComponent,
     injectableJsonString
-} from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
+} from '@app/components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 import {
     DialogCloneJobFormComponent,
     // injectableJob
-} from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
-import { Job } from '@shared/models';
-import { Worker } from '@shared/models';
+} from '@app/components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
+import { Job } from '@app/modules/shared/models';
+import { Worker } from '@app/modules/shared/models';
 import '@node_modules/codemirror/mode/javascript/javascript.js';
 import '@node_modules/codemirror/addon/edit/matchbrackets';
 import '@node_modules/codemirror/addon/edit/closebrackets';
@@ -21,10 +21,10 @@ import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
 // import { WorkersStore } from '@app/modules/core/stores/_index';
-import * as fromJobs from '@jobs/reducers';
-import * as fromWorkers from '@workers/reducers';
+import * as fromJobs from '@app/modules/jobs/reducers';
+import * as fromWorkers from '@app/modules/workers/reducers';
 import { Observable } from 'rxjs/Observable';
-import { withLatestFrom } from '../../../../../../node_modules/rxjs/operators';
+import { withLatestFrom } from 'rxjs/operators';
 
 
 @Component({

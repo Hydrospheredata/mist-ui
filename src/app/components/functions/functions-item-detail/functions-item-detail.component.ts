@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { JobStore, FunctionStore } from '@app/modules/core/stores/_index';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogFunctionFormComponent, injectableFunction } from '@app/components/dialogs/_index';
-import { Function } from '@shared/models';
+import { Function } from '@app/modules/shared/models';
 
 
 

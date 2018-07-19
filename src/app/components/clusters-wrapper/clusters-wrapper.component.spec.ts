@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClustersWrapperComponent } from './clusters-wrapper.component';
+import { ClustersWrapperComponent } from '@app/components/clusters-wrapper/clusters-wrapper.component';
 
 describe('ClustersWrapperComponent', () => {
   let component: ClustersWrapperComponent;

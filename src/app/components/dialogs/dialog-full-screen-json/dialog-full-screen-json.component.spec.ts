@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogFullScreenJsonComponent } from './dialog-full-screen-json.component';
+import { DialogFullScreenJsonComponent } from '@app/components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 
 describe('DialogFullScreenJsonComponent', () => {
   let component: DialogFullScreenJsonComponent;

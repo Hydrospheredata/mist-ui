@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
-import * as fromJobLogsActions from '@jobs/actions';
+import * as fromJobLogsActions from '@app/modules/jobs/actions';
 import { switchMap, withLatestFrom, map, catchError } from 'rxjs/operators';
-import { HttpLogsService } from '@jobs/services';
-import { MistState } from '@core/reducers';
-import * as fromJobs from '@jobs/reducers';
+import { HttpLogsService } from '@app/modules/jobs/services';
+import { MistState } from '@app/modules/core/reducers';
+import * as fromJobs from '@app/modules/jobs/reducers';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()

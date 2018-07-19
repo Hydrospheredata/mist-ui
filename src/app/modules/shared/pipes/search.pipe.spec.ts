@@ -1,5 +1,5 @@
-import { SearchPipe } from './search.pipe';
-import { mockFunctionList } from '@mocks/function.mock'
+import { SearchPipe } from '@app/modules/shared/pipes/search.pipe';
+import { mockFunctionList } from '@app/mocks/function.mock'
 
 describe('SearchPipe', () => {
 	let pipe: SearchPipe;

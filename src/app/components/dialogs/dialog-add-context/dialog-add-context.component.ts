@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { Context } from '@shared/models';
+import { Context } from '@app/modules/shared/models';
 import { MdlDialogReference, MdlSnackbarService } from '@angular-mdl/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { FormsService } from '@app/modules/core/services/forms.service';

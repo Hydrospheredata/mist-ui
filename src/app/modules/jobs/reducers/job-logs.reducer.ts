@@ -1,6 +1,6 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { JobLogs } from '@shared/models';
-import { JobLogsActions, JobLogsActionTypes } from '@jobs/actions';
+import { JobLogs } from '@app/modules/shared/models';
+import { JobLogsActions, JobLogsActionTypes } from '@app/modules/jobs/actions';
 
 // export interface State {
 //     logs: string[]

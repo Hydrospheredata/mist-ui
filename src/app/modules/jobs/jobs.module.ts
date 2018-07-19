@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { JobsWrapperComponent, JobsListComponent, JobsItemDetailComponent, JobLogsComponent, JobsOverviewComponent } from './components';
+import { JobsWrapperComponent, JobsListComponent, JobsItemDetailComponent, JobLogsComponent, JobsOverviewComponent } from '@app/modules/jobs/components';
 import { RouterModule } from '@angular/router';
 import { JobsRoutingModule } from '@app/modules/jobs/jobs.router';
 import { SharedModule } from '@app/modules/shared/shared.module';
@@ -9,9 +9,9 @@ import { MdlModule } from '@angular-mdl/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducers } from '@jobs/reducers';
-import { JobsEffects, JobLogsEffects } from '@jobs/effects';
-import { HttpJobService, WebSocketJobService, HttpLogsService, WebSocketLogsService } from '@jobs/services';
+import { reducers } from '@app/modules/jobs/reducers';
+import { JobsEffects, JobLogsEffects } from '@app/modules/jobs/effects';
+import { HttpJobService, WebSocketJobService, HttpLogsService, WebSocketLogsService } from '@app/modules/jobs/services';
 
 @NgModule({
     declarations: [

@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 // import { JobStore, FunctionStore } from '@core/stores/_index';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogFunctionFormComponent, injectableFunction } from '@app/components/dialogs/_index';
-import { Function } from '@shared/models';
+import { Function } from '@app/modules/shared/models';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
-import * as fromFunctions from '@functions/reducers';
+import * as fromFunctions from '@app/modules/functions/reducers';
 import { Observable } from 'rxjs/Observable';
 
 

@@ -7,7 +7,7 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/take';
 
-import { Job } from '@shared/models';
+import { Job } from '@app/modules/shared/models';
 import { HttpJobService, WebSocketJobService } from '@app/modules/core/services/_index';
 // import { WorkersStore } from '@app/modules/core/stores/workers.store';
 

@@ -2,8 +2,8 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
 
-import { Function } from '@shared/models';
-import { mockFunctionList, mockFunction } from './function.mock'
+import { Function } from '@app/modules/shared/models';
+import { mockFunctionList, mockFunction } from '@app/mocks/function.mock'
 
 export class MockFunctionDataService {
   functions: Observable<Function[]>;

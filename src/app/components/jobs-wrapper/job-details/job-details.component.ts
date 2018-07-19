@@ -5,12 +5,12 @@ import { MdlDialogService } from '@angular-mdl/core';
 import {
     DialogFullScreenJsonComponent,
     injectableJsonString
-} from '@components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
+} from '@app/components/dialogs/dialog-full-screen-json/dialog-full-screen-json.component';
 import {
     DialogCloneJobFormComponent,
     // injectableJob
-} from '@components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
-import { Job } from '@shared/models';
+} from '@app/components/dialogs/dialog-clone-job-form/dialog-clone-job-form.component';
+import { Job } from '@app/modules/shared/models';
 // import { WorkersStore } from '@app/modules/core/stores/workers.store';
 // import { Workers } from '@shared/models';
 import '@node_modules/codemirror/mode/javascript/javascript.js';
@@ -21,7 +21,7 @@ import '@node_modules/codemirror/addon/display/placeholder';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
-import * as fromJobs from '@jobs/reducers';
+import * as fromJobs from '@app/modules/jobs/reducers';
 import { Observable } from 'rxjs/Observable';
 
 
