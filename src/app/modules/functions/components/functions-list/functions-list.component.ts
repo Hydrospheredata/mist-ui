@@ -1,7 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { FunctionStore } from '@core/stores/_index';
-import { Job, Function } from '@shared/models';
+import { Component } from '@angular/core';
+import { Function } from '@shared/models';
 import { MdlDialogService } from '@angular-mdl/core';
 import { DialogFunctionFormComponent, injectableFunction } from '@app/components/dialogs/_index';
 import { Store } from '@ngrx/store';
@@ -14,31 +12,15 @@ import { Observable } from 'rxjs/Observable';
     templateUrl: './functions-list.component.html',
     styleUrls: ['./functions-list.component.scss']
 })
-export class FunctionsListComponent implements OnInit, OnDestroy {
-    functions: Function[];
+export class FunctionsListComponent {
     public functions$: Observable<Function[]>;
-    runningJobs: Job[];
-    searchQ: string;
-    public functionSubscriber;
+    public searchQ: string;
 
 
-    constructor(
-        // private functionStore: FunctionStore,
-        // private router: Router,
-        public dialog: MdlDialogService,
+    constructor(public dialog: MdlDialogService,
         private store: Store<MistState>
     ) {
         this.functions$ = this.store.select(fromFunctions.getAllFunctions);
-    }
-
-    ngOnInit() {
-        this.loadInitialData();
-    }
-
-    ngOnDestroy() {
-        if (this.functionSubscriber) {
-            this.functionSubscriber.unsubscribe();
-        }
     }
 
     public openDialogFunctionForm(functionInfo = null) {
@@ -51,19 +33,6 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
             leaveTransitionDuration: 400,
             providers: [{ provide: injectableFunction, useValue: functionInfo }]
         });
-    }
-
-    loadInitialData() {
-        // this.functionStore.getAll();
-        // this.functionSubscriber = this.functionStore.functions
-        //     .subscribe(data => {
-        //         if (data.length) {
-        //             this.router.navigate([`/functions/${data[0].name}`]);
-        //         } else {
-        //             this.router.navigate(['/functions']);
-        //         }
-        //         this.functions = data;
-        //     });
     }
 
 }

@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { MistState } from '@app/modules/core/reducers';
+import { MistState } from '@core/reducers';
 import * as fromFunctions from '@functions/reducers';
 
 @Injectable()
-export class FunctionsResolver {
+export class FunctionsGuard implements CanActivate {
 
     constructor(
         private store: Store<MistState>,
         private router: Router
     ) { }
 
-    resolve(
+    canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
-    ): Observable<any> | Promise<any> | any {
+    ): Observable<boolean> | Promise<boolean> | boolean {
         this.store.select(fromFunctions.getAllFunctions)
             .take(1).subscribe(functions => {
                 if (functions.length) {
@@ -28,5 +28,5 @@ export class FunctionsResolver {
         return true;
     }
 
-
 }
+

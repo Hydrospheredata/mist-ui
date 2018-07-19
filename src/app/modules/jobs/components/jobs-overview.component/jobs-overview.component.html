@@ -2,7 +2,6 @@
     <div class='mist-page-header'>
         <div class='function-details' fxLayout='row' fxLayoutAlign='end'>
 
-
             <div class='function-details__status-filter' fxFlex="40" fxFlex.md="40%" fxFlex.lg="40%">
                 <div class="mdl-grid--no-spacing mdl-grid">
                     <div class='mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--middle'>
@@ -43,20 +42,17 @@
         <table class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp'>
             <tbody>
                 <tr *ngFor="let job of jobs$ | async | sortBy:'createTime'; let i=index" class='jobs-table__tr' [routerLink]="['/jobs', job.functionId, job.jobId]">
-                    <td>
+                    <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': ['failed', 'canceled'].includes(job.status)}">
                         <div class="cs-text-overflow-ellipsis">
-                            {{ job.jobId | jobIdCut }}
-                        </div>
-                    </td>
-                    <!-- <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': job.isFailed()}">
-                        <div class="cs-text-overflow-ellipsis">
-                            <i class='material-icons status-icon cs-mr-8' [ngClass]="{'status-icon--failed': job.isFailed(),
-                                'status-icon--success': job.isFinished(),
-                                'status-icon--primary': job.isRunning()}">
+                            <i class='material-icons status-icon cs-mr-8' [ngClass]="{
+                                'status-icon--success': ['finished'].includes(job.status),
+                                'status-icon--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
+                                'status-icon--failed': ['failed', 'canceled'].includes(job.status)
+                            }">
                             </i>
                             {{ job.jobId | jobIdCut }}
                         </div>
-                    </td> -->
+                    </td>
                     <td [title]="'function = ' + job.functionId" class='jobs-table__td jobs-table__td--function'>
                         <div class='function cs-block'>
                             <div class="cs-text-overflow-ellipsis cs-text-center">
@@ -74,72 +70,23 @@
                     <td class='jobs-table__td jobs-table__td--status cs-text-overflow-ellipsis'>
                         <div *ngIf="job.status" [title]="job.status" class="cs-text-overflow-ellipsis">
                             <span class='mist-label'>Status</span>
-                            <span>{{job.status}}</span>
-                            <!-- <span class='job-status' [ngClass]="{
-                                'font-color--success': job.isFinished(),
-                                'font-color--primary': job.isRunning(),
-                                'font-color--failed': job.isFailed() || job.isCanceling() }">
-                                {{ job.status }}
-                            </span>
-                            <span>
+                            <span class='job-status' [ngClass]="{
+                                'font-color--success': ['finished'].includes(job.status),
+                                'font-color--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
+                                'font-color--failed': ['failed', 'canceled'].includes(job.status)
+                            }"> {{ job.status }} </span>
+                            <!-- <span>
                                 {{ job.isRunning() ? (job.runningTime() | agoDate) : (job.endTime | agoDate) }}
                             </span> -->
                         </div>
                     </td>
-                    <!-- <td class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
-                        <a title="KILL" href='#' class='mist-link cs-pt-10 cs-pb-10' (click)="killJob($event, job)" *ngIf="job.isRunning()">
+                    <td class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
+                        <a title="KILL" href='#' class='mist-link cs-pt-10 cs-pb-10' (click)="killJob($event, job)" *ngIf="['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status)">
                             <i class='material-icons'>delete_forever</i>
                             <span>KILL</span>
                         </a>
-                    </td> -->
+                    </td>
                 </tr>
-                <!-- <ng-template ngFor let-job [ngForOf]="jobs | jobStatusFilter:statusFilter | sortBy:'createTime'">
-                    <tr class='jobs-table__tr' [routerLink]="['/jobs', job.functionId, job.jobId]">
-                        <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': job.isFailed()}">
-                            <div class="cs-text-overflow-ellipsis">
-                                <i class='material-icons status-icon cs-mr-8' [ngClass]="{'status-icon--failed': job.isFailed(),
-                'status-icon--success': job.isFinished(),
-                'status-icon--primary': job.isRunning()}">
-                                </i>
-                                {{ job.jobId | jobIdCut }}
-                            </div>
-                        </td>
-                        <td [title]="'function = ' + job.functionId" class='jobs-table__td jobs-table__td--function'>
-                            <div class='function cs-block'>
-                                <div class="cs-text-overflow-ellipsis cs-text-center">
-                                    <span>{{ job.functionId }}</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td [title]="'context = ' + job.context" class='jobs-table__td jobs-table__td--context'>
-                            <div class='context cs-block'>
-                                <div class="cs-text-overflow-ellipsis cs-text-center">
-                                    <span class='context__value'>{{ job.context }}</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td class='jobs-table__td jobs-table__td--status cs-text-overflow-ellipsis'>
-                            <div *ngIf="job.status" [title]="job.status" class="cs-text-overflow-ellipsis">
-                                <span class='mist-label'>Status</span>
-                                <span class='job-status' [ngClass]="{'font-color--success': job.isFinished(),
-                  'font-color--primary': job.isRunning(),
-                  'font-color--failed': job.isFailed(),
-                  'font-color--failed': job.isCanceling()}">
-                                    {{ job.status }}
-                                </span>
-                                <span>
-                                    {{ job.isRunning() ? (job.runningTime() | agoDate) : (job.endTime | agoDate) }}
-                                </span>
-                            </div>
-                        </td>
-                        <td class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
-                            <a title="KILL" href='#' class='mist-link cs-pt-10 cs-pb-10' (click)="killJob($event, job)" *ngIf="job.isRunning()">
-                                <i class='material-icons'>delete_forever</i>
-                                <span>KILL</span>
-                            </a>
-                        </td>
-                    </tr>
-                </ng-template> -->
             </tbody>
         </table>
     </div>

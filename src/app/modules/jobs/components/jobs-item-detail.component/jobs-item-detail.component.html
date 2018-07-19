@@ -32,9 +32,9 @@
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Status</span>
                     <span class="content-info__list-item-value" style="text-transform: uppercase;" [ngClass]="{
-                            'font-color--success': job.isFinished(),
-                            'font-color--primary': job.isRunning(),
-                            'font-color--failed': job.isFailed()
+                            'font-color--success': ['finished'].includes(job.status),
+                            'font-color--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
+                            'font-color--failed': ['failed', 'canceled'].includes(job.status)
                         }">{{ job.status }}</span>
                 </li>
                 <li class="content-info__list-item" *ngIf="(worker$ | async)">
@@ -44,21 +44,21 @@
                     </span>
                 </li>
             </ul>
-            <!-- <ul class="content-info__list">
+            <ul class="content-info__list">
                 <li class="content-info__list-item __title">Time info</li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Queued</span>
-                    <span class="content-info__list-item-value">{{ jobCreateTime }} ({{ jobCreateTimeDuration }})</span>
+                    <span class="content-info__list-item-value">{{ job.createTime }} ({{ jobCreateTimeDuration }})</span>
                 </li>
-                <li class="content-info__list-item" *ngIf="jobStartTime">
+                <li class="content-info__list-item" *ngIf="job.startTime">
                     <span class="content-info__list-item-title">Started</span>
-                    <span class="content-info__list-item-value">{{ jobStartTime }} ({{ jobStartTimeDuration }})</span>
+                    <span class="content-info__list-item-value">{{ job.startTime }} ({{ jobStartTimeDuration }})</span>
                 </li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Finished</span>
-                    <span class="content-info__list-item-value">{{ jobEndTime }} ({{ job.endTime | agoDate }})</span>
+                    <span class="content-info__list-item-value">{{ job.endTime }} ({{ job.endTime | agoDate }})</span>
                 </li>
-            </ul> -->
+            </ul>
         </div>
         <hr class="mist__separator--horizontal" />
         <div fxLayout='row' fxLayoutAlign="center" class='job-container'>

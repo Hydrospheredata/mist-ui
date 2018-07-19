@@ -38,7 +38,6 @@ export class JobsEffects {
                     .pipe(
                         map((job: Job) => {
                             if (entities[job.jobId]) {
-                                console.log(job);
                                 return new JobsActions.UpdateSuccess(job);
                             }
                             return new JobsActions.AddSuccess(this.transformMessageToJob(job));
@@ -76,7 +75,6 @@ export class JobsEffects {
                 this.store.select(fromJobs.getJobEntities)
             ),
             switchMap(([message, entities]) => {
-                console.log(message);
                 if (entities[message.id]) {
                     return of(new JobsActions.UpdateSuccess(this.transformMessageToJob(message)));
                 }
@@ -88,7 +86,7 @@ export class JobsEffects {
         let job = new Job(message);
         job.jobId = message.id;
         job.status = message.event;
-        return job;
+        return JSON.parse(JSON.stringify(job));
     }
 
     constructor(
