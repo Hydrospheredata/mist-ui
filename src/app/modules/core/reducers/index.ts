@@ -4,6 +4,7 @@ import { Params, RouterStateSnapshot } from '@angular/router';
 import { environment } from '@environments/environment';
 import { RouterStateSerializer } from '@ngrx/router-store';
 import * as fromContext from './context.reducer';
+import * as fromPagination from './pagination.reducer';
 
 export interface RouterStateUrl {
     url: string;
@@ -28,12 +29,14 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<Router
 
 export interface MistState {
     router: fromRouter.RouterReducerState<RouterStateUrl>,
-    context: fromContext.State
+    context: fromContext.State,
+    pagination: fromPagination.State,
 }
 
 export const reducers: ActionReducerMap<MistState> = {
     router: fromRouter.routerReducer,
-    context: fromContext.reducer
+    context: fromContext.reducer,
+    pagination: fromPagination.reducer,
 }
 
 export const defaultRouterState = {
@@ -56,6 +59,10 @@ export const metaReducers: MetaReducer<MistState>[] = !environment.production
 export const getRouterState = createFeatureSelector<fromRouter.RouterReducerState<RouterStateUrl>>('router');
 
 export const getContextState = createFeatureSelector<fromContext.State>('context');
+
+export const getPaginationState = createFeatureSelector<fromPagination.State>('pagination');
+
+export const getPaginationCurrent = createSelector(getPaginationState, state => state.current);
 
 export const getContextEntitiesState = createSelector(getContextState, state => state);
 

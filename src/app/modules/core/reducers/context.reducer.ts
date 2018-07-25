@@ -19,7 +19,6 @@ export function reducer(state = initialState, action: ContextActions): State {
         case ContextActionTypes.AddContextSuccess: {
             return adapter.addOne(action.context, state);
         }
-
         default: {
             return state;
         }
