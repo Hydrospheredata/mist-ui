@@ -4,7 +4,7 @@ import { MistState } from '@app/modules/core/reducers';
 import * as fromJobs from '@jobs/reducers';
 import { withLatestFrom } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { Forward, Backward } from '@core/actions';
+import { Forward, Backward, GoTo } from '@core/actions';
 
 @Component({
     selector: 'mist-pagination',
@@ -13,7 +13,8 @@ import { Forward, Backward } from '@core/actions';
 })
 export class PaginationComponent implements OnInit {
     public total: number;
-    public pages: number;
+    public pages: number[];
+    public current: number = 0;
     private subscription: Subscription;
 
     constructor(
@@ -25,8 +26,9 @@ export class PaginationComponent implements OnInit {
             )
         ).subscribe(([jobs, total]) => {
             console.log(jobs, total);
-            if (total > 25) {
-                this.pages = Math.ceil(total / jobs.length)
+            if (jobs.length >= 25 && total > 25) {
+                const pagesNumber = Math.ceil(total / jobs.length);
+                this.pages = Array(pagesNumber).map((x, i) => i);
             }
         });
     }
@@ -38,10 +40,15 @@ export class PaginationComponent implements OnInit {
     }
 
     public onPrev() {
-        this.store.dispatch(new Backward({ offset: -25 }))
+        this.store.dispatch(new Backward({ offset: -25 }));
     }
 
     public onNext() {
-        this.store.dispatch(new Forward({ offset: 25 }))
+        this.store.dispatch(new Forward({ offset: 25 }));
+    }
+
+    public goTo(pageNumber: number) {
+        this.current = pageNumber;
+        this.store.dispatch(new GoTo({ offset: pageNumber * 25 }));
     }
 }

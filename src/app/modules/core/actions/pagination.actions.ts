@@ -21,7 +21,7 @@ export class Backward implements Action {
 export class GoTo implements Action {
     readonly type = PaginationActionTypes.GoTo;
 
-    constructor(public pageNumber: number) { }
+    constructor(public options: any) { }
 }
 
 export type PaginationActions

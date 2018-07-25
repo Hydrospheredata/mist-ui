@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
-import { PaginationActionTypes, Forward, Backward } from '@app/modules/core/actions';
+import { PaginationActionTypes, Forward, Backward, GoTo } from '@app/modules/core/actions';
 import { tap, map } from 'rxjs/operators';
 import * as fromJobsActions from '@jobs/actions';
 import { MistState } from '@app/modules/core/reducers';
@@ -20,6 +20,13 @@ export class PaginationEffects {
         .ofType(PaginationActionTypes.Backward)
         .pipe(
             map((action: Backward) => action.options),
+            tap((options) => this.store$.dispatch(new fromJobsActions.Get(options)))
+        );
+
+    @Effect({ dispatch: false }) goTo$: Observable<Action> = this.actions$
+        .ofType(PaginationActionTypes.GoTo)
+        .pipe(
+            map((action: GoTo) => action.options),
             tap((options) => this.store$.dispatch(new fromJobsActions.Get(options)))
         );
 
