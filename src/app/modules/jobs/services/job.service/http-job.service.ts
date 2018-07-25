@@ -16,12 +16,9 @@ export class HttpJobService {
     constructor(private http: HttpService) {
     }
 
-    public get(): Observable<Job[]> {
+    public get(): Observable<{ jobs: Job[], total: number }> {
         return this.http.get(`${this.baseUrl.jobs}?paginate=true`)
-            .map((res: Response) => {
-                console.log(res.json().jobs);
-                return res.json()
-            })
+            .map((res: Response) => this.extractJobs(res))
             .catch(this.handleError);
     }
 
@@ -35,7 +32,7 @@ export class HttpJobService {
         const options = this.parseArgs(args);
         const apiUrl = this.baseUrl.jobs + `?` + options;
         return this.http.get(apiUrl)
-            .map((res: Response) => { return this.extractJobs(res) })
+            .map((res: Response) => this.extractJobs(res))
             .catch(this.handleError);
     }
 
@@ -85,14 +82,25 @@ export class HttpJobService {
 
     private extractJobs(res: Response) {
         const data = res.json();
+        console.log(data);
         const jobs: Job[] = [];
-        for (let index in data) {
-            if (data.hasOwnProperty(index)) {
-                let job = this.toJob(data[index]);
-                jobs.push(job);
+        if (data.jobs) {
+            for (let index in data.jobs) {
+                if (data.jobs.hasOwnProperty(index)) {
+                    let job = this.toJob(data.jobs[index]);
+                    jobs.push(job);
+                }
             }
+            return { jobs: jobs, total: data.total };
+        } else {
+            for (let index in data) {
+                if (data.hasOwnProperty(index)) {
+                    let job = this.toJob(data[index]);
+                    jobs.push(job);
+                }
+            }
+            return jobs;
         }
-        return jobs;
     }
 
     private extractJob(res: Response) {

@@ -13,8 +13,14 @@ import { DialogAddContextComponent } from '@app/components/dialogs/dialog-add-co
 import { environment } from '@environments/environment';
 import { Location } from '@angular/common';
 import { AlertService } from '@app/modules/core/services/alert.service';
+import { Store } from '../../../../../node_modules/@ngrx/store';
+import { MistState } from '@app/modules/core/reducers';
 
-export let injectableFunction = new InjectionToken<Function>('selectedFunction');
+export let injectableFunction = new InjectionToken<Observable<Function>>('selectedFunction');
+
+import * as fromContext from '@core/reducers';
+import { Observable } from '../../../../../node_modules/rxjs';
+import { Add, Update } from '@app/modules/functions/actions';
 
 
 
@@ -49,6 +55,8 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
     private contextStoreSub;
     private functionStoreSub;
 
+    public contexts$: Observable<Context[]>;
+
     @HostListener('document:keydown.escape')
     public onEsc() {
         this.dialogRef.hide();
@@ -63,32 +71,51 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         private mdlSnackbarService: MdlSnackbarService,
         private dialog: MdlDialogService,
         // private contextStore: ContextStore,
-        @Inject(injectableFunction) data: Function,
+        @Inject(injectableFunction) data: Observable<Function>,
         private location: Location,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private store: Store<MistState>,
     ) {
         this.port = environment.production ? window.location.port : environment.port;
         const path = this.location.prepareExternalUrl(environment.apiUrl).replace('/ui' + environment.apiUrl, environment.apiUrl);
         this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
 
-        this.functionInfo = data;
-        if (!this.functionInfo) {
+        // this.functionInfo = data;
+
+        if (data) {
+            data
+                .subscribe(data => {
+                    console.log(data);
+                    this.functionInfo = data;
+                    this.formTitle = 'Update Function';
+                    this.functionNameReadOnly = true;
+                    this.requestMethod = 'PUT';
+                });
+        } else {
             this.formTitle = 'Add Function';
             this.requestMethod = 'POST';
-        } else {
-            this.formTitle = 'Update Function';
-            this.functionNameReadOnly = true;
-            this.requestMethod = 'PUT';
         }
+
+        // if (!this.functionInfo) {
+        //     this.formTitle = 'Add Function';
+        //     this.requestMethod = 'POST';
+        // } else {
+        //     this.formTitle = 'Update Function';
+        //     this.functionNameReadOnly = true;
+        //     this.requestMethod = 'PUT';
+        // }
+
+        this.contexts$ = this.store.select(fromContext.getAllContexts);
     }
 
     ngOnInit() {
         this.createFunctionForm();
+        // console.log(this.functionInfo);
         // this.contextStore.getAll();
         // this.contextStoreSub = this.contextStore.contexts.subscribe(data => { this.contexts = data });
-        // if (this.functionInfo) {
-        //     this.updateFunctionFormValues(this.functionInfo);
-        // };
+        if (this.functionInfo) {
+            this.updateFunctionFormValues(this.functionInfo);
+        };
     }
 
     ngOnDestroy() {
@@ -101,16 +128,6 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         if (this.functionFormSub) {
             this.functionFormSub.unsubscribe();
         }
-    }
-
-    private updateFunctionFormValues(functionInfo: Function) {
-        this.defaultContext = functionInfo.defaultContext;
-        this.functionForm.setValue({
-            name: functionInfo.name,
-            path: functionInfo.path,
-            defaultContext: functionInfo.defaultContext,
-            className: functionInfo.className || '',
-        });
     }
 
     private createFunctionForm() {
@@ -130,6 +147,16 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);
     }
 
+    private updateFunctionFormValues(functionInfo: Function) {
+        this.defaultContext = functionInfo.defaultContext;
+        this.functionForm.setValue({
+            name: functionInfo.name,
+            path: functionInfo.path,
+            defaultContext: functionInfo.defaultContext,
+            className: functionInfo.className || '',
+        });
+    }
+
     public submitFunctionForm(form) {
         let functionRequestMethod;
         const self = this;
@@ -144,30 +171,32 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         });
 
         if (form.valid) {
-            this.loading = true;
-            // if (!this.functionInfo) {
-            //     functionRequestMethod = this.functionStore.createFunction(_function);
-            //     functionMessage += 'added';
-            // } else {
-            //     functionRequestMethod = this.functionStore.updateFunction(_function);
-            //     functionMessage += 'updated';
-            // }
+            // this.loading = true;
+            if (!this.functionInfo) {
+                // functionRequestMethod = this.functionStore.createFunction(_function);
+                this.store.dispatch(new Add(_function));
+                functionMessage += 'added';
+            } else {
+                // functionRequestMethod = this.functionStore.updateFunction(_function);
+                this.store.dispatch(new Update(_function));
+                functionMessage += 'updated';
+            }
 
-            functionRequestMethod
-                .subscribe(
-                    (functionInfo) => {
-                        self.loading = false;
-                        this.dialogRef.hide();
-                        this.mdlSnackbarService.showSnackbar({
-                            message: `${functionInfo.name} ${functionMessage}`,
-                            timeout: 5000
-                        });
-                    },
-                    (error) => {
-                        self.loading = false;
-                        this.alertService.error(error);
-                    }
-                );
+            // functionRequestMethod
+            //     .subscribe(
+            //         (functionInfo) => {
+            //             // self.loading = false;
+            //             this.dialogRef.hide();
+            //             this.mdlSnackbarService.showSnackbar({
+            //                 message: `${functionInfo.name} ${functionMessage}`,
+            //                 timeout: 5000
+            //             });
+            //         },
+            //         (error) => {
+            //             // self.loading = false;
+            //             this.alertService.error(error);
+            //         }
+            //     );
 
         } else {
             fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);

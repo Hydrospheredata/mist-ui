@@ -23,6 +23,32 @@ export class FunctionsEffects {
             })
         )
 
+    @Effect() addFunction$: Observable<Action> = this.actions$
+        .ofType(FunctionActionTypes.Add)
+        .pipe(
+            map((action: FunctionsActions.Add) => action.payload),
+            switchMap(functionInfo => {
+                return this.functionService.createFunction(functionInfo)
+                    .pipe(
+                        map((functions: Function[]) => new FunctionsActions.GetSuccess(functions)),
+                        catchError(error => of(new FunctionsActions.GetFail(error)))
+                    )
+            })
+        )
+
+    @Effect() updateFunction$: Observable<Action> = this.actions$
+        .ofType(FunctionActionTypes.Update)
+        .pipe(
+            map((action: FunctionsActions.Update) => action.payload),
+            switchMap(functionInfo => {
+                return this.functionService.updateFunction(functionInfo)
+                    .pipe(
+                        map((functions: Function[]) => new FunctionsActions.GetSuccess(functions)),
+                        catchError(error => of(new FunctionsActions.GetFail(error)))
+                    )
+            })
+        )
+
     constructor(
         private actions$: Actions,
         private functionService: HttpFunctionService

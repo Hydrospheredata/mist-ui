@@ -17,14 +17,16 @@ export class FunctionsGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
-        this.store.select(fromFunctions.getAllFunctions)
-            .take(1).subscribe(functions => {
-                if (functions.length) {
-                    this.router.navigate([`/functions/${functions[0].name}`]);
-                } else {
-                    this.router.navigate([`/functions`]);
-                }
-            });
+        // this.store.select(fromFunctions.getAllFunctions)
+        //     .take(1)
+        //     .subscribe(functions => {
+        //         console.log(functions);
+        //         if (functions.length) {
+        //             this.router.navigate([`/functions/${functions[0].name}`]);
+        //         } else {
+        //             this.router.navigate([`/functions`]);
+        //         }
+        //     });
         return true;
     }
 

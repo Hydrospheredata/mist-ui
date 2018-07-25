@@ -12,6 +12,7 @@ import { reducers } from '@app/modules/functions/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { FunctionsEffects } from '@app/modules/functions/effects';
 import { HttpFunctionService } from '@app/modules/functions/services';
+import { FunctionsGuard } from '@app/modules/functions/guards';
 
 @NgModule({
     declarations: [FunctionsWrapperComponent, FunctionsListComponent, FunctionsItemDetailComponent],
@@ -27,6 +28,6 @@ import { HttpFunctionService } from '@app/modules/functions/services';
         EffectsModule.forFeature([FunctionsEffects])
     ],
     exports: [],
-    providers: [HttpFunctionService],
+    providers: [HttpFunctionService, FunctionsGuard],
 })
 export class FunctionsModule { }

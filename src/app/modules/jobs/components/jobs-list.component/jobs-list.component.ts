@@ -31,6 +31,7 @@ export class JobsListComponent implements OnInit, OnDestroy {
         private store: Store<MistState>
     ) {
         this.functions$ = this.store.select(fromFunctions.getAllFunctions);
+        // this.store.select()
     }
 
     ngOnInit() {

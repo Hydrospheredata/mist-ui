@@ -3,7 +3,7 @@ import { Job } from '@app/modules/shared/models';
 import { JobActions, JobActionTypes } from '@app/modules/jobs/actions';
 
 export interface State extends EntityState<Job> {
-    total: number
+    total: number,
 }
 
 export const adapter: EntityAdapter<Job> = createEntityAdapter<Job>({
@@ -11,16 +11,19 @@ export const adapter: EntityAdapter<Job> = createEntityAdapter<Job>({
 });
 
 export const initialState: State = adapter.getInitialState({
-    total: 0
+    total: 0,
 });
 
 export function reducer(state = initialState, action: JobActions): State {
     switch (action.type) {
         case JobActionTypes.GetSuccess: {
-            return adapter.addAll(action.payload, state);
+            return adapter.addAll(action.payload.jobs, { ...state, total: action.payload.total });
         }
         case JobActionTypes.GetByIdSuccess: {
             return adapter.addOne(action.payload, state);
+        }
+        case JobActionTypes.Increment: {
+            return { ...state, total: state.total + 1 };
         }
         case JobActionTypes.AddSuccess: {
             return adapter.addOne(action.payload, state);

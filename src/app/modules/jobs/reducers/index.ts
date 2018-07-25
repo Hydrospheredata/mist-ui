@@ -1,5 +1,6 @@
 import * as fromRoot from '@app/modules/core/reducers';
 import * as fromJobs from '@app/modules/jobs/reducers/jobs.reducer';
+import * as fromJobsRunning from '@jobs/reducers/jobs-running.reducer';
 import * as fromJobLogs from '@app/modules/jobs/reducers/job-logs.reducer';
 import * as fromWorkers from '@app/modules/workers/reducers';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
@@ -7,7 +8,8 @@ import { Job, Worker } from '@app/modules/shared/models';
 
 export interface JobsState {
     jobs: fromJobs.State,
-    jobLogs: string[]
+    jobLogs: string[],
+    jobsRunning: fromJobsRunning.State
 }
 
 export interface State extends fromRoot.MistState {
@@ -16,7 +18,8 @@ export interface State extends fromRoot.MistState {
 
 export const reducers: ActionReducerMap<JobsState> = {
     jobs: fromJobs.reducer,
-    jobLogs: fromJobLogs.reducer
+    jobLogs: fromJobLogs.reducer,
+    jobsRunning: fromJobsRunning.reducer
 }
 
 export const getJobsState = createFeatureSelector<JobsState>('jobs');
@@ -26,14 +29,26 @@ export const getJobEntitiesState = createSelector(
     state => state.jobs
 );
 
+export const getJobsTotal = createSelector(getJobEntitiesState, entities => entities.total);
+
 export const getJobLogsEntitiesState = createSelector(
     getJobsState,
     state => state.jobLogs
 );
 
+export const getJobsRunningEntitiesState = createSelector(
+    getJobsState,
+    state => state.jobsRunning
+);
+
 export const getJobLogs = createSelector(
     getJobLogsEntitiesState,
     entities => entities
+)
+
+export const getJobsRunning = createSelector(
+    getJobsRunningEntitiesState,
+    entities => entities.running
 )
 
 export const {

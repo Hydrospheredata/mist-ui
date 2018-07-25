@@ -17,6 +17,7 @@ export enum JobActionTypes {
     Update = '[Job] Update job',
     UpdateSuccess = '[Job] Update job with success',
     UpdateFail = '[Job] Update job with fail',
+    Increment = '[Job] Increment job total',
 };
 
 export class Get implements Action {
@@ -24,7 +25,7 @@ export class Get implements Action {
 }
 export class GetSuccess implements Action {
     readonly type = JobActionTypes.GetSuccess;
-    constructor(public payload: Job[]) { }
+    constructor(public payload: { jobs: Job[], total: number }) { }
 }
 export class GetFail implements Action {
     readonly type = JobActionTypes.GetFail;
@@ -83,6 +84,10 @@ export class UpdateFail implements Action {
     constructor(public payload: any) { }
 }
 
+export class Increment implements Action {
+    readonly type = JobActionTypes.Increment;
+}
+
 export type JobActions
     = Get
     | GetSuccess
@@ -98,4 +103,5 @@ export type JobActions
     | DeleteFail
     | Update
     | UpdateSuccess
-    | UpdateFail;
+    | UpdateFail
+    | Increment;

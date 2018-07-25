@@ -12,17 +12,30 @@ import { MdlSnackbarService } from '@angular-mdl/core';
 import { MistState } from '@app/modules/core/reducers';
 import * as fromJobs from '@app/modules/jobs/reducers';
 import { Router } from '@angular/router';
+import * as fromWorkerActions from '@workers/actions';
 
 @Injectable()
 export class JobsEffects {
 
-    @Effect() getAllJobs$: Observable<Action> = this.actions$
+    // @Effect() getAllJobs$: Observable<Action> = this.actions$
+    //     .ofType(JobActionTypes.Get)
+    //     .pipe(
+    //         switchMap(() => {
+    //             return this.jobService.getAll()
+    //                 .pipe(
+    //                     map((jobs: Job[]) => new JobsActions.GetSuccess(jobs)),
+    //                     catchError(error => of(new JobsActions.GetFail(error)))
+    //                 )
+    //         })
+    //     )
+
+    @Effect() getJobsWithPagination$: Observable<Action> = this.actions$
         .ofType(JobActionTypes.Get)
         .pipe(
             switchMap(() => {
-                return this.jobService.getAll()
+                return this.jobService.get()
                     .pipe(
-                        map((jobs: Job[]) => new JobsActions.GetSuccess(jobs)),
+                        map((data) => new JobsActions.GetSuccess(data)),
                         catchError(error => of(new JobsActions.GetFail(error)))
                     )
             })
@@ -40,7 +53,7 @@ export class JobsEffects {
                     .pipe(
                         map((job: Job) => {
                             if (entities[job.jobId]) {
-                                return new JobsActions.UpdateSuccess(job);
+                                return new JobsActions.UpdateSuccess(this.transformMessageToJob(job));
                             }
                             return new JobsActions.AddSuccess(this.transformMessageToJob(job));
                         }),
@@ -77,9 +90,14 @@ export class JobsEffects {
                 this.store.select(fromJobs.getJobEntities)
             ),
             switchMap(([message, entities]) => {
+                console.log(message);
                 if (entities[message.id]) {
+                    if (message.workerId) {
+                        this.store.dispatch(new fromWorkerActions.Get);
+                    }
                     return of(new JobsActions.UpdateSuccess(this.transformMessageToJob(message)));
                 }
+                this.store.dispatch(new JobsActions.Increment);
                 return of(new JobsActions.AddSuccess(this.transformMessageToJob(message)));
             })
         )

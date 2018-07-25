@@ -2,10 +2,11 @@ import { Component, ViewContainerRef } from '@angular/core';
 import { MdlDialogOutletService } from '@angular-mdl/core';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
-import * as fromFunctions from '@app/modules/functions/actions';
-import * as fromJobs from '@app/modules/jobs/actions';
-import * as fromRoot from '@app/modules/core/actions';
-import * as fromWorkers from '@app/modules/workers/actions';
+import * as fromFunctionsActions from '@app/modules/functions/actions';
+import * as fromJobsActions from '@app/modules/jobs/actions';
+import * as fromRootActions from '@app/modules/core/actions';
+import * as fromWorkersActions from '@app/modules/workers/actions';
+// import * as fromContext from '@core/'
 
 
 
@@ -24,10 +25,12 @@ export class AppComponent {
     ) {
         this.dilalogOuletService.setDefaultViewContainerRef(this.viewConatinerRef);
 
-        this.store.dispatch(new fromRoot.WsConnect);
-        this.store.dispatch(new fromFunctions.Get);
-        this.store.dispatch(new fromJobs.Get);
-        this.store.dispatch(new fromWorkers.Get);
+        this.store.dispatch(new fromRootActions.WsConnect);
+        this.store.dispatch(new fromFunctionsActions.Get);
+        this.store.dispatch(new fromJobsActions.Get);
+        this.store.dispatch(new fromJobsActions.GetRunning)
+        this.store.dispatch(new fromWorkersActions.Get);
+        this.store.dispatch(new fromRootActions.GetContext);
     }
 
 }
