@@ -9,13 +9,13 @@ export enum PaginationActionTypes {
 export class Forward implements Action {
     readonly type = PaginationActionTypes.Forward;
 
-    constructor(public pageNumber: number) { }
+    constructor(public options: any) { }
 }
 
 export class Backward implements Action {
     readonly type = PaginationActionTypes.Backward;
 
-    constructor(public pageNumber: number) { }
+    constructor(public options: any) { }
 }
 
 export class GoTo implements Action {

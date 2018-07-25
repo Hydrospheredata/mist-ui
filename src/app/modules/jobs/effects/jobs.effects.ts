@@ -32,8 +32,10 @@ export class JobsEffects {
     @Effect() getJobsWithPagination$: Observable<Action> = this.actions$
         .ofType(JobActionTypes.Get)
         .pipe(
-            switchMap(() => {
-                return this.jobService.get()
+            map((action: JobsActions.Get) => action.options),
+            switchMap((options?) => {
+                console.log(options);
+                return this.jobService.get(options)
                     .pipe(
                         map((data) => new JobsActions.GetSuccess(data)),
                         catchError(error => of(new JobsActions.GetFail(error)))

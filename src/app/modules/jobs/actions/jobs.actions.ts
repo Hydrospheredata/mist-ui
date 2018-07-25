@@ -22,6 +22,7 @@ export enum JobActionTypes {
 
 export class Get implements Action {
     readonly type = JobActionTypes.Get;
+    constructor(public options?: any) { }
 }
 export class GetSuccess implements Action {
     readonly type = JobActionTypes.GetSuccess;

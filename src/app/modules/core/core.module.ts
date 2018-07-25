@@ -31,7 +31,7 @@ import { reducers, defaultRouterState, CustomRouterStateSerializer } from '@app/
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
-import { WebsocketEffects, ContextEffects } from '@app/modules/core/effects';
+import { WebsocketEffects, ContextEffects, PaginationEffects } from '@app/modules/core/effects';
 
 const Components = [
     LoaderComponent,
@@ -50,7 +50,7 @@ const Components = [
         SharedModule,
         StoreModule.forRoot(reducers, defaultRouterState),
         StoreDevtoolsModule.instrument(),
-        EffectsModule.forRoot([WebsocketEffects, ContextEffects]),
+        EffectsModule.forRoot([WebsocketEffects, ContextEffects, PaginationEffects]),
         StoreRouterConnectingModule
     ],
     exports: [

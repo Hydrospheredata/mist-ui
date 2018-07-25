@@ -16,8 +16,12 @@ export class HttpJobService {
     constructor(private http: HttpService) {
     }
 
-    public get(): Observable<{ jobs: Job[], total: number }> {
-        return this.http.get(`${this.baseUrl.jobs}?paginate=true`)
+    public get(options?: any): Observable<{ jobs: Job[], total: number }> {
+        let url = `${this.baseUrl.jobs}?paginate=true`;
+        if (options) {
+            url += `&offset=${options.offset}`
+        }
+        return this.http.get(url)
             .map((res: Response) => this.extractJobs(res))
             .catch(this.handleError);
     }

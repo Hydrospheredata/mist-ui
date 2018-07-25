@@ -38,10 +38,10 @@ export class PaginationComponent implements OnInit {
     }
 
     public onPrev() {
-        // this.store.dispatch(new Backward())
+        this.store.dispatch(new Backward({ offset: -25 }))
     }
 
     public onNext() {
-        // this.store.dispatch(new Forward())
+        this.store.dispatch(new Forward({ offset: 25 }))
     }
 }
