@@ -15,6 +15,15 @@ export function reducer(state = initialState, action: FunctionActions): State {
         case FunctionActionTypes.GetSuccess: {
             return adapter.addAll(action.payload, state);
         }
+        case FunctionActionTypes.AddSuccess: {
+            return adapter.addOne(action.payload, state);
+        }
+        case FunctionActionTypes.UpdateSuccess: {
+            return adapter.updateOne({
+                id: action.payload.name,
+                changes: action.payload
+            }, state);
+        }
 
         default: {
             return state;

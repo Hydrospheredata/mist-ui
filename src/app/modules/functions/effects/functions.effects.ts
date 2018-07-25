@@ -8,6 +8,7 @@ import { Function } from '@app/modules/shared/models';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import * as FunctionsActions from '@app/modules/functions/actions';
 import { of } from 'rxjs/observable/of';
+import { MdlSnackbarService } from '../../../../../node_modules/@angular-mdl/core';
 
 @Injectable()
 export class FunctionsEffects {
@@ -30,7 +31,13 @@ export class FunctionsEffects {
             switchMap(functionInfo => {
                 return this.functionService.createFunction(functionInfo)
                     .pipe(
-                        map((functions: Function[]) => new FunctionsActions.GetSuccess(functions)),
+                        map((functionInfo: Function) => {
+                            this.mdlSnackbarService.showSnackbar({
+                                message: `${functionInfo.name} has successfully added`,
+                                timeout: 5000
+                            });
+                            return new FunctionsActions.AddSuccess(functionInfo)
+                        }),
                         catchError(error => of(new FunctionsActions.GetFail(error)))
                     )
             })
@@ -43,7 +50,13 @@ export class FunctionsEffects {
             switchMap(functionInfo => {
                 return this.functionService.updateFunction(functionInfo)
                     .pipe(
-                        map((functions: Function[]) => new FunctionsActions.GetSuccess(functions)),
+                        map((functionInfo: Function) => {
+                            this.mdlSnackbarService.showSnackbar({
+                                message: `${functionInfo.name} has successfully updated`,
+                                timeout: 5000
+                            });
+                            return new FunctionsActions.UpdateSuccess(functionInfo)
+                        }),
                         catchError(error => of(new FunctionsActions.GetFail(error)))
                     )
             })
@@ -51,6 +64,7 @@ export class FunctionsEffects {
 
     constructor(
         private actions$: Actions,
-        private functionService: HttpFunctionService
+        private functionService: HttpFunctionService,
+        private mdlSnackbarService: MdlSnackbarService,
     ) { }
 }

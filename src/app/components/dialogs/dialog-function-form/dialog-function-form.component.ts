@@ -170,17 +170,16 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
             file: this.file
         });
 
+        console.log(_function);
+
         if (form.valid) {
             // this.loading = true;
             if (!this.functionInfo) {
-                // functionRequestMethod = this.functionStore.createFunction(_function);
                 this.store.dispatch(new Add(_function));
-                functionMessage += 'added';
             } else {
-                // functionRequestMethod = this.functionStore.updateFunction(_function);
                 this.store.dispatch(new Update(_function));
-                functionMessage += 'updated';
             }
+            this.dialogRef.hide();
 
             // functionRequestMethod
             //     .subscribe(
