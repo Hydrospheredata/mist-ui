@@ -4,22 +4,19 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { Context } from '@app/modules/shared/models';
 import { FormsService } from '@app/modules/core/services/forms.service';
-// import { FunctionStore } from '@app/modules/core/stores/function.store';
-// import { ContextStore } from '@app/modules/core/stores/context.store';
-// import { JobStore } from '@app/modules/core/stores/job.store'
 import { Function } from '@app/modules/shared/models';
 import { MdlSnackbarService } from '@angular-mdl/core';
 import { DialogAddContextComponent } from '@app/components/dialogs/dialog-add-context/dialog-add-context.component';
 import { environment } from '@environments/environment';
 import { Location } from '@angular/common';
 import { AlertService } from '@app/modules/core/services/alert.service';
-import { Store } from '../../../../../node_modules/@ngrx/store';
+import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
 
 export let injectableFunction = new InjectionToken<Observable<Function>>('selectedFunction');
 
 import * as fromContext from '@core/reducers';
-import { Observable } from '../../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { Add, Update } from '@app/modules/functions/actions';
 
 
@@ -51,9 +48,6 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
     private requestMethod: string;
     private port: string;
     private apiUrl: string;
-    private functionFormSub;
-    private contextStoreSub;
-    private functionStoreSub;
 
     public contexts$: Observable<Context[]>;
 
@@ -66,21 +60,15 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         public dialogRef: MdlDialogReference,
         private formsService: FormsService,
-        // private functionStore: FunctionStore,
-        // private jobStore: JobStore,
         private mdlSnackbarService: MdlSnackbarService,
         private dialog: MdlDialogService,
-        // private contextStore: ContextStore,
         @Inject(injectableFunction) data: Observable<Function>,
         private location: Location,
-        private alertService: AlertService,
         private store: Store<MistState>,
     ) {
         this.port = environment.production ? window.location.port : environment.port;
         const path = this.location.prepareExternalUrl(environment.apiUrl).replace('/ui' + environment.apiUrl, environment.apiUrl);
         this.apiUrl = `${window.location.protocol}//${window.location.hostname}:${this.port}${path}`;
-
-        // this.functionInfo = data;
 
         if (data) {
             data
@@ -96,39 +84,17 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
             this.requestMethod = 'POST';
         }
 
-        // if (!this.functionInfo) {
-        //     this.formTitle = 'Add Function';
-        //     this.requestMethod = 'POST';
-        // } else {
-        //     this.formTitle = 'Update Function';
-        //     this.functionNameReadOnly = true;
-        //     this.requestMethod = 'PUT';
-        // }
-
         this.contexts$ = this.store.select(fromContext.getAllContexts);
     }
 
     ngOnInit() {
         this.createFunctionForm();
-        // console.log(this.functionInfo);
-        // this.contextStore.getAll();
-        // this.contextStoreSub = this.contextStore.contexts.subscribe(data => { this.contexts = data });
         if (this.functionInfo) {
             this.updateFunctionFormValues(this.functionInfo);
         };
     }
 
-    ngOnDestroy() {
-        if (this.contextStoreSub) {
-            this.contextStoreSub.unsubscribe();
-        }
-        if (this.functionFormSub) {
-            this.functionFormSub.unsubscribe();
-        }
-        if (this.functionFormSub) {
-            this.functionFormSub.unsubscribe();
-        }
-    }
+    ngOnDestroy() { }
 
     private createFunctionForm() {
         const fs = this.formsService;
@@ -158,10 +124,7 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
     }
 
     public submitFunctionForm(form) {
-        let functionRequestMethod;
-        const self = this;
         const fs = this.formsService;
-        let functionMessage = 'has been successfully ';
         const _function = new Function({
             name: form.controls.name.value,
             path: form.controls.path.value,
@@ -170,33 +133,13 @@ export class DialogFunctionFormComponent implements OnInit, OnDestroy {
             file: this.file
         });
 
-        console.log(_function);
-
         if (form.valid) {
-            // this.loading = true;
             if (!this.functionInfo) {
                 this.store.dispatch(new Add(_function));
             } else {
                 this.store.dispatch(new Update(_function));
             }
             this.dialogRef.hide();
-
-            // functionRequestMethod
-            //     .subscribe(
-            //         (functionInfo) => {
-            //             // self.loading = false;
-            //             this.dialogRef.hide();
-            //             this.mdlSnackbarService.showSnackbar({
-            //                 message: `${functionInfo.name} ${functionMessage}`,
-            //                 timeout: 5000
-            //             });
-            //         },
-            //         (error) => {
-            //             // self.loading = false;
-            //             this.alertService.error(error);
-            //         }
-            //     );
-
         } else {
             fs.setErrors(this.functionForm, this.formErrors, fs.MESSAGES.ERRORS.forms.addFunction);
             return false;

@@ -33,7 +33,7 @@ export class FunctionsEffects {
                     .pipe(
                         map((functionInfo: Function) => {
                             this.mdlSnackbarService.showSnackbar({
-                                message: `${functionInfo.name} has successfully added`,
+                                message: `${functionInfo.name} has been successfully added`,
                                 timeout: 5000
                             });
                             return new FunctionsActions.AddSuccess(functionInfo)
@@ -52,7 +52,7 @@ export class FunctionsEffects {
                     .pipe(
                         map((functionInfo: Function) => {
                             this.mdlSnackbarService.showSnackbar({
-                                message: `${functionInfo.name} has successfully updated`,
+                                message: `${functionInfo.name} has been successfully updated`,
                                 timeout: 5000
                             });
                             return new FunctionsActions.UpdateSuccess(functionInfo)
