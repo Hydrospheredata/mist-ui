@@ -2,7 +2,9 @@
     <div class='mist-page-header'>
         <div class='function-details' fxLayout='row' fxLayoutAlign='end'>
 
-            <div class='function-details__status-filter' fxFlex="40" fxFlex.md="40%" fxFlex.lg="40%">
+            <mist-filter></mist-filter>
+
+            <!-- <div class='function-details__status-filter' fxFlex="40" fxFlex.md="40%" fxFlex.lg="40%">
                 <div class="mdl-grid--no-spacing mdl-grid">
                     <div class='mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--middle'>
                         <span fxHide.sm>FILTER: </span>
@@ -26,7 +28,7 @@
                         </mdl-button>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="cs-text-right" fxFlex.md="10" fxFlex.sm="10" fxFlex.lg="20">
                 <mdl-button (click)="openDialogJobForm()" class="mist-button blue border icon" title="Run New" mdl-colored="">

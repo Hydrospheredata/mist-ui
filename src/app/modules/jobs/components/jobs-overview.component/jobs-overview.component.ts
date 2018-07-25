@@ -27,7 +27,7 @@ export class JobsOverviewComponent implements OnInit, OnDestroy {
     jobs: Job[];
     public jobs$: Observable<Job[]>;
     context: string;
-    statusFilter: { success: boolean, running: boolean, failed: boolean };
+    // statusFilter: { success: boolean, running: boolean, failed: boolean };
     // private activatedRouteSub: any;
     // private contextStoreSub;
     public contexts: Context[];
@@ -47,7 +47,7 @@ export class JobsOverviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.setFilterOptions();
+        // this.setFilterOptions();
         // this.timeUpdaterLink = this.jobStore.updateTime();
 
         // this.activatedRouteSub = this.activatedRoute.params
@@ -111,28 +111,28 @@ export class JobsOverviewComponent implements OnInit, OnDestroy {
         this.store.dispatch(new fromJobsActions.Delete(job.jobId));
     }
 
-    toggleStatusFilter(option) {
-        this.statusFilter[option] = !this.statusFilter[option];
-        this.setFilterOptionsToLocalStorage();
-    }
+    // toggleStatusFilter(option) {
+    //     this.statusFilter[option] = !this.statusFilter[option];
+    //     this.setFilterOptionsToLocalStorage();
+    // }
 
     selectContext(event, context) {
         event.preventDefault();
         this.context = context;
     }
 
-    private setFilterOptions() {
-        const options = JSON.parse(localStorage.getItem('jobsStatusFilter'));
-        if (options) {
-            this.statusFilter = options;
-        } else {
-            this.statusFilter = { success: true, running: true, failed: true };
-            this.setFilterOptionsToLocalStorage()
-        }
-    }
+    // private setFilterOptions() {
+    //     const options = JSON.parse(localStorage.getItem('jobsStatusFilter'));
+    //     if (options) {
+    //         this.statusFilter = options;
+    //     } else {
+    //         this.statusFilter = { success: true, running: true, failed: true };
+    //         this.setFilterOptionsToLocalStorage()
+    //     }
+    // }
 
-    private setFilterOptionsToLocalStorage() {
-        localStorage.setItem('jobsStatusFilter', JSON.stringify(this.statusFilter));
-    }
+    // private setFilterOptionsToLocalStorage() {
+    //     localStorage.setItem('jobsStatusFilter', JSON.stringify(this.statusFilter));
+    // }
 
 }

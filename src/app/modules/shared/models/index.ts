@@ -5,3 +5,4 @@ export * from '@app/modules/shared/models/job';
 export * from '@app/modules/shared/models/loader.model';
 export * from '@app/modules/shared/models/workers';
 export * from '@app/modules/shared/models/job-logs';
+export * from '@app/modules/shared/models/filter';
