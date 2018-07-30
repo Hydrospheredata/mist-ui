@@ -11,8 +11,13 @@ const initialState: State = {
 export function reducer(state = initialState, action: JobsRunningActions): State {
     switch (action.type) {
         case JobsRunningActionTypes.GetRunningSuccess: {
-            console.log({ running: action.payload, ...state })
             return { running: action.payload, ...state };
+        }
+        case JobsRunningActionTypes.AddRunning: {
+            return { ...state, running: state.running + 1 }
+        }
+        case JobsRunningActionTypes.DeleteRunning: {
+            return { ...state, running: state.running - 1 }
         }
 
         default: {

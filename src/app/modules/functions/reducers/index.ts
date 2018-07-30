@@ -33,3 +33,8 @@ export const getSelectedFunction = createSelector(
     fromRoot.getRouterState,
     (entities, router): Function => router.state && entities[router.state.params.functionId]
 );
+
+export const getFirstFunctionFromList = createSelector(
+    getAllFunctions,
+    (functions): Function => functions.length ? functions[0] : null
+);

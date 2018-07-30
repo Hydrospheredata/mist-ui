@@ -18,6 +18,7 @@ export class PaginationComponent implements OnInit {
     public current: number = 0;
     public current$: Observable<number>;
     private subscription: Subscription;
+    private base: number = 5;
 
     constructor(
         private store$: Store<MistState>
@@ -27,7 +28,7 @@ export class PaginationComponent implements OnInit {
                 this.store$.select(fromJobs.getJobsTotal)
             )
         ).subscribe(([jobs, total]) => {
-            if (jobs.length >= 25 && total > 25) {
+            if (jobs.length >= this.base && total > this.base) {
                 const pagesNumber = Math.ceil(total / jobs.length);
                 this.pages = Array(pagesNumber).map((x, i) => i);
             }
@@ -44,16 +45,16 @@ export class PaginationComponent implements OnInit {
 
     public onPrev() {
         this.current--;
-        this.store$.dispatch(new Backward({ offset: -25, current: this.current }));
+        this.store$.dispatch(new Backward({ offset: -this.base, current: this.current }));
     }
 
     public onNext() {
         this.current++;
-        this.store$.dispatch(new Forward({ offset: 25, current: this.current }));
+        this.store$.dispatch(new Forward({ offset: this.base, current: this.current }));
     }
 
     public goTo(pageNumber: number) {
         this.current = pageNumber;
-        this.store$.dispatch(new GoTo({ offset: pageNumber * 25, current: this.current }));
+        this.store$.dispatch(new GoTo({ offset: pageNumber * this.base, current: this.current }));
     }
 }

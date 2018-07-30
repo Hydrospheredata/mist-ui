@@ -18,7 +18,7 @@
                     <span class="sidebar-list__item-name">All Jobs</span>
                 </div>
                 <div>
-                    <!-- <span class='function-list__badge' *ngIf="runningJobs.length" [mdl-badge]="runningJobs.length"></span> -->
+                    <span class='function-list__badge' *ngIf="runningJobs$ | async" [mdl-badge]="runningJobs$ | async"></span>
                 </div>
             </li>
             <li *ngFor="let item of functions$ | async | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]"

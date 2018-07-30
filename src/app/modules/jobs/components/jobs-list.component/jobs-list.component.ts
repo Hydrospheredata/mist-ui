@@ -23,6 +23,7 @@ export class JobsListComponent implements OnInit, OnDestroy {
     private jobStoreSub;
     public activeFunction: string;
     public functions$: Observable<Function[]>;
+    public runningJobs$: Observable<number>;
 
 
     constructor(
@@ -31,7 +32,7 @@ export class JobsListComponent implements OnInit, OnDestroy {
         private store: Store<MistState>
     ) {
         this.functions$ = this.store.select(fromFunctions.getAllFunctions);
-        // this.store.select()
+        this.runningJobs$ = this.store.select(fromJobs.getJobsRunning);
     }
 
     ngOnInit() {

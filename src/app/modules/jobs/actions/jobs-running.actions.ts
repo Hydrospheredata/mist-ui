@@ -5,9 +5,11 @@ import { Action } from '@ngrx/store';
  * enum object for all of this group's action types.
  */
 export enum JobsRunningActionTypes {
-    GetRunning = '[Job] Get list of all running jobs',
-    GetRunningSuccess = '[Job] Get list of all running jobs with success',
-    GetRunningFail = '[Job] Get list of all running jobs with fail',
+    GetRunning = '[Job running] Get list of all running jobs',
+    GetRunningSuccess = '[Job running] Get list of all running jobs with success',
+    GetRunningFail = '[Job running] Get list of all running jobs with fail',
+    AddRunning = '[Job running] Add running job',
+    DeleteRunning = '[Job running] Delete running job',
 };
 
 export class GetRunning implements Action {
@@ -22,7 +24,17 @@ export class GetRunningFail implements Action {
     constructor(public error: any) { }
 }
 
+export class AddRunning implements Action {
+    readonly type = JobsRunningActionTypes.AddRunning
+}
+
+export class DeleteRunning implements Action {
+    readonly type = JobsRunningActionTypes.DeleteRunning
+}
+
 export type JobsRunningActions
     = GetRunning
     | GetRunningSuccess
-    | GetRunningFail;
+    | GetRunningFail
+    | AddRunning
+    | DeleteRunning;

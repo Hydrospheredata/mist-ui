@@ -97,8 +97,10 @@ export class JobsEffects {
                     if (message.workerId) {
                         this.store.dispatch(new fromWorkerActions.Get);
                     }
+                    this.checkRunningJobs(message);
                     return of(new JobsActions.UpdateSuccess(this.transformMessageToJob(message)));
                 }
+                this.checkRunningJobs(message);
                 this.store.dispatch(new JobsActions.Increment);
                 return of(new JobsActions.AddSuccess(this.transformMessageToJob(message)));
             })
@@ -123,6 +125,15 @@ export class JobsEffects {
         job.jobId = message.id;
         job.status = message.event;
         return JSON.parse(JSON.stringify(job));
+    }
+
+    private checkRunningJobs(message) {
+        if (message.event === 'initialized') {
+            this.store.dispatch(new JobsActions.AddRunning);
+        }
+        if (message.event === 'finished') {
+            this.store.dispatch(new JobsActions.DeleteRunning);
+        }
     }
 
     constructor(

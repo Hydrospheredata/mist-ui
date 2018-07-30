@@ -163,6 +163,7 @@ export class DialogJobFormComponent implements OnInit {
         const jobId = fn.name;
         this.context = fn.defaultContext;
         this.requestBody = `curl -X POST -d '${fn.executeExample() || '{}'}' '${this.apiUrl}/functions/${jobId}/jobs'`;
+        console.log(this.requestBody);
         this.jobForm.patchValue({
             function: fn,
             executeParams: fn.executeExample()

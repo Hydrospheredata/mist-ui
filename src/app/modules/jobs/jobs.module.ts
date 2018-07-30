@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from '@app/modules/jobs/reducers';
-import { JobsEffects, JobLogsEffects } from '@app/modules/jobs/effects';
+import { JobsEffects, JobLogsEffects, JobsRunningEffects } from '@app/modules/jobs/effects';
 import { HttpJobService, WebSocketJobService, HttpLogsService, WebSocketLogsService } from '@app/modules/jobs/services';
 import { JobsGuard } from '@app/modules/jobs/guards';
 
@@ -27,7 +27,7 @@ import { JobsGuard } from '@app/modules/jobs/guards';
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forFeature('jobs', reducers),
-        EffectsModule.forFeature([JobsEffects, JobLogsEffects])
+        EffectsModule.forFeature([JobsEffects, JobsRunningEffects, JobLogsEffects])
     ],
     exports: [],
     providers: [HttpJobService, WebSocketJobService, HttpLogsService, WebSocketLogsService, JobsGuard],
