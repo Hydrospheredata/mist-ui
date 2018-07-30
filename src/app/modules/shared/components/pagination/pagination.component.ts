@@ -28,6 +28,7 @@ export class PaginationComponent implements OnInit {
                 this.store$.select(fromJobs.getJobsTotal)
             )
         ).subscribe(([jobs, total]) => {
+            this.pages = [];
             if (jobs.length >= this.base && total > this.base) {
                 const pagesNumber = Math.ceil(total / jobs.length);
                 this.pages = Array(pagesNumber).map((x, i) => i);
