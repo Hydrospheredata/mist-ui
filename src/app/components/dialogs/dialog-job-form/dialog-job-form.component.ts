@@ -162,8 +162,7 @@ export class DialogJobFormComponent implements OnInit {
         const fn = this.function ? this.function : this.functions[0];
         const jobId = fn.name;
         this.context = fn.defaultContext;
-        this.requestBody = `curl -X POST -d '${fn.executeExample() || '{}'}' '${this.apiUrl}/functions/${jobId}/jobs'`;
-        console.log(this.requestBody);
+        this.requestBody = `curl -X POST -d '${JSON.stringify(JSON.parse(fn.executeExample())) || '{}'}' '${this.apiUrl}/functions/${jobId}/jobs'`;
         this.jobForm.patchValue({
             function: fn,
             executeParams: fn.executeExample()

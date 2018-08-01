@@ -77,9 +77,10 @@
                                 'font-color--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
                                 'font-color--failed': ['failed', 'canceled'].includes(job.status)
                             }"> {{ job.status }} </span>
-                            <!-- <span>
-                                {{ job.isRunning() ? (job.runningTime() | agoDate) : (job.endTime | agoDate) }}
-                            </span> -->
+                            <span>
+                                {{['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status) ? ((job.startTime
+                                || job.createTime) | agoDate) : (job.endTime | agoDate)}}
+                            </span>
                         </div>
                     </td>
                     <td class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
