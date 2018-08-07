@@ -44,7 +44,6 @@ export class WorkersEffects {
                 this.store$.select(fromWorkers.getCurrentWorkerId)
             ),
             switchMap(([action, workerId]) => {
-                console.log(workerId);
                 return this.workersService.getJobs(workerId)
                     .pipe(
                         map((jobs: Job[]) => new workersActions.GetJobsForWorkerSuccess(jobs)),

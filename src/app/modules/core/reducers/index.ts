@@ -5,6 +5,7 @@ import { environment } from '@environments/environment';
 import { RouterStateSerializer } from '@ngrx/router-store';
 import * as fromContext from './context.reducer';
 import * as fromPagination from './pagination.reducer';
+import * as fromFilter from './filter.reducer';
 
 export interface RouterStateUrl {
     url: string;
@@ -31,12 +32,14 @@ export interface MistState {
     router: fromRouter.RouterReducerState<RouterStateUrl>,
     context: fromContext.State,
     pagination: fromPagination.State,
+    filter: fromFilter.State,
 }
 
 export const reducers: ActionReducerMap<MistState> = {
     router: fromRouter.routerReducer,
     context: fromContext.reducer,
     pagination: fromPagination.reducer,
+    filter: fromFilter.reducer,
 }
 
 export const defaultRouterState = {
@@ -62,6 +65,8 @@ export const getContextState = createFeatureSelector<fromContext.State>('context
 
 export const getPaginationState = createFeatureSelector<fromPagination.State>('pagination');
 
+export const getFilterState = createFeatureSelector<fromFilter.State>('filter');
+
 export const getPaginationCurrent = createSelector(getPaginationState, state => state.current);
 
 export const getContextEntitiesState = createSelector(getContextState, state => state);
@@ -71,3 +76,8 @@ export const {
     selectAll: getAllContexts,
     selectTotal: getTotalContexts,
 } = fromContext.adapter.getSelectors(getContextEntitiesState);
+
+export const getFilterOptions = createSelector(
+    getFilterState,
+    state => state
+)

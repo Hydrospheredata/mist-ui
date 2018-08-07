@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Filter } from '@app/modules/shared/models';
+import { Store } from '@ngrx/store';
+import { MistState } from '@app/modules/core/reducers';
+import { SetFilter, GetFilter } from '@core/actions';
+import { getFilterOptions } from '@core/reducers';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'mist-filter',
@@ -8,29 +13,18 @@ import { Filter } from '@app/modules/shared/models';
 })
 export class FilterComponent implements OnInit {
     public statusFilter: Filter;
+    public filterOptions$: Observable<Filter>;
 
-    constructor() { }
-
-    ngOnInit(): void {
-        this.setFilterOptions();
+    constructor(
+        private store$: Store<MistState>,
+    ) {
+        this.store$.dispatch(new GetFilter());
+        this.filterOptions$ = this.store$.select(getFilterOptions);
     }
+
+    ngOnInit() { }
 
     public toggleStatusFilter(option) {
-        this.statusFilter[option] = !this.statusFilter[option];
-        this.setFilterOptionsToLocalStorage();
-    }
-
-    private setFilterOptions() {
-        const options = JSON.parse(localStorage.getItem('jobsStatusFilter'));
-        if (options) {
-            this.statusFilter = options;
-        } else {
-            this.statusFilter = { success: true, running: true, failed: true };
-            this.setFilterOptionsToLocalStorage()
-        }
-    }
-
-    private setFilterOptionsToLocalStorage() {
-        localStorage.setItem('jobsStatusFilter', JSON.stringify(this.statusFilter));
+        this.store$.dispatch(new SetFilter(option));
     }
 }

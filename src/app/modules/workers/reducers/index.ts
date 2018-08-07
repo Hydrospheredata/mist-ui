@@ -50,10 +50,7 @@ export const getCurrentWorker = createSelector(
 
 export const getCurrentWorkerId = createSelector(
     getCurrentWorker,
-    (worker: Worker): string => {
-        console.log(worker);
-        return worker && worker.name
-    }
+    (worker: Worker): string => worker && worker.name
 )
 
 export const getJobCurrentWorker = createSelector(
