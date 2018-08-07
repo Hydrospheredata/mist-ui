@@ -76,7 +76,7 @@ export class JobsEffects {
                                 message: `Job ${job.id} initialisation was successful`,
                                 timeout: 5000
                             });
-                            this.router.navigate(['/jobs', params.functionId, job.id])
+                            // this.router.navigate(['/jobs', params.functionId, job.id])
                             return new JobsActions.GetById(job.id);
                         }),
                         catchError(error => of(new JobsActions.AddFail(error)))
@@ -93,7 +93,7 @@ export class JobsEffects {
             ),
             switchMap(([message, entities]) => {
                 console.log(message);
-                if (entities[message.id]) {
+                if (entities[message.id] && message.event !== 'logs') {
                     if (message.workerId) {
                         this.store.dispatch(new fromWorkerActions.Get);
                     }
@@ -124,8 +124,28 @@ export class JobsEffects {
         let job = new Job(message);
         job.jobId = message.id;
         job.status = message.event;
-        return JSON.parse(JSON.stringify(job));
+        if (message.event === 'finished') {
+            job.endTime = message.time;
+        }
+        if (message.event === 'initialized') {
+            job.createTime = message.time;
+        }
+        if (message.event === 'started') {
+            job.startTime = message.time;
+        }
+        if (message.result) {
+            job.jobResult = message.result;
+        }
+        return this.removeEmpty(job);
     }
+
+    private removeEmpty(obj) {
+        Object.keys(obj).forEach((key) => {
+            if (obj[key] && typeof obj[key] === 'object') this.removeEmpty(obj[key])
+            else if (obj[key] == null) delete obj[key]
+        });
+        return obj;
+    };
 
     private checkRunningJobs(message) {
         if (message.event === 'initialized') {

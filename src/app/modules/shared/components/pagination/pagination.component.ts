@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
 import * as fromJobs from '@jobs/reducers';
-import { withLatestFrom } from 'rxjs/operators';
+import { withLatestFrom, tap, map } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
 import { Forward, Backward, GoTo } from '@core/actions';
 import * as fromRoot from '@core/reducers';
@@ -19,6 +19,7 @@ export class PaginationComponent implements OnInit {
     public current$: Observable<number>;
     private subscription: Subscription;
     private base: number = 5;
+    private pagesNumber: number;
 
     constructor(
         private store$: Store<MistState>
@@ -28,17 +29,18 @@ export class PaginationComponent implements OnInit {
                 this.store$.select(fromJobs.getJobsTotal)
             )
         ).subscribe(([jobs, total]) => {
-            this.pages = [];
-            if (jobs.length >= this.base && total > this.base) {
-                const pagesNumber = Math.ceil(total / jobs.length);
+            if (total > this.base) {
+                const pagesNumber = Math.ceil(total / this.base);
                 this.pages = Array(pagesNumber).map((x, i) => i);
             }
         });
 
-        this.current$ = this.store$.select(fromRoot.getPaginationCurrent)
+        // this.store$.select(fromRoot.getPaginationCurrent).subscribe(x => console.log(x));
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        // this.pages = [];
+    }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();

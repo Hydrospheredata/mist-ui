@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { Job } from '@app/modules/shared/models';
 
 export enum WorkersActionTypes {
     Get = '[Workers] Get list of all workers',
@@ -7,6 +8,9 @@ export enum WorkersActionTypes {
     Delete = '[Workers] Delete worker',
     DeleteSuccess = '[Workers] Delete worker with success',
     DeleteFail = '[Workers] Delete worker with fail',
+    GetJobsForWorker = '[Worker jobs] Get all jobs for current worker',
+    GetJobsForWorkerSuccess = '[Worker jobs] Get all jobs for current worker with success',
+    GetJobsForWorkerFail = '[Worker jobs] Get all jobs for current worker with fail',
 };
 
 export class Get implements Action {
@@ -41,10 +45,29 @@ export class DeleteFail implements Action {
     constructor(public error) { }
 }
 
+export class GetJobsForWorker implements Action {
+    readonly type = WorkersActionTypes.GetJobsForWorker;
+}
+
+export class GetJobsForWorkerSuccess implements Action {
+    readonly type = WorkersActionTypes.GetJobsForWorkerSuccess;
+
+    constructor(public jobs: Job[]) { }
+}
+
+export class GetJobsForWorkerFail implements Action {
+    readonly type = WorkersActionTypes.GetJobsForWorkerFail;
+
+    constructor(public error) { }
+}
+
 export type WorkersActions
     = Get
     | GetSuccess
     | GetFail
     | Delete
     | DeleteSuccess
-    | DeleteFail;
+    | DeleteFail
+    | GetJobsForWorker
+    | GetJobsForWorkerSuccess
+    | GetJobsForWorkerFail;

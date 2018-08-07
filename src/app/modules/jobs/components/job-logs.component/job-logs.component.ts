@@ -43,6 +43,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     ) {
         this.logs = [];
         this.store.dispatch(new fromJobLogsActions.GetLogs);
+        // this.store.dispatch(new fromRoot.WsLogsConnect);
         this.logs$ = this.store.select(fromJobLogs.getJobLogs);
     }
 
@@ -130,7 +131,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        // this.store.dispatch(new fromRoot.)
+        this.store.dispatch(new fromRoot.WsLogsDisconnect);
 
         // this.webSocketLogsService.disconnect();
         // if (this.webSocketLogsServiceSub) {

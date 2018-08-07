@@ -23,10 +23,10 @@ import { Observable } from 'rxjs/Observable';
     providers: []
 })
 export class JobsOverviewComponent implements OnInit, OnDestroy {
-    functionInfo: Function;
-    jobs: Job[];
+    // functionInfo: Function;
+    // jobs: Job[];
     public jobs$: Observable<Job[]>;
-    context: string;
+    // context: string;
     // statusFilter: { success: boolean, running: boolean, failed: boolean };
     // private activatedRouteSub: any;
     // private contextStoreSub;
@@ -44,6 +44,7 @@ export class JobsOverviewComponent implements OnInit, OnDestroy {
         // private contextStore: ContextStore,
     ) {
         this.jobs$ = this.store.select(fromJobs.getJobs);
+        // this.store.select(fromJobs.getJobs).subscribe(x => console.log(x));
     }
 
     ngOnInit() {
@@ -105,7 +106,7 @@ export class JobsOverviewComponent implements OnInit, OnDestroy {
         });
     }
 
-    killJob(event, job: Job) {
+    public killJob(event, job: Job) {
         event.preventDefault();
         event.stopPropagation();
         this.store.dispatch(new fromJobsActions.Delete(job.jobId));
@@ -116,10 +117,10 @@ export class JobsOverviewComponent implements OnInit, OnDestroy {
     //     this.setFilterOptionsToLocalStorage();
     // }
 
-    selectContext(event, context) {
-        event.preventDefault();
-        this.context = context;
-    }
+    // selectContext(event, context) {
+    //     event.preventDefault();
+    //     this.context = context;
+    // }
 
     // private setFilterOptions() {
     //     const options = JSON.parse(localStorage.getItem('jobsStatusFilter'));

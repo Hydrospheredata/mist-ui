@@ -29,6 +29,7 @@ export function reducer(state = initialState, action: JobActions): State {
             return adapter.addOne(action.payload, state);
         }
         case JobActionTypes.UpdateSuccess: {
+            console.log(action);
             return adapter.updateOne({
                 id: action.payload.jobId,
                 changes: action.payload

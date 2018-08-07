@@ -29,12 +29,21 @@ export class WebsocketEffects {
     @Effect() wsLogsConnect$: Observable<Action> = this.actions$
         .ofType(WSActions.WebsocketActionTypes.WsLogsConnect)
         .pipe(
-            switchMap((job) => {
-                console.log(job);
-                return this.wsLogsService.connect(job)
+            withLatestFrom(
+                this.store.select(fromJobsSelectors.getSelectedJobId)
+            ),
+            switchMap(([action, jobId]) => {
+                console.log(jobId);
+                return this.wsLogsService.connect(jobId)
                     .pipe(
-                        filter((message: any) => message.event !== 'keep-alive'),
-                        map(message => new fromJobs.Update(message)),
+                        filter((message: any) => {
+                            console.log(message);
+                            return message.event !== 'keep-alive'
+                        }),
+                        map(message => {
+                            console.log(message);
+                            return new fromJobs.Update(message)
+                        }),
                         catchError(() => of(new WSActions.WsConnect))
                     )
             })

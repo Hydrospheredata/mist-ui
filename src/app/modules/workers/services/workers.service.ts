@@ -23,6 +23,11 @@ export class HttpWorkersService {
             .map((res: Response) => res.json())
     }
 
+    public getJobs(id): Observable<any> {
+        return this.http.get(`${this.baseUrl}/${id}/jobs`)
+            .map((res: Response) => res.json())
+    }
+
     public delete(workerName: string) {
         return this.http.delete(`${this.baseUrl}/${workerName}`);
     }

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 import { HttpWorkersService } from '@app/modules/workers/services';
-import { Worker } from '@app/modules/shared/models';
+import { Worker, Job } from '@app/modules/shared/models';
 import * as workersActions from '@app/modules/workers/actions';
+import * as fromWorkers from '@app/modules/workers/reducers';
 import { of } from 'rxjs/observable/of';
+import { MistState } from '@app/modules/core/reducers';
 
 @Injectable()
 export class WorkersEffects {
@@ -35,8 +37,25 @@ export class WorkersEffects {
             })
         );
 
+    @Effect() getWorkerJobs$: Observable<Action> = this.actions$
+        .ofType(workersActions.WorkersActionTypes.GetJobsForWorker)
+        .pipe(
+            withLatestFrom(
+                this.store$.select(fromWorkers.getCurrentWorkerId)
+            ),
+            switchMap(([action, workerId]) => {
+                console.log(workerId);
+                return this.workersService.getJobs(workerId)
+                    .pipe(
+                        map((jobs: Job[]) => new workersActions.GetJobsForWorkerSuccess(jobs)),
+                        catchError(error => of(new workersActions.GetJobsForWorkerFail(error)))
+                    )
+            })
+        )
+
     constructor(
         private actions$: Actions,
-        private workersService: HttpWorkersService
+        private workersService: HttpWorkersService,
+        private store$: Store<MistState>
     ) { }
 }

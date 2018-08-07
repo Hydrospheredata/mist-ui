@@ -32,6 +32,7 @@ export class WebsocketService {
     protected create(url: string = '', withLogs: boolean = false): Subject<MessageEvent> {
         let wsUrl = url ? url : this.baseUrl;
         wsUrl = `${wsUrl}?withLogs=${withLogs}`;
+        console.log(wsUrl);
         this.subject = Observable.webSocket(wsUrl);
 
         return this.subject;

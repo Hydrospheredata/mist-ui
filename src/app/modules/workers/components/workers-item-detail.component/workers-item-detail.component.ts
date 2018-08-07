@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
-import { Observable } from '../../../../../../node_modules/rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 // import { WorkersStore } from '@app/modules/core/stores/workers.store';
 import { Worker, Job } from '@app/modules/shared/models';
 import * as fromWorkers from '@app/modules/workers/reducers';
+import * as fromWorkersActions from '@app/modules/workers/actions';
 import * as fromJobs from '@app/modules/jobs/reducers';
 
 
@@ -37,8 +38,9 @@ export class WorkersItemDetailComponent implements OnInit {
         // private workersStore: WorkersStore
         private store: Store<MistState>
     ) {
+        this.store.dispatch(new fromWorkersActions.GetJobsForWorker);
         this.worker$ = this.store.select(fromWorkers.getCurrentWorker);
-        this.jobs$ = this.store.select(fromJobs.getCurrentWorkerJobs);
+        this.jobs$ = this.store.select(fromWorkers.getAllWorkerJobs);
     }
 
     ngOnInit() {

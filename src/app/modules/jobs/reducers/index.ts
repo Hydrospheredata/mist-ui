@@ -83,7 +83,10 @@ export const getSelectedJob = createSelector(
 
 export const getParamsOfCurrentJob = createSelector(
     getSelectedJob,
-    job => job && job.params.arguments
+    job => {
+        console.log(job);
+        return job && job.params.arguments
+    }
 );
 
 export const getJobWorkerId = createSelector(
