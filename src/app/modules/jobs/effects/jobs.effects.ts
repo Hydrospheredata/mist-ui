@@ -5,14 +5,15 @@ import { Actions, Effect } from '@ngrx/effects';
 import { JobActionTypes } from '@app/modules/jobs/actions';
 import { HttpJobService } from '@app/modules/jobs/services';
 import { Job } from '@app/modules/shared/models';
-import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
+import { switchMap, map, catchError, withLatestFrom, concatMap } from 'rxjs/operators';
 import * as JobsActions from '@app/modules/jobs/actions';
 import { of } from 'rxjs/observable/of';
 import { MdlSnackbarService } from '@angular-mdl/core';
-import { MistState } from '@app/modules/core/reducers';
+import { MistState, getFilterOptions, getRouterParams } from '@app/modules/core/reducers';
 import * as fromJobs from '@app/modules/jobs/reducers';
 import { Router } from '@angular/router';
 import * as fromWorkerActions from '@workers/actions';
+import { HttpFunctionService } from '@app/modules/functions/services';
 
 @Injectable()
 export class JobsEffects {
@@ -33,9 +34,36 @@ export class JobsEffects {
         .ofType(JobActionTypes.Get)
         .pipe(
             map((action: JobsActions.Get) => action.options),
-            switchMap((options?) => {
+            withLatestFrom(
+                this.store.select(getFilterOptions)
+            ),
+            switchMap(([options, filterOptions]) => {
+                console.log({ pagination: options, filter: filterOptions });
+                return this.jobService.get({ pagination: options, filter: filterOptions })
+                    .pipe(
+                        map((data) => new JobsActions.GetSuccess(data)),
+                        catchError(error => of(new JobsActions.GetFail(error)))
+                    )
+            })
+        )
+
+    @Effect() getJobsByFunction$: Observable<Action> = this.actions$
+        .ofType(JobActionTypes.GetByFunction)
+        .pipe(
+            map((action: JobsActions.GetByFunction) => action.options),
+            withLatestFrom(
+                this.store.select(getFilterOptions),
+            ),
+            switchMap(([options, filterOptions]) => {
                 console.log(options);
-                return this.jobService.get(options)
+                if (options.functionId === 'overview') {
+                    return this.jobService.get({ pagination: options.pagination, filter: filterOptions })
+                        .pipe(
+                            map((data) => new JobsActions.GetSuccess(data)),
+                            catchError(error => of(new JobsActions.GetFail(error)))
+                        )
+                }
+                return this.jobService.getByFunctionId({ params: options.functionId, pagination: options.pagination, filter: filterOptions })
                     .pipe(
                         map((data) => new JobsActions.GetSuccess(data)),
                         catchError(error => of(new JobsActions.GetFail(error)))
@@ -154,6 +182,12 @@ export class JobsEffects {
         if (message.event === 'finished') {
             this.store.dispatch(new JobsActions.DeleteRunning);
         }
+        if (message.event === 'failed') {
+            this.store.dispatch(new JobsActions.DeleteRunning);
+        }
+        if (message.event === 'canceled') {
+            this.store.dispatch(new JobsActions.DeleteRunning);
+        }
     }
 
     constructor(
@@ -161,6 +195,6 @@ export class JobsEffects {
         private jobService: HttpJobService,
         private mdlSnackbarService: MdlSnackbarService,
         private store: Store<MistState>,
-        private router: Router
+        private router: Router,
     ) { }
 }

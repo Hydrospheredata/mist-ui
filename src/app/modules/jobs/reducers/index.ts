@@ -1,4 +1,4 @@
-import * as fromRoot from '@app/modules/core/reducers';
+import { MistState, getRouterState } from '@app/modules/core/reducers';
 import * as fromJobs from '@app/modules/jobs/reducers/jobs.reducer';
 import * as fromJobsRunning from '@jobs/reducers/jobs-running.reducer';
 import * as fromJobLogs from '@app/modules/jobs/reducers/job-logs.reducer';
@@ -12,7 +12,7 @@ export interface JobsState {
     jobsRunning: fromJobsRunning.State
 }
 
-export interface State extends fromRoot.MistState {
+export interface State extends MistState {
     jobs: JobsState
 }
 
@@ -59,7 +59,7 @@ export const {
 
 export const getJobs = createSelector(
     getAllJobs,
-    fromRoot.getRouterState,
+    getRouterState,
     (jobs, router) => router.state && jobs.filter(job => {
         // ToDo: Fix that
         if (router.state.params.functionId === 'overview') {
@@ -71,13 +71,13 @@ export const getJobs = createSelector(
 )
 
 export const getSelectedJobId = createSelector(
-    fromRoot.getRouterState,
+    getRouterState,
     (router): string => router.state && router.state.params.jobId
 );
 
 export const getSelectedJob = createSelector(
     getJobEntities,
-    fromRoot.getRouterState,
+    getRouterState,
     (entities, router): Job => router.state && entities[router.state.params.jobId]
 );
 
@@ -91,7 +91,7 @@ export const getParamsOfCurrentJob = createSelector(
 
 export const getJobWorkerId = createSelector(
     getJobEntities,
-    fromRoot.getRouterState,
+    getRouterState,
     (entities, router): string => router.state && entities[router.state.params.jobId] && entities[router.state.params.jobId].workerId
 );
 
@@ -103,7 +103,7 @@ export const getJobWorker = createSelector(
 
 export const getCurrentWorkerJobs = createSelector(
     getJobEntities,
-    fromRoot.getRouterState,
+    getRouterState,
     (entities, router) => router.state && entities[router.state.params.workerId]
 );
 

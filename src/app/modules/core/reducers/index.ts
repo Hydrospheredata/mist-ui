@@ -6,6 +6,7 @@ import { RouterStateSerializer } from '@ngrx/router-store';
 import * as fromContext from './context.reducer';
 import * as fromPagination from './pagination.reducer';
 import * as fromFilter from './filter.reducer';
+import { getJobsTotal } from '@jobs/reducers';
 
 export interface RouterStateUrl {
     url: string;
@@ -80,4 +81,9 @@ export const {
 export const getFilterOptions = createSelector(
     getFilterState,
     state => state
+)
+
+export const getRouterParams = createSelector(
+    getRouterState,
+    router => router.state && router.state.params
 )

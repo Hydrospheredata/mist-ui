@@ -8,6 +8,11 @@ import { HttpService } from '@app/modules/core/services';
 
 @Injectable()
 export class HttpJobService {
+    private statuses = {
+        success: ['finished'],
+        running: ['initialized', 'queued', 'started'],
+        failed: ['failed']
+    }
     private baseUrl = {
         jobs: '/jobs',
         functions: '/functions'
@@ -18,9 +23,16 @@ export class HttpJobService {
 
     public get(options?: any): Observable<{ jobs: Job[], total: number }> {
         let url = `${this.baseUrl.jobs}?paginate=true`;
-        if (options) {
-            url += `&offset=${options.offset}`
+        if (options.pagination) {
+            url += `&offset=${options.pagination.offset}`
         }
+
+        Object.keys(this.removeFalsy(options.filter)).map(option => {
+            this.statuses[option].forEach(status => {
+                url += `&status=${status}`
+            });
+        });
+
         return this.http.get(url)
             .map((res: Response) => this.extractJobs(res))
             .catch(this.handleError);
@@ -47,9 +59,18 @@ export class HttpJobService {
             .catch(this.handleError);
     }
 
-    public getByFunctionId(id: string): Observable<Job[]> {
-        const apiUrl = this.baseUrl.functions + `/${id}/jobs`;
-        return this.http.get(apiUrl)
+    public getByFunctionId(options?: any): Observable<{ jobs: Job[], total: number }> {
+        let url = this.baseUrl.functions + `/${options.params}/jobs?paginate=true`;
+        if (options.pagination) {
+            url += `&offset=${options.pagination.offset}`
+        }
+
+        Object.keys(this.removeFalsy(options.filter)).map(option => {
+            this.statuses[option].forEach(status => {
+                url += `&status=${status}`
+            });
+        });
+        return this.http.get(url)
             .map((res: Response) => { return this.extractJobs(res) })
             .catch(this.handleError);
     }
@@ -83,6 +104,14 @@ export class HttpJobService {
         });
         return params.join('&');
     }
+
+    private removeFalsy(obj) {
+        let newObj = {};
+        Object.keys(obj).forEach((prop) => {
+            if (obj[prop]) { newObj[prop] = obj[prop]; }
+        });
+        return newObj;
+    };
 
     private extractJobs(res: Response) {
         const data = res.json();

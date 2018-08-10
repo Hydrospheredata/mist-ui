@@ -1,6 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { JobStore } from '@app/modules/core/stores/_index';
 import { Job, Function } from '@app/modules/shared/models';
 import { MistState } from '@app/modules/core/reducers';
 import { Store } from '@ngrx/store';
@@ -19,59 +17,21 @@ export class JobsListComponent implements OnInit, OnDestroy {
     functions: Function[];
     runningJobs: Job[];
     searchQ: string;
-    private functionStoreSub;
-    private jobStoreSub;
     public activeFunction: string;
     public functions$: Observable<Function[]>;
     public runningJobs$: Observable<number>;
 
 
     constructor(
-        // private jobStore: JobStore,
-        // private router: Router,
-        private store: Store<MistState>
+        private store$: Store<MistState>,
     ) {
-        this.functions$ = this.store.select(fromFunctions.getAllFunctions);
-        this.runningJobs$ = this.store.select(fromJobs.getJobsRunning);
+        this.functions$ = this.store$.select(fromFunctions.getAllFunctions);
+        this.runningJobs$ = this.store$.select(fromJobs.getJobsRunning);
     }
 
-    ngOnInit() {
-        // this.jobStore.getAllRunning();
-        // this.jobStoreSub = this.jobStore.runningJobs
-        //     .subscribe(jobs => {
-        //         this.runningJobs = jobs;
-        //     });
-        // this.loadInitialData();
-        // this.router.events
-        //     .subscribe((params) => {
-        //         if (params && params['url']) {
-        //             this.activeFunction = params['url'].split(/\//);
-        //             this.activeFunction = this.activeFunction[this.activeFunction.length - 1];
-        //         }
-        //     });
-    }
+    ngOnInit() { }
 
-    ngOnDestroy() {
-        if (this.functionStoreSub) {
-            this.functionStoreSub.unsubscribe();
-        }
-        if (this.jobStoreSub) {
-            this.jobStoreSub.unsubscribe();
-        }
-    }
-
-    loadInitialData() {
-        // this.functionStore.getAll();
-        // this.functionStoreSub = this.functionStore.functions
-        //     .subscribe(data => {
-        //         this.functions = data;
-        //     });
-        // this.jobStore.getAllRunning();
-        // this.jobStoreSub = this.jobStore.runningJobs
-        //     .subscribe(jobs => {
-        //         this.runningJobs = jobs;
-        //     });
-    }
+    ngOnDestroy() { }
 
     runningJobsCountBy(functionId: string): Number {
         let result = this.runningJobs.filter(job => job.functionId === functionId);

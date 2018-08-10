@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
 import * as fromJobs from '@jobs/reducers';
-import { withLatestFrom, tap, map } from 'rxjs/operators';
+import { withLatestFrom, map } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
 import { Forward, Backward, GoTo } from '@core/actions';
 import * as fromRoot from '@core/reducers';
@@ -14,37 +14,29 @@ import * as fromRoot from '@core/reducers';
 })
 export class PaginationComponent implements OnInit {
     public total: number;
-    public pages: number[];
+    public pages$: Observable<number[]>;
     public current: number = 0;
-    public current$: Observable<number>;
-    private subscription: Subscription;
     private base: number = 5;
-    private pagesNumber: number;
 
     constructor(
         private store$: Store<MistState>
     ) {
-        this.subscription = this.store$.select(fromJobs.getJobs).pipe(
+        this.pages$ = this.store$.select(fromJobs.getJobsTotal).pipe(
             withLatestFrom(
-                this.store$.select(fromJobs.getJobsTotal)
-            )
-        ).subscribe(([jobs, total]) => {
-            if (total > this.base) {
-                const pagesNumber = Math.ceil(total / this.base);
-                this.pages = Array(pagesNumber).map((x, i) => i);
-            }
-        });
-
-        // this.store$.select(fromRoot.getPaginationCurrent).subscribe(x => console.log(x));
+                this.store$.select(fromJobs.getJobs)
+            ),
+            map(([total, jobs]) => {
+                if (total > this.base) {
+                    const pagesNumber = Math.ceil(total / this.base);
+                    return Array(pagesNumber).map((x, i) => i);
+                }
+            })
+        )
     }
 
-    ngOnInit() {
-        // this.pages = [];
-    }
+    ngOnInit() { }
 
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
-    }
+    ngOnDestroy() { }
 
     public onPrev() {
         this.current--;

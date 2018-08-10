@@ -7,6 +7,7 @@ import { map, tap, switchMap } from 'rxjs/operators';
 import { MistState } from '@app/modules/core/reducers';
 
 import * as fromFilterActions from '@core/actions';
+import * as fromJobsActions from '@jobs/actions';
 import { Filter } from '@app/modules/shared/models';
 
 @Injectable()
@@ -35,6 +36,7 @@ export class FilterEffects {
                 const updatedFilterOptions = { ...filterOptions, [option]: !filterOptions[option] };
                 this.setFilterOptionsToLocalStorage(updatedFilterOptions);
                 this.store$.dispatch(new fromFilterActions.SetFilterSuccess(updatedFilterOptions));
+                this.store$.dispatch(new fromJobsActions.Get())
             })
         );
 
