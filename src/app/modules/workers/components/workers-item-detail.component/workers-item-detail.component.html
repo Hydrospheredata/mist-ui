@@ -58,41 +58,42 @@
         <div class='mist-page-header'>
             <div class="h3">Jobs</div>
         </div>
-        <div *ngIf="!(worker$ | async).jobs?.length">There are no jobs yet</div>
-        <table *ngIf="(worker$ | async).jobs?.length" class='mdl-data-table mdl-js-data-table workers-table mdl-shadow--2dp cs-width-100'>
+        <div *ngIf="!(jobs$ | async)?.length">There are no jobs yet</div>
+        <table *ngIf="(jobs$ | async)?.length" class='mdl-data-table mdl-js-data-table workers-table mdl-shadow--2dp cs-width-100'>
             <thead>
                 <tr>
-                    <th></th>
                     <th>Id</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let job of (jobs$ | async)" class='jobs-table__tr cs-cursor-pointer' [routerLink]="['/jobs', job.functionId, job.jobId]">
-                    <td>
-                        <i class='material-icons status-icon cs-mr-8' [ngClass]="{'status-icon--failed': job.isFailed(),
-                                            'status-icon--success': job.isFinished(),
-                                            'status-icon--primary': job.isRunning()}">
-                        </i>
+                <tr *ngFor="let job of jobs$ | async | sortBy:'createTime'; let i=index" class='jobs-table__tr' [routerLink]="['/jobs', job.functionId, job.jobId]">
+                    <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': ['failed', 'canceled'].includes(job.status)}">
+                        <div class="cs-text-overflow-ellipsis">
+                            <i class='material-icons status-icon cs-mr-8' [ngClass]="{
+                                                'status-icon--success': ['finished'].includes(job.status),
+                                                'status-icon--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
+                                                'status-icon--failed': ['failed', 'canceled'].includes(job.status)
+                                            }">
+                            </i>
+                            {{ job.jobId | jobIdCut }}
+                        </div>
                     </td>
-                    <td [title]="job.jobId" class=''>{{job.jobId}}</td>
-                    <td [title]="job.status" class=''>
+                    <td class='jobs-table__td jobs-table__td--status cs-text-overflow-ellipsis'>
                         <div *ngIf="job.status" [title]="job.status" class="cs-text-overflow-ellipsis">
                             <span class='mist-label'>Status</span>
-                            <span class='job-status' [ngClass]="{'font-color--success': job.isFinished(),
-                                                    'font-color--primary': job.isRunning(),
-                                                    'font-color--failed': job.isFailed()}">
-                                {{ job.status }}
-                            </span>
+                            <span class='job-status' [ngClass]="{
+                                                'font-color--success': ['finished'].includes(job.status),
+                                                'font-color--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
+                                                'font-color--failed': ['failed', 'canceled'].includes(job.status)
+                                            }"> {{ job.status }} </span>
                             <span>
-                                {{ job.isRunning() ? (job.runningTime() | agoDate) : (job.endTime | agoDate) }}
+                                {{['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status) ? ((job.startTime
+                                || job.createTime) | agoDate) : (job.endTime | agoDate)}}
                             </span>
                         </div>
                     </td>
                 </tr>
-                <!-- <ng-template ngFor let-job [ngForOf]="(worker$ | async).jobs">
-                    
-                </ng-template> -->
             </tbody>
         </table>
     </div>

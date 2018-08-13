@@ -8,6 +8,7 @@ import { Worker, Job } from '@app/modules/shared/models';
 import * as fromWorkers from '@app/modules/workers/reducers';
 import * as fromWorkersActions from '@app/modules/workers/actions';
 import * as fromJobs from '@app/modules/jobs/reducers';
+import { tap } from '../../../../../../node_modules/rxjs/operators';
 
 
 @Component({
@@ -39,7 +40,9 @@ export class WorkersItemDetailComponent implements OnInit {
         private store: Store<MistState>
     ) {
         this.worker$ = this.store.select(fromWorkers.getCurrentWorker);
-        this.jobs$ = this.store.select(fromWorkers.getAllWorkerJobs);
+        this.jobs$ = this.store.select(fromJobs.getAllJobs).pipe(
+            tap(jobs => console.log(jobs))
+        );
     }
 
     ngOnInit() {

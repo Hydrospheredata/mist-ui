@@ -9,6 +9,7 @@ import * as workersActions from '@app/modules/workers/actions';
 import * as fromWorkers from '@app/modules/workers/reducers';
 import { of } from 'rxjs/observable/of';
 import { MistState } from '@app/modules/core/reducers';
+import * as JobsActions from '@app/modules/jobs/actions';
 
 @Injectable()
 export class WorkersEffects {
@@ -40,14 +41,13 @@ export class WorkersEffects {
     @Effect() getWorkerJobs$: Observable<Action> = this.actions$
         .ofType(workersActions.WorkersActionTypes.GetJobsForWorker)
         .pipe(
-            withLatestFrom(
-                this.store$.select(fromWorkers.getCurrentWorkerId)
-            ),
-            switchMap(([action, workerId]) => {
-                return this.workersService.getJobs(workerId)
+            map((action: workersActions.GetJobsForWorker) => action.workerId),
+            switchMap((workerId) => {
+                console.log(workerId)
+                return this.workersService.getJobs({ workerId: workerId })
                     .pipe(
-                        map((jobs: Job[]) => new workersActions.GetJobsForWorkerSuccess(jobs)),
-                        catchError(error => of(new workersActions.GetJobsForWorkerFail(error)))
+                        map((jobs) => new JobsActions.GetSuccess(jobs)),
+                        catchError(error => of(new JobsActions.GetFail(error)))
                     )
             })
         )
