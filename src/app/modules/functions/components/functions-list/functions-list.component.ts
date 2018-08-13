@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
 import * as fromFunctions from '@app/modules/functions/reducers';
 import { Observable } from 'rxjs/Observable';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'mist-functions-list',
@@ -18,9 +20,18 @@ export class FunctionsListComponent {
 
 
     constructor(public dialog: MdlDialogService,
-        private store: Store<MistState>
+        private store: Store<MistState>,
+        private router: Router
     ) {
-        this.functions$ = this.store.select(fromFunctions.getAllFunctions);
+        this.functions$ = this.store.select(fromFunctions.getAllFunctions).pipe(
+            tap(functions => {
+                if (functions.length > 0) {
+                    this.router.navigate([`/functions/${functions[0].name}`]);
+                } else {
+                    this.router.navigate([`/`]);
+                }
+            })
+        );
     }
 
     public openDialogFunctionForm(functionInfo = null) {

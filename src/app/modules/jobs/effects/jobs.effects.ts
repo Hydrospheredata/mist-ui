@@ -55,7 +55,6 @@ export class JobsEffects {
                 this.store.select(getFilterOptions),
             ),
             switchMap(([options, filterOptions]) => {
-                console.log(options);
                 if (options.functionId === 'overview') {
                     return this.jobService.get({ pagination: options.pagination, filter: filterOptions })
                         .pipe(

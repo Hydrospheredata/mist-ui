@@ -23,8 +23,8 @@ export class HttpWorkersService {
             .map((res: Response) => res.json())
     }
 
-    public getJobs(id): Observable<any> {
-        return this.http.get(`${this.baseUrl}/${id}/jobs`)
+    public getJobs(params): Observable<any> {
+        return this.http.get(`${this.baseUrl}/${params.workerId}/jobs?paginate=true`)
             .map((res: Response) => res.json())
     }
 

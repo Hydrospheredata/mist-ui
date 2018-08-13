@@ -115,7 +115,6 @@ export class HttpJobService {
 
     private extractJobs(res: Response) {
         const data = res.json();
-        console.log(data);
         const jobs: Job[] = [];
         if (data.jobs) {
             for (let index in data.jobs) {

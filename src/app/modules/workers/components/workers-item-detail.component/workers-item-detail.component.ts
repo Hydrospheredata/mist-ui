@@ -34,30 +34,23 @@ export class WorkersItemDetailComponent implements OnInit {
     }
 
     constructor(
-        // private activatedRoute: ActivatedRoute,
+        private activatedRoute: ActivatedRoute,
         // private workersStore: WorkersStore
         private store: Store<MistState>
     ) {
-        this.store.dispatch(new fromWorkersActions.GetJobsForWorker);
         this.worker$ = this.store.select(fromWorkers.getCurrentWorker);
         this.jobs$ = this.store.select(fromWorkers.getAllWorkerJobs);
     }
 
     ngOnInit() {
-        // this.activatedRouteSub = this.activatedRoute.params
-        //   .subscribe((params) => {
-        //     this.loadInitialData(params['workerId']);
-        //     this.pageId = params['workerId'];
-        //   });
+        this.activatedRoute.params
+            .map(params => params['workerId'])
+            .subscribe(id => {
+                this.loadInitialData(id);
+            });
     }
 
-    // loadInitialData(workerId: string) {
-    //   if (workerId !== 'overview') {
-    //     this.workersStore.get(workerId)
-    //       .subscribe((worker) => {
-    //         console.log(worker);
-    //         this.worker = worker;
-    //       });
-    //   }
-    // }
+    loadInitialData(workerId: string) {
+        this.store.dispatch(new fromWorkersActions.GetJobsForWorker(workerId));
+    }
 }

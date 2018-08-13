@@ -5,6 +5,8 @@ import { MistState } from '@app/modules/core/reducers';
 import { Observable } from 'rxjs/Observable';
 import * as fromWorkers from '@app/modules/workers/reducers';
 import * as fromWorkersActions from '@app/modules/workers/actions';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'mist-workers-list',
@@ -16,9 +18,18 @@ export class WorkersListComponent {
     public workers$: Observable<Worker[]>;
 
     constructor(
-        private store: Store<MistState>
+        private store: Store<MistState>,
+        private router: Router
     ) {
-        this.workers$ = this.store.select(fromWorkers.getAllWorkers);
+        this.workers$ = this.store.select(fromWorkers.getAllWorkers).pipe(
+            tap(workers => {
+                if (workers.length > 0) {
+                    this.router.navigate([`/workers/${workers[0].name}`]);
+                } else {
+                    this.router.navigate([`/`]);
+                }
+            })
+        );
     }
 
     public deleteWorker(worker: Worker) {

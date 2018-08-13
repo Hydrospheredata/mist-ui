@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
 import * as fromFunctions from '@app/modules/functions/reducers';
+import { switchMap } from 'rxjs/operators';
+import { Function } from '@shared/models';
 
 @Injectable()
 export class FunctionsGuard implements CanActivate {
@@ -17,16 +19,6 @@ export class FunctionsGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
-        // this.store.select(fromFunctions.getFirstFunctionFromList)
-        //     .take(1)
-        //     .subscribe(functionInfo => {
-        //         console.log(functionInfo);
-        //         if (functionInfo) {
-        //             this.router.navigate([`/functions/${functionInfo.name}`]);
-        //         } else {
-        //             this.router.navigate([`/`]);
-        //         }
-        //     })
         return true;
     }
 
