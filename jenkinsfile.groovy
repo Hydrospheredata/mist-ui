@@ -68,7 +68,7 @@ def uploadRelease(gitCredentialId, organization, repository, releaseVersion, rel
 node("JenkinsOnDemand") {
     def repository = 'mist-ui'
     def organization = 'Hydrospheredata'
-    def gitCredentialId = 'HydrospheredataGithubAccessKey'
+    def gitCredentialId = 'HydroRobot_AccessToken'
 
 
     stage('Checkout') {
