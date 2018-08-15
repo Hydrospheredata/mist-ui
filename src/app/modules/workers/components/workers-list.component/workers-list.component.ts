@@ -7,6 +7,8 @@ import * as fromWorkers from '@app/modules/workers/reducers';
 import * as fromWorkersActions from '@app/modules/workers/actions';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MdlDialogService } from '@angular-mdl/core';
+import { DialogDeleteConfirmationComponent, injectableWorker } from '@app/components/dialogs/_index';
 
 @Component({
     selector: 'mist-workers-list',
@@ -19,7 +21,8 @@ export class WorkersListComponent {
 
     constructor(
         private store: Store<MistState>,
-        private router: Router
+        private router: Router,
+        private dialog: MdlDialogService,
     ) {
         this.workers$ = this.store.select(fromWorkers.getAllWorkers).pipe(
             tap(workers => {
@@ -33,6 +36,15 @@ export class WorkersListComponent {
     }
 
     public deleteWorker(worker: Worker) {
-        this.store.dispatch(new fromWorkersActions.Delete(worker.name));
+        // this.store.dispatch(new fromWorkersActions.Delete(worker.name));
+        this.dialog.showCustomDialog({
+            component: DialogDeleteConfirmationComponent,
+            styles: { 'max-width': '900px', 'width': '850px' },
+            isModal: true,
+            clickOutsideToClose: true,
+            enterTransitionDuration: 400,
+            leaveTransitionDuration: 400,
+            providers: [{ provide: injectableWorker, useValue: worker }],
+        });
     }
 }

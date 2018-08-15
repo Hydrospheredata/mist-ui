@@ -9,7 +9,8 @@ import {
     DialogFullScreenJsonComponent,
     DialogFunctionFormComponent,
     DialogAddContextComponent,
-    DialogCloneJobFormComponent
+    DialogCloneJobFormComponent,
+    DialogDeleteConfirmationComponent
 } from '@app/components/dialogs/_index';
 
 import { WorkersModule } from '@app/modules/workers/workers.module';
@@ -29,6 +30,7 @@ import { FunctionsModule } from '@app/modules/functions/functions.module';
         DialogFullScreenJsonComponent,
         DialogJobLogsComponent,
         DialogCloneJobFormComponent,
+        DialogDeleteConfirmationComponent,
     ],
     imports: [
         AppRoutingModule,
@@ -45,7 +47,8 @@ import { FunctionsModule } from '@app/modules/functions/functions.module';
         DialogFunctionFormComponent,
         DialogAddContextComponent,
         DialogJobLogsComponent,
-        DialogCloneJobFormComponent
+        DialogCloneJobFormComponent,
+        DialogDeleteConfirmationComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

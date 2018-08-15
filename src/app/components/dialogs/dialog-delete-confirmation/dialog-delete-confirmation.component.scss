@@ -1,0 +1,47 @@
+@import "variables.scss";
+
+.job-form {
+  &__main {
+    margin-bottom: 2rem;
+  }
+  &__select {
+    width: 280px;
+    display: inline-block;
+  }
+
+  &__input {
+    border: 2px solid $border-color;
+    position: relative;
+    > .job-details__full-screen-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1000;
+      cursor: pointer;
+    }
+  }
+
+  &__version {
+    display: inline-block;
+    margin: 32px 32px 0px 0px;
+    line-height: 40px;
+    font-size: 18px;
+  }
+
+  &__context.context {
+    float: right;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    margin: 32px 0px 0px 0px;
+  }
+
+  &__header {
+    margin-bottom: 40px;
+  }
+
+  .mist-label {
+    font-size: 18px;
+  }
+}
+
