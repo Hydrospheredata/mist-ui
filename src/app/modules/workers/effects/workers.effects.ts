@@ -41,10 +41,9 @@ export class WorkersEffects {
     @Effect() getWorkerJobs$: Observable<Action> = this.actions$
         .ofType(workersActions.WorkersActionTypes.GetJobsForWorker)
         .pipe(
-            map((action: workersActions.GetJobsForWorker) => action.workerId),
-            switchMap((workerId) => {
-                console.log(workerId)
-                return this.workersService.getJobs({ workerId: workerId })
+            map((action: workersActions.GetJobsForWorker) => action.options),
+            switchMap(options => {
+                return this.workersService.getJobs({ workerId: options.workerId, pagination: options.pagination })
                     .pipe(
                         map((jobs) => new JobsActions.GetSuccess(jobs)),
                         catchError(error => of(new JobsActions.GetFail(error)))

@@ -17,13 +17,8 @@ import { tap } from '../../../../../../node_modules/rxjs/operators';
     styleUrls: ['./workers-item-detail.component.scss']
 })
 export class WorkersItemDetailComponent implements OnInit {
-    // private activatedRouteSub: any;
-    public worker;
-    // public codeMirrorOptions: object;
-    public pageId: string;
     public worker$: Observable<Worker>;
     public jobs$: Observable<any>;
-
     public codeMirrorOptions = {
         matchBrackets: true,
         autoCloseBrackets: true,
@@ -36,7 +31,6 @@ export class WorkersItemDetailComponent implements OnInit {
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        // private workersStore: WorkersStore
         private store: Store<MistState>
     ) {
         this.worker$ = this.store.select(fromWorkers.getCurrentWorker);
@@ -54,6 +48,6 @@ export class WorkersItemDetailComponent implements OnInit {
     }
 
     loadInitialData(workerId: string) {
-        this.store.dispatch(new fromWorkersActions.GetJobsForWorker(workerId));
+        this.store.dispatch(new fromWorkersActions.GetJobsForWorker({ workerId: workerId }));
     }
 }

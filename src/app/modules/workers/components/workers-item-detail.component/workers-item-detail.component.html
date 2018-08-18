@@ -34,13 +34,15 @@
                     <li class="content-info__list-item">
                         <span class="content-info__list-item-title">Address</span>
                         <span class="content-info__list-item-value">
-                            <a class="cs-inline-block cs-mb-8" title="Address: {{(worker$ | async).address}}" href="{{(worker$ | async).address}}">{{(worker$ | async).address}}</a>
+                            <a class="cs-inline-block cs-mb-8" title="Address: {{(worker$ | async).address}}" href="{{(worker$ | async).address}}">{{(worker$
+                                | async).address}}</a>
                         </span>
                     </li>
                     <li class="content-info__list-item">
                         <span class="content-info__list-item-title">Spark UI</span>
                         <span class="content-info__list-item-value">
-                            <a title=">Spark UI: {{(worker$ | async).sparkUi}}" href="{{(worker$ | async).sparkUi}}">{{(worker$ | async).sparkUi}}</a>
+                            <a title=">Spark UI: {{(worker$ | async).sparkUi}}" href="{{(worker$ | async).sparkUi}}">{{(worker$
+                                | async).sparkUi}}</a>
                         </span>
                     </li>
                 </ul>
@@ -59,42 +61,57 @@
             <div class="h3">Jobs</div>
         </div>
         <div *ngIf="!(jobs$ | async)?.length">There are no jobs yet</div>
-        <table *ngIf="(jobs$ | async)?.length" class='mdl-data-table mdl-js-data-table workers-table mdl-shadow--2dp cs-width-100'>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
+        <table *ngIf="(jobs$ | async)?.length" class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp' style="width: 100%;">
             <tbody>
                 <tr *ngFor="let job of jobs$ | async | sortBy:'createTime'; let i=index" class='jobs-table__tr' [routerLink]="['/jobs', job.functionId, job.jobId]">
                     <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': ['failed', 'canceled'].includes(job.status)}">
                         <div class="cs-text-overflow-ellipsis">
                             <i class='material-icons status-icon cs-mr-8' [ngClass]="{
-                                                'status-icon--success': ['finished'].includes(job.status),
-                                                'status-icon--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
-                                                'status-icon--failed': ['failed', 'canceled'].includes(job.status)
-                                            }">
+                                        'status-icon--success': ['finished'].includes(job.status),
+                                        'status-icon--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
+                                        'status-icon--failed': ['failed', 'canceled'].includes(job.status)
+                                    }">
                             </i>
                             {{ job.jobId | jobIdCut }}
+                        </div>
+                    </td>
+                    <td [title]="'function = ' + job.functionId" class='jobs-table__td jobs-table__td--function'>
+                        <div class='function cs-block'>
+                            <div class="cs-text-overflow-ellipsis cs-text-center">
+                                <span>{{ job.functionId }}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td [title]="'context = ' + job.context" class='jobs-table__td jobs-table__td--context'>
+                        <div class='context cs-block'>
+                            <div class="cs-text-overflow-ellipsis cs-text-center">
+                                <span class='context__value'>{{ job.context }}</span>
+                            </div>
                         </div>
                     </td>
                     <td class='jobs-table__td jobs-table__td--status cs-text-overflow-ellipsis'>
                         <div *ngIf="job.status" [title]="job.status" class="cs-text-overflow-ellipsis">
                             <span class='mist-label'>Status</span>
                             <span class='job-status' [ngClass]="{
-                                                'font-color--success': ['finished'].includes(job.status),
-                                                'font-color--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
-                                                'font-color--failed': ['failed', 'canceled'].includes(job.status)
-                                            }"> {{ job.status }} </span>
+                                        'font-color--success': ['finished'].includes(job.status),
+                                        'font-color--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
+                                        'font-color--failed': ['failed', 'canceled'].includes(job.status)
+                                    }"> {{ job.status }} </span>
                             <span>
                                 {{['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status) ? ((job.startTime
                                 || job.createTime) | agoDate) : (job.endTime | agoDate)}}
                             </span>
                         </div>
                     </td>
+                    <td class='jobs-table__td jobs-table__td--actions cs-text-overflow-ellipsis'>
+                        <a title="KILL" href='#' class='mist-link cs-pt-10 cs-pb-10' (click)="killJob($event, job)" *ngIf="['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status)">
+                            <i class='material-icons'>delete_forever</i>
+                            <span>KILL</span>
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <mist-pagination></mist-pagination>
     </div>
 </div>

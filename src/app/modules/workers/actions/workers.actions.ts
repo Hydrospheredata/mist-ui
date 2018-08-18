@@ -47,7 +47,7 @@ export class DeleteFail implements Action {
 
 export class GetJobsForWorker implements Action {
     readonly type = WorkersActionTypes.GetJobsForWorker;
-    constructor(public workerId: string) { };
+    constructor(public options?: any) { };
 }
 
 export class GetJobsForWorkerSuccess implements Action {
