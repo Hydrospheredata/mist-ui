@@ -17,6 +17,10 @@ export function reducer(state = initialState, action: PaginationActions): State 
             return { ...state, current: action.options.current };
         }
 
+        case PaginationActionTypes.SetCurrent: {
+            return { ...state, current: action.current }
+        }
+
         default: {
             return state;
         }

@@ -15,8 +15,8 @@ import * as fromRoot from '@core/reducers';
 export class PaginationComponent implements OnInit {
     public total: number;
     public pages$: Observable<number[]>;
-    public current: number = 0;
-    private base: number = 25;
+    public current: number;
+    private base: number = 5;
 
     constructor(
         private store$: Store<MistState>
@@ -32,6 +32,7 @@ export class PaginationComponent implements OnInit {
                 }
             })
         )
+        this.store$.select(fromRoot.getPaginationCurrent).subscribe(current => this.current = current);
     }
 
     ngOnInit() { }
@@ -39,17 +40,14 @@ export class PaginationComponent implements OnInit {
     ngOnDestroy() { }
 
     public onPrev() {
-        this.current--;
-        this.store$.dispatch(new Backward({ offset: -this.base, current: this.current }));
+        this.store$.dispatch(new Backward({ offset: -this.base, current: this.current-- }));
     }
 
     public onNext() {
-        this.current++;
-        this.store$.dispatch(new Forward({ offset: this.base, current: this.current }));
+        this.store$.dispatch(new Forward({ offset: this.base, current: this.current++ }));
     }
 
     public goTo(pageNumber: number) {
-        this.current = pageNumber;
-        this.store$.dispatch(new GoTo({ offset: pageNumber * this.base, current: this.current }));
+        this.store$.dispatch(new GoTo({ offset: pageNumber * this.base, current: pageNumber }));
     }
 }

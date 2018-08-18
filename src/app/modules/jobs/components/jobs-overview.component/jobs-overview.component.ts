@@ -8,6 +8,7 @@ import { MistState } from '@app/modules/core/reducers';
 import * as fromJobs from '@app/modules/jobs/reducers';
 import * as fromJobsActions from '@app/modules/jobs/actions';
 import { Observable } from 'rxjs/Observable';
+import { GoTo, SetCurrent } from '@app/modules/core/actions';
 
 
 @Component({
@@ -42,7 +43,8 @@ export class JobsOverviewComponent implements OnInit, OnDestroy {
     }
 
     public getJobsByFunction(functionId) {
-        this.store$.dispatch(new fromJobsActions.GetByFunction({ functionId: functionId }));
+        this.store$.dispatch(new SetCurrent(0));
+        this.store$.dispatch(new fromJobsActions.GetByFunction({ functionId: functionId, pagination: { offset: 0, current: 0 } }));
     }
 
     public openDialogJobForm() {
