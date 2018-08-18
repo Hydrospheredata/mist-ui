@@ -61,7 +61,7 @@
             <div class="h3">Jobs</div>
         </div>
         <div *ngIf="!(jobs$ | async)?.length">There are no jobs yet</div>
-        <table *ngIf="(jobs$ | async)?.length" class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp' style="width: 100%;">
+        <table *ngIf="(jobs$ | async)?.length" class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp' style="width: 100%; margin-bottom: 16px;">
             <tbody>
                 <tr *ngFor="let job of jobs$ | async | sortBy:'createTime'; let i=index" class='jobs-table__tr' [routerLink]="['/jobs', job.functionId, job.jobId]">
                     <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': ['failed', 'canceled'].includes(job.status)}">

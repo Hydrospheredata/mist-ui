@@ -9,6 +9,7 @@ import * as fromWorkers from '@app/modules/workers/reducers';
 import * as fromWorkersActions from '@app/modules/workers/actions';
 import * as fromJobs from '@app/modules/jobs/reducers';
 import { tap } from '../../../../../../node_modules/rxjs/operators';
+import { SetCurrent } from '@app/modules/core/actions';
 
 
 @Component({
@@ -31,10 +32,10 @@ export class WorkersItemDetailComponent implements OnInit {
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        private store: Store<MistState>
+        private store$: Store<MistState>
     ) {
-        this.worker$ = this.store.select(fromWorkers.getCurrentWorker);
-        this.jobs$ = this.store.select(fromJobs.getAllJobs).pipe(
+        this.worker$ = this.store$.select(fromWorkers.getCurrentWorker);
+        this.jobs$ = this.store$.select(fromJobs.getAllJobs).pipe(
             tap(jobs => console.log(jobs))
         );
     }
@@ -48,6 +49,7 @@ export class WorkersItemDetailComponent implements OnInit {
     }
 
     loadInitialData(workerId: string) {
-        this.store.dispatch(new fromWorkersActions.GetJobsForWorker({ workerId: workerId }));
+        this.store$.dispatch(new SetCurrent(0));
+        this.store$.dispatch(new fromWorkersActions.GetJobsForWorker({ workerId: workerId, pagination: { offset: 0, current: 0 } }));
     }
 }
