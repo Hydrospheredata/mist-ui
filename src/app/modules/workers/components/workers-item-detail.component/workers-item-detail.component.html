@@ -1,4 +1,4 @@
-<div *ngIf="(worker$ | async) && pageId != 'overview'">
+<div *ngIf="(worker$ | async) as worker">
     <div class="mist-page-container">
         <div class='mist-page-header'>
             <!-- <div class='mist-page-header__row'>
@@ -7,56 +7,54 @@
                     Back to Workers
                 </a>
             </div> -->
-            <div class="h3">Worker {{(worker$ | async).name}}</div>
+            <div class="h3">Worker {{worker.name}}</div>
             <hr>
         </div>
 
-        <div *ngIf="(worker$ | async)?.initInfo">
+        <div *ngIf="worker?.initInfo">
             <div class="content-info">
                 <ul class="content-info__list">
                     <li class="content-info__list-item">
                         <span class="content-info__list-item-title">Down time</span>
-                        <span class="content-info__list-item-value">{{(worker$ | async).initInfo.downtime}}</span>
+                        <span class="content-info__list-item-value">{{worker.initInfo.downtime}}</span>
                     </li>
                     <li class="content-info__list-item">
                         <span class="content-info__list-item-title">Log service</span>
-                        <span class="content-info__list-item-value">{{ (worker$ | async).initInfo.logService }}</span>
+                        <span class="content-info__list-item-value">{{ worker.initInfo.logService }}</span>
                     </li>
                     <li class="content-info__list-item">
                         <span class="content-info__list-item-title">Max jobs</span>
-                        <span class="content-info__list-item-value">{{ (worker$ | async).initInfo.maxJobs }}</span>
+                        <span class="content-info__list-item-value">{{ worker.initInfo.maxJobs }}</span>
                     </li>
                     <li class="content-info__list-item">
                         <span class="content-info__list-item-title">Streaming Duration</span>
-                        <span class="content-info__list-item-value">{{(worker$ | async).initInfo.streamingDuration}}</span>
+                        <span class="content-info__list-item-value">{{worker.initInfo.streamingDuration}}</span>
                     </li>
 
                     <li class="content-info__list-item">
                         <span class="content-info__list-item-title">Address</span>
                         <span class="content-info__list-item-value">
-                            <a class="cs-inline-block cs-mb-8" title="Address: {{(worker$ | async).address}}" href="{{(worker$ | async).address}}">{{(worker$
-                                | async).address}}</a>
+                            <a class="cs-inline-block cs-mb-8" title="Address: {{worker.address}}" href="{{worker.address}}">{{worker.address}}</a>
                         </span>
                     </li>
                     <li class="content-info__list-item">
                         <span class="content-info__list-item-title">Spark UI</span>
                         <span class="content-info__list-item-value">
-                            <a title=">Spark UI: {{(worker$ | async).sparkUi}}" href="{{(worker$ | async).sparkUi}}">{{(worker$
-                                | async).sparkUi}}</a>
+                            <a title=">Spark UI: {{worker.sparkUi}}" href="{{worker.sparkUi}}">{{(worker$ | async).sparkUi}}</a>
                         </span>
                     </li>
                 </ul>
                 <div class="content-info__panel">
                     <span class="mist-label">Spark Conf</span>
                     <div class="job-details__container">
-                        <codemirror [ngModel]="(worker$ | async).initInfo.sparkConf | json" [config]="codeMirrorOptions"></codemirror>
+                        <codemirror [ngModel]="worker.initInfo.sparkConf | json" [config]="codeMirrorOptions"></codemirror>
                     </div>
                 </div>
             </div>
             <hr class="cs-mb-16">
         </div>
 
-        <div *ngIf="!(worker$ | async).initInfo">There is no worker's initial info</div>
+        <div *ngIf="!worker.initInfo">There is no worker's initial info</div>
         <div class='mist-page-header'>
             <div class="h3">Jobs</div>
         </div>
