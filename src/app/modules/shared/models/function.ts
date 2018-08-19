@@ -30,6 +30,9 @@ export class Function implements IFunction {
     executeExample() {
         let execute = JSON.parse(this.execute);
         let generatedObject: object = {};
+        if (this.isEmpty(execute)) {
+            return '{}';
+        }
         for (let key in execute) {
             if (execute.hasOwnProperty(key)) {
                 let newObj: object = {};
@@ -38,10 +41,14 @@ export class Function implements IFunction {
             }
         }
         if (Object.keys(generatedObject).length === 0) {
-            return '';
+            return '{}';
         } else {
             return JSON.stringify(generatedObject, null, '\t');
         }
+    }
+
+    private isEmpty(obj) {
+        return Object.keys(obj).length === 0;
     }
 
     private make(paramType) {
