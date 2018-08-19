@@ -29,7 +29,7 @@ export class WorkersListComponent {
                 if (workers.length > 0) {
                     this.router.navigate([`/workers/${workers[0].name}`]);
                 } else {
-                    this.router.navigate([`/`]);
+                    this.router.navigate([`/workers`]);
                 }
             })
         );

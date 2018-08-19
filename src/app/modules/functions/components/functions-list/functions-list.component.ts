@@ -28,7 +28,7 @@ export class FunctionsListComponent {
                 if (functions.length > 0) {
                     this.router.navigate([`/functions/${functions[0].name}`]);
                 } else {
-                    this.router.navigate([`/`]);
+                    this.router.navigate([`/functions`]);
                 }
             })
         );
