@@ -11,11 +11,6 @@ const initialState: State = {
 
 export function reducer(state = initialState, action: PaginationActions): State {
     switch (action.type) {
-        case PaginationActionTypes.Forward:
-        case PaginationActionTypes.Backward:
-        case PaginationActionTypes.GoTo: {
-            return { ...state, current: action.options.current };
-        }
 
         case PaginationActionTypes.SetCurrent: {
             return { ...state, current: action.current }

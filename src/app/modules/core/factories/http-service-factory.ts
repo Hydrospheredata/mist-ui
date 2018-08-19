@@ -1,5 +1,4 @@
 import { XHRBackend } from '@angular/http';
-import { Location } from '@angular/common';
 import { MistRequestOptions, HttpService, LoaderService } from '@app/modules/core/services/_index';
 
 

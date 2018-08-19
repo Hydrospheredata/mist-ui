@@ -10,19 +10,13 @@ import {
 import { MdlModule } from '@angular-mdl/core';
 import { RouterModule } from '@angular/router';
 import {
-    // HttpFunctionService,
     HttpJobService,
-    // HttpArtifactsService,
-    // WebSocketJobService,
     HttpContextsService,
     LoaderService,
-    // HttpWorkersService,
     StatusService,
-    // HttpLogsService,
     HttpService,
     WebsocketService
 } from '@app/modules/core/services/_index';
-// import { JobStore, FunctionStore, WorkersStore, ContextStore } from '@core/stores/_index';
 import { httpServiceFactory } from '@app/modules/core/factories';
 import { XHRBackend, RequestOptions, HttpModule } from '@angular/http';
 import { SharedModule } from '@app/modules/shared/shared.module';
@@ -58,19 +52,10 @@ const Components = [
     ],
     providers: [
         WebsocketService,
-        // HttpFunctionService,
         HttpJobService,
-        // HttpArtifactsService,
-        // WebSocketJobService,
-        // JobStore,
-        // FunctionStore,
-        // WorkersStore,
         HttpContextsService,
-        // ContextStore,
         LoaderService,
-        // HttpWorkersService,
         StatusService,
-        // HttpLogsService,
         {
             provide: HttpService,
             useFactory: httpServiceFactory,

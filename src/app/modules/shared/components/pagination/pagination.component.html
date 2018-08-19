@@ -5,7 +5,8 @@
             />
         </svg>
     </button>
-    <button class="mist-pagination__btn" *ngFor="let item of pages$ | async; let i=index" (click)="goTo(i)" [ngClass]="{'active': current === i}">
+    <button class="mist-pagination__btn" *ngFor="let item of pages$ | async; let i=index" (click)="goTo(i)" [ngClass]="{'active': current === i}"
+        [disabled]="current === i">
         {{i + 1}}
     </button>
     <button class="mist-pagination__btn __nav" (click)="onNext()" [disabled]="current === (pages$ | async).length - 1">

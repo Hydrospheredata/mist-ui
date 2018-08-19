@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
 import * as fromJobs from '@jobs/reducers';
-import { withLatestFrom, map } from 'rxjs/operators';
+import { withLatestFrom, map, tap } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
-import { Forward, Backward, GoTo } from '@core/actions';
+import { Forward, Backward, GoTo, SetCurrent } from '@core/actions';
 import * as fromRoot from '@core/reducers';
 
 @Component({
@@ -16,6 +16,7 @@ export class PaginationComponent implements OnInit {
     public total: number;
     public pages$: Observable<number[]>;
     public current: number;
+    public current$: Observable<number>;
     private base: number = 5;
 
     constructor(
@@ -32,7 +33,11 @@ export class PaginationComponent implements OnInit {
                 }
             })
         )
-        this.store$.select(fromRoot.getPaginationCurrent).subscribe(current => this.current = current);
+        this.store$.select(fromRoot.getPaginationCurrent)
+            .subscribe(x => {
+                console.log(x);
+                this.current = x;
+            });
     }
 
     ngOnInit() { }
@@ -40,14 +45,18 @@ export class PaginationComponent implements OnInit {
     ngOnDestroy() { }
 
     public onPrev() {
-        this.store$.dispatch(new Backward({ offset: -this.base, current: this.current-- }));
+        console.log(this.current);
+        this.store$.dispatch(new Backward({ offset: -this.base }));
+        this.store$.dispatch(new SetCurrent(this.current - 1));
     }
 
     public onNext() {
-        this.store$.dispatch(new Forward({ offset: this.base, current: this.current++ }));
+        this.store$.dispatch(new Forward({ offset: this.base }));
+        this.store$.dispatch(new SetCurrent(this.current + 1));
     }
 
     public goTo(pageNumber: number) {
-        this.store$.dispatch(new GoTo({ offset: pageNumber * this.base, current: pageNumber }));
+        this.store$.dispatch(new GoTo({ offset: pageNumber * this.base }));
+        this.store$.dispatch(new SetCurrent(pageNumber));
     }
 }
