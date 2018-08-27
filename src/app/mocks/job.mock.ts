@@ -1,4 +1,4 @@
-import {Job} from '@models/job';
+import { Job } from '@app/modules/shared/models';
 
 export const mockJob: Job = new Job({
   jobId: 'jobId',

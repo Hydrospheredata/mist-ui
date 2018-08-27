@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogAddContextComponent } from './dialog-add-context.component';
+import { DialogAddContextComponent } from '@app/components/dialogs/dialog-add-context/dialog-add-context.component';
 
 describe('DialogAddContextComponent', () => {
   let component: DialogAddContextComponent;

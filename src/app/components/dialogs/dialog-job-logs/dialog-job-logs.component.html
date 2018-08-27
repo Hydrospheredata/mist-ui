@@ -7,7 +7,7 @@
     <mdl-icon class="job-logs__navigation-btn" (click)="scrollTo('bottom')" [ngClass]="{'disable': isBottom}">keyboard_arrow_down</mdl-icon>
   </div>
   <div class="job-logs--container" id="logs" (scroll)="onScroll($event)">
-    <div class="log" *ngFor="let log of logs">
+    <div class="log" *ngFor="let log of (logs$ | async)">
       <span *ngIf="log.type" class="log-type" [ngClass]="{ 
         '__info': log.type === 'INFO', 
         '__warn': log.type === 'WARN',

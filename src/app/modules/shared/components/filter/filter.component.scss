@@ -1,0 +1,19 @@
+@import "variables.scss";
+
+.mist-filter {
+    &__option {
+        display: inline-block;
+        color: $label-color;
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 0 16px;
+
+        &:hover {
+           cursor: pointer;
+        }
+
+        &.__active {
+            background-color: #e9ecf2;
+        }
+    }
+}

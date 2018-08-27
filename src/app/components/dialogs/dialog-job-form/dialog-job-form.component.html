@@ -1,56 +1,53 @@
 <mist-alert></mist-alert>
 
 <form [formGroup]="jobForm">
-  <h1 class="mdl-dialog__title mat-dialog-title">New Job Parameters</h1>
+    <h1 class="mdl-dialog__title mat-dialog-title">New Job Parameters</h1>
 
-  <div class="mdl-dialog__content">
-    <div class='job-form'>
-      <div class='job-form__header' fxLayout="row" fxLayoutAlign="space-between center">
-        <div class='job-form__select' fxFlex="45">
-          <div class='mist-label'>Function</div>
-          <mdl-select [hidden]="!selectedFunction" class="no-label" [placeholder]="" [label]="" [(ngModel)]="selectedFunction" formControlName="selectedFunction"
-            (ngModelChange)="onChangeFunction()">
-            <mdl-option *ngFor="let functionInfo of functions" [value]="functionInfo">{{ functionInfo.name }}</mdl-option>
-          </mdl-select>
+    <div class="mdl-dialog__content">
+        <div class='job-form'>
+            <div class='job-form__header' fxLayout="row" fxLayoutAlign="space-between center">
+                <div class='job-form__select' fxFlex="45">
+                    <div class='mist-label'>Function</div>
+                    <mdl-select class="no-label" formControlName="function" (ngModelChange)="onChangeFunction($event)">
+                        <mdl-option *ngFor="let function of functions" [value]="function">{{ function.name }}</mdl-option>
+                    </mdl-select>
+                </div>
+                <div fxFlex="55">
+                    <div class='context job-form__context'>
+                        <span class='context__label'>Context</span>
+                        <span class='context__value'>{{context}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class='job-form__main'>
+                <div class='mist-label'>Input Parameters</div>
+                <div class='job-form__input job-form__input--json'>
+                    <span class='material-icons job-details__full-screen-icon' (click)="openFullScreenJson()">crop_free</span>
+                    <codemirror formControlName="executeParams" [config]="codeMirrorOptions"></codemirror>
+                </div>
+                <span class="cs-message error" *ngIf="jobForm.controls['executeParams'].invalid">{{formErrors.executeParams}}</span>
+            </div>
         </div>
-        <div fxFlex="55">
-          <div class='context job-form__context'>
-            <span class='context__label'>Context</span>
-            <span class='context__value'>{{selectedFunction.defaultContext}}</span>
-          </div>
+
+        <div class="input-text form-group">
+            <label _ngcontent-c5="" class="control-label">CURL Parameters</label>
+            <div fxLayout="row" fxLayoutAlign="space-around center" class="cs-relative input-text__flex-container">
+                <input fxFlex="90%" readonly [(ngModel)]="requestBody" [ngModelOptions]="{standalone: true}" class="input-text__input form-control input-icon sibling"
+                    #inputTarget placeholder="">
+                <mdl-button fxFlex="10%" class="" (cbOnSuccess)="copiedToClipBoardSuccessfully()" [ngxClipboard]="inputTarget" title="Copy CURL params">
+                    <mdl-icon>content_copy</mdl-icon>
+                </mdl-button>
+            </div>
         </div>
-      </div>
-      <div class='job-form__main'>
-        <div class='mist-label'>Input Parameters</div>
-        <div class='job-form__input job-form__input--json'>
-          <!-- <span class='material-icons job-details__full-screen-icon' (click)="openFullScreenJson(executeParams)">crop_free</span> -->
-          <codemirror formControlName="executeParams" [(ngModel)]="executeParams" [config]="codeMirrorOptions">
-          </codemirror>
+
+        <div class="cs-text-right cs-mt-30">
+            <button (click)="dialogRef.hide()" mdl-button class='mat-button mat-button--big'>CANCEL</button>
+            <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple class='mat-button mat-button--big' type="submit"
+                title="RUN JOB" [disabled]="jobForm.invalid" (click)="submit()">RUN JOB
+            </button>
         </div>
-        <span class="cs-message error" *ngIf="jobForm.controls['executeParams'].invalid">{{formErrors.executeParams}}</span>
-      </div>
-    </div>
 
-    <div class="input-text form-group">
-      <label _ngcontent-c5="" class="control-label">CURL Parameters</label>
-      <div fxLayout="row" fxLayoutAlign="space-around center" class="cs-relative input-text__flex-container">
-        <input fxFlex="90%" readonly [(ngModel)]="requestBody" [ngModelOptions]="{standalone: true}" class="input-text__input form-control input-icon sibling"
-          #inputTarget placeholder="">
-        <mdl-button fxFlex="10%" class="" (cbOnSuccess)="copiedToClipBoardSuccessfully(inputTarget)" [ngxClipboard]="inputTarget"
-          title="Copy CURL params">
-          <mdl-icon>content_copy</mdl-icon>
-        </mdl-button>
-      </div>
     </div>
-
-    <div class="cs-text-right cs-mt-30">
-      <button (click)="dialogRef.hide()" mdl-button class='mat-button mat-button--big'>CANCEL</button>
-      <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple class='mat-button mat-button--big' type="submit"
-        title="RUN JOB" [disabled]="jobForm.invalid" (click)="submit(jobForm)">RUN JOB
-      </button>
-    </div>
-
-  </div>
 
 
 </form>

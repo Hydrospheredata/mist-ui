@@ -1,0 +1,22 @@
+<div class='mist-filter' *ngIf="(filterOptions$ | async) as filterOptions">
+    <div class="mdl-grid--no-spacing mdl-grid">
+        <div class='mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--middle'>
+            <span fxHide.sm>FILTER: </span>
+            <mdl-button [ngClass]="{'mist-filter__option __active': filterOptions.success}" (click)="toggleStatusFilter('success')" class="mist-button mist-filter__option no-bg-on-hover mb-8 cs-non-transform"
+                title="Success" mdl-colored="">
+                <mdl-icon>done</mdl-icon>
+                <span fxHide.md fxHide.sm>Success</span>
+            </mdl-button>
+            <mdl-button [ngClass]="{'mist-filter__option __active': filterOptions.running}" (click)="toggleStatusFilter('running')" class="mist-button mist-filter__option no-bg-on-hover cs-non-transform"
+                title="Running" mdl-colored="">
+                <mdl-icon>replay</mdl-icon>
+                <span fxHide.md fxHide.sm>Running</span>
+            </mdl-button>
+            <mdl-button (click)="toggleStatusFilter('failed')" [ngClass]="{'mist-filter__option __active': filterOptions.failed}" class="mist-button mist-filter__option no-bg-on-hover cs-non-transform"
+                title="Failed" mdl-colored="">
+                <mdl-icon>clear</mdl-icon>
+                <span fxHide.md fxHide.sm>Failed</span>
+            </mdl-button>
+        </div>
+    </div>
+</div>

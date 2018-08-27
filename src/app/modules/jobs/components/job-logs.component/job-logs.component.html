@@ -1,0 +1,21 @@
+<div class="job-logs" #jobLogs>
+  <div class="job-logs--title cs-text-center">Job Logs</div>
+  <mdl-icon class="job-logs--toggle" (click)="showDialogJobLogs()">crop_free</mdl-icon>
+  <mdl-icon class="job-logs--download" (click)="downloadLogs()">file_download</mdl-icon>
+  <div class="job-logs__navigation">
+    <mdl-icon class="job-logs__navigation-btn" (click)="scrollTo('top')" [ngClass]="{'disable': isTop}">keyboard_arrow_up</mdl-icon>
+    <mdl-icon class="job-logs__navigation-btn" (click)="scrollTo('bottom')" [ngClass]="{'disable': isBottom}">keyboard_arrow_down</mdl-icon>
+  </div>
+  <div class="job-logs--container" id="logs" (scroll)="onScroll($event)">
+    <div class="log" *ngFor="let log of (logs$ | async)">
+      <span *ngIf="log.type" class="log-type" [ngClass]="{ 
+        '__info': log.type === 'INFO', 
+        '__warn': log.type === 'WARN',
+        '__error': log.type === 'ERROR',
+        '__debug': log.type === 'DEBUG' 
+      }">{{ log.type }}</span>
+      <span *ngIf="log.date" class="log-date">{{ log.date }}</span>
+      <span *ngIf="log.message" class="log-message" [ngClass]="{ '__error': !log.type }">{{ log.message }}</span>
+    </div>
+  </div>
+</div>

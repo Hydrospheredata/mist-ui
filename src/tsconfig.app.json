@@ -1,9 +1,9 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../out-tsc/app",
+    "outDir": "../mist-ui",
     "module": "es2015",
-    "baseUrl": "",
+    "baseUrl": "./",
     "types": []
   },
   "exclude": [

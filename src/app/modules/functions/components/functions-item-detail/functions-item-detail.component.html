@@ -1,0 +1,32 @@
+<div class="mist-page-container">
+    <div class="mist-page-header">
+        <div class="cs-text-right" fxFlex.md="10" fxFlex.sm="10" fxFlex.lg="20">
+            <mdl-button (click)="openDialogFunctionForm(function$)" class="mist-button blue border icon" title="Edit" mdl-colored="">
+                <mdl-icon>edit</mdl-icon>
+                <span fxHide.md fxHide.sm>Edit</span>
+            </mdl-button>
+        </div>
+    </div>
+    <div class="mist-page-content">
+        <div class="content-info">
+            <ul class="content-info__list">
+                <li class="content-info__list-item">
+                    <span class="content-info__list-item-title">Language</span>
+                    <span class="content-info__list-item-value">{{ (function$ | async)?.lang }}</span>
+                </li>
+                <li class="content-info__list-item">
+                    <span class="content-info__list-item-title">Path</span>
+                    <span class="content-info__list-item-value">{{ (function$ | async)?.path }}</span>
+                </li>
+                <li class="content-info__list-item">
+                    <span class="content-info__list-item-title">Context</span>
+                    <span class="content-info__list-item-value">{{ (function$ | async)?.defaultContext }}</span>
+                </li>
+                <li class="content-info__list-item">
+                    <span class="content-info__list-item-title">Class</span>
+                    <span class="content-info__list-item-value">{{ (function$ | async)?.className }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

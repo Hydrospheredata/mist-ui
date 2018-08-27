@@ -1,9 +1,9 @@
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
 
-import {Job} from '@models/job';
-import {mockJobsList, mockJob} from './job.mock'
+import { Job } from '@app/modules/shared/models';
+import { mockJobsList, mockJob } from '@app/mocks/job.mock'
 
 export class MockJobDataService {
   jobs: Observable<Job[]>;
@@ -11,7 +11,7 @@ export class MockJobDataService {
   private dataStore: { jobs: Job[] };
 
   constructor() {
-    this.dataStore = {jobs: []};
+    this.dataStore = { jobs: [] };
     this._jobs = <BehaviorSubject<Job[]>>new BehaviorSubject([]);
     this.jobs = this._jobs.asObservable();
   }

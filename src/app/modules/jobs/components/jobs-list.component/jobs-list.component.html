@@ -1,0 +1,31 @@
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-header__row">
+            <h3 class='sidebar-title'>Jobs</h3>
+        </div>
+        <div class="sidebar-header__row">
+            <mist-input-text class="sidebar-search" inputClass="sidebar-search" placeholder="Search" [(ngModel)]="searchQ" iconName="search"
+                iconDirection="left"></mist-input-text>
+        </div>
+    </div>
+    <div class="sidebar-body">
+        <ul class='sidebar-list'>
+            <li class='sidebar-list__item' [routerLink]="['overview']" routerLinkActive='__active'>
+                <div>
+                    <i class='material-icons mdl-list__item-icon function-list__item-icon'>
+                        view_comfy
+                    </i>
+                    <span class="sidebar-list__item-name">All Jobs</span>
+                </div>
+                <div>
+                    <span class='function-list__badge' *ngIf="runningJobs$ | async" [mdl-badge]="runningJobs$ | async"></span>
+                </div>
+            </li>
+            <li *ngFor="let item of functions$ | async | search : 'name' : searchQ" class='sidebar-list__item' [routerLink]="[item.name]"
+                routerLinkActive='__active'>
+                <span class="sidebar-list__item-name">{{ item.name }}</span>
+                <!-- <span class='function-list__badge' *ngIf="runningJobsCountBy(item.name)" [mdl-badge]="runningJobsCountBy(item.name)"></span> -->
+            </li>
+        </ul>
+    </div>
+</aside>
