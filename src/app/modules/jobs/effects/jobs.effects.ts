@@ -103,10 +103,16 @@ export class JobsEffects {
                                 message: `Job ${job.id} initialisation was successful`,
                                 timeout: 5000
                             });
-                            // this.router.navigate(['/jobs', params.functionId, job.id])
                             return new JobsActions.GetById(job.id);
                         }),
-                        catchError(error => of(new JobsActions.AddFail(error)))
+                        catchError(error => {
+                            console.log(error);
+                            this.mdlSnackbarService.showSnackbar({
+                                message: error,
+                                timeout: 5000
+                            });
+                            return of(new JobsActions.AddFail(error))
+                        })
                     )
             })
         )

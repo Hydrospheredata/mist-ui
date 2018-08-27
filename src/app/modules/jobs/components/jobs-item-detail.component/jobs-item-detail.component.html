@@ -21,7 +21,8 @@
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Worker</span>
                     <span class="content-info__list-item-value" *ngIf="(worker$ | async)">
-                        <a title="Worker" [routerLink]="'/workers/' + (worker$ | async).name" class='mist-link spark-ui'>{{ (worker$ | async).name }}</a>
+                        <a title="Worker" [routerLink]="'/workers/' + (worker$ | async).name" class='mist-link spark-ui'>{{
+                            (worker$ | async).name }}</a>
                     </span>
                     <span class="content-info__list-item-value" *ngIf="!(worker$ | async)">{{ job.workerId }}</span>
                 </li>
@@ -40,7 +41,8 @@
                 <li class="content-info__list-item" *ngIf="(worker$ | async)">
                     <span class="content-info__list-item-title">SPARK UI</span>
                     <span class="content-info__list-item-value">
-                        <a target="_blank" title="SPARK UI" href="{{(worker$ | async).sparkUi}}" class='mist-link spark-ui'>{{ (worker$ | async).sparkUi }}</a>
+                        <a target="_blank" title="SPARK UI" href="{{(worker$ | async).sparkUi}}" class='mist-link spark-ui'>{{
+                            (worker$ | async).sparkUi }}</a>
                     </span>
                 </li>
             </ul>
@@ -48,15 +50,17 @@
                 <li class="content-info__list-item __title">Time info</li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Queued</span>
-                    <span class="content-info__list-item-value">{{ job.createTime }} ({{ jobCreateTimeDuration }})</span>
+                    <span class="content-info__list-item-value">{{ job.createTime | timeTransform }}</span>
                 </li>
                 <li class="content-info__list-item" *ngIf="job.startTime">
                     <span class="content-info__list-item-title">Started</span>
-                    <span class="content-info__list-item-value">{{ job.startTime }} ({{ jobStartTimeDuration }})</span>
+                    <span class="content-info__list-item-value">{{ job.startTime | timeTransform }}</span>
                 </li>
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Finished</span>
-                    <span class="content-info__list-item-value">{{ job.endTime }} ({{ job.endTime | agoDate }})</span>
+                    <span class="content-info__list-item-value">{{ job.endTime | timeTransform }} ({{ job.endTime | agoDate
+                        }})
+                    </span>
                 </li>
             </ul>
         </div>

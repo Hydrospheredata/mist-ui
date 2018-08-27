@@ -12,7 +12,8 @@ import {
     JobStatusFilterPipe,
     ReplaceToBrNewLineCharPipe,
     SearchPipe,
-    SortByPipe
+    SortByPipe,
+    TimeTransfromPipe
 } from '@app/modules/shared/pipes';
 import { InputTextComponent, PaginationComponent, FilterComponent, InputTextareaComponent } from '@app/modules/shared/components';
 
@@ -22,7 +23,8 @@ const Pipes = [
     JobStatusFilterPipe,
     ReplaceToBrNewLineCharPipe,
     SearchPipe,
-    SortByPipe
+    SortByPipe,
+    TimeTransfromPipe,
 ]
 
 const Components = [
