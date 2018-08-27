@@ -17,7 +17,7 @@ export class PaginationComponent implements OnInit {
     public pages$: Observable<number[]>;
     public current: number;
     public current$: Observable<number>;
-    private base: number = 5;
+    private base: number = 25;
 
     constructor(
         private store$: Store<MistState>
