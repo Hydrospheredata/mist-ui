@@ -1,4 +1,4 @@
-def onRelease(Closure body) {
+def getVersion() {
   def describe = sh(returnStdout: true, script: "git describe").trim()
   if (describe ==~ /^v\d+.\d+.\d+(-RC\d+)?/)
     body(describe.replace("v", ""))
@@ -24,7 +24,8 @@ node("JenkinsOnDemand") {
 
     onRelease { v ->
         stage("Create GitHub Release"){
-            def curVersion = v
+            when { tag "v*" }
+            def curVersion = getVersion()
             def tagComment = generateTagComment()
 
             def releaseInfo = createReleaseInGithub(curVersion, tagComment, repository)
