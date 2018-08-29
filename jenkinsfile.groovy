@@ -51,6 +51,7 @@ node("JenkinsOnDemand") {
               """
               echo request
               def response = httpRequest consoleLogResponseBody: true, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: request, url: "https://api.github.com/repos/${organization}/${repository}/releases?access_token=${GIT_PASSWORD}"
+              def releaseInfo = response.content
               def props = readJSON text: "${releaseInfo}"
               def releaseId = props.id
               sh """curl --data-binary @"${releaseFile}" -H "Authorization: token ${GIT_PASSWORD}"
