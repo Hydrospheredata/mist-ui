@@ -1,4 +1,4 @@
-def getVersion() {
+def onRelease(Closure body) {
   def describe = sh(returnStdout: true, script: "git describe").trim()
   if (describe ==~ /^v\d+.\d+.\d+(-RC\d+)?/)
     body(describe.replace("v", ""))
@@ -26,14 +26,13 @@ node("JenkinsOnDemand") {
         error("Errors in tests")
     }
 
-    stage("Create GitHub Release") {
-        def curVersion = getVersion()
-
-        echo scm.dump()
-        echo "Release!"
-        //def releaseInfo = createReleaseInGithub(curVersion, curVersion, repository)
-        //def props = readJSON text: "${releaseInfo}"
-        //def releaseFile = "mist-ui-${curVersion}.tar.gz"
-        //uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
+    onRelease { version ->
+      stage("Create GitHub Release") {
+          echo "Release ${version}"
+          def releaseInfo = createReleaseInGithub(version, version, repository)
+          def props = readJSON text: "${releaseInfo}"
+          def releaseFile = "mist-ui-${curVersion}.tar.gz"
+          uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
+      }
     }
 }
