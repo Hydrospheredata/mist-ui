@@ -29,9 +29,11 @@ node("JenkinsOnDemand") {
     stage("Create GitHub Release") {
         def curVersion = getVersion()
 
-        def releaseInfo = createReleaseInGithub(curVersion, curVersion, repository)
-        def props = readJSON text: "${releaseInfo}"
-        def releaseFile = "mist-ui-${curVersion}.tar.gz"
-        uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
+        echo scm.dump()
+        echo "Release!"
+        //def releaseInfo = createReleaseInGithub(curVersion, curVersion, repository)
+        //def props = readJSON text: "${releaseInfo}"
+        //def releaseFile = "mist-ui-${curVersion}.tar.gz"
+        //uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
     }
 }
