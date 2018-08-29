@@ -44,7 +44,7 @@ node("JenkinsOnDemand") {
                   {
                       "tag_name": "v${version}",
                       "name": "${version}",
-                      "body": "${bodyMessage}",
+                      "body": "${version}",
                       "draft": false,
                       "prerelease": false
                   }
