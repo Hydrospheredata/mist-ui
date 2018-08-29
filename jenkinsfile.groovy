@@ -4,33 +4,37 @@ def getVersion() {
     body(describe.replace("v", ""))
 }
 
-node("JenkinsOnDemand") {
-    
+pipeline {
+    agent { label 'JenkinsOnDemand' }
+
     def repository = 'mist-ui'
 
-    stage("Checkout") {
-        autoCheckout(repository)
-    }
+    stages {
 
-    stage("Build") {
-        sh "npm install"
-        sh "npm run build-prod-tar"
-    }
+        stage("Checkout") {
+            autoCheckout(repository)
+        }
 
-    if (currentBuild.result == 'UNSTABLE') {
-        currentBuild.result = 'FAILURE'
-        error("Errors in tests")
-    }
+        stage("Build") {
+            sh "npm install"
+            sh "npm run build-prod-tar"
+        }
 
-    stage("Create GitHub Release"){
-        when { tag "v*" }
-        def curVersion = getVersion()
-        def tagComment = generateTagComment()
+        if (currentBuild.result == 'UNSTABLE') {
+            currentBuild.result = 'FAILURE'
+            error("Errors in tests")
+        }
 
-        def releaseInfo = createReleaseInGithub(curVersion, tagComment, repository)
-        def props = readJSON text: "${releaseInfo}"
-        zip archive: true, dir: "${repository}", glob: "", zipFile: "release-${props.name}.zip"
-        def releaseFile = "release-${props.name}.zip"
-        uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
+        stage("Create GitHub Release"){
+            when { tag "v*" }
+            def curVersion = getVersion()
+            def tagComment = generateTagComment()
+
+            def releaseInfo = createReleaseInGithub(curVersion, tagComment, repository)
+            def props = readJSON text: "${releaseInfo}"
+            zip archive: true, dir: "${repository}", glob: "", zipFile: "release-${props.name}.zip"
+            def releaseFile = "release-${props.name}.zip"
+            uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
+        }
     }
 }
