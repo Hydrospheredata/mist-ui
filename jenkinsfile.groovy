@@ -5,7 +5,7 @@ def onRelease(Closure body) {
 }
 
 node("JenkinsOnDemand") {
-    def organization = 'Hydrosphere'
+    def organization = 'Hydrospheredata'
     def repository = 'mist-ui'
     def accessTokenId = 'HydroRobot_AccessToken' 
     
