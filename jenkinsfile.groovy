@@ -1,4 +1,4 @@
-def getVersion() {
+def onRelease(Closure body) {
   def describe = sh(returnStdout: true, script: "git describe").trim()
   if (describe ==~ /^v\d+.\d+.\d+(-RC\d+)?/)
     body(describe.replace("v", ""))
@@ -6,10 +6,14 @@ def getVersion() {
 
 node("JenkinsOnDemand") {
     
-    def repository = 'mist-ui'
-
     stage("Checkout") {
-        autoCheckout(repository)
+        checkout([
+            $class: 'GitSCM',
+            branches: scm.branches,
+            doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
+            extensions: [[$class: 'CloneOption', noTags: false, shallow: false, depth: 0, reference: '']],
+            userRemoteConfigs: scm.userRemoteConfigs,
+       ])
     }
 
     stage("Build") {
@@ -22,18 +26,13 @@ node("JenkinsOnDemand") {
         error("Errors in tests")
     }
 
-    onRelease { v ->
-        stage("Create GitHub Release"){
-            when { tag "v*" }
-            def curVersion = getVersion()
-            def tagComment = generateTagComment()
-
-            def releaseInfo = createReleaseInGithub(curVersion, tagComment, repository)
-            def props = readJSON text: "${releaseInfo}"
-            zip archive: true, dir: "${repository}", glob: "", zipFile: "release-${props.name}.zip"
-            def releaseFile = "release-${props.name}.zip"
-            uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
-        }
+    onRelease { version ->
+      stage("Create GitHub Release") {
+          echo "Release ${version}"
+          def releaseInfo = createReleaseInGithub(version, version, repository)
+          def props = readJSON text: "${releaseInfo}"
+          def releaseFile = "mist-ui-${curVersion}.tar.gz"
+          uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
+      }
     }
-
 }
