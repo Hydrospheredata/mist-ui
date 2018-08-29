@@ -1,7 +1,15 @@
+def isRelease() {
+  return env.IS_RELEASE_JOB == "true"
+}
+
+def version() {
+  return sh(returnStdout: true, script: "node -p \"require('./package.json').version\"").trim()
+}
+
 def onRelease(Closure body) {
-  def describe = sh(returnStdout: true, script: "git describe").trim()
-  if (describe ==~ /^v\d+.\d+.\d+(-RC\d+)?/)
-    body(describe.replace("v", ""))
+    if (isRelease()) {
+      body(version())
+    }
 }
 
 node("JenkinsOnDemand") {
@@ -10,9 +18,10 @@ node("JenkinsOnDemand") {
     def accessTokenId = 'HydroRobot_AccessToken' 
     
     stage("Checkout") {
+        def branches = (isRelease()) ? [[env.REF_NAME]] : scm.branches
         checkout([
             $class: 'GitSCM',
-            branches: scm.branches,
+            branches: branches,
             doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
             extensions: [[$class: 'CloneOption', noTags: false, shallow: false, depth: 0, reference: '']],
             userRemoteConfigs: scm.userRemoteConfigs,
@@ -54,8 +63,11 @@ node("JenkinsOnDemand") {
               def releaseInfo = response.content
               def props = readJSON text: "${releaseInfo}"
               def releaseId = props.id
-              sh """curl --data-binary @"${releaseFile}" -H "Authorization: token ${GIT_PASSWORD}"
-                  -H "Content-Type: application/zip" https://uploads.github.com/repos/${organization}/${repository}/releases/${releaseId}/assets"""
+              sh """curl --data-binary @"${releaseFile}" -H "Authorization: token ${
+                  GIT_PASSWORD
+              }" -H "Content-Type: application/zip" https://uploads.github.com/repos/${organization}/${repository}/releases/${
+                  releaseId
+              }/assets?name=${releaseFile}"""
           }
       }
     }
