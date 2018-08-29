@@ -5,6 +5,9 @@ def onRelease(Closure body) {
 }
 
 node("JenkinsOnDemand") {
+    def organization = 'Hydrosphere'
+    def repository = 'mist-ui'
+    def accessTokenId = 'HydroRobot_AccessToken' 
     
     stage("Checkout") {
         checkout([
@@ -33,6 +36,29 @@ node("JenkinsOnDemand") {
           def props = readJSON text: "${releaseInfo}"
           def releaseFile = "mist-ui-${version}.tar.gz"
           uploadFilesToGithub(props.id, releaseFile, releaseFile, 'mist-ui')
+
+          withCredentials([[
+              $class: 'UsernamePasswordMultiBinding',
+              credentialsId: accessTokenId,
+              usernameVariable: 'GIT_USERNAME',
+              passwordVariable: 'GIT_PASSWORD']]) {
+
+              def request = """
+                  {
+                      "tag_name": "v${version}",
+                      "name": "${version}",
+                      "body": "${bodyMessage}",
+                      "draft": false,
+                      "prerelease": false
+                  }
+              """
+              echo request
+              def response = httpRequest consoleLogResponseBody: true, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: request, url: "https://api.github.com/repos/${organization}/${repository}/releases?access_token=${GIT_PASSWORD}"
+              def props = readJSON text: "${releaseInfo}"
+              def releaseId = props.id
+              sh """curl --data-binary @"${releaseFile}" -H "Authorization: token ${GIT_PASSWORD}"
+                  -H "Content-Type: application/zip" https://uploads.github.com/repos/${organization}/${repository}/releases/${releaseId}/assets"""
+          }
       }
     }
 }
