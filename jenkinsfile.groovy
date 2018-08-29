@@ -7,13 +7,13 @@ def getVersion() {
 node("JenkinsOnDemand") {
     
     stage("Checkout") {
-        checkout([$class: 'GitSCM', 
+        checkout([
+            $class: 'GitSCM',
             branches: scm.branches,
-            userRemoteConfigs: [[
-                credentialsId: 'HydroRobot_AccessToken', 
-                refspec: '+refs/heads*:refs/remotes/origin/* +refs/tags/*:refs/remotes/origin/tags/*:', 
-                url: 'https://github.com/Hydrospheredata/mist-ui.git']]
-        ])
+            doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
+            extensions: [[$class: 'CloneOption', noTags: false, shallow: false, depth: 0, reference: '']],
+            userRemoteConfigs: scm.userRemoteConfigs,
+       ])
     }
 
     stage("Build") {
