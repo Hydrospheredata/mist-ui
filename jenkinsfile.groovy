@@ -18,7 +18,7 @@ node("JenkinsOnDemand") {
     def accessTokenId = 'HydroRobot_AccessToken' 
     
     stage("Checkout") {
-        def branches = (isRelease()) ? [[env.BRANCH_NAME]] : scm.branches
+        def branches = (isRelease()) ? [[name: env.BRANCH_NAME]] : scm.branches
         checkout([
             $class: 'GitSCM',
             branches: branches,
