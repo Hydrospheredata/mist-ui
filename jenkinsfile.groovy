@@ -22,18 +22,15 @@ node("JenkinsOnDemand") {
         error("Errors in tests")
     }
 
-    onRelease { v ->
-        stage("Create GitHub Release"){
-            when { tag "v*" }
-            def curVersion = getVersion()
-            def tagComment = generateTagComment()
+    stage("Create GitHub Release"){
+        when { tag "v*" }
+        def curVersion = getVersion()
+        def tagComment = generateTagComment()
 
-            def releaseInfo = createReleaseInGithub(curVersion, tagComment, repository)
-            def props = readJSON text: "${releaseInfo}"
-            zip archive: true, dir: "${repository}", glob: "", zipFile: "release-${props.name}.zip"
-            def releaseFile = "release-${props.name}.zip"
-            uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
-        }
+        def releaseInfo = createReleaseInGithub(curVersion, tagComment, repository)
+        def props = readJSON text: "${releaseInfo}"
+        zip archive: true, dir: "${repository}", glob: "", zipFile: "release-${props.name}.zip"
+        def releaseFile = "release-${props.name}.zip"
+        uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
     }
-
 }
