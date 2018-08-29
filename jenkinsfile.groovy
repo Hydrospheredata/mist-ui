@@ -6,10 +6,14 @@ def getVersion() {
 
 node("JenkinsOnDemand") {
     
-    def repository = 'mist-ui'
-
     stage("Checkout") {
-        autoCheckout(repository)
+        checkout([$class: 'GitSCM', 
+            branches: [[name: 'refs/tags/mytag']], 
+            userRemoteConfigs: [[
+                credentialsId: 'HydroRobot_AccessToken', 
+                refspec: '+refs/tags/*:refs/remotes/origin/tags/*', 
+                url: 'https://github.com/Hydrospheredata/mist-ui.git']]
+        ])
     }
 
     stage("Build") {
@@ -22,15 +26,12 @@ node("JenkinsOnDemand") {
         error("Errors in tests")
     }
 
-    stage("Create GitHub Release"){
-        when { tag "v*" }
+    stage("Create GitHub Release") {
         def curVersion = getVersion()
-        def tagComment = generateTagComment()
 
-        def releaseInfo = createReleaseInGithub(curVersion, tagComment, repository)
+        def releaseInfo = createReleaseInGithub(curVersion, curVersion, repository)
         def props = readJSON text: "${releaseInfo}"
-        zip archive: true, dir: "${repository}", glob: "", zipFile: "release-${props.name}.zip"
-        def releaseFile = "release-${props.name}.zip"
+        def releaseFile = "mist-ui-${curVersion}.tar.gz"
         uploadFilesToGithub(props.id, releaseFile, releaseFile, repository)
     }
 }

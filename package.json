@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-prod": "ng build --aot --prod --base-href /ui/",
-    "build-prod-tar": "npm run build-prod && PACKAGE_VERSION=$(cat version | sed 's/-SNAPSHOT//g') && tar cfvz mist-ui-${PACKAGE_VERSION}.tar.gz dist"
+    "get-version": "node -p \"require('./package.json').version\"",
+    "build-prod-tar": "npm run build-prod && PACKAGE_VERSION=$(node -p \"require('./package.json').version\") && tar cfvz mist-ui-${PACKAGE_VERSION}.tar.gz dist"
   },
   "private": true,
   "dependencies": {
