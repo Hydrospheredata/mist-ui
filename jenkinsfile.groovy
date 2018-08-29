@@ -8,6 +8,7 @@ node("JenkinsOnDemand") {
     
     stage("Checkout") {
         checkout([$class: 'GitSCM', 
+            bracnhes: scm.branches,
             userRemoteConfigs: [[
                 credentialsId: 'HydroRobot_AccessToken', 
                 refspec: '+refs/tags/*:refs/remotes/origin/tags/*:', 
