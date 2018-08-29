@@ -32,10 +32,7 @@ node("JenkinsOnDemand") {
     onRelease { version ->
       stage("Create GitHub Release") {
           echo "Release ${version}"
-          def releaseInfo = createReleaseInGithub(version, version, 'mist-ui')
-          def props = readJSON text: "${releaseInfo}"
           def releaseFile = "mist-ui-${version}.tar.gz"
-          uploadFilesToGithub(props.id, releaseFile, releaseFile, 'mist-ui')
 
           withCredentials([[
               $class: 'UsernamePasswordMultiBinding',
