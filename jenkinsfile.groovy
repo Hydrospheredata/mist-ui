@@ -8,7 +8,7 @@ node("JenkinsOnDemand") {
     
     stage("Checkout") {
         checkout([$class: 'GitSCM', 
-            branches: [[name: 'refs/tags/mytag']], 
+            branches: checkout.scm, 
             userRemoteConfigs: [[
                 credentialsId: 'HydroRobot_AccessToken', 
                 refspec: '+refs/tags/*:refs/remotes/origin/tags/*', 
