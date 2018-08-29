@@ -8,10 +8,9 @@ node("JenkinsOnDemand") {
     
     stage("Checkout") {
         checkout([$class: 'GitSCM', 
-            branches: checkout.scm, 
             userRemoteConfigs: [[
                 credentialsId: 'HydroRobot_AccessToken', 
-                refspec: '+refs/tags/*:refs/remotes/origin/tags/*', 
+                refspec: '+refs/tags/*:refs/remotes/origin/tags/*:', 
                 url: 'https://github.com/Hydrospheredata/mist-ui.git']]
         ])
     }
