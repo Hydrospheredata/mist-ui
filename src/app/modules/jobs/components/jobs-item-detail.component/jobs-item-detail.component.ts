@@ -25,6 +25,8 @@ import * as fromJobs from '@app/modules/jobs/reducers';
 import * as fromWorkers from '@app/modules/workers/reducers';
 import { Observable } from 'rxjs/Observable';
 import { withLatestFrom } from 'rxjs/operators';
+import { SetCurrent } from '@app/modules/core/actions';
+import * as fromJobsActions from '@app/modules/jobs/actions';
 
 
 @Component({
@@ -39,12 +41,8 @@ export class JobsItemDetailComponent implements OnInit, OnDestroy {
     public job$: Observable<Job>;
     public jobParams$: Observable<string | object>;
     public jobArguments: string;
-    // private activatedRouteSub: any;
-    // private jobStoreSub: any;
-    // private jobWorkerSub: any;
     public worker: Worker[];
     public worker$: Observable<Worker>;
-    // private timeUpdaterLink;
     public workerId: string;
     public jobCreateTime: string;
     public jobStartTime: string;
@@ -54,14 +52,12 @@ export class JobsItemDetailComponent implements OnInit, OnDestroy {
 
     constructor(
         private dialog: MdlDialogService,
-        private store: Store<MistState>,
-        // private activatedRoute: ActivatedRoute,
-        // private jobStore: JobStore,
-        // private workersStore: WorkersStore
+        private store$: Store<MistState>,
+        private activatedRoute: ActivatedRoute,
     ) {
-        this.job$ = this.store.select(fromJobs.getSelectedJob);
-        this.worker$ = this.store.select(fromJobs.getJobWorker);
-        this.jobParams$ = this.store.select(fromJobs.getParamsOfCurrentJob);
+        this.job$ = this.store$.select(fromJobs.getSelectedJob);
+        this.worker$ = this.store$.select(fromJobs.getJobWorker);
+        this.jobParams$ = this.store$.select(fromJobs.getParamsOfCurrentJob);
     }
 
     public get codeMirrorOptions() {
@@ -77,55 +73,16 @@ export class JobsItemDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        // if (this.jobDetails) {
-        //     this.job = this.jobDetails;
-        // } else {
-        //     this.activatedRouteSub = this.activatedRoute.params
-        //         .subscribe((params) => {
-        //             this.loadInitialData(params['jobId']);
-        //         });
-        // }
+        this.activatedRoute.params
+            .map(params => params['functionId'])
+            .subscribe(id => this.getJobsByFunction(id));
     }
 
-    ngOnDestroy() {
-        // if (this.activatedRouteSub) {
-        //     this.activatedRouteSub.unsubscribe();
-        // }
-        // if (this.jobStoreSub) {
-        //     this.jobStoreSub.unsubscribe();
-        // }
-        // if (this.timeUpdaterLink) {
-        //     clearInterval(this.timeUpdaterLink);
-        // }
-        // if (this.jobWorkerSub) {
-        //     this.jobWorkerSub.unsubscribe();
-        // }
-    }
+    ngOnDestroy() { }
 
-    loadInitialData(jobId) {
-        // this.jobStore.get(jobId);
-        // this.jobStoreSub = this.jobStore.jobs
-        //     .subscribe((jobs: Job[]) => {
-        //         this.job = jobs.find(job => job.jobId === jobId);
-
-        //         if (this.job) {
-
-        //             if (this.job.createTime) {
-        //                 this.jobCreateTime = this.setDate(this.job.createTime);
-        //                 this.jobCreateTimeDuration = this.setDuration(this.job.endTime, this.job.createTime);
-        //             }
-        //             if (this.job.startTime) {
-        //                 this.jobStartTime = this.setDate(this.job.startTime);
-        //                 this.jobCreateTimeDuration = this.setDuration(this.job.startTime, this.job.createTime);
-        //                 this.jobStartTimeDuration = this.setDuration(this.job.endTime, this.job.startTime);
-        //             }
-        //             if (this.job.endTime) {
-        //                 this.jobEndTime = this.setDate(this.job.endTime);
-        //             }
-        //             this.timeUpdaterLink = this.jobStore.updateTime();
-        //             this.jobArguments = JSON.stringify(JSON.parse(this.job.params).arguments, null, 2);
-        //         }
-        //     });
+    public getJobsByFunction(functionId) {
+        this.store$.dispatch(new SetCurrent(0));
+        this.store$.dispatch(new fromJobsActions.GetByFunction({ functionId: functionId, pagination: { offset: 0, current: 0 } }));
     }
 
     openDialogJobForm() {
@@ -136,7 +93,6 @@ export class JobsItemDetailComponent implements OnInit, OnDestroy {
             clickOutsideToClose: true,
             enterTransitionDuration: 400,
             leaveTransitionDuration: 400,
-            // providers: [{ provide: injectableJob, useValue: this.job }],
         });
     }
 
