@@ -163,12 +163,12 @@ export class JobsEffects {
                 job.createTime = message.time || new Date().getTime();
                 break;
             case 'started':
-                job.startTime = message.time || new Date().getTime();
+                job.startTime = message.time;
                 break;
             case 'finished':
             case 'cancelled':
             case 'failed':
-                job.endTime = message.time || new Date().getTime();
+                job.endTime = message.time;
                 break;
             default: 
                 break;
