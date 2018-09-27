@@ -30,7 +30,7 @@ export class Job {
     }
 
     public isFailed() {
-        return ['failed', 'canceled'].includes(this.status)
+        return ['failed', 'cancelled'].includes(this.status)
     }
 
     public isWorkerAssigned() {
@@ -42,7 +42,7 @@ export class Job {
     }
 
     public isCanceling() {
-        return ['canceling'].includes(this.status)
+        return ['cancelling'].includes(this.status)
     }
 
     public runningTime() {

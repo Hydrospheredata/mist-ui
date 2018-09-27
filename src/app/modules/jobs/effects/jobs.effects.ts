@@ -190,7 +190,7 @@ export class JobsEffects {
         if (message.event === 'failed') {
             this.store.dispatch(new JobsActions.DeleteRunning);
         }
-        if (message.event === 'canceled') {
+        if (message.event === 'cancelled') {
             this.store.dispatch(new JobsActions.DeleteRunning);
         }
     }

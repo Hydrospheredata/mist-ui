@@ -62,12 +62,12 @@
         <table *ngIf="(jobs$ | async)?.length" class='mdl-data-table mdl-js-data-table jobs-table mdl-shadow--2dp' style="width: 100%; margin-bottom: 16px;">
             <tbody>
                 <tr *ngFor="let job of jobs$ | async | sortBy:'createTime'; let i=index" class='jobs-table__tr' [routerLink]="['/jobs', job.functionId, job.jobId]">
-                    <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': ['failed', 'canceled'].includes(job.status)}">
+                    <td [title]="job.jobId" class='jobs-table__td jobs-table__td--job-id' [ngClass]="{'font-color--failed': ['failed', 'cancelled'].includes(job.status)}">
                         <div class="cs-text-overflow-ellipsis">
                             <i class='material-icons status-icon cs-mr-8' [ngClass]="{
                                         'status-icon--success': ['finished'].includes(job.status),
-                                        'status-icon--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
-                                        'status-icon--failed': ['failed', 'canceled'].includes(job.status)
+                                        'status-icon--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued', 'cancelling'].includes(job.status),
+                                        'status-icon--failed': ['failed', 'cancelled'].includes(job.status)
                                     }">
                             </i>
                             {{ job.jobId | jobIdCut }}
@@ -93,7 +93,7 @@
                             <span class='job-status' [ngClass]="{
                                         'font-color--success': ['finished'].includes(job.status),
                                         'font-color--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
-                                        'font-color--failed': ['failed', 'canceled'].includes(job.status)
+                                        'font-color--failed': ['failed', 'cancelled'].includes(job.status)
                                     }"> {{ job.status }} </span>
                             <span>
                                 {{['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status) ? ((job.startTime

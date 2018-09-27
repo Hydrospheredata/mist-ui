@@ -9,7 +9,7 @@ import * as fromJobs from '@app/modules/jobs/reducers';
 import * as fromJobsActions from '@app/modules/jobs/actions';
 import { Observable } from 'rxjs/Observable';
 import { GoTo, SetCurrent } from '@app/modules/core/actions';
-
+import { JobStatusesService } from '@jobs/services/job-statuses.service'
 
 @Component({
     selector: 'mist-jobs-overview',
@@ -26,6 +26,7 @@ export class JobsOverviewComponent implements OnInit, OnDestroy {
         public dialog: MdlDialogService,
         private activatedRoute: ActivatedRoute,
         private store$: Store<MistState>,
+        public jobStatus: JobStatusesService
     ) {
         this.jobs$ = this.store$.select(fromJobs.getJobs);
     }
