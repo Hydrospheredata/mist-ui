@@ -96,8 +96,7 @@
                                         'font-color--failed': ['failed', 'cancelled'].includes(job.status)
                                     }"> {{ job.status }} </span>
                             <span>
-                                {{['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status) ? ((job.startTime
-                                || job.createTime) | agoDate) : (job.endTime | agoDate)}}
+                                {{jobStatus.isRunning(job.status) ? ((job.startTime || job.createTime) | agoDate) : (job.endTime | agoDate)}}
                             </span>
                         </div>
                     </td>
