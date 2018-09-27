@@ -8,18 +8,14 @@ import {
 import { Job } from '@app/modules/shared/models';
 import { Store } from '@ngrx/store';
 import { MistState } from '@app/modules/core/reducers';
-import * as fromRoot from '@app/modules/core/actions';
-import * as fromJobLogsActions from '@app/modules/jobs/actions'
-import * as fromJobLogs from '@app/modules/jobs/reducers';
 import { Observable } from 'rxjs';
-
-
+import { LogsService } from '@jobs/services/logs.service/logs.service'
 
 @Component({
     selector: 'mist-job-logs',
     templateUrl: './job-logs.component.html',
     styleUrls: ['./job-logs.component.scss'],
-    providers: [],
+    providers: [LogsService],
 })
 export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('jobLogs') elem: ElementRef;
@@ -33,21 +29,19 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public logs$: Observable<string[]>;
     private httpLogsServiceSub;
-    private logTypes: string[] = ['Debug', 'Info', 'Warn', 'Error'];
 
     constructor(
         // private webSocketLogsService: WebSocketLogsService,
         // private httpLogsService: HttpLogsService,
         public dialog: MdlDialogService,
-        private store: Store<MistState>
+        private store: Store<MistState>,
+        private logsService: LogsService
     ) {
-        this.logs = [];
-        this.store.dispatch(new fromJobLogsActions.GetLogs);
         // this.store.dispatch(new fromRoot.WsLogsConnect);
-        this.logs$ = this.store.select(fromJobLogs.getJobLogs);
     }
 
     ngOnInit() {
+        this.logs$ = this.logsService.getLogs();
         // console.log(this.job);
         // const regexp = /([a-zA-Z0-9_\-.,!?:…[\]]+)/g;
         // if (this.job) {
@@ -131,32 +125,14 @@ export class JobLogsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.store.dispatch(new fromRoot.WsLogsDisconnect);
-
         // this.webSocketLogsService.disconnect();
         // if (this.webSocketLogsServiceSub) {
         //     this.webSocketLogsServiceSub.unsubscribe()
         // }
         // this.httpLogsServiceSub.unsubscribe();
-    }
 
-    private pushLogs(events) {
-        if (events) {
-            events.forEach(event => {
-                let date = new Date(event.timeStamp);
-                let log = {
-                    type: this.setLogType(Number(event.level)),
-                    date: date.toJSON(),
-                    jobId: event.from,
-                    message: event.message
-                }
-                this.logs.push(log);
-            })
-        }
-    }
 
-    private setLogType(logType: number) {
-        return this.logTypes[`${logType - 1}`].toUpperCase();
+        this.logsService.unsubscribe();
     }
 
     private errorHandler(error) {
