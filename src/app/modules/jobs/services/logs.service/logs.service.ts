@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, ReplaySubject, Subscription } from "rxjs";
-import { switchMap, filter, tap, take, map, mapTo } from "rxjs/operators";
+import { switchMap, filter, take, map } from "rxjs/operators";
 import { WebSocketLogsService } from '@jobs/services/logs.service/web-socket-logs.service'
 
 //Store
@@ -48,7 +48,7 @@ export class LogsService {
         this.wsSubscription = this.getCurrentJobId().pipe(
             switchMap(jobId => this.ws.connect(jobId)),
             filter(message => message.event === 'logs'),
-            map(message => message.events)
+            map(message => message.events),
         ).subscribe(
             events => this.wsLogs$.next(events.map((event) => this.normalizeEvent(event)))
         );
@@ -92,7 +92,7 @@ export class LogsService {
             this.wsSubscription.unsubscribe();
         }
 
-        console.log('subscription is destroyed')
+        this.ws.disconnect();
     }
 
     constructor(
