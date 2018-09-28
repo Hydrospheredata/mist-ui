@@ -11,7 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from '@app/modules/jobs/reducers';
 import { JobsEffects, JobLogsEffects, JobsRunningEffects } from '@app/modules/jobs/effects';
-import { HttpJobService, WebSocketJobService, HttpLogsService, WebSocketLogsService } from '@app/modules/jobs/services';
+import { HttpJobService, WebSocketJobService, HttpLogsService, WebSocketLogsService, JobStatusesService } from '@app/modules/jobs/services';
 import { JobsGuard } from '@app/modules/jobs/guards';
 
 @NgModule({
@@ -30,6 +30,6 @@ import { JobsGuard } from '@app/modules/jobs/guards';
         EffectsModule.forFeature([JobsEffects, JobsRunningEffects, JobLogsEffects])
     ],
     exports: [],
-    providers: [HttpJobService, WebSocketJobService, HttpLogsService, WebSocketLogsService, JobsGuard],
+    providers: [HttpJobService, WebSocketJobService, HttpLogsService, WebSocketLogsService, JobsGuard, JobStatusesService],
 })
 export class JobsModule { }

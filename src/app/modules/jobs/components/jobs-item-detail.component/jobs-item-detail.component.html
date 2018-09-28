@@ -33,9 +33,9 @@
                 <li class="content-info__list-item">
                     <span class="content-info__list-item-title">Status</span>
                     <span class="content-info__list-item-value" style="text-transform: uppercase;" [ngClass]="{
-                            'font-color--success': ['finished'].includes(job.status),
-                            'font-color--primary': ['initialized', 'started', 'job-file-downloading', 'worker-assigned', 'queued'].includes(job.status),
-                            'font-color--failed': ['failed', 'canceled'].includes(job.status)
+                            'font-color--success': jobStatus.isFinished(job.status),
+                            'font-color--primary': jobStatus.isRunning(job.status),
+                            'font-color--failed': jobStatus.isFailed(job.status)
                         }">{{ job.status }}</span>
                 </li>
                 <li class="content-info__list-item" *ngIf="(worker$ | async)">

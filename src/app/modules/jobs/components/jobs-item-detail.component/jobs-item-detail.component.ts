@@ -27,7 +27,7 @@ import { Observable } from 'rxjs/Observable';
 import { withLatestFrom } from 'rxjs/operators';
 import { SetCurrent } from '@app/modules/core/actions';
 import * as fromJobsActions from '@app/modules/jobs/actions';
-
+import { JobStatusesService } from '@jobs/services/job-statuses.service'
 
 @Component({
     selector: 'mist-jobs-item-detail',
@@ -54,6 +54,7 @@ export class JobsItemDetailComponent implements OnInit, OnDestroy {
         private dialog: MdlDialogService,
         private store$: Store<MistState>,
         private activatedRoute: ActivatedRoute,
+        public jobStatus: JobStatusesService
     ) {
         this.job$ = this.store$.select(fromJobs.getSelectedJob);
         this.worker$ = this.store$.select(fromJobs.getJobWorker);

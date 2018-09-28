@@ -18,7 +18,7 @@ export class WsLogsConnect implements Action {
 }
 
 export class WsLogsDisconnect implements Action {
-    readonly type = WebsocketActionTypes.WsLogsConnect;
+    readonly type = WebsocketActionTypes.WsLogsDisconnect;
 }
 
 export class WsConnectSuccess implements Action {

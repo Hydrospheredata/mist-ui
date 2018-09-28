@@ -20,13 +20,16 @@ export class WebSocketLogsService extends WebsocketService {
     }
 
     public connect(id): Observable<any> {
-        console.log(this.subject);
-        console.log(id);
-        if (!this.subject) {
+            if(!id){ return };
+
+            console.group('WS log service')
+                console.log('subject: ' + this.subject);
+                console.log('jobId: ' + id);
+            console.groupEnd();
+
             let url = this.baseUrl + `${id}`;
             this.subject = this.create(url, true);
             console.log('Successfully connected: ' + url);
-        }
 
         return this.subject;
     }

@@ -157,18 +157,27 @@ export class JobsEffects {
         let job = new Job(message);
         job.jobId = message.id;
         job.status = message.event;
-        if (message.event === 'finished') {
-            job.endTime = message.time;
+
+        switch(message.event){
+            case 'initialized':
+                job.createTime = message.time || new Date().getTime();
+                break;
+            case 'started':
+                job.startTime = message.time;
+                break;
+            case 'finished':
+            case 'cancelled':
+            case 'failed':
+                job.endTime = message.time;
+                break;
+            default: 
+                break;
         }
-        if (message.event === 'initialized') {
-            job.createTime = message.time;
-        }
-        if (message.event === 'started') {
-            job.startTime = message.time;
-        }
+
         if (message.result) {
             job.jobResult = message.result;
         }
+
         return this.removeEmpty(job);
     }
 
@@ -190,7 +199,7 @@ export class JobsEffects {
         if (message.event === 'failed') {
             this.store.dispatch(new JobsActions.DeleteRunning);
         }
-        if (message.event === 'canceled') {
+        if (message.event === 'cancelled') {
             this.store.dispatch(new JobsActions.DeleteRunning);
         }
     }

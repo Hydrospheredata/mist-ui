@@ -8,7 +8,7 @@ import { Job, Worker } from '@app/modules/shared/models';
 
 export interface JobsState {
     jobs: fromJobs.State,
-    jobLogs: string[],
+    jobLogs: fromJobLogs.State,
     jobsRunning: fromJobsRunning.State
 }
 
@@ -43,7 +43,12 @@ export const getJobsRunningEntitiesState = createSelector(
 
 export const getJobLogs = createSelector(
     getJobLogsEntitiesState,
-    entities => entities
+    entities => entities.logs
+)
+
+export const getJobLogsIsLoading = createSelector(
+    getJobLogsEntitiesState,
+    entities => entities.loading
 )
 
 export const getJobsRunning = createSelector(
