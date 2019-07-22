@@ -10,7 +10,7 @@ import { HttpService } from '@app/modules/core/services';
 export class HttpJobService {
     private statuses = {
         success: ['finished'],
-        running: ['initialized', 'queued', 'started', 'cancelling'],
+        running: ['initialized', 'queued', 'started', 'cancelling', 'job-file-downloading'],
         failed: ['failed', 'cancelled']
     }
     private baseUrl = {
